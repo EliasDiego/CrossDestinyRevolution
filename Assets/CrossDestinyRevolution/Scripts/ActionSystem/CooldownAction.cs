@@ -45,7 +45,5 @@ namespace CDR.ActionSystem
 
 			return _currentCooldown <= 0f;
 		}
-
-		 
 	}
 }
