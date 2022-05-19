@@ -25,7 +25,7 @@ namespace CDR.InputSystem
                 user.UnpairDevicesAndRemoveUser();
         }
 
-        public virtual void SetupInput(InputActionAsset inputActionAsset, InputDevice device)
+        public void SetupInput(InputActionAsset inputActionAsset, InputDevice device)
         {
             _Device = device;
             
@@ -38,16 +38,16 @@ namespace CDR.InputSystem
             _User.AssociateActionsWithUser(_ActionAsset);
         }
 
-        public void EnableInput()
+        public virtual void EnableInput()
         {
-            if(_ActionAsset)
-                _ActionAsset.Enable();
+            if(inputActionAsset)
+                inputActionAsset.Enable();
         }
 
-        public void DisableInput()
+        public virtual void DisableInput()
         {
-            if(_ActionAsset)
-                _ActionAsset.Disable();
+            if(inputActionAsset)
+                inputActionAsset.Disable();
         }
     }
 }

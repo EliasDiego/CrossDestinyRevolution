@@ -11,8 +11,15 @@ using UnityEngine.InputSystem.LowLevel;
 namespace CDR.InputSystem
 {
     [System.Serializable]
-    public static class InputManager
+    public static class InputUtilities
     {
+        static InputUtilities()
+        {
+            InputUser.onUnpairedDeviceUsed += (control, ptr) => onUnpairedInputDevicUsedEvent?.Invoke(control.device);
+        }
+
+        public static event Action<InputDevice> onUnpairedInputDevicUsedEvent;
+
         public static InputDevice[] GetAllInputDevices()
         {
             return UnityEngine.InputSystem.InputSystem.devices.ToArray();

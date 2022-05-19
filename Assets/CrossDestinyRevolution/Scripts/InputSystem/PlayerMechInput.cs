@@ -15,13 +15,9 @@ namespace CDR.InputSystem
             Debug.Log("Blah");
         }
 
-        public override void SetupInput(InputActionAsset inputActionAsset, InputDevice device)
+        public override void EnableInput()
         {
-            base.SetupInput(inputActionAsset, device);
-
-            this.inputActionAsset.Enable();
-
-            Debug.Log(this.inputActionAsset.FindAction("Movement"));
+            base.EnableInput();
 
             this.inputActionAsset.FindAction("Movement").started += OnMovement;
         }
