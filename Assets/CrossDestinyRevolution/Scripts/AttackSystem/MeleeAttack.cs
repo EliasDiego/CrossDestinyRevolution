@@ -5,17 +5,12 @@ using CDR.ActionSystem;
 
 namespace CDR.AttackSystem
 {
-	public class RangeAttack : Action
-	{
-		float FireRate;
-		GameObject GunPoint; //Invisible gameobject for the location of the gun barrel
-		Transform TargetPoint;
+    public class MeleeAttack : Action
+    {
 
 		public override void Use()
 		{
 			base.Use();
-
-
 
 			End();
 		}
