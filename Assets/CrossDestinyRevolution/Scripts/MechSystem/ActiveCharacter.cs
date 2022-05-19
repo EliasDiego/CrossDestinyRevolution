@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using CDR.TargetingSystem;
+
 namespace CDR.MechSystem
 {
     public class ActiveCharacter : Character
     {
         public static ActiveCharacter[] activeCharacters => characterList.ToArray();
         private static List<ActiveCharacter> characterList = new List<ActiveCharacter>();
+
+        TargetingHandler targetingHandler;
 
         protected override void Awake()
         {
