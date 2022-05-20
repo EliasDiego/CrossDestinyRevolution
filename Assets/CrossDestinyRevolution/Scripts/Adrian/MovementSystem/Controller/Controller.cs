@@ -6,60 +6,48 @@ namespace CDR.MovementSystem
 {
     public class Controller : MonoBehaviour
     {
-        [SerializeField]
-        private BoostInfo boostInfo;
-        [SerializeField]
-        private ValueRange BoostValue;
-        [SerializeField]
-        private float MoveSpeed;
-
+        public ControllerMovement Movement { get; private set; }
         public Boost Boost { get; private set; }
 
-        private RbMovement movement;
         private Rigidbody rb;
+
+        public Vector3 Velocity
+        {
+            get { return rb.velocity; }
+            private set { }
+        }
+
      
         private void Awake()
         {
+            Movement = GetComponent<ControllerMovement>();
+            Boost = GetComponent<Boost>();
             rb = GetComponent<Rigidbody>();
-            Boost = new Boost(boostInfo, this, BoostValue);
-            movement = new RbMovement(MoveSpeed, transform, rb);
+
+            Boost.SetRigidbody(rb);
+            Movement.SetRigidbody(rb);
         }
 
         private void OnEnable()
         {
-            Boost.OnUse += movement.DisableClamp;
+            Boost.OnBoostUse += Movement.UnclampSpeed;
+            Boost.OnBoostEnd += Movement.ClampSpeed;
         }
 
         private void OnDisable()
         {
-            Boost.OnUse -= movement.DisableClamp;           
+            Boost.OnBoostUse -= Movement.UnclampSpeed;
+            Boost.OnBoostEnd -= Movement.ClampSpeed;          
         }
 
-        private void Update()
+        public void SetVelocity(Vector3 value)
         {
-            if(Input.GetKeyDown(KeyCode.Space))
-            {
-                UseBoost();
-            }
+            Velocity = value;
+            rb.velocity = value;
         }
 
-        // Move controller with input.
-        // TODO: Replace with better input system.
-        private void FixedUpdate()
-        {
-            Move();
-        }
+        
 
-        public void Move()
-        {
-            var direction = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-            movement.Move(direction);
-        }
-
-        public void UseBoost()
-        {
-            StartCoroutine(Boost.Use(transform.forward, rb));
-        }
     }
 }
 

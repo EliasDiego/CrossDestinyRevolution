@@ -12,6 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e396a940ece5144daf4b3e9457fbbe2, type: 3}
   m_Name: BoostInfo 1
   m_EditorClassIdentifier: 
-  dashDistance: 50
+  horzDashDistance: 50
+  hDashUseTime: 3
+  hDashConsRate: 30
+  vertDashDistance: 80
+  vDashUseTime: 3
+  vDashConsRate: 40
   regenRate: 2
-  consumeRate: 30

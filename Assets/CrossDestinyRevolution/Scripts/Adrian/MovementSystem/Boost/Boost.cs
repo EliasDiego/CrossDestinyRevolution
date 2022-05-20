@@ -1,94 +1,110 @@
-using System;
 using System.Collections;
 using UnityEngine;
+using CDR.ActionSystem;
 
 // This class is for the Boost system and its methods.
 
 namespace CDR.MovementSystem
 {
-    public class Boost
+    [RequireComponent(typeof(BoostValue))]
+    public class Boost : Action
     {
-        public Action OnUse;
-        public Action OnEnd;
+        [SerializeField]
+        private BoostInfo info;
 
-        public ValueRange Value { get; private set; }
-        private readonly BoostInfo info;
-        // Monobehaviour to run regenerate coroutine on.
-        private readonly MonoBehaviour mono;
-        private readonly IEnumerator regenRoutine;
+        public System.Action OnBoostUse;
+        public System.Action OnBoostEnd;
 
-        private bool isRegening = false;
-        private float timeUsed = 0f;
-        private float useEndThreshold = 0.75f;
+        private BoostValue value;
 
-        public Boost(BoostInfo boostInfo, MonoBehaviour monoBehaviour, ValueRange boostValue)
+        private Rigidbody rb;
+
+        private void Awake()
         {
-            info = boostInfo;
-            Value = boostValue;
-            mono = monoBehaviour;
-            Value.ModifyValueWithoutEvent(Value.MaxValue);
-
-            regenRoutine = RegenBoost();
-            mono.StartCoroutine(regenRoutine);
+            value = GetComponent<BoostValue>();           
         }
 
-        public IEnumerator Use(Vector3 direction, Rigidbody rb)
+        private void Start()
         {
-            if (Value.CurrentValue - info.consumeRate < 0f)
+            StartCoroutine(value.Regenerate(info.regenRate));
+        }
+
+        // TODO: replace to use input system
+        //  +  : replace to use in action system
+        private void Update()
+        {         
+            if(isActive)
             {
-                yield break;
-            }
-            OnUse?.Invoke();
-            timeUsed = 0f;
-            isRegening = false;
-
-            var force = direction.normalized * info.dashDistance;
-            rb.AddForce(force, ForceMode.VelocityChange);
-            var primarySpeed = force.magnitude;
-
-            float diffToPrimary;
-            yield return new WaitForSeconds(Time.deltaTime * 5f);
-
-            ConsumeBoost();
-
-            while (true)
-            {
-                timeUsed += Time.deltaTime;
-                yield return null;
-                diffToPrimary = rb.velocity.magnitude / primarySpeed;
-                if (diffToPrimary <= useEndThreshold)
+                // Vertical boost
+                if (Input.GetKeyDown(KeyCode.UpArrow))
                 {
-                    Debug.Log(timeUsed);
+                    if (value.CanUse(info.vDashConsRate))
+                    {
+                        StartCoroutine(UseBoost(BoostDirection.Vertical, info.vDashConsRate));
+                    }
+                }
+                // Horizontal boost
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
+                    if (value.CanUse(info.hDashConsRate))
+                    {
+                        StartCoroutine(UseBoost(BoostDirection.Horizontal, info.hDashConsRate, rb.transform.forward));
+                    }
+                }
+            }
+        }
+
+        public void SetRigidbody(Rigidbody rigid)
+        {
+            rb = rigid;
+        }
+
+        public override void Use()
+        {
+            base.Use();
+        }
+
+        public override void End()
+        {
+            base.End();
+        }
+
+        /// <summary>
+        /// Coroutine for using boost.
+        /// </summary>
+        /// <param name="direction">Horizontal or Vertical boost?</param>
+        /// <param name="horzDirection">Direction to boost to.</param>
+        /// <returns></returns>
+        public IEnumerator UseBoost(BoostDirection direction, float consumeRate, Vector3 horzDirection = default)
+        {
+            value.Consume(consumeRate);
+            value.SetIsRegening(false);
+            OnBoostUse?.Invoke();
+            Vector3 force = Vector3.zero;
+            float wait = 0f;   
+
+            switch (direction)
+            {
+                case BoostDirection.Vertical:
+                    force = rb.transform.up.normalized * info.vertDashDistance;
+                    wait = info.vDashUseTime;
                     break;
-                }
-            }        
-        }     
-
-        private void ConsumeBoost()
-        {
-            LeanTween.value(Value.CurrentValue, Value.CurrentValue - info.consumeRate, 0.25f)
-                .setOnUpdate((float val) =>
-                    {
-                        Value.ModifyValue(val);
-                    })
-                .setOnComplete(() =>
-                    {
-                        isRegening = true;
-                    });
-        }
-
-        private IEnumerator RegenBoost()
-        {
-            while(true)
-            {
-                if(isRegening)
-                {
-                    var add = Value.CurrentValue + info.regenRate * Time.deltaTime;
-                    Value.ModifyValue(add);
-                }
-                yield return null;
+                case BoostDirection.Horizontal:
+                    force = horzDirection.normalized * info.horzDashDistance;
+                    wait = info.hDashUseTime;
+                    break;
             }
+
+            rb.AddForce(force, ForceMode.VelocityChange);
+            yield return new WaitForSeconds(wait);
+            OnBoostEnd?.Invoke();
+            value.SetIsRegening(true);
         }
     }
-}
 
+    public enum BoostDirection
+    {
+        Vertical,
+        Horizontal
+    }
+}
