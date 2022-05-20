@@ -6,9 +6,9 @@ namespace CDR.ActionSystem
 {
 	public class CooldownAction : Action, ICooldownAction
 	{
-		[SerializeField] float _cooldownDuration;
+		protected float _cooldownDuration;
 		float _currentCooldown;
-		bool _isCoolingDown;
+		protected bool _isCoolingDown;
 
 		public event System.Action OnStartCooldown;
 		public float cooldownDuration => _cooldownDuration;
@@ -26,7 +26,7 @@ namespace CDR.ActionSystem
 			_isCoolingDown = true;
 		}
 
-		void Update()
+		public virtual void Update()
 		{
 			if(_isCoolingDown)
 				ProcessCooldown();
@@ -35,15 +35,10 @@ namespace CDR.ActionSystem
 		void ProcessCooldown()
 		{
 			float deltaTime = Time.deltaTime;
-			
-			_isCoolingDown = CooldownCountDown(deltaTime);
-		}
 
-		bool CooldownCountDown(float deltaTime)
-		{
 			_currentCooldown = Mathf.Max(_currentCooldown - deltaTime, 0f);
 
-			return _currentCooldown <= 0f;
+			_isCoolingDown = _currentCooldown > 0f;
 		}
 	}
 }

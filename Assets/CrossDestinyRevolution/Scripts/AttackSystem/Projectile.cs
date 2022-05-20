@@ -8,18 +8,23 @@ namespace CDR.AttackSystem
 	{
 		Collider projectileHitbox;
 		public float projectileLifetime;
+		public Vector3 projectileTarget;
+		public Vector3 projectileOriginPoint;
 
 		public Collider HitBox => projectileHitbox;
-
 		public float Lifetime => projectileLifetime;
+		public Vector3 Target => projectileTarget;
+		public Vector3 Origin => projectileOriginPoint;
 
-		public void Start()
+		public virtual void Start()
 		{
 			projectileHitbox = GetComponent<Collider>();
+			
 		}
 
 		public virtual void Update()
 		{
+			//projectileTarget = GetComponent<RangeAttack>().TargetPoint.position;
 			ProcessLifetime();
 		}
 
@@ -30,7 +35,7 @@ namespace CDR.AttackSystem
 			if (LifetimeCountDown(deltaTime))
 			{
 				//wait for animation before destroy, or just disable for object pooling
-				//Destroy(this);
+				Destroy(this.gameObject);
 			}
 		}
 

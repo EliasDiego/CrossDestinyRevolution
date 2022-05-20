@@ -5,23 +5,28 @@ using CDR.ActionSystem;
 
 namespace CDR.AttackSystem
 {
-	public class RangeAttack : Action
+	public class RangeAttack : CooldownAction
 	{
 		[SerializeField] float FireRate;
-		float currentFireRate;
-		bool isEnabletoFire = true;
 
-		GameObject GunPoint; //Invisible gameobject for the location of the gun barrel
-		Transform TargetPoint;
+		[SerializeField] GameObject GunPoint; //Invisible gameobject for the location of the gun barrel
+		[SerializeField] public Transform TargetPoint; //Predictive Targeting system
 
-		public void Update()
+		[SerializeField] GameObject BulletProjectile;
+
+		private void Start()
 		{
-			if (!isEnabletoFire)
-			{
-				isEnabletoFire = CalculateFireRate();
-			}
+			_cooldownDuration = FireRate;
+		}
 
-			if (Input.GetMouseButton(0) && isEnabletoFire) //test
+		public override void Update()
+		{
+			base.Update();
+
+			BulletProjectile.GetComponent<Projectile>().projectileTarget = TargetPoint.transform.position;
+			BulletProjectile.GetComponent<Projectile>().projectileOriginPoint = GunPoint.transform.position;
+
+			if (Input.GetMouseButton(0) && !_isCoolingDown) //test
 			{
 				Use();
 			}
@@ -31,9 +36,7 @@ namespace CDR.AttackSystem
 		{
 			base.Use();
 
-			//Instantiate
-
-			Debug.Log("Bullet spawned");
+			Instantiate(BulletProjectile, GunPoint.transform.position, Quaternion.identity);
 
 			End();
 		}
@@ -41,20 +44,23 @@ namespace CDR.AttackSystem
 		public override void End()
 		{
 			base.End();
-
-			currentFireRate = FireRate;
-			isEnabletoFire = false;
-
-			Debug.Log("Start Cooldown");
 		}
 
-		bool CalculateFireRate()
+		Vector3 SetPredictiveTarget()
 		{
-			float deltaTime = Time.deltaTime;
+			var direction = (TargetPoint.position - GunPoint.transform.position).normalized;
+			return direction;
+		}
 
-			currentFireRate = Mathf.Max(currentFireRate - deltaTime, 0f);
+		void SetProjectile()
+		{
+			//interchange between what projectile to fire
+		}
 
-			return currentFireRate <= 0f;
+		private void OnDrawGizmos()
+		{
+			Gizmos.color = Color.red;
+			Gizmos.DrawLine(transform.position, TargetPoint.position);
 		}
 	}
 }

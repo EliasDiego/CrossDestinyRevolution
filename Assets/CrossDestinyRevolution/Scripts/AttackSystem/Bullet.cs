@@ -7,12 +7,35 @@ namespace CDR.AttackSystem
 	public class Bullet : Projectile
 	{
 		[SerializeField] float BulletSpeed;
-		public Transform TargetDirection;
+		Rigidbody _rigidBody;
 
-		public override void Update()
+		public override void Start()
 		{
-			base.Update();
+			base.Start();
+
+			_rigidBody = GetComponent<Rigidbody>();
+			
 		}
+
+		private void FixedUpdate()
+		{
+			MoveBullet();
+			//RotateBullet();
+		}
+
+		void MoveBullet()
+		{
+			//_rigidBody.velocity = transform.forward * BulletSpeed;
+			_rigidBody.velocity = (projectileTarget - projectileOriginPoint).normalized * BulletSpeed;
+		}
+
+		void RotateBullet()
+		{
+			_rigidBody.MoveRotation(Quaternion.LookRotation(projectileTarget));
+		}
+
+
+
 
 		private void OnCollisionEnter(Collision collision)
 		{
