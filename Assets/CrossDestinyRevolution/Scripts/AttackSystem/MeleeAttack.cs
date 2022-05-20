@@ -5,9 +5,8 @@ using CDR.ActionSystem;
 
 namespace CDR.AttackSystem
 {
-    public class MeleeAttack : Action
+    public class MeleeAttack : CooldownAction
     {
-
 		public override void Use()
 		{
 			base.Use();
@@ -19,6 +18,8 @@ namespace CDR.AttackSystem
 		{
 			base.End();
 		}
+
+
 	}
 }
 

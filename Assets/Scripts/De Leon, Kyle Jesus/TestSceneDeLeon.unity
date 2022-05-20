@@ -225,7 +225,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1428936563}
-  - component: {fileID: 1428936564}
   - component: {fileID: 1428936562}
   m_Layer: 0
   m_Name: SamplePlayer
@@ -243,12 +242,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1428936561}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61a2f653a28373f4ba72b2426e62dc54, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ad494f88c25c6341b7c5bcd8382678b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionSystem: {fileID: 1428936564}
-  SkillID: 1
-  SkillCooldown: 2
+  FireRate: 2
 --- !u!4 &1428936563
 Transform:
   m_ObjectHideFlags: 0
@@ -263,18 +260,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1428936564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1428936561}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2120662bb65aa9b44bcb3a5322d41988, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1986839981
 GameObject:
   m_ObjectHideFlags: 0
