@@ -15,10 +15,9 @@ namespace CDR.InputSystem
 
     public interface IPlayerInput : IInput
     {
-        InputDevice device { get; }
         InputUser user { get; }
         InputActionAsset inputActionAsset { get; }
-        void SetupInput(InputActionAsset inputActionAsset, InputDevice device);
+        void SetupInput(InputActionAsset inputActionAsset, params InputDevice[] devices);
     }
 
     public interface IAIInput : IInput

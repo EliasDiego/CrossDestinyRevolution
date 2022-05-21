@@ -12,11 +12,9 @@ namespace CDR.InputSystem
     public class PlayerCharacterInput<T> : CharacterInput<T>, IPlayerInput where T : ActiveCharacter
     {
         private InputUser _User;
-        private InputDevice _Device;
         private InputActionAsset _ActionAsset;
 
         public InputUser user => _User;
-        public InputDevice device => _Device;
         public InputActionAsset inputActionAsset => _ActionAsset;
 
         protected virtual void OnDestroy()
@@ -25,11 +23,12 @@ namespace CDR.InputSystem
                 user.UnpairDevicesAndRemoveUser();
         }
 
-        public void SetupInput(InputActionAsset inputActionAsset, InputDevice device)
+        public void SetupInput(InputActionAsset inputActionAsset, params InputDevice[] devices)
         {
-            _Device = device;
+            _User = default(InputUser);
             
-            _User = InputUser.PerformPairingWithDevice(device);
+            foreach(InputDevice device in devices)
+                _User = InputUser.PerformPairingWithDevice(device, _User);
 
             Debug.Assert(_User.valid, "[Input System Error] Input User is not valid!");
 
