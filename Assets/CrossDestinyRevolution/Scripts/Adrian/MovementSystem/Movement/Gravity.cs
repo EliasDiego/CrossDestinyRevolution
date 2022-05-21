@@ -1,32 +1,43 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class Gravity : MonoBehaviour
+// This class handles gravity simulation on a rigidbody.
+
+namespace CDR.MovementSystem
 {
-    [SerializeField]
-    private Rigidbody rb;
-    [SerializeField]
-    private float pullOnDistance;
-    [SerializeField]
-    private float pullSpeed = 12f;
-    [SerializeField]
-    private bool enableGravity = true;
-
-    private void Start()
+    public class Gravity : MonoBehaviour
     {
-        StartCoroutine(GravityOnRigidbody());
-    }
+        [SerializeField]
+        private float pullOnDistance;
+        [SerializeField]
+        private Rigidbody rb;
+        [SerializeField]
+        private float pullSpeed = 12f;
+        [SerializeField]
+        private bool enableGravity = true;
 
-    private IEnumerator GravityOnRigidbody()
-    {
-        while(true)
+        private void Start()
         {
-            if(enableGravity)
+            StartCoroutine(GravityOnRigidbody());
+        }
+
+
+        // Enable gravity on object relative to flight plane.
+        private IEnumerator GravityOnRigidbody()
+        {
+            while (true)
             {
-                rb.AddForce(-transform.up * pullSpeed, ForceMode.Acceleration);
+                if (enableGravity && GetDistance() > pullOnDistance)
+                {
+                    rb.AddForce(-rb.transform.up * pullSpeed, ForceMode.Acceleration);
+                }
+                yield return null;
             }
-            yield return null;
+        }
+
+        private float GetDistance()
+        {
+            return Vector3.Distance(rb.transform.position, transform.position);
         }
     }
 }

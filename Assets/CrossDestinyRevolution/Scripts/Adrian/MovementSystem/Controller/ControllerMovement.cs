@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+
+// This class handles movement of a controller through a rigidbody.
 
 namespace CDR.MovementSystem
 {
@@ -15,19 +15,16 @@ namespace CDR.MovementSystem
 
         Vector3 currentDirection = Vector3.zero;
 
-        private void Start()
-        {
-            Use();
-        }
-
         private void FixedUpdate()
         {
             if (isActive)
             {
-                //Move(Vector3.zero);
+                //Move(currentDirection);
                 //MoveRB();
-                OldMove();
             }
+
+            // TODO: remove once 
+            OldMove();
         }
 
         public override void Use()

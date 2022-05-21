@@ -27,6 +27,7 @@ namespace CDR.MovementSystem
         private void Start()
         {
             StartCoroutine(value.Regenerate(info.regenRate));
+            Use();
         }
 
         // TODO: replace to use input system
@@ -38,18 +39,12 @@ namespace CDR.MovementSystem
                 // Vertical boost
                 if (Input.GetKeyDown(KeyCode.UpArrow))
                 {
-                    if (value.CanUse(info.vDashConsRate))
-                    {
-                        StartCoroutine(UseBoost(BoostDirection.Vertical, info.vDashConsRate));
-                    }
+                    UseVerticalBoost(1f);
                 }
                 // Horizontal boost
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    if (value.CanUse(info.hDashConsRate))
-                    {
-                        StartCoroutine(UseBoost(BoostDirection.Horizontal, info.hDashConsRate, rb.transform.forward));
-                    }
+                    UseHorizontalBoost(rb.transform.forward);
                 }
             }
         }
@@ -57,6 +52,24 @@ namespace CDR.MovementSystem
         public void SetRigidbody(Rigidbody rigid)
         {
             rb = rigid;
+        }
+
+        // Use this method for horizontal boost with input system.
+        public void UseHorizontalBoost(Vector3 direction)
+        {
+            if(value.CanUse(info.hDashConsRate))
+            {
+                StartCoroutine(HorizontalBoost(direction));
+            }
+        }
+
+        // Use this method for vertical boost with input system.
+        public void UseVerticalBoost(float direction)
+        {
+            if (value.CanUse(info.vDashConsRate))
+            {
+                StartCoroutine(VerticalBoost(direction));
+            }
         }
 
         public override void Use()
@@ -69,42 +82,26 @@ namespace CDR.MovementSystem
             base.End();
         }
 
-        /// <summary>
-        /// Coroutine for using boost.
-        /// </summary>
-        /// <param name="direction">Horizontal or Vertical boost?</param>
-        /// <param name="horzDirection">Direction to boost to.</param>
-        /// <returns></returns>
-        public IEnumerator UseBoost(BoostDirection direction, float consumeRate, Vector3 horzDirection = default)
+        private IEnumerator HorizontalBoost(Vector3 direction)
         {
-            value.Consume(consumeRate);
+            value.Consume(info.vDashConsRate);
             value.SetIsRegening(false);
             OnBoostUse?.Invoke();
-            Vector3 force = Vector3.zero;
-            float wait = 0f;   
-
-            switch (direction)
-            {
-                case BoostDirection.Vertical:
-                    force = rb.transform.up.normalized * info.vertDashDistance;
-                    wait = info.vDashUseTime;
-                    break;
-                case BoostDirection.Horizontal:
-                    force = horzDirection.normalized * info.horzDashDistance;
-                    wait = info.hDashUseTime;
-                    break;
-            }
-
-            rb.AddForce(force, ForceMode.VelocityChange);
-            yield return new WaitForSeconds(wait);
+            rb.AddForce(direction * info.horzDashDistance * 2f, ForceMode.VelocityChange);
+            yield return new WaitForSeconds(info.vDashUseTime);
             OnBoostEnd?.Invoke();
-            value.SetIsRegening(true);
+            value.SetIsRegening(false);
         }
-    }
 
-    public enum BoostDirection
-    {
-        Vertical,
-        Horizontal
+        private IEnumerator VerticalBoost(float direction)
+        {
+            value.Consume(info.hDashConsRate);
+            value.SetIsRegening(false);
+            OnBoostUse?.Invoke();
+            rb.AddForce(new Vector3(0f, direction * info.horzDashDistance, 0f), ForceMode.VelocityChange);
+            yield return new WaitForSeconds(info.hDashUseTime);
+            OnBoostEnd?.Invoke();
+            value.SetIsRegening(false);
+        }
     }
 }

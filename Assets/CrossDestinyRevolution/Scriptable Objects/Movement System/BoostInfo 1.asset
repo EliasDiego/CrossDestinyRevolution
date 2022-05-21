@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BoostInfo 1
   m_EditorClassIdentifier: 
   horzDashDistance: 50
-  hDashUseTime: 3
+  hDashUseTime: 1
   hDashConsRate: 30
   vertDashDistance: 80
   vDashUseTime: 3
