@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -17,18 +18,33 @@ namespace CDR.InputSystem
         private Vector2 _MovementInput;
 
         private Dictionary<string, InputAction> _InputActions = new Dictionary<string, InputAction>();
+        private Dictionary<string, InputActionUpdate> _InputActionUpdates = new Dictionary<string, InputActionUpdate>(); 
 
+        private class InputActionUpdate
+        {
+            private bool _IsUpdate;
+            private Action _Action;
 
+            public bool isUpdate => _IsUpdate;
+            public Action action => _Action;
 
-        private InputAction _MovementAction;
-        private InputAction _BoostAction;
-        private InputAction _ChangeTargetAction;
-        private InputAction _MeleeAttackAction;
-        private InputAction _RangeAttackAction;
-        private InputAction _ShieldAction;
-        private InputAction _SpecialAttack1Action;
-        private InputAction _SpecialAttack2Action;
-        private InputAction _SpecialAttack3Action;
+            public InputActionUpdate(InputAction inputAction, Action action)
+            {
+                _IsUpdate = false;
+                _Action = action;
+                inputAction.started += c => _IsUpdate = true;
+                inputAction.canceled += c => _IsUpdate = false;
+            }
+        }
+
+        private void Update()
+        {
+            foreach(InputActionUpdate actionUpdate in _InputActionUpdates.Values)
+            {
+                if(actionUpdate.isUpdate)
+                    actionUpdate.action?.Invoke();
+            }
+        }
 
         private bool CheckBoolean(bool? boolean)
         {
@@ -75,9 +91,9 @@ namespace CDR.InputSystem
             Debug.Log($"[Shield Input] Used Shield!");
         }
 
-        private void OnRangeAttack(InputAction.CallbackContext context)
+        private void OnRangeAttack()
         {
-            if(CheckBoolean(character?.meleeAttack?.isActive) && CheckBoolean(character?.meleeAttack?.isCoolingDown))
+            if(CheckBoolean(character?.rangeAttack?.isActive) && CheckBoolean(character?.rangeAttack?.isCoolingDown))
                 return;
 
             character?.rangeAttack?.Use();
@@ -166,11 +182,12 @@ namespace CDR.InputSystem
 
             _InputActions["ChangeTarget"].started += OnChangeTarget;
             _InputActions["MeleeAttack"].started += OnMeleeAttack;
-            _InputActions["RangeAttack"].started += OnRangeAttack;
             _InputActions["Shield"].started += OnShield;
             _InputActions["SpecialAttack1"].started += OnSpecialAttack1;
             _InputActions["SpecialAttack2"].started += OnSpecialAttack2;
             _InputActions["SpecialAttack3"].started += OnSpecialAttack3;
+
+            _InputActionUpdates.Add("RangeAttack", new InputActionUpdate(_InputActions["RangeAttack"], OnRangeAttack));
         }
 
         public override void EnableInput()
