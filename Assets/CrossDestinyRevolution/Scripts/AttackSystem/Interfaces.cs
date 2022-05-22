@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using CDR.MechSystem;
+using CDR.StateSystem;
 using CDR.ActionSystem;
 using CDR.MovementSystem;
 using CDR.ObjectPoolingSystem;
