@@ -16,6 +16,10 @@ namespace CDR.InputSystem
     {
         private Vector2 _MovementInput;
 
+        private Dictionary<string, InputAction> _InputActions = new Dictionary<string, InputAction>();
+
+
+
         private InputAction _MovementAction;
         private InputAction _BoostAction;
         private InputAction _ChangeTargetAction;
@@ -26,8 +30,16 @@ namespace CDR.InputSystem
         private InputAction _SpecialAttack2Action;
         private InputAction _SpecialAttack3Action;
 
+        private bool CheckBoolean(bool? boolean)
+        {
+            return boolean.HasValue && boolean.Value;
+        }
+
         private void OnSpecialAttack3(InputAction.CallbackContext context)
         {
+            if(CheckBoolean(character?.specialAttack3?.isActive) && CheckBoolean(character?.specialAttack3?.isCoolingDown))
+                return;
+
             character?.specialAttack3?.Use();
                 
             Debug.Log($"[Special Attack 3 Input] Used Special Attack 3!");
@@ -35,6 +47,9 @@ namespace CDR.InputSystem
 
         private void OnSpecialAttack2(InputAction.CallbackContext context)
         {
+            if(CheckBoolean(character?.specialAttack2?.isActive) && CheckBoolean(character?.specialAttack2?.isCoolingDown))
+                return;
+
             character?.specialAttack2?.Use();
                 
             Debug.Log($"[Special Attack 2 Input] Used Special Attack 2!");
@@ -42,6 +57,9 @@ namespace CDR.InputSystem
 
         private void OnSpecialAttack1(InputAction.CallbackContext context)
         {
+            if(CheckBoolean(character?.specialAttack1?.isActive) && CheckBoolean(character?.specialAttack1?.isCoolingDown))
+                return;
+
             character?.specialAttack1?.Use();
                 
             Debug.Log($"[Special Attack 1 Input] Used Special Attack 1!");
@@ -49,6 +67,9 @@ namespace CDR.InputSystem
 
         private void OnShield(InputAction.CallbackContext context)
         {
+            if(CheckBoolean(character?.shield?.isActive))
+                return;
+
             character?.shield?.Use();
                 
             Debug.Log($"[Shield Input] Used Shield!");
@@ -56,6 +77,9 @@ namespace CDR.InputSystem
 
         private void OnRangeAttack(InputAction.CallbackContext context)
         {
+            if(CheckBoolean(character?.meleeAttack?.isActive) && CheckBoolean(character?.meleeAttack?.isCoolingDown))
+                return;
+
             character?.rangeAttack?.Use();
                 
             Debug.Log($"[Range Attack Input] Used Range Attack!");
@@ -63,6 +87,9 @@ namespace CDR.InputSystem
 
         private void OnMeleeAttack(InputAction.CallbackContext context)
         {
+            if(CheckBoolean(character?.meleeAttack?.isActive))
+                return;
+
             character?.meleeAttack?.Use();
                 
             Debug.Log($"[Melee Attack Input] Used Melee Attack!");
@@ -75,68 +102,105 @@ namespace CDR.InputSystem
             Debug.Log($"[Change Target Input] Changed Target");
         }
 
+        // Works directional and then boost (boost and then direction is different action. Only boost is up and down so it won't work yet until boost is actually part of game object)
         private void OnBoost(InputAction.CallbackContext context)
         {
-            if(character?.boost == null)
+            if(CheckBoolean(character?.boost?.isActive))
                 return;
 
             if(_MovementInput.magnitude < 0.3f)
             {
-                float height = character.position.y - character.controller.flightPlane.position.y;
+                float? height = character?.position.y - character?.controller?.flightPlane?.position.y;
                 
-                if(height < 0.4f)
+                if(height < 0.4f) // Temp
+                {
                     character?.boost?.VerticalBoost(1);
 
-                else if(height > 1)
+                    Debug.Log($"[Boost Input] Vertical Boost Up!");
+                }
+
+                else if(height > 1) // Temp
+                {
                     character?.boost?.VerticalBoost(-1);
+
+                    Debug.Log($"[Boost Input] Vertical Boost Down!");
+                }
+
+                else
+                    Debug.Log($"[Boost Input] Vertical Boost!");
             }
 
             else
+            {
                 character?.boost?.HorizontalBoost(context.ReadValue<Vector2>());
-
-            Debug.Log($"[Boost Input] Honestly don't expect the logic to work just yet~ {_MovementInput}");
+                
+                Debug.Log($"[Boost Input] Horizontal Boost!");
+            }
         }
 
         private void OnMovement(InputAction.CallbackContext context)
         {
             _MovementInput = context.ReadValue<Vector2>();
 
+            if(CheckBoolean(character?.movement.isActive))
+                return;
+                
             character?.movement?.Move(_MovementInput);
 
             Debug.Log($"[Movement Input] {_MovementInput}");
         }
 
-        public override void EnableInput()
+        public override void SetupInput(InputActionAsset inputActionAsset, params InputDevice[] devices)
         {
-            base.EnableInput();
-
+            base.SetupInput(inputActionAsset, devices);
+            
             InputActionMap actionMap = inputActionAsset.FindActionMap("Game", true);
 
-            _MovementAction = actionMap.FindAction("Movement", true);
-            _BoostAction = actionMap.FindAction("Boost", true);
-            _ChangeTargetAction = actionMap.FindAction("ChangeTarget", true);
-            _MeleeAttackAction = actionMap.FindAction("MeleeAttack", true);
-            _RangeAttackAction = actionMap.FindAction("RangeAttack", true);
-            _ShieldAction = actionMap.FindAction("Shield", true);
-            _SpecialAttack1Action = actionMap.FindAction("SpecialAttack1", true);
-            _SpecialAttack2Action = actionMap.FindAction("SpecialAttack2", true);
-            _SpecialAttack3Action = actionMap.FindAction("SpecialAttack3", true);
+            foreach(InputAction inputAction in actionMap.actions)
+                _InputActions.Add(inputAction.name, inputAction);
 
-            _MovementAction.performed += OnMovement;
-            _MovementAction.canceled += OnMovement;
+            _InputActions["Movement"].performed += OnMovement;
+            _InputActions["Movement"].canceled += OnMovement;
 
-            _BoostAction.Enable();
-            _BoostAction.started += OnBoost;
-            _BoostAction.performed += OnBoost;
-            _BoostAction.canceled += OnBoost;
+            _InputActions["Boost"].started += OnBoost;
 
-            _ChangeTargetAction.started += OnChangeTarget;
-            _MeleeAttackAction.started += OnMeleeAttack;
-            _RangeAttackAction.started += OnRangeAttack;
-            _ShieldAction.started += OnShield;
-            _SpecialAttack1Action.started += OnSpecialAttack1;
-            _SpecialAttack2Action.started += OnSpecialAttack2;
-            _SpecialAttack3Action.started += OnSpecialAttack3;
+            _InputActions["ChangeTarget"].started += OnChangeTarget;
+            _InputActions["MeleeAttack"].started += OnMeleeAttack;
+            _InputActions["RangeAttack"].started += OnRangeAttack;
+            _InputActions["Shield"].started += OnShield;
+            _InputActions["SpecialAttack1"].started += OnSpecialAttack1;
+            _InputActions["SpecialAttack2"].started += OnSpecialAttack2;
+            _InputActions["SpecialAttack3"].started += OnSpecialAttack3;
+        }
+
+        public override void EnableInput()
+        {
+            foreach(InputAction inputAction in _InputActions.Values)
+                inputAction.Enable();
+        }
+
+        public override void DisableInput()
+        {
+            foreach(InputAction inputAction in _InputActions.Values)
+                inputAction.Disable();
+        }
+
+        public override void EnableInput(string name)
+        {
+            if(_InputActions.ContainsKey(name))
+                _InputActions[name].Enable();
+
+            else
+                Debug.Log($"[Input Error] {name} does not exist!");
+        }
+
+        public override void DisableInput(string name)
+        {
+            if(_InputActions.ContainsKey(name))
+                _InputActions[name].Disable();
+
+            else
+                Debug.Log($"[Input Error] {name} does not exist!");
         }
     }
 }

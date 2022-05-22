@@ -7,10 +7,11 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
 
 using CDR.MechSystem;
+using System;
 
 namespace CDR.InputSystem
 {
-    public class PlayerCharacterInput<T> : CharacterInput<T>, IPlayerInput where T : IActiveCharacter
+    public abstract class PlayerCharacterInput<T> : CharacterInput<T>, IPlayerInput where T : IActiveCharacter
     {
         private InputUser _User;
         private InputActionAsset _ActionAsset;
@@ -24,7 +25,7 @@ namespace CDR.InputSystem
                 user.UnpairDevicesAndRemoveUser();
         }
 
-        public void SetupInput(InputActionAsset inputActionAsset, params InputDevice[] devices)
+        public virtual void SetupInput(InputActionAsset inputActionAsset, params InputDevice[] devices)
         {
             _User = default(InputUser);
             
@@ -49,5 +50,9 @@ namespace CDR.InputSystem
             if(inputActionAsset)
                 inputActionAsset.Disable();
         }
+
+        public abstract void EnableInput(string name);
+
+        public abstract void DisableInput(string name);
     }
 }

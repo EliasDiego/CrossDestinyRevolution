@@ -329,7 +329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _TestObject: {fileID: 1503320738}
-  _InputActionAsset: {fileID: -944628639613478452, guid: 68bdc22a752cb6f419983bee70ecd6cd, type: 3}
+  _InputActionAsset: {fileID: -944628639613478452, guid: ed267bcfc933e1147a0f828f0901952c, type: 3}
 --- !u!4 &1503320740
 Transform:
   m_ObjectHideFlags: 0
