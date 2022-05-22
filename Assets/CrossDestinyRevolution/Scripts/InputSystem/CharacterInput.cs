@@ -7,7 +7,7 @@ using CDR.MechSystem;
 
 namespace CDR.InputSystem
 {
-    public abstract class CharacterInput<T> : MonoBehaviour where T : ActiveCharacter
+    public abstract class CharacterInput<T> : MonoBehaviour, IInput where T : IActiveCharacter
     {
         private T _Character;
 
@@ -16,6 +16,12 @@ namespace CDR.InputSystem
         protected virtual void Awake()
         {
             _Character = GetComponent<T>();
+
+            if(_Character != null)
+                _Character.input = this;
         }
+
+        public abstract void EnableInput();
+        public abstract void DisableInput();
     }
 }

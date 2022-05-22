@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -9,7 +10,7 @@ using CDR.MechSystem;
 
 namespace CDR.InputSystem
 {
-    public class PlayerCharacterInput<T> : CharacterInput<T>, IPlayerInput where T : ActiveCharacter
+    public class PlayerCharacterInput<T> : CharacterInput<T>, IPlayerInput where T : IActiveCharacter
     {
         private InputUser _User;
         private InputActionAsset _ActionAsset;
@@ -27,7 +28,7 @@ namespace CDR.InputSystem
         {
             _User = default(InputUser);
             
-            foreach(InputDevice device in devices)
+            foreach(InputDevice device in devices.Where(d => d != null))
                 _User = InputUser.PerformPairingWithDevice(device, _User);
 
             Debug.Assert(_User.valid, "[Input System Error] Input User is not valid!");
@@ -37,13 +38,13 @@ namespace CDR.InputSystem
             _User.AssociateActionsWithUser(_ActionAsset);
         }
 
-        public virtual void EnableInput()
+        public override void EnableInput()
         {
             if(inputActionAsset)
                 inputActionAsset.Enable();
         }
 
-        public virtual void DisableInput()
+        public override void DisableInput()
         {
             if(inputActionAsset)
                 inputActionAsset.Disable();

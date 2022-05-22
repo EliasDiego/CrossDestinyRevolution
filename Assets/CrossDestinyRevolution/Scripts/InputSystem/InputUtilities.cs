@@ -16,6 +16,7 @@ namespace CDR.InputSystem
         static InputUtilities()
         {
             InputUser.onUnpairedDeviceUsed += (control, ptr) => onUnpairedInputDevicUsedEvent?.Invoke(control.device);
+            // UnityEngine.InputSystem.InputSystem.onAnyButtonPress
         }
 
         public static event Action<InputDevice> onUnpairedInputDevicUsedEvent;

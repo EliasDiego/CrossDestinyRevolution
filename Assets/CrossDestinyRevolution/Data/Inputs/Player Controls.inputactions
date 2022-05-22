@@ -9,32 +9,32 @@
                     "name": "Movement",
                     "type": "Value",
                     "id": "c4b6f20c-cb60-4879-9bd6-ed19e1bd990a",
-                    "expectedControlType": "Vector2",
+                    "expectedControlType": "Analog",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
                 {
                     "name": "Boost",
-                    "type": "Button",
-                    "id": "ac086e56-bc16-4443-ac81-369b5c628489",
+                    "type": "Value",
+                    "id": "ead1492e-5112-47a3-86e1-9e2519f2b4d1",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "ChangeTarget",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "106f4c8f-095e-48c2-aeb3-004b2c5eb4be",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "MeleeAttack",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "3ddc5e38-3612-4871-bd11-834c8dc56f31",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -43,12 +43,12 @@
                 },
                 {
                     "name": "RangeAttack",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "286e3dfa-3277-45f0-86bb-9a8fe9416f4c",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Shield",
@@ -310,19 +310,8 @@
                 },
                 {
                     "name": "",
-                    "id": "17128d43-2892-4101-a7b9-901daf0e09c6",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Boost",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "d1621f22-b20b-4a7a-b207-d3256adb8b07",
-                    "path": "",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -333,7 +322,7 @@
                 {
                     "name": "",
                     "id": "4274e19b-ee72-4974-80b2-8e4c5dc8a24e",
-                    "path": "",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -344,7 +333,7 @@
                 {
                     "name": "",
                     "id": "0b6df3de-d81e-4bdd-8edf-52660d8d054d",
-                    "path": "",
+                    "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -393,6 +382,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "SpecialAttack3",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3f8bdf95-b973-4685-9ac1-af57dd0b478e",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Boost",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1bb733e9-c830-4167-9fab-6c791fa7d070",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Boost",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -943,22 +954,5 @@
             ]
         }
     ],
-    "controlSchemes": [
-        {
-            "name": "PC",
-            "bindingGroup": "PC",
-            "devices": [
-                {
-                    "devicePath": "<Gamepad>",
-                    "isOptional": false,
-                    "isOR": false
-                },
-                {
-                    "devicePath": "<Keyboard>",
-                    "isOptional": false,
-                    "isOR": false
-                }
-            ]
-        }
-    ]
+    "controlSchemes": []
 }

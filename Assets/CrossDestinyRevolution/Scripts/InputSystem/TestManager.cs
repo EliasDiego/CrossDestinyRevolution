@@ -14,7 +14,7 @@ namespace CDR.InputSystem
 
         private void Awake() 
         {
-            IPlayerInput playerInput = InputUtilities.AssignPlayerInput<PlayerMechInput>(_TestObject, _InputActionAsset, Keyboard.current);
+            IPlayerInput playerInput = InputUtilities.AssignPlayerInput<PlayerMechInput>(_TestObject, _InputActionAsset, Keyboard.current, Gamepad.current);
 
             playerInput.EnableInput();
         }
