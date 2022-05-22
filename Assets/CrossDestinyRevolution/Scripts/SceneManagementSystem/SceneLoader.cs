@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 namespace CDR.SceneManagementSystem
 {
-    [CreateAssetMenu(menuName = "SceneManagementSystem/SceneLoader", fileName = "Scene Loader")]
+    [CreateAssetMenu(menuName = "SceneManagementSystem/Scene Loader", fileName = "Scene Loader")]
     public class SceneLoader : ScriptableObject
     {
         [SerializeField]
@@ -17,6 +17,11 @@ namespace CDR.SceneManagementSystem
         public int loadingScreenSceneIndex => _LoadingScreenSceneIndex;
 
         public SceneContextData sceneContextData => _SceneContextData;
+
+        public void LoadScene(int sceneIndex)
+        {
+            SceneManager.LoadScene(sceneIndex);
+        }
 
         public void LoadSceneAsync(int sceneIndex)
         {
