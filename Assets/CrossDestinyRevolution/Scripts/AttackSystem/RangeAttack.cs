@@ -26,12 +26,9 @@ namespace CDR.AttackSystem
 		public override void Update()
 		{
 			base.Update();
-
-			BulletProjectile.GetComponent<Projectile>().projectileTarget = TargetPoint.transform.position;
-			BulletProjectile.GetComponent<Projectile>().projectileOriginPoint = GunPoint.transform.position;
-
-			//Use();
 			
+			BulletProjectile.GetComponent<Projectile>().projectileTarget = SetPredictiveTarget();
+			BulletProjectile.GetComponent<Projectile>().projectileOriginPoint = GunPoint.transform.position;
 		}
 
 		public override void Use()
@@ -50,8 +47,21 @@ namespace CDR.AttackSystem
 
 		Vector3 SetPredictiveTarget()
 		{
-			var direction = (TargetPoint.position - GunPoint.transform.position).normalized;
-			return direction;
+			var currentTarget = Character.targetHandler.GetCurrentTarget();
+			var targetVelocity = currentTarget.activeCharacter.controller.velocity;
+			
+			//var currentTarget = TargetPoint;
+			//var targetVelocity = TargetPoint.GetComponent<TestVelocity>();
+
+			if (targetVelocity != Vector3.zero) //Adds offset of targeting based on velocity of target
+			{
+				var direction = (((currentTarget.activeCharacter.position - GunPoint.transform.position)) + targetVelocity).normalized;
+				return direction;
+			}
+			else // if target is not moving
+			{
+				return currentTarget.activeCharacter.position;
+			}
 		}
 
 		void SetProjectile()
