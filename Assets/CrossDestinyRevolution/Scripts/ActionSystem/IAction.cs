@@ -15,7 +15,7 @@ namespace CDR.ActionSystem
         event System.Action onUse;
         event System.Action onEnd;
 
-        ActiveCharacter Character { get; }
+        IActiveCharacter Character { get; }
     }
 }
 
