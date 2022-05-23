@@ -5,17 +5,19 @@ using UnityEngine;
 namespace CDR.MechSystem
 {
     [RequireComponent(typeof(AudioSource), typeof(Animator))]
-    public class Character : MonoBehaviour
+    public class Character : MonoBehaviour, ICharacter
     {
-        AudioSource audioSource;
-        Animator animator;
+        Animator _animator;
+        AudioSource _audioSource;
 
-        public AudioSource AudioSource => audioSource;
-        public Animator Animator => animator;
+        public Animator animator => _animator;
 
-        protected virtual void Awake() {
-            audioSource = GetComponent<AudioSource>();
-            animator = GetComponent<Animator>();
+        public AudioSource audioSource =>  _audioSource;
+
+        protected virtual void Awake()
+        {
+            _animator = GetComponent<Animator>();
+            _audioSource = GetComponent<AudioSource>();
         }
     }
 }
