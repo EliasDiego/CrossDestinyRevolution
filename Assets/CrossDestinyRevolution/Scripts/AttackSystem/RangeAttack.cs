@@ -49,18 +49,33 @@ namespace CDR.AttackSystem
 		{
 			var currentTarget = Character.targetHandler.GetCurrentTarget();
 			var targetVelocity = currentTarget.activeCharacter.controller.velocity;
+			var targetPos = currentTarget.activeCharacter.position;
 			
-			//var currentTarget = TargetPoint;
-			//var targetVelocity = TargetPoint.GetComponent<TestVelocity>();
-
 			if (targetVelocity != Vector3.zero) //Adds offset of targeting based on velocity of target
 			{
-				var direction = (((currentTarget.activeCharacter.position - GunPoint.transform.position)) + targetVelocity).normalized;
+				var direction = targetPos + targetVelocity;
+
 				return direction;
 			}
 			else // if target is not moving
 			{
-				return currentTarget.activeCharacter.position;
+				return targetPos;
+			}
+		}
+
+		Vector3 TestPredictiveTarget()
+		{
+			var currentTarget = TargetPoint;
+			var targetVelocity = TargetPoint.GetComponent<TestVelocity>()._rigidbody.velocity;
+
+			if (targetVelocity != Vector3.zero) //Adds offset of targeting based on velocity of target
+			{
+				var direction = currentTarget.position + targetVelocity;
+				return direction;
+			}
+			else // if target is not moving
+			{
+				return currentTarget.position;
 			}
 		}
 
