@@ -45,9 +45,6 @@ namespace CDR.InputSystem
         {
             Debug.Assert(inputActionAsset, $"[Input System Error] {inputActionAsset} is not valid!");
 
-            foreach(InputDevice device in devices)
-                Debug.Assert(device != null, $"[Input System Error] No Input Device to pair!");
-
             T playerInput = gameObject.AddComponent<T>();
 
             playerInput.SetupInput(inputActionAsset, devices);
