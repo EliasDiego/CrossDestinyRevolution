@@ -9,13 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e396a940ece5144daf4b3e9457fbbe2, type: 3}
-  m_Name: BoostInfo 1
+  m_Script: {fileID: 11500000, guid: 26992ad1e5f5ced40a1ee8376289c93d, type: 3}
+  m_Name: New Vertical Boost Data
   m_EditorClassIdentifier: 
-  horzDashDistance: 50
-  hDashUseTime: 1
-  hDashConsRate: 30
-  vertDashDistance: 80
-  vDashUseTime: 3
-  vDashConsRate: 40
-  regenRate: 2
+  _time: 1
+  _distance: 30
