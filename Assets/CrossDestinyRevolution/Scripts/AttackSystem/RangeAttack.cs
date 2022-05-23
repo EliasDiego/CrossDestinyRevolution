@@ -5,7 +5,7 @@ using CDR.ActionSystem;
 
 namespace CDR.AttackSystem
 {
-	public class RangeAttack : CooldownAction
+	public class RangeAttack : CooldownAction , IRangeAttack
 	{
 		[SerializeField] float FireRate;
 
@@ -13,6 +13,10 @@ namespace CDR.AttackSystem
 		[SerializeField] public Transform TargetPoint; //Predictive Targeting system
 
 		[SerializeField] GameObject BulletProjectile;
+
+		public IProjectile projectile => throw new System.NotImplementedException();
+
+		public float range => throw new System.NotImplementedException();
 
 		private void Start()
 		{
@@ -22,14 +26,9 @@ namespace CDR.AttackSystem
 		public override void Update()
 		{
 			base.Update();
-
-			BulletProjectile.GetComponent<Projectile>().projectileTarget = TargetPoint.transform.position;
+			
+			BulletProjectile.GetComponent<Projectile>().projectileTarget = SetPredictiveTarget();
 			BulletProjectile.GetComponent<Projectile>().projectileOriginPoint = GunPoint.transform.position;
-
-			if (Input.GetMouseButton(0) && !_isCoolingDown) //test
-			{
-				Use();
-			}
 		}
 
 		public override void Use()
@@ -48,8 +47,21 @@ namespace CDR.AttackSystem
 
 		Vector3 SetPredictiveTarget()
 		{
-			var direction = (TargetPoint.position - GunPoint.transform.position).normalized;
-			return direction;
+			var currentTarget = Character.targetHandler.GetCurrentTarget();
+			var targetVelocity = currentTarget.activeCharacter.controller.velocity;
+			
+			//var currentTarget = TargetPoint;
+			//var targetVelocity = TargetPoint.GetComponent<TestVelocity>();
+
+			if (targetVelocity != Vector3.zero) //Adds offset of targeting based on velocity of target
+			{
+				var direction = (((currentTarget.activeCharacter.position - GunPoint.transform.position)) + targetVelocity).normalized;
+				return direction;
+			}
+			else // if target is not moving
+			{
+				return currentTarget.activeCharacter.position;
+			}
 		}
 
 		void SetProjectile()

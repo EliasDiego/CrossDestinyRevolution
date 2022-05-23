@@ -16,6 +16,11 @@ namespace CDR.ActionSystem
 		public bool isActive => isActionActive;
 		public IActiveCharacter Character => activeCharacter;
 
+		protected virtual void Awake()
+		{
+			activeCharacter = GetComponent<ActiveCharacter>();
+		}
+
 		public virtual void Use()
 		{
 			isActionActive = true;
