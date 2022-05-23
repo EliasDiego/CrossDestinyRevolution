@@ -58,7 +58,7 @@ namespace CDR.TargetingSystem
 
             currentTarget = nextTarget;
 
-            Debug.Log("Change Target");
+            Debug.Log("Change Target" + nextTarget.name);
         }
 
     }
