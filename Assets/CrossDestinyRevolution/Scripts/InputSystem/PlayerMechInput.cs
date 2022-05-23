@@ -130,14 +130,14 @@ namespace CDR.InputSystem
                 
                 if(height < 0.4f) // Temp
                 {
-                    character?.boost?.VerticalBoost(1);
+                    character?.boost?.VerticalBoost(-1);
 
                     Debug.Log($"[Boost Input] Vertical Boost Up!");
                 }
 
                 else if(height > 1) // Temp
                 {
-                    character?.boost?.VerticalBoost(-1);
+                    character?.boost?.VerticalBoost(1);
 
                     Debug.Log($"[Boost Input] Vertical Boost Down!");
                 }
