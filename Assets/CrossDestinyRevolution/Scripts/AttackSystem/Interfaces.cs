@@ -29,12 +29,6 @@ namespace CDR.AttackSystem
         event Action<IActiveCharacter> onHit;
     }
 
-    public interface IProjectile : IPoolable
-    {
-        IController controller { get; }
-        float lifetime { get; }
-    }
-
     public interface IBullet : IProjectile
     {
         IHitbox hitbox { get; }
@@ -42,13 +36,13 @@ namespace CDR.AttackSystem
         Vector3 direction { get; }
     }
 
-    public interface IRangeAttack : ICoolDownAction
+    public interface IRangeAttack : ICooldownAction
     {
         IProjectile projectile  { get; }
         float range { get; }
     }
 
-    public interface IMeleeAttack : ICoolDownAction
+    public interface IMeleeAttack : ICooldownAction
     {
         IHitbox hitbox { get; }
         IKnockback knockback { get; }
@@ -61,7 +55,7 @@ namespace CDR.AttackSystem
         IStun stun { get; }
     }
 
-    public interface ISpecialAttack : ICoolDownAction
+    public interface ISpecialAttack : ICooldownAction
     {
 
     }
