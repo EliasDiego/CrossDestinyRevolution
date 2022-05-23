@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace CDR.ActionSystem
 {
-    public interface ICooldownAction
+    public interface ICooldownAction : IAction
     {
         float cooldownDuration { get; }
         float currentCooldown { get; }
