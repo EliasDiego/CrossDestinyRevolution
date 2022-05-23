@@ -45,7 +45,8 @@ namespace CDR.MovementSystem
         private void Update()
         {
             RotateObject();
-            controller.MoveRb(currentDir);
+
+            controller.MoveRb(transform.rotation * currentDir);
 
             if (clampSpeed)
             {
@@ -73,7 +74,7 @@ namespace CDR.MovementSystem
         public void Move(Vector2 direction)
         {
             var dir = new Vector3(direction.x, 0f, direction.y);
-            dir = transform.rotation * dir;
+            // dir = transform.rotation * dir;
             currentDir = dir;
         }
 
