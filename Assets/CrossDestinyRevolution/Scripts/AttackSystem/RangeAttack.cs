@@ -21,6 +21,7 @@ namespace CDR.AttackSystem
 		private void Start()
 		{
 			_cooldownDuration = FireRate;
+			
 		}
 
 		public override void Update()
@@ -29,14 +30,16 @@ namespace CDR.AttackSystem
 
 			//var projectileSpeed = BulletProjectile.GetComponent<Bullet>().BulletSpeed;
 			
-			BulletProjectile.GetComponent<Projectile>().projectileTarget = SetPredictiveTarget();
-			BulletProjectile.GetComponent<Projectile>().projectileOriginPoint = GunPoint.transform.position;
+			
+			
 		}
 
 		public override void Use()
 		{
 			base.Use();
 
+			BulletProjectile.GetComponent<Bullet>().direction = TestPredictiveTarget();
+			//BulletProjectile.GetComponent<Projectile>().projectileOriginPoint = GunPoint.transform.position;
 			Instantiate(BulletProjectile, GunPoint.transform.position, Quaternion.identity);
 
 			End();
@@ -55,7 +58,7 @@ namespace CDR.AttackSystem
 
 			if (targetVelocity != Vector3.zero) //Adds offset of targeting based on velocity of target
 			{
-				var direction = targetPos + targetVelocity;
+				var direction = ((targetPos + targetVelocity) - GunPoint.transform.position).normalized;
 				return direction;
 			}
 			else // if target is not moving
@@ -66,17 +69,17 @@ namespace CDR.AttackSystem
 
 		Vector3 TestPredictiveTarget() //for Target Point Testing
 		{
-			var currentTarget = TargetPoint;
+			var currentTarget = TargetPoint.position;
 			var targetVelocity = TargetPoint.GetComponent<TestVelocity>()._rigidbody.velocity;
 
 			if (targetVelocity != Vector3.zero) //Adds offset of targeting based on velocity of target
 			{
-				var direction = currentTarget.position + targetVelocity;
+				var direction = ((currentTarget + targetVelocity) - GunPoint.transform.position).normalized;
 				return direction;
 			}
 			else // if target is not moving
 			{
-				return currentTarget.position;
+				return currentTarget;
 			}
 		}
 
