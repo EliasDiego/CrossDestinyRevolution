@@ -6,7 +6,7 @@ namespace CDR.AttackSystem
 {
 	public class Bullet : Projectile
 	{
-		[SerializeField] float BulletSpeed;
+		[SerializeField] public float BulletSpeed;
 		Rigidbody _rigidBody;
 
 		public override void Start()

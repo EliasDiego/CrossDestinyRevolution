@@ -110,9 +110,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileLifetime: 5
-  projectileTarget: {x: -74.45241, y: 11.43, z: 15.6}
+  projectileTarget: {x: -78.89301, y: 11.43, z: 15.6}
   projectileOriginPoint: {x: 0, y: 11.35, z: 1.97}
-  BulletSpeed: 10
+  BulletSpeed: 20
 --- !u!54 &316693384410728946
 Rigidbody:
   m_ObjectHideFlags: 0
