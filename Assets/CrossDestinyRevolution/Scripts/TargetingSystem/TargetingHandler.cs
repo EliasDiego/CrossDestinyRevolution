@@ -22,8 +22,8 @@ namespace CDR.TargetingSystem
         {
             base.Use();
 
-            currentTarget = ActiveCharacter.activeCharacters.Where(a => (a != Character))
-                .OrderBy(a => Vector3.Distance(Character.transform.position, a.transform.position)).FirstOrDefault();
+            currentTarget = ActiveCharacter.activeCharacters.Where(a => (a != (ActiveCharacter)Character))
+                .OrderBy(a => Vector3.Distance(Character.position, a.transform.position)).FirstOrDefault();
                 
         }
 
@@ -35,18 +35,18 @@ namespace CDR.TargetingSystem
         public ITargetData GetCurrentTarget()
         {
             return new TargetData(currentTarget, 
-                Vector3.Distance(currentTarget.transform.position, Character.transform.position),
-                (Character.transform.position - currentTarget.transform.position).normalized);
+                Vector3.Distance(currentTarget.transform.position, Character.position),
+                (Character.position - currentTarget.transform.position).normalized);
         }
 
         public void GetNextTarget()
         {
-            ActiveCharacter nextTarget = ActiveCharacter.activeCharacters.Where(a => (a != Character && a != currentTarget))
-                .OrderBy(a => Vector3.Distance(Character.transform.position, a.transform.position)).FirstOrDefault();
+            ActiveCharacter nextTarget = ActiveCharacter.activeCharacters.Where(a => (a != (ActiveCharacter)Character && a != currentTarget))
+                .OrderBy(a => Vector3.Distance(Character.position, a.transform.position)).FirstOrDefault();
 
             onSwitchTarget?.Invoke(new TargetData(nextTarget, 
-                Vector3.Distance(nextTarget.transform.position, Character.transform.position),
-                (Character.transform.position - nextTarget.transform.position).normalized));
+                Vector3.Distance(nextTarget.transform.position, Character.position),
+                (Character.position - nextTarget.transform.position).normalized));
 
             currentTarget = nextTarget;
         }

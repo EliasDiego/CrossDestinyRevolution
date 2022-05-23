@@ -20,7 +20,7 @@ namespace CDR.TargetingSystem
         float _dist;
         Vector3 _dir;
 
-        public ActiveCharacter activeCharacter => _activeCharacter;
+        public IActiveCharacter activeCharacter => _activeCharacter;
 
         public float distance => _dist;
 
