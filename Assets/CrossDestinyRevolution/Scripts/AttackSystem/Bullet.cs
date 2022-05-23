@@ -27,6 +27,7 @@ namespace CDR.AttackSystem
 		void MoveBullet()
 		{
 			//_rigidBody.velocity = transform.forward * BulletSpeed;
+			Debug.Log(direction);
 			_rigidBody.velocity = direction * BulletSpeed;
 		}
 

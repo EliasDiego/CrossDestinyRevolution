@@ -38,7 +38,7 @@ namespace CDR.AttackSystem
 		{
 			base.Use();
 
-			BulletProjectile.GetComponent<Bullet>().direction = TestPredictiveTarget();
+			BulletProjectile.GetComponent<Bullet>().direction = SetPredictiveTarget();
 			//BulletProjectile.GetComponent<Projectile>().projectileOriginPoint = GunPoint.transform.position;
 			Instantiate(BulletProjectile, GunPoint.transform.position, Quaternion.identity);
 
@@ -53,7 +53,7 @@ namespace CDR.AttackSystem
 		Vector3 SetPredictiveTarget() //Real predictive
 		{
 			var currentTarget = Character.targetHandler.GetCurrentTarget();
-			var targetVelocity = currentTarget.activeCharacter.controller.velocity;
+			var targetVelocity = Vector3.zero;
 			var targetPos = currentTarget.activeCharacter.position;
 
 			if (targetVelocity != Vector3.zero) //Adds offset of targeting based on velocity of target
