@@ -26,10 +26,8 @@ namespace CDR.AttackSystem
 			BulletProjectile.GetComponent<Projectile>().projectileTarget = TargetPoint.transform.position;
 			BulletProjectile.GetComponent<Projectile>().projectileOriginPoint = GunPoint.transform.position;
 
-			if (Input.GetMouseButton(0) && !_isCoolingDown) //test
-			{
-				Use();
-			}
+			//Use();
+			
 		}
 
 		public override void Use()
