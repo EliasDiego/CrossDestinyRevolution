@@ -8,6 +8,7 @@ namespace CDR.AttackSystem
 	{
 		[SerializeField] public float BulletSpeed;
 		Rigidbody _rigidBody;
+		public Vector3 direction;
 
 		public override void Start()
 		{
@@ -26,12 +27,12 @@ namespace CDR.AttackSystem
 		void MoveBullet()
 		{
 			//_rigidBody.velocity = transform.forward * BulletSpeed;
-			_rigidBody.velocity = (projectileTarget - projectileOriginPoint).normalized * BulletSpeed;
+			_rigidBody.velocity = direction * BulletSpeed;
 		}
 
 		void RotateBullet()
 		{
-			_rigidBody.MoveRotation(Quaternion.LookRotation(projectileTarget));
+			//_rigidBody.MoveRotation(Quaternion.LookRotation(projectileTarget));
 		}
 
 
