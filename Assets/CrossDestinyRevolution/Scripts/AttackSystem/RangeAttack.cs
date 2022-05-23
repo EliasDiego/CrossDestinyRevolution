@@ -27,11 +27,6 @@ namespace CDR.AttackSystem
 		public override void Update()
 		{
 			base.Update();
-
-			//var projectileSpeed = BulletProjectile.GetComponent<Bullet>().BulletSpeed;
-			
-			
-			
 		}
 
 		public override void Use()
