@@ -53,7 +53,7 @@ namespace CDR.InputSystem
 
         private void OnSpecialAttack3(InputAction.CallbackContext context)
         {
-            if(CheckBoolean(character?.specialAttack3?.isActive) && CheckBoolean(character?.specialAttack3?.isCoolingDown))
+            if(CheckBoolean(character?.specialAttack3?.isActive) || CheckBoolean(character?.specialAttack3?.isCoolingDown))
                 return;
 
             character?.specialAttack3?.Use();
@@ -63,7 +63,7 @@ namespace CDR.InputSystem
 
         private void OnSpecialAttack2(InputAction.CallbackContext context)
         {
-            if(CheckBoolean(character?.specialAttack2?.isActive) && CheckBoolean(character?.specialAttack2?.isCoolingDown))
+            if(CheckBoolean(character?.specialAttack2?.isActive) || CheckBoolean(character?.specialAttack2?.isCoolingDown))
                 return;
 
             character?.specialAttack2?.Use();
@@ -73,7 +73,7 @@ namespace CDR.InputSystem
 
         private void OnSpecialAttack1(InputAction.CallbackContext context)
         {
-            if(CheckBoolean(character?.specialAttack1?.isActive) && CheckBoolean(character?.specialAttack1?.isCoolingDown))
+            if(CheckBoolean(character?.specialAttack1?.isActive) || CheckBoolean(character?.specialAttack1?.isCoolingDown))
                 return;
 
             character?.specialAttack1?.Use();
@@ -93,7 +93,7 @@ namespace CDR.InputSystem
 
         private void OnRangeAttack()
         {
-            if(CheckBoolean(character?.rangeAttack?.isActive) && CheckBoolean(character?.rangeAttack?.isCoolingDown))
+            if(CheckBoolean(character?.rangeAttack?.isActive) || CheckBoolean(character?.rangeAttack?.isCoolingDown))
                 return;
 
             character?.rangeAttack?.Use();
