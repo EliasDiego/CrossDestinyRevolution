@@ -170,7 +170,7 @@ namespace CDR.InputSystem
         {
             base.SetupInput(inputActionAsset, devices);
             
-            InputActionMap actionMap = inputActionAsset.FindActionMap("Game", true);
+            InputActionMap actionMap = actionAsset.FindActionMap("Game", true);
 
             foreach(InputAction inputAction in actionMap.actions)
                 _InputActions.Add(inputAction.name, inputAction);

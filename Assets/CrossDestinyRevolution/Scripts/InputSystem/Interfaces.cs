@@ -17,7 +17,7 @@ namespace CDR.InputSystem
     public interface IPlayerInput : IInput
     {
         InputUser user { get; }
-        InputActionAsset inputActionAsset { get; }
+        InputActionAsset actionAsset { get; }
         void SetupInput(InputActionAsset inputActionAsset, params InputDevice[] devices);
         void EnableInput(string name);
         void DisableInput(string name);
