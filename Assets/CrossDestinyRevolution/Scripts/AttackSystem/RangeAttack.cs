@@ -53,7 +53,7 @@ namespace CDR.AttackSystem
 		Vector3 SetPredictiveTarget() //Real predictive
 		{
 			var currentTarget = Character.targetHandler.GetCurrentTarget();
-			var targetVelocity = Vector3.zero;
+			var targetVelocity = Vector3.zero; //Character.controller.velocity 
 			var targetPos = currentTarget.activeCharacter.position;
 
 			if (targetVelocity != Vector3.zero) //Adds offset of targeting based on velocity of target
@@ -63,7 +63,7 @@ namespace CDR.AttackSystem
 			}
 			else // if target is not moving
 			{
-				return targetPos;
+				return ((targetPos + targetVelocity) - GunPoint.transform.position).normalized;
 			}
 		}
 

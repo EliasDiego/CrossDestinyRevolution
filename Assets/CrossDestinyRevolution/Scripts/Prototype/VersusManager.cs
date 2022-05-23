@@ -33,14 +33,14 @@ namespace CDR.Prototype_SC
             {
                 player1Input = InputUtilities.AssignPlayerInput<PlayerMechInput>(_Player1Mech.gameObject, _MainInputAsset, Gamepad.all[0]);
                 player2Input = InputUtilities.AssignPlayerInput<PlayerMechInput>(_Player2Mech.gameObject, _MainInputAsset, Gamepad.all[1]);
-                Debug.Log("Blah>2");
+                Debug.Log("Blah>1");
             }
 
             else if(Gamepad.all.Count == 1)
             {
                 player1Input = InputUtilities.AssignPlayerInput<PlayerMechInput>(_Player1Mech.gameObject, _MainInputAsset, Keyboard.current);
-                player2Input = InputUtilities.AssignPlayerInput<PlayerMechInput>(_Player2Mech.gameObject, _MainInputAsset, Gamepad.all[1]);
-                Debug.Log("Blah==2");
+                player2Input = InputUtilities.AssignPlayerInput<PlayerMechInput>(_Player2Mech.gameObject, _MainInputAsset, Gamepad.all[0]);
+                Debug.Log("Blah==1");
             }
 
             else
@@ -49,6 +49,14 @@ namespace CDR.Prototype_SC
                 player2Input = InputUtilities.AssignPlayerInput<PlayerMechInput>(_Player2Mech.gameObject, _SplitInputAsset, Keyboard.current);
                 Debug.Log("Blah==0");
             }
+
+            Debug.Log("Player 1");
+            foreach(InputDevice device in player1Input.user.pairedDevices)
+                Debug.Log(device.name);
+
+            Debug.Log("Player 2");
+            foreach(InputDevice device in player2Input.user.pairedDevices)
+                Debug.Log(device.name);
 
             player1Input.EnableInput(); 
             player2Input.EnableInput(); 
