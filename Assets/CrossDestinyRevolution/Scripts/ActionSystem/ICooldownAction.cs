@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
 namespace CDR.ActionSystem
@@ -10,7 +12,9 @@ namespace CDR.ActionSystem
         float currentCooldown { get; }
         bool isCoolingDown { get; }
 
-        public event System.Action OnStartCooldown;
+        event Action<ICooldownAction> onCoolDown;
+
+        void EndCoolDown();
     }
 }
 
