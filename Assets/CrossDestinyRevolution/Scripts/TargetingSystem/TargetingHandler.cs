@@ -24,7 +24,10 @@ namespace CDR.TargetingSystem
 
             currentTarget = ActiveCharacter.activeCharacters.Where(a => (a != (ActiveCharacter)Character))?
                 .OrderBy(a => Vector3.Distance(Character.position, a.transform.position))?.FirstOrDefault();
-                
+
+            onSwitchTarget?.Invoke(new TargetData(currentTarget, 
+                Vector3.Distance(currentTarget.transform.position, Character.position),
+                (Character.position - currentTarget.transform.position).normalized));
         }
 
         public override void End()
