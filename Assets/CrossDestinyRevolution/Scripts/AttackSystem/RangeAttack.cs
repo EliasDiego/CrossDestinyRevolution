@@ -5,7 +5,7 @@ using CDR.ActionSystem;
 
 namespace CDR.AttackSystem
 {
-	public class RangeAttack : CooldownAction
+	public class RangeAttack : CooldownAction , IRangeAttack
 	{
 		[SerializeField] float FireRate;
 
@@ -13,6 +13,10 @@ namespace CDR.AttackSystem
 		[SerializeField] public Transform TargetPoint; //Predictive Targeting system
 
 		[SerializeField] GameObject BulletProjectile;
+
+		public IProjectile projectile => throw new System.NotImplementedException();
+
+		public float range => throw new System.NotImplementedException();
 
 		private void Start()
 		{
