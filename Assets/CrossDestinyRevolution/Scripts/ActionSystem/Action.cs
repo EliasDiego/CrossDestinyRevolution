@@ -8,13 +8,13 @@ namespace CDR.ActionSystem
 	public class Action : MonoBehaviour, IAction
 	{
 		private bool isActionActive;
-		private ActiveCharacter activeCharacter;
+		private IActiveCharacter activeCharacter;
 
 		public event System.Action onUse;
 		public event System.Action onEnd;
 
 		public bool isActive => isActionActive;
-		public ActiveCharacter Character => activeCharacter;
+		public IActiveCharacter Character => activeCharacter;
 
 		public virtual void Use()
 		{
