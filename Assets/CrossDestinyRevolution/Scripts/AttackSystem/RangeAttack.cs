@@ -27,9 +27,9 @@ namespace CDR.AttackSystem
 		{
 			base.Update();
 
-			var projectileSpeed = BulletProjectile.GetComponent<Bullet>().BulletSpeed;
+			//var projectileSpeed = BulletProjectile.GetComponent<Bullet>().BulletSpeed;
 			
-			BulletProjectile.GetComponent<Projectile>().projectileTarget = SetPredictiveTarget(projectileSpeed);
+			BulletProjectile.GetComponent<Projectile>().projectileTarget = SetPredictiveTarget();
 			BulletProjectile.GetComponent<Projectile>().projectileOriginPoint = GunPoint.transform.position;
 		}
 
@@ -47,7 +47,7 @@ namespace CDR.AttackSystem
 			base.End();
 		}
 
-		Vector3 SetPredictiveTarget(float projectileSpeed) //Real predictive
+		Vector3 SetPredictiveTarget() //Real predictive
 		{
 			var currentTarget = Character.targetHandler.GetCurrentTarget();
 			var targetVelocity = currentTarget.activeCharacter.controller.velocity;
@@ -64,7 +64,7 @@ namespace CDR.AttackSystem
 			}
 		}
 
-		Vector3 TestPredictiveTarget(float projectileSpeed) //for Target Point Testing
+		Vector3 TestPredictiveTarget() //for Target Point Testing
 		{
 			var currentTarget = TargetPoint;
 			var targetVelocity = TargetPoint.GetComponent<TestVelocity>()._rigidbody.velocity;
