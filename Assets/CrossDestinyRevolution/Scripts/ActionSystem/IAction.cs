@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,9 @@ namespace CDR.ActionSystem
         bool isActive { get; }
         void Use();
         void End();
+
+        event System.Action onUse;
+        event System.Action onEnd;
 
         ActiveCharacter Character { get; }
     }

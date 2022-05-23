@@ -11,6 +11,8 @@ namespace CDR.ActionSystem
 		protected bool _isCoolingDown;
 
 		public event System.Action OnStartCooldown;
+		public event System.Action<ICooldownAction> onCoolDown;
+
 		public float cooldownDuration => _cooldownDuration;
 		public float currentCooldown => _currentCooldown;
 		public bool isCoolingDown => _isCoolingDown;
@@ -39,6 +41,11 @@ namespace CDR.ActionSystem
 			_currentCooldown = Mathf.Max(_currentCooldown - deltaTime, 0f);
 
 			_isCoolingDown = _currentCooldown > 0f;
+		}
+
+		public void EndCoolDown()
+		{
+			throw new System.NotImplementedException();
 		}
 	}
 }

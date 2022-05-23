@@ -1,3 +1,5 @@
+using CDR.MovementSystem;
+using CDR.ObjectPoolingSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,6 +17,9 @@ namespace CDR.AttackSystem
 		public float Lifetime => projectileLifetime;
 		public Vector3 Target => projectileTarget;
 		public Vector3 Origin => projectileOriginPoint;
+
+		public IController controller => throw new System.NotImplementedException();
+		public IPool pool => throw new System.NotImplementedException();
 
 		public virtual void Start()
 		{
@@ -43,6 +48,16 @@ namespace CDR.AttackSystem
 		{
 			projectileLifetime = Mathf.Max(projectileLifetime - deltaTime, 0f);
 			return projectileLifetime <= 0f;
+		}
+
+		public void ResetObject()
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public void Return()
+		{
+			throw new System.NotImplementedException();
 		}
 	}
 

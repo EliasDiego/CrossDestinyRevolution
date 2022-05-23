@@ -10,6 +10,9 @@ namespace CDR.ActionSystem
 		private bool isActionActive;
 		private ActiveCharacter activeCharacter;
 
+		public event System.Action onUse;
+		public event System.Action onEnd;
+
 		public bool isActive => isActionActive;
 		public ActiveCharacter Character => activeCharacter;
 
