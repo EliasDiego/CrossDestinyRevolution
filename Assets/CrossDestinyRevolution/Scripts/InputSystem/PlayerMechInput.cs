@@ -158,7 +158,7 @@ namespace CDR.InputSystem
         {
             _MovementInput = context.ReadValue<Vector2>();
 
-            if(CheckBoolean(character?.movement.isActive))
+            if(!CheckBoolean(character?.movement?.isActive))
                 return;
                 
             character?.movement?.Move(_MovementInput);
