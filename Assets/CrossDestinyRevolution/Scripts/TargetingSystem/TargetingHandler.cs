@@ -22,8 +22,9 @@ namespace CDR.TargetingSystem
         {
             base.Use();
 
-            //currentTarget = ActiveCharacter.activeCharacters.Where(a => (a != Character)).FirstOrDefault();
-            currentTarget = ActiveCharacter.activeCharacters.OrderBy(a => Vector3.Distance(Character.transform.position, a.transform.position)).FirstOrDefault();
+            currentTarget = ActiveCharacter.activeCharacters.Where(a => (a != Character))
+                .OrderBy(a => Vector3.Distance(Character.transform.position, a.transform.position)).FirstOrDefault();
+                
         }
 
         public override void End()
@@ -40,8 +41,8 @@ namespace CDR.TargetingSystem
 
         public void GetNextTarget()
         {
-            //ActiveCharacter nextTarget = ActiveCharacter.activeCharacters.Where(a => (a != Character && a != currentTarget)).FirstOrDefault();
-            ActiveCharacter nextTarget = ActiveCharacter.activeCharacters.OrderBy(a => Vector3.Distance(Character.transform.position, a.transform.position)).FirstOrDefault();
+            ActiveCharacter nextTarget = ActiveCharacter.activeCharacters.Where(a => (a != Character && a != currentTarget))
+                .OrderBy(a => Vector3.Distance(Character.transform.position, a.transform.position)).FirstOrDefault();
 
             onSwitchTarget?.Invoke(new TargetData(nextTarget, 
                 Vector3.Distance(nextTarget.transform.position, Character.transform.position),
