@@ -17,7 +17,7 @@ namespace CDR.InputSystem
         private InputActionAsset _ActionAsset;
 
         public InputUser user => _User;
-        public InputActionAsset inputActionAsset => _ActionAsset;
+        public InputActionAsset actionAsset => _ActionAsset;
 
         protected virtual void OnDestroy()
         {
@@ -41,14 +41,14 @@ namespace CDR.InputSystem
 
         public override void EnableInput()
         {
-            if(inputActionAsset)
-                inputActionAsset.Enable();
+            if(actionAsset)
+                actionAsset.Enable();
         }
 
         public override void DisableInput()
         {
-            if(inputActionAsset)
-                inputActionAsset.Disable();
+            if(actionAsset)
+                actionAsset.Disable();
         }
 
         public abstract void EnableInput(string name);

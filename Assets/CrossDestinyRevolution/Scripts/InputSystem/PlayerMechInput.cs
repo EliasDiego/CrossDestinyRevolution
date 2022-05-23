@@ -130,14 +130,14 @@ namespace CDR.InputSystem
                 
                 if(height < 0.4f) // Temp
                 {
-                    character?.boost?.VerticalBoost(1);
+                    character?.boost?.VerticalBoost(-1);
 
                     Debug.Log($"[Boost Input] Vertical Boost Up!");
                 }
 
                 else if(height > 1) // Temp
                 {
-                    character?.boost?.VerticalBoost(-1);
+                    character?.boost?.VerticalBoost(1);
 
                     Debug.Log($"[Boost Input] Vertical Boost Down!");
                 }
@@ -170,7 +170,7 @@ namespace CDR.InputSystem
         {
             base.SetupInput(inputActionAsset, devices);
             
-            InputActionMap actionMap = inputActionAsset.FindActionMap("Game", true);
+            InputActionMap actionMap = actionAsset.FindActionMap("Game", true);
 
             foreach(InputAction inputAction in actionMap.actions)
                 _InputActions.Add(inputAction.name, inputAction);
