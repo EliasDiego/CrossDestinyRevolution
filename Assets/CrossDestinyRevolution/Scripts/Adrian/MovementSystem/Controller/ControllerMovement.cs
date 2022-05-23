@@ -15,16 +15,18 @@ namespace CDR.MovementSystem
 
         Vector3 currentDirection = Vector3.zero;
 
+        private void Start()
+        {
+            Use();            
+        }
+
         private void FixedUpdate()
         {
             if (isActive)
             {
-                //Move(currentDirection);
-                //MoveRB();
+                Move(currentDirection);
+                MoveRB();
             }
-
-            // TODO: remove once 
-            OldMove();
         }
 
         public override void Use()

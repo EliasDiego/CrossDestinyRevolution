@@ -30,25 +30,6 @@ namespace CDR.MovementSystem
             Use();
         }
 
-        // TODO: replace to use input system
-        //  +  : replace to use in action system
-        private void Update()
-        {         
-            if(isActive)
-            {
-                // Vertical boost
-                if (Input.GetKeyDown(KeyCode.UpArrow))
-                {
-                    UseVerticalBoost(1f);
-                }
-                // Horizontal boost
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
-                    UseHorizontalBoost(rb.transform.forward);
-                }
-            }
-        }
-
         public void SetRigidbody(Rigidbody rigid)
         {
             rb = rigid;
@@ -57,6 +38,10 @@ namespace CDR.MovementSystem
         // Use this method for horizontal boost with input system.
         public void UseHorizontalBoost(Vector3 direction)
         {
+            if (!isActive)
+            {
+                return;
+            }
             if(value.CanUse(info.hDashConsRate))
             {
                 StartCoroutine(HorizontalBoost(direction));
@@ -66,6 +51,10 @@ namespace CDR.MovementSystem
         // Use this method for vertical boost with input system.
         public void UseVerticalBoost(float direction)
         {
+            if (!isActive)
+            {
+                return;
+            }
             if (value.CanUse(info.vDashConsRate))
             {
                 StartCoroutine(VerticalBoost(direction));
