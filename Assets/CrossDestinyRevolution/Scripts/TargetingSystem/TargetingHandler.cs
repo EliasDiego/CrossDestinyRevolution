@@ -22,8 +22,8 @@ namespace CDR.TargetingSystem
         {
             base.Use();
 
-            currentTarget = ActiveCharacter.activeCharacters.Where(a => (a != (ActiveCharacter)Character))
-                .OrderBy(a => Vector3.Distance(Character.position, a.transform.position)).FirstOrDefault();
+            currentTarget = ActiveCharacter.activeCharacters.Where(a => (a != (ActiveCharacter)Character))?
+                .OrderBy(a => Vector3.Distance(Character.position, a.transform.position))?.FirstOrDefault();
                 
         }
 
@@ -41,14 +41,25 @@ namespace CDR.TargetingSystem
 
         public void GetNextTarget()
         {
-            ActiveCharacter nextTarget = ActiveCharacter.activeCharacters.Where(a => (a != (ActiveCharacter)Character && a != currentTarget))
-                .OrderBy(a => Vector3.Distance(Character.position, a.transform.position)).FirstOrDefault();
+            IEnumerable<ActiveCharacter> activeCharacters = ActiveCharacter.activeCharacters?.Where(a => (a != (ActiveCharacter)Character && a != currentTarget))
+                ?.OrderBy(a => Vector3.Distance(Character.position, a.transform.position));
+
+            ActiveCharacter nextTarget = activeCharacters?.FirstOrDefault();
+            if(nextTarget == null)
+            {
+                return;
+            }
+
+            
 
             onSwitchTarget?.Invoke(new TargetData(nextTarget, 
                 Vector3.Distance(nextTarget.transform.position, Character.position),
                 (Character.position - nextTarget.transform.position).normalized));
 
             currentTarget = nextTarget;
+
+            Debug.Log("Change Target");
         }
+
     }
 }
