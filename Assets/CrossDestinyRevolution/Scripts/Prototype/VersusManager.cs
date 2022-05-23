@@ -26,26 +26,38 @@ namespace CDR.Prototype_SC
 
         private void Start() 
         {
+            IPlayerInput player1Input;
+            IPlayerInput player2Input;
+
             if(Gamepad.all.Count > 1)
             {
-                InputUtilities.AssignPlayerInput<PlayerMechInput>(_Player1Mech.gameObject, _MainInputAsset, Gamepad.all[0]);
-                InputUtilities.AssignPlayerInput<PlayerMechInput>(_Player2Mech.gameObject, _MainInputAsset, Gamepad.all[1]);
+                player1Input = InputUtilities.AssignPlayerInput<PlayerMechInput>(_Player1Mech.gameObject, _MainInputAsset, Gamepad.all[0]);
+                player2Input = InputUtilities.AssignPlayerInput<PlayerMechInput>(_Player2Mech.gameObject, _MainInputAsset, Gamepad.all[1]);
                 Debug.Log("Blah>2");
             }
 
             else if(Gamepad.all.Count == 1)
             {
-                InputUtilities.AssignPlayerInput<PlayerMechInput>(_Player1Mech.gameObject, _MainInputAsset, Keyboard.current);
-                InputUtilities.AssignPlayerInput<PlayerMechInput>(_Player2Mech.gameObject, _MainInputAsset, Gamepad.all[1]);
+                player1Input = InputUtilities.AssignPlayerInput<PlayerMechInput>(_Player1Mech.gameObject, _MainInputAsset, Keyboard.current);
+                player2Input = InputUtilities.AssignPlayerInput<PlayerMechInput>(_Player2Mech.gameObject, _MainInputAsset, Gamepad.all[1]);
                 Debug.Log("Blah==2");
             }
 
             else
             {
-                InputUtilities.AssignPlayerInput<PlayerMechInput>(_Player1Mech.gameObject, _MainInputAsset, Keyboard.current);
-                InputUtilities.AssignPlayerInput<PlayerMechInput>(_Player2Mech.gameObject, _SplitInputAsset, Keyboard.current);
+                player1Input = InputUtilities.AssignPlayerInput<PlayerMechInput>(_Player1Mech.gameObject, _MainInputAsset, Keyboard.current);
+                player2Input = InputUtilities.AssignPlayerInput<PlayerMechInput>(_Player2Mech.gameObject, _SplitInputAsset, Keyboard.current);
                 Debug.Log("Blah==0");
             }
+
+            player1Input.EnableInput(); 
+            player2Input.EnableInput(); 
+
+            _Player1Mech?.movement?.Use();
+            _Player2Mech?.movement?.Use();
+
+            _Player1Mech?.targetHandler?.Use();
+            _Player2Mech?.targetHandler?.Use();
         }
     }
 }
