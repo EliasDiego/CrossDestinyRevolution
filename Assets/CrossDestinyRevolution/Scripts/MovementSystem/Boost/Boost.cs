@@ -33,11 +33,14 @@ namespace CDR.MovementSystem
         {
             if(_boostValue.CanUse())
             {
-                var dir = transform.position + 
-                    new Vector3(direction.x, 0f, direction.y) * _horizontalBoostData.distance;
+                var direction1 = new Vector3(direction.x, 0f, direction.y);
+                direction1 = transform.rotation * direction1;
+
+                var dir = transform.position + direction1 * _horizontalBoostData.distance;
+
                 Vector3 point = dir;
 
-                if(Physics.Raycast(transform.position, -(transform.position - dir), out RaycastHit hit, _horizontalBoostData.distance))
+                if(Physics.Raycast(transform.position, direction1, out RaycastHit hit, _horizontalBoostData.distance))
                 {
                     point = hit.point;
                 }

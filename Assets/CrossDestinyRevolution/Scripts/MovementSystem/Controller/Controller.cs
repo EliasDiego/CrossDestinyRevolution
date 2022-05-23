@@ -11,14 +11,9 @@ namespace CDR.MovementSystem
 
         private Rigidbody rb;
 
-        public Vector3 Velocity
-        {
-            get { return rb.velocity; }
-        }
-
         public IFlightPlane flightPlane => _flightPlane;
 
-        public Vector3 velocity => throw new System.NotImplementedException();
+        public Vector3 velocity => rb.velocity;
 
         private void Awake()
         {
@@ -48,6 +43,7 @@ namespace CDR.MovementSystem
         public void Rotate(Quaternion rotation)
         {
             transform.rotation = rotation;
+            
         }
     }
 }

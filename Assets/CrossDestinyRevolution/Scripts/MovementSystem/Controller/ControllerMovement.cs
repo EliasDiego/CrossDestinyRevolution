@@ -1,6 +1,7 @@
 using CDR.MechSystem;
 using System;
 using UnityEngine;
+using CDR.TargetingSystem;
 
 // This class handles movement of a controller through a rigidbody.
 
@@ -15,6 +16,7 @@ namespace CDR.MovementSystem
 
         private Controller controller;
         private Vector3 currentDir = Vector3.zero;
+        private Vector3 targetDiection;
 
         [SerializeField]
         private bool clampSpeed = false;
@@ -23,6 +25,12 @@ namespace CDR.MovementSystem
         {
             base.Awake();
             controller = GetComponent<Controller>();
+        }
+
+        private void Start()
+        {
+            ITargetData targetData = Character.targetHandler.GetCurrentTarget();
+            targetDiection = targetData.activeCharacter.position - transform.position;
         }
 
         public float speed => _speed;
@@ -36,11 +44,25 @@ namespace CDR.MovementSystem
 
         private void Update()
         {
+            RotateObject();
             controller.MoveRb(currentDir);
+
             if (clampSpeed)
             {
                 controller.ClampVelocity(speed);
             }
+        }
+
+        private void RotateObject()
+        {
+            ITargetData targetData = Character.targetHandler.GetCurrentTarget();
+
+            var look = Quaternion.LookRotation(-targetData.direction);
+            var quat = Quaternion.RotateTowards(transform.rotation, look, 50f);
+            quat.x = 0f;
+            quat.z = 0f;
+
+            controller.Rotate(Quaternion.RotateTowards(transform.rotation, quat, 50f));
         }
 
         public void SetClamp(bool boo)
@@ -50,7 +72,9 @@ namespace CDR.MovementSystem
 
         public void Move(Vector2 direction)
         {
-            currentDir = new Vector3(direction.x, 0f, direction.y);     
+            var dir = new Vector3(direction.x, 0f, direction.y);
+            dir = transform.rotation * dir;
+            currentDir = dir;
         }
 
         public override void Use()
