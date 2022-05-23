@@ -22,10 +22,10 @@ namespace CDR.InputSystem
             playerInput.EnableInput();
 
             if(_TestObject.TryGetComponent<ActiveCharacter>(out ActiveCharacter activeCharacter))
-                activeCharacter.targetHandler.Use();
+                activeCharacter?.targetHandler?.Use();
 
             if(_TestObject.TryGetComponent<Mech>(out Mech mech))
-                mech.movement.Use();
+                mech.movement?.Use();
         }
     }
 }
