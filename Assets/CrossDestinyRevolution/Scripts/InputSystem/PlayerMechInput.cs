@@ -148,7 +148,7 @@ namespace CDR.InputSystem
 
             else
             {
-                character?.boost?.HorizontalBoost(context.ReadValue<Vector2>());
+                character?.boost?.HorizontalBoost(_MovementInput);
                 
                 Debug.Log($"[Boost Input] Horizontal Boost!");
             }
