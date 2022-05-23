@@ -22,54 +22,54 @@ namespace CDR.MovementSystem
 
         public IBoostData verticalBoostData => _verticalBoostData;
 
-        public bool isActive => base.isActive;
 
-        public IActiveCharacter Character => base.Character;
 
-        public event System.Action onUse;
-        public event System.Action onEnd;
-
-        public void End()
+        public override void End()
         {
             base.End();
         }
 
         public void HorizontalBoost(Vector2 direction)
         {
-            if(_boostValue.CanUse() && isActive)
+            if(_boostValue.CanUse())
             {
-                onUse?.Invoke();
-                _boostValue.Consume();
-
                 var dir = transform.position + 
                     new Vector3(direction.x, 0f, direction.y) * _horizontalBoostData.distance;
+                Vector3 point = dir;
 
-                LeanTween.move(gameObject, dir, _horizontalBoostData.time).setEaseOutExpo()
+                if(Physics.Raycast(transform.position, -(transform.position - dir), out RaycastHit hit, _horizontalBoostData.distance))
+                {
+                    point = hit.point;
+                }
+
+                _boostValue.Consume();
+                _boostValue.SetIsRegening(false);
+
+                LeanTween.move(gameObject, point, _horizontalBoostData.time).setEaseOutQuad()
                     .setOnComplete(() =>
                     {
-                        onEnd?.Invoke();
+                        _boostValue.SetIsRegening(true);
                     }); 
             }
         }
 
-        public void Use()
+        public override void Use()
         {
             base.Use();
         }
 
         public void VerticalBoost(float direction)
         {
-            onUse?.Invoke();
-            _boostValue.Consume();
-
-            if(_boostValue.CanUse() && isActive)
+            if(_boostValue.CanUse())
             {
-                var dir = transform.position.y + direction * _verticalBoostData.distance;
+                _boostValue.Consume();
+                _boostValue.SetIsRegening(false);
+                var dir = direction * _verticalBoostData.distance;
 
                 LeanTween.moveY(gameObject, dir, _horizontalBoostData.time).setEaseOutExpo()
                     .setOnComplete(() =>
                     {
-                        onEnd?.Invoke();
+                        _boostValue.SetIsRegening(true);
                     });
             }
         }

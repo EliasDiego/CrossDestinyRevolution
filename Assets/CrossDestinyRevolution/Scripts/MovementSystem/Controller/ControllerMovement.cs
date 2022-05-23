@@ -1,79 +1,61 @@
+using CDR.MechSystem;
+using System;
 using UnityEngine;
 
 // This class handles movement of a controller through a rigidbody.
 
 namespace CDR.MovementSystem
 {
-    public class ControllerMovement : ActionSystem.Action
+    public class ControllerMovement : ActionSystem.Action, IMovement
     {
         [SerializeField]
-        private float maxSpeed = 15f;
+        private float _speed;
+        [SerializeField]
+        private float _gravity;
 
-        private Rigidbody rb;
+        private Controller controller;
+        private Vector3 currentDir = Vector3.zero;
 
-        private bool clampSpeed = true;
+        [SerializeField]
+        private bool clampSpeed = false;
 
-        Vector3 currentDirection = Vector3.zero;
-
-        private void Start()
+        protected override void Awake()
         {
-            Use();            
+            base.Awake();
+            controller = GetComponent<Controller>();
         }
 
-        private void FixedUpdate()
-        {
-            if (isActive)
-            {
-                Move(currentDirection);
-                MoveRB();
-            }
-        }
+        public float speed => _speed;
 
-        public override void Use()
-        {
-            base.Use();
-        }
+        public float gravity => _gravity;
 
         public override void End()
         {
             base.End();
         }
 
-        public void SetRigidbody(Rigidbody rigid)
+        private void Update()
         {
-            rb = rigid;
-        }
-
-        // Use this method for moving with new input system.
-        public void Move(Vector3 direction)
-        {
-            currentDirection = direction;            
-        }
-
-        private void OldMove()
-        {
-            currentDirection = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
-            MoveRB();
-        }
-
-        private void MoveRB()
-        {
-            rb.AddForce(currentDirection, ForceMode.VelocityChange);
-
-            if(clampSpeed)
+            controller.MoveRb(currentDir);
+            if (clampSpeed)
             {
-                rb.velocity = Vector3.ClampMagnitude(rb.velocity, maxSpeed);
+                controller.ClampVelocity(speed);
             }
         }
 
-        public void ClampSpeed()
+        public void SetClamp(bool boo)
         {
-            clampSpeed = true;
+            clampSpeed = boo;
         }
 
-        public void UnclampSpeed()
+        public void Move(Vector2 direction)
         {
-            clampSpeed = false;
+            currentDir = new Vector3(direction.x, 0f, direction.y);     
+        }
+
+        public override void Use()
+        {
+            base.Use();
         }
     }
 }

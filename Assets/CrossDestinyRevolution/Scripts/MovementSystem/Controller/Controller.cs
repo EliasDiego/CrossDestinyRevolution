@@ -6,15 +6,17 @@ namespace CDR.MovementSystem
 {
     public class Controller : MonoBehaviour , IController
     {
+        [SerializeField]
+        private FlightPlane _flightPlane;
+
         private Rigidbody rb;
 
         public Vector3 Velocity
         {
             get { return rb.velocity; }
-            private set { }
         }
 
-        public IFlightPlane flightPlane => throw new System.NotImplementedException();
+        public IFlightPlane flightPlane => _flightPlane;
 
         public Vector3 velocity => throw new System.NotImplementedException();
 
@@ -25,18 +27,27 @@ namespace CDR.MovementSystem
 
         public void SetVelocity(Vector3 value)
         {
-            Velocity = value;
             rb.velocity = value;
+        }
+
+        public void ClampVelocity(float magnitude)
+        {
+            rb.velocity = Vector3.ClampMagnitude(rb.velocity, magnitude);
+        }
+
+        public void MoveRb(Vector3 force)
+        {
+            rb.AddForce(force, ForceMode.VelocityChange);
         }
 
         public void Translate(Vector3 direction, float magnitude)
         {
-            throw new System.NotImplementedException();
+            transform.Translate(direction * magnitude);
         }
 
         public void Rotate(Quaternion rotation)
         {
-            throw new System.NotImplementedException();
+            transform.rotation = rotation;
         }
     }
 }
