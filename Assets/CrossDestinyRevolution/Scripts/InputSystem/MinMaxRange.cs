@@ -18,7 +18,7 @@ namespace CDR.InputSystem
 
         public bool IsWithinRange(float value)
         {
-            return minValue >= value && value <= maxValue;
+            return minValue <= value && value <= maxValue;
         }
     }
 }
