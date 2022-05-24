@@ -178,7 +178,7 @@ namespace CDR.InputSystem
             _InputActions["Movement"].performed += OnMovement;
             _InputActions["Movement"].canceled += OnMovement;
 
-            // _InputActions["Boost"].started += OnBoost;
+            _InputActions["Boost"].started += OnBoost;
 
             _InputActions["ChangeTarget"].started += OnChangeTarget;
             _InputActions["MeleeAttack"].started += OnMeleeAttack;

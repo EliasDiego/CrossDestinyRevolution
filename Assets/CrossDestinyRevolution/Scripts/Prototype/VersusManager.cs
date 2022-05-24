@@ -24,29 +24,33 @@ namespace CDR.Prototype_SC
         [SerializeField]
         InputActionAsset _SplitInputAsset;
 
+        [Header("Player Input Settings")]
+        [SerializeField]
+        PlayerMechInputSettings _PlayerMechInputSettings;
+
         private void Start() 
         {
-            IPlayerInput player1Input;
-            IPlayerInput player2Input;
+            PlayerMechInput player1Input;
+            PlayerMechInput player2Input;
 
             if(Gamepad.all.Count > 1)
             {
-                player1Input = InputUtilities.AssignPlayerInput<PlayerMechInput>(_Player1Mech.gameObject, _MainInputAsset, Gamepad.all[0]);
-                player2Input = InputUtilities.AssignPlayerInput<PlayerMechInput>(_Player2Mech.gameObject, _MainInputAsset, Gamepad.all[1]);
+                player1Input = InputUtilities.AssignPlayerInput<PlayerMechInput, IPlayerMechInputSettings>(_Player1Mech.gameObject, _PlayerMechInputSettings, _MainInputAsset, Gamepad.all[0]);
+                player2Input = InputUtilities.AssignPlayerInput<PlayerMechInput, IPlayerMechInputSettings>(_Player2Mech.gameObject, _PlayerMechInputSettings, _MainInputAsset, Gamepad.all[1]);
                 Debug.Log("Blah>1");
             }
 
             else if(Gamepad.all.Count == 1)
             {
-                player1Input = InputUtilities.AssignPlayerInput<PlayerMechInput>(_Player1Mech.gameObject, _MainInputAsset, Keyboard.current);
-                player2Input = InputUtilities.AssignPlayerInput<PlayerMechInput>(_Player2Mech.gameObject, _MainInputAsset, Gamepad.all[0]);
+                player1Input = InputUtilities.AssignPlayerInput<PlayerMechInput, IPlayerMechInputSettings>(_Player1Mech.gameObject, _PlayerMechInputSettings, _MainInputAsset, Keyboard.current);
+                player2Input = InputUtilities.AssignPlayerInput<PlayerMechInput, IPlayerMechInputSettings>(_Player2Mech.gameObject, _PlayerMechInputSettings, _MainInputAsset, Gamepad.all[0]);
                 Debug.Log("Blah==1");
             }
 
             else
             {
-                player1Input = InputUtilities.AssignPlayerInput<PlayerMechInput>(_Player1Mech.gameObject, _MainInputAsset, Keyboard.current);
-                player2Input = InputUtilities.AssignPlayerInput<PlayerMechInput>(_Player2Mech.gameObject, _SplitInputAsset, Keyboard.current);
+                player1Input = InputUtilities.AssignPlayerInput<PlayerMechInput, IPlayerMechInputSettings>(_Player1Mech.gameObject, _PlayerMechInputSettings, _MainInputAsset, Keyboard.current);
+                player2Input = InputUtilities.AssignPlayerInput<PlayerMechInput, IPlayerMechInputSettings>(_Player2Mech.gameObject, _PlayerMechInputSettings, _SplitInputAsset, Keyboard.current);
                 Debug.Log("Blah==0");
             }
 

@@ -441,6 +441,7 @@ MonoBehaviour:
   _Player2Mech: {fileID: 721704762}
   _MainInputAsset: {fileID: -944628639613478452, guid: 68bdc22a752cb6f419983bee70ecd6cd, type: 3}
   _SplitInputAsset: {fileID: -944628639613478452, guid: ed267bcfc933e1147a0f828f0901952c, type: 3}
+  _PlayerMechInputSettings: {fileID: 11400000, guid: b5b309fa0d20d414783776f576d8f401, type: 2}
 --- !u!4 &217879164
 Transform:
   m_ObjectHideFlags: 0
@@ -3434,7 +3435,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1731085680}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
