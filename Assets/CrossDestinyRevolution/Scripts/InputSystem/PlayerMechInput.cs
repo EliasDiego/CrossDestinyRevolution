@@ -135,7 +135,7 @@ namespace CDR.InputSystem
                     Debug.Log($"[Boost Input] Vertical Boost Up!");
                 }
 
-                else if(height >= settings.boostInputSettings.boostDownMinHeight)
+                else if(height > settings.boostInputSettings.boostDownMinHeight)
                 {
                     character?.boost?.VerticalBoost(-1);
 
