@@ -19,6 +19,8 @@ namespace CDR.InputSystem
         private InputActionAsset _ActionAsset;
         private TSettings _PlayerInputSettings;
 
+        private Gamepad[] _Gamepads;
+
         protected InputActionAsset actionAsset => _ActionAsset;
         protected TSettings settings => _PlayerInputSettings;
 
@@ -30,11 +32,40 @@ namespace CDR.InputSystem
                 user.UnpairDevicesAndRemoveUser();
         }
 
+        protected void StartHaptic(float lowFrequency, float highFrequency)
+        {
+            if(_Gamepads == null || _Gamepads.Length <= 0)
+                return;
+
+            foreach(Gamepad gamepad in _Gamepads)
+                gamepad.SetMotorSpeeds(lowFrequency, highFrequency);
+        }
+
+        protected void StopHaptic()
+        {
+            if(_Gamepads == null || _Gamepads.Length <= 0)
+                return;
+
+            foreach(Gamepad gamepad in _Gamepads)
+                gamepad.ResetHaptics();
+        }
+
         public virtual void SetupInput(TSettings playerInputSettings, InputActionAsset inputActionAsset, params InputDevice[] devices)
         {
             _User = default(InputUser);
+
+            devices = devices.Where(d => d != null)?.ToArray();
+
+            if(devices == null || devices.Length <= 0)
+            {
+                Debug.LogAssertion("[Input System Error] No Device(s) Assigned!");
+
+                return;
+            }
+
+            _Gamepads = devices.Where(d => d is Gamepad)?.Cast<Gamepad>()?.ToArray();
             
-            foreach(InputDevice device in devices.Where(d => d != null))
+            foreach(InputDevice device in devices)
                 _User = InputUser.PerformPairingWithDevice(device, _User);
 
             Debug.Assert(_User.valid, "[Input System Error] Input User is not valid!");
