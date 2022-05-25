@@ -127,6 +127,8 @@ namespace CDR.InputSystem
             if(_MovementInput.magnitude < settings.boostInputSettings.movementInputThreshold)
             {
                 float? height = character?.position.y - character?.controller?.flightPlane?.position.y;
+
+                Debug.Log($"[Boost Input] Height : {height}");
                 
                 if(settings.boostInputSettings.boostUpHeightRange.IsWithinRange(height.Value))
                 {
