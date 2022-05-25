@@ -9,8 +9,8 @@ namespace CDR.AttackSystem
 	{
 		[SerializeField] float FireRate;
 
-		[SerializeField] GameObject GunPoint; //Invisible gameobject for the location of the gun barrel
-		[SerializeField] public Transform TargetPoint; //Predictive Targeting system
+		[SerializeField] GameObject GunPoint; 
+		[SerializeField] public GameObject Target; 
 
 		[SerializeField] GameObject BulletProjectile;
 
@@ -20,22 +20,25 @@ namespace CDR.AttackSystem
 
 		private void Start()
 		{
-			_cooldownDuration = FireRate;
 			
 		}
 
 		public override void Update()
 		{
 			base.Update();
+			_cooldownDuration = FireRate;
 		}
 
 		public override void Use()
 		{
 			base.Use();
 
-			BulletProjectile.GetComponent<Bullet>().direction = TestPredictiveTarget();
-			//BulletProjectile.GetComponent<Projectile>().projectileOriginPoint = GunPoint.transform.position;
-			Instantiate(BulletProjectile, GunPoint.transform.position, Quaternion.identity);
+			//BulletProjectile.GetComponent<Projectile>().currentTarget = Character.targetHandler.GetCurrentTarget().activeCharacter.;
+			BulletProjectile.GetComponent<Projectile>().currentTarget = Target;
+
+			var direction = Target.transform.position - GunPoint.transform.position;
+			Instantiate(BulletProjectile, GunPoint.transform.position, Quaternion.LookRotation(direction));
+			//Instantiate(BulletProjectile, GunPoint.transform.position, Quaternion.LookRotation(Character.targetHandler.GetCurrentTarget().activeCharacter.position));
 
 			End();
 		}
@@ -45,38 +48,7 @@ namespace CDR.AttackSystem
 			base.End();
 		}
 
-		Vector3 SetPredictiveTarget() //Real predictive
-		{
-			var currentTarget = Character.targetHandler.GetCurrentTarget();
-			var targetVelocity = currentTarget.activeCharacter.controller.velocity;
-			var targetPos = currentTarget.activeCharacter.position;
-
-			if (targetVelocity != Vector3.zero) //Adds offset of targeting based on velocity of target
-			{
-				var direction = ((targetPos + targetVelocity) - GunPoint.transform.position).normalized;
-				return direction;
-			}
-			else // if target is not moving
-			{
-				return targetPos;
-			}
-		}
-
-		Vector3 TestPredictiveTarget() //for Target Point Testing
-		{
-			var currentTarget = TargetPoint.position;
-			var targetVelocity = TargetPoint.GetComponent<TestVelocity>()._rigidbody.velocity;
-
-			if (targetVelocity != Vector3.zero) //Adds offset of targeting based on velocity of target
-			{
-				var direction = ((currentTarget + targetVelocity) - GunPoint.transform.position).normalized;
-				return direction;
-			}
-			else // if target is not moving
-			{
-				return currentTarget;
-			}
-		}
+		
 
 		void SetProjectile()
 		{
@@ -86,7 +58,7 @@ namespace CDR.AttackSystem
 		private void OnDrawGizmos()
 		{
 			Gizmos.color = Color.red;
-			Gizmos.DrawLine(transform.position, TargetPoint.position);
+			Gizmos.DrawLine(transform.position, Target.transform.position);
 		}
 	}
 }
