@@ -12,25 +12,20 @@ namespace CDR.SceneManagementSystem
         [SerializeField]
         int _LoadingScreenSceneIndex;
 
-        SceneContextData _SceneContextData;
+        private ISceneTask _SceneTask;
 
         public int loadingScreenSceneIndex => _LoadingScreenSceneIndex;
 
-        public SceneContextData sceneContextData => _SceneContextData;
+        public ISceneTask sceneTask => _SceneTask;
 
         public void LoadScene(int sceneIndex)
         {
             SceneManager.LoadScene(sceneIndex);
         }
 
-        public void LoadSceneAsync(int sceneIndex)
+        public void LoadSceneAsync(ISceneTask sceneTask)
         {
-            LoadSceneAsync(null, null, sceneIndex);
-        }
-
-        public void LoadSceneAsync(ISceneContextUnloader unloader, ISceneContextLoader loader, int sceneIndex)
-        {
-            _SceneContextData = new SceneContextData(sceneIndex, loader, unloader);
+            _SceneTask = sceneTask;
 
             SceneManager.LoadScene(_LoadingScreenSceneIndex, LoadSceneMode.Additive);
         }

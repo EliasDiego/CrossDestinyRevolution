@@ -6,24 +6,8 @@ using UnityEngine.SceneManagement;
 
 namespace CDR.SceneManagementSystem
 {
-    public interface ISceneContextProcess
+    public interface ISceneTask
     {
         IEnumerator Process();
-    }
-    public interface ISceneContextLoader : ISceneContextProcess
-    {
-        
-    }
-
-    public interface ISceneContextUnloader : ISceneContextProcess
-    {
-        
-    }
-
-    public interface ISceneHandler
-    {
-        void LoadScene(LoadSceneMode loadSceneMode);
-        AsyncOperation LoadSceneAsync(LoadSceneMode loadSceneMode);
-        AsyncOperation UnloadSceneAsync(UnloadSceneOptions unloadSceneOptions);
     }
 }
