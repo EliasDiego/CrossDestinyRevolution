@@ -129,7 +129,7 @@ MonoBehaviour:
   currentTarget: {fileID: 0}
   bulletSpeed: 30
   rotateSpeed: 40
-  _maxDistancePredict: 100
+  _maxDistancePredict: 20
   _minDistancePredict: 0
   _maxTimePrediction: 5
   _deviationAmount: 10

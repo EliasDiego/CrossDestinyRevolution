@@ -14,6 +14,9 @@ namespace CDR.AttackSystem
 		protected Rigidbody _rigidBody;
 		protected bool isHoming = true;
 
+		public IActiveCharacter target { get; set; }
+		
+
 		public override void Start()
 		{
 			base.Start();

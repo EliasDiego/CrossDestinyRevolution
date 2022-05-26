@@ -23,7 +23,7 @@ namespace CDR.AttackSystem
         {
             base.FixedUpdate();
 
-            distanceFromTarget = Vector3.Distance(transform.position, currentTarget.transform.position);
+            distanceFromTarget = Vector3.Distance(transform.position, target.position);
 
             var leadTimePercentage = Mathf.InverseLerp(_minDistancePredict, _maxDistancePredict, distanceFromTarget);
 
@@ -46,14 +46,14 @@ namespace CDR.AttackSystem
 		public override void Start()
 		{
             base.Start();
-            _standardPrediction = currentTarget.transform.position;
-            _deviatedPrediction = currentTarget.transform.position;
+            _standardPrediction = target.position;
+            _deviatedPrediction = target.position;
         }
 
         private void PredictMovement(float leadTimePercentage)
         {
             var predictionTime = Mathf.Lerp(0, _maxTimePrediction, leadTimePercentage);
-            _standardPrediction = currentTarget.transform.position + currentTarget.GetComponent<Rigidbody>().velocity * predictionTime;
+            _standardPrediction = target.position + target.controller.velocity * predictionTime;
         }
 
         private void AddDeviation(float leadTimePercentage)

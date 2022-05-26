@@ -11,17 +11,18 @@ namespace CDR.AttackSystem
 		Collider projectileHitbox;
 		public float projectileLifetime;
 
-		public GameObject currentTarget;
-
 		public Collider HitBox => projectileHitbox;
 		public float Lifetime => projectileLifetime;
 
-		public IController controller => throw new System.NotImplementedException();
+		IProjectileController projectileController;
+
+		public IController controller => projectileController;
 		public IPool pool => throw new System.NotImplementedException();
 
 		public virtual void Start()
 		{
 			projectileHitbox = GetComponent<Collider>();
+			projectileController = GetComponent<ProjectileController>();
 		}
 
 		public virtual void Update()
@@ -49,7 +50,7 @@ namespace CDR.AttackSystem
 
 		public void ResetObject()
 		{
-			currentTarget = null;
+			
 		}
 
 		public void Return()
