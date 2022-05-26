@@ -13,7 +13,7 @@ using CDR.TargetingSystem;
 
 namespace CDR.InputSystem
 {
-    public class PlayerMechInput : PlayerCharacterInput<IMech, IPlayerMechInputSettings>
+    public class PlayerMechInput : PlayerCharacterInput<IMech>
     {
         private Vector2 _MovementInput;
 
@@ -53,7 +53,7 @@ namespace CDR.InputSystem
 
         private void OnSpecialAttack3(InputAction.CallbackContext context)
         {
-            if(CheckBoolean(character?.specialAttack3?.isActive) || CheckBoolean(character?.specialAttack3?.isCoolingDown))
+            if(CheckBoolean(character?.specialAttack3?.isActive) && CheckBoolean(character?.specialAttack3?.isCoolingDown))
                 return;
 
             character?.specialAttack3?.Use();
@@ -63,7 +63,7 @@ namespace CDR.InputSystem
 
         private void OnSpecialAttack2(InputAction.CallbackContext context)
         {
-            if(CheckBoolean(character?.specialAttack2?.isActive) || CheckBoolean(character?.specialAttack2?.isCoolingDown))
+            if(CheckBoolean(character?.specialAttack2?.isActive) && CheckBoolean(character?.specialAttack2?.isCoolingDown))
                 return;
 
             character?.specialAttack2?.Use();
@@ -73,7 +73,7 @@ namespace CDR.InputSystem
 
         private void OnSpecialAttack1(InputAction.CallbackContext context)
         {
-            if(CheckBoolean(character?.specialAttack1?.isActive) || CheckBoolean(character?.specialAttack1?.isCoolingDown))
+            if(CheckBoolean(character?.specialAttack1?.isActive) && CheckBoolean(character?.specialAttack1?.isCoolingDown))
                 return;
 
             character?.specialAttack1?.Use();
@@ -93,7 +93,7 @@ namespace CDR.InputSystem
 
         private void OnRangeAttack()
         {
-            if(CheckBoolean(character?.rangeAttack?.isActive) || CheckBoolean(character?.rangeAttack?.isCoolingDown))
+            if(CheckBoolean(character?.rangeAttack?.isActive) && CheckBoolean(character?.rangeAttack?.isCoolingDown))
                 return;
 
             character?.rangeAttack?.Use();
@@ -124,20 +124,18 @@ namespace CDR.InputSystem
             if(CheckBoolean(character?.boost?.isActive))
                 return;
 
-            if(_MovementInput.magnitude < settings.boostInputSettings.movementInputThreshold)
+            if(_MovementInput.magnitude < 0.3f)
             {
                 float? height = character?.position.y - character?.controller?.flightPlane?.position.y;
-
-                Debug.Log($"[Boost Input] Height : {height}");
                 
-                if(settings.boostInputSettings.boostUpHeightRange.IsWithinRange(height.Value))
+                if(height < 0.4f) // Temp
                 {
                     character?.boost?.VerticalBoost(1);
 
                     Debug.Log($"[Boost Input] Vertical Boost Up!");
                 }
 
-                else if(height > settings.boostInputSettings.boostDownMinHeight)
+                else if(height > 1) // Temp
                 {
                     character?.boost?.VerticalBoost(-1);
 
@@ -150,7 +148,7 @@ namespace CDR.InputSystem
 
             else
             {
-                character?.boost?.HorizontalBoost(_MovementInput);
+                character?.boost?.HorizontalBoost(context.ReadValue<Vector2>());
                 
                 Debug.Log($"[Boost Input] Horizontal Boost!");
             }
@@ -160,7 +158,7 @@ namespace CDR.InputSystem
         {
             _MovementInput = context.ReadValue<Vector2>();
 
-            if(!CheckBoolean(character?.movement?.isActive))
+            if(CheckBoolean(character?.movement.isActive))
                 return;
                 
             character?.movement?.Move(_MovementInput);
@@ -168,11 +166,11 @@ namespace CDR.InputSystem
             Debug.Log($"[Movement Input] {_MovementInput}");
         }
 
-        public override void SetupInput(IPlayerMechInputSettings playerInputSettings, InputActionAsset inputActionAsset, params InputDevice[] devices)
+        public override void SetupInput(InputActionAsset inputActionAsset, params InputDevice[] devices)
         {
-            base.SetupInput(playerInputSettings, inputActionAsset, devices);
+            base.SetupInput(inputActionAsset, devices);
             
-            InputActionMap actionMap = actionAsset.FindActionMap("Game", true);
+            InputActionMap actionMap = inputActionAsset.FindActionMap("Game", true);
 
             foreach(InputAction inputAction in actionMap.actions)
                 _InputActions.Add(inputAction.name, inputAction);

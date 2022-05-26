@@ -6,8 +6,6 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
 
-using CDR;
-
 namespace CDR.InputSystem
 {
     public interface IInput
@@ -16,10 +14,11 @@ namespace CDR.InputSystem
         void DisableInput();
     }
 
-    public interface IPlayerInput<T> : IInput where T : IPlayerInputSettings
+    public interface IPlayerInput : IInput
     {
-        public InputUser user { get; }
-        void SetupInput(T playerInputSettings, InputActionAsset inputActionAsset, params InputDevice[] devices);
+        InputUser user { get; }
+        InputActionAsset inputActionAsset { get; }
+        void SetupInput(InputActionAsset inputActionAsset, params InputDevice[] devices);
         void EnableInput(string name);
         void DisableInput(string name);
     }
@@ -27,30 +26,5 @@ namespace CDR.InputSystem
     public interface IAIInput : IInput
     {
         void SetupInput();
-    }
-
-    public interface IMinMaxRange
-    {
-        float minValue { get; }
-        float maxValue { get; }
-
-        bool IsWithinRange(float value);
-    }
-
-    public interface IBoostInputSettings
-    {
-        float movementInputThreshold { get; }
-        IMinMaxRange boostUpHeightRange { get; }
-        float boostDownMinHeight { get; }
-    }
-
-    public interface IPlayerInputSettings
-    {
-        
-    }
-
-    public interface IPlayerMechInputSettings : IPlayerInputSettings
-    {
-        IBoostInputSettings boostInputSettings { get; }
     }
 }
