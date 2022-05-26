@@ -13,7 +13,7 @@ using CDR.TargetingSystem;
 
 namespace CDR.InputSystem
 {
-    public class PlayerMechInput : PlayerCharacterInput<IMech>
+    public class PlayerMechInput : PlayerCharacterInput<IMech, IPlayerMechInputSettings>
     {
         private Vector2 _MovementInput;
 
@@ -124,18 +124,20 @@ namespace CDR.InputSystem
             if(CheckBoolean(character?.boost?.isActive))
                 return;
 
-            if(_MovementInput.magnitude < 0.3f)
+            if(_MovementInput.magnitude < settings.boostInputSettings.movementInputThreshold)
             {
                 float? height = character?.position.y - character?.controller?.flightPlane?.position.y;
+
+                Debug.Log($"[Boost Input] Height : {height}");
                 
-                if(height < 0.4f) // Temp
+                if(settings.boostInputSettings.boostUpHeightRange.IsWithinRange(height.Value))
                 {
                     character?.boost?.VerticalBoost(1);
 
                     Debug.Log($"[Boost Input] Vertical Boost Up!");
                 }
 
-                else if(height > 1) // Temp
+                else if(height > settings.boostInputSettings.boostDownMinHeight)
                 {
                     character?.boost?.VerticalBoost(-1);
 
@@ -166,11 +168,11 @@ namespace CDR.InputSystem
             Debug.Log($"[Movement Input] {_MovementInput}");
         }
 
-        public override void SetupInput(InputActionAsset inputActionAsset, params InputDevice[] devices)
+        public override void SetupInput(IPlayerMechInputSettings playerInputSettings, InputActionAsset inputActionAsset, params InputDevice[] devices)
         {
-            base.SetupInput(inputActionAsset, devices);
+            base.SetupInput(playerInputSettings, inputActionAsset, devices);
             
-            InputActionMap actionMap = inputActionAsset.FindActionMap("Game", true);
+            InputActionMap actionMap = actionAsset.FindActionMap("Game", true);
 
             foreach(InputAction inputAction in actionMap.actions)
                 _InputActions.Add(inputAction.name, inputAction);
