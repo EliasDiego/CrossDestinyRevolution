@@ -17,7 +17,7 @@ namespace CDR.InputSystem
         [SerializeField]
         PlayerMechInputSettings _PlayerMechInputSettings;
 
-        private void Awake() 
+        private void Start() 
         {
             PlayerMechInput playerInput = InputUtilities.AssignPlayerInput<PlayerMechInput, IPlayerMechInputSettings>(_TestObject, _PlayerMechInputSettings, _InputActionAsset, Keyboard.current, Gamepad.current);
 

@@ -21,11 +21,15 @@ namespace CDR.MovementSystem
 
     public interface IController
     {
-        IFlightPlane flightPlane { get; }
         Vector3 velocity { get; }
 
         void Translate(Vector3 direction, float magnitude);
         void Rotate(Quaternion rotation);
+    }
+
+    public interface ICharacterController : IController
+    {
+        CDR.MovementSystem.IFlightPlane flightPlane { get; set; }
     }
 
     public interface IFlightPlane
