@@ -11,13 +11,18 @@ using System;
 
 namespace CDR.InputSystem
 {
-    public abstract class PlayerCharacterInput<T> : CharacterInput<T>, IPlayerInput where T : IActiveCharacter
+    public abstract class PlayerCharacterInput<TCharacter, TSettings> : CharacterInput<TCharacter>, IPlayerInput<TSettings> 
+        where TCharacter : IActiveCharacter
+        where TSettings : IPlayerInputSettings
     {
         private InputUser _User;
         private InputActionAsset _ActionAsset;
+        private TSettings _PlayerInputSettings;
+
+        protected InputActionAsset actionAsset => _ActionAsset;
+        protected TSettings settings => _PlayerInputSettings;
 
         public InputUser user => _User;
-        public InputActionAsset inputActionAsset => _ActionAsset;
 
         protected virtual void OnDestroy()
         {
@@ -25,7 +30,7 @@ namespace CDR.InputSystem
                 user.UnpairDevicesAndRemoveUser();
         }
 
-        public virtual void SetupInput(InputActionAsset inputActionAsset, params InputDevice[] devices)
+        public virtual void SetupInput(TSettings playerInputSettings, InputActionAsset inputActionAsset, params InputDevice[] devices)
         {
             _User = default(InputUser);
             
@@ -36,19 +41,21 @@ namespace CDR.InputSystem
 
             _ActionAsset = Instantiate(inputActionAsset);
 
+            _PlayerInputSettings = playerInputSettings;
+
             _User.AssociateActionsWithUser(_ActionAsset);
         }
 
         public override void EnableInput()
         {
-            if(inputActionAsset)
-                inputActionAsset.Enable();
+            if(actionAsset)
+                actionAsset.Enable();
         }
 
         public override void DisableInput()
         {
-            if(inputActionAsset)
-                inputActionAsset.Disable();
+            if(actionAsset)
+                actionAsset.Disable();
         }
 
         public abstract void EnableInput(string name);
