@@ -12,15 +12,9 @@ namespace CDR.AttackSystem
 		[SerializeField] GameObject GunPoint; 
 		[SerializeField] public GameObject Target; 
 		[SerializeField] GameObject BulletProjectile;
+		[SerializeField] float attackRange;
 
-		public IProjectile projectile => throw new System.NotImplementedException();
-
-		public float range => throw new System.NotImplementedException();
-
-		private void Start()
-		{
-			
-		}
+		public float range => attackRange;
 
 		public override void Update()
 		{
@@ -38,7 +32,6 @@ namespace CDR.AttackSystem
 			var direction = targetPos - GunPoint.transform.position;
 
 			var bullet = Instantiate(BulletProjectile, GunPoint.transform.position, Quaternion.LookRotation(direction));
-
 			bullet.GetComponent<HomingProjectile>().target = target.activeCharacter;
 
 			End();
@@ -47,11 +40,6 @@ namespace CDR.AttackSystem
 		public override void End()
 		{
 			base.End();
-		}
-
-		void SetProjectile()
-		{
-			//interchange between what projectile to fire
 		}
 
 		private void OnDrawGizmos()
