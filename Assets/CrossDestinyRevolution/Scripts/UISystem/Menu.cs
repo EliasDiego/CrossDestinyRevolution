@@ -13,45 +13,51 @@ namespace CDR.UISystem
         public IMenu previousMenu { get; set; }
         public bool isShown { get => _IsShown; protected set => _IsShown = value; }
 
-        protected virtual void Awake() 
+        protected virtual void Start() 
         {
             if(_IsShown)
-                transform.SetActiveChildren(true);
+                Show();
+
+            else
+                Hide();
+            // transform.SetActiveChildren();
         }
 
-        private IEnumerator SwitchToCoroutine(IMenu previousMenu, IMenu nextMenu)
+        private IEnumerator SwitchToCoroutine(IMenu nextMenu)
         {
-            previousMenu.Hide();
+            Hide();
 
-            while(!isShown)
+            while(isShown)
                 yield return null;
 
             nextMenu.Show();
+
+            Debug.Log(nextMenu);
         }
 
-        public virtual void Back()
+        public void Back()
         {
             if(_SwitchToCoroutine != null)
                 StopCoroutine(_SwitchToCoroutine);
 
-            _SwitchToCoroutine = StartCoroutine(SwitchToCoroutine(this, previousMenu));
-            
+            _SwitchToCoroutine = StartCoroutine(SwitchToCoroutine(previousMenu));
+
             previousMenu = null;
         }
 
-        public virtual void SwitchTo(IMenu nextMenu)
+        public void SwitchTo(IMenu nextMenu)
         {
             nextMenu.previousMenu = this;
             
             if(_SwitchToCoroutine != null)
                 StopCoroutine(_SwitchToCoroutine);
 
-            _SwitchToCoroutine = StartCoroutine(SwitchToCoroutine(this, nextMenu));
+            _SwitchToCoroutine = StartCoroutine(SwitchToCoroutine(nextMenu));
         }
 
         public void SwitchTo(Menu menu)
         {
-            SwitchTo(menu as IMenu);
+            SwitchTo((IMenu)menu);
         }
 
         public virtual void Hide()
