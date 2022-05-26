@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/CrossDestinyRevolution/Scenes/SampleScene.unity
     guid: d1c3109bdb54ad54c8a2b2838528e640
+  - enabled: 1
+    path: Assets/CrossDestinyRevolution/Scenes/LoadingScreenScene.unity
+    guid: b3952d05a6d6f1b46a2a9157e1acf542
   m_configObjects: {}
