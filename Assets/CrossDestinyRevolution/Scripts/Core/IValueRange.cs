@@ -1,11 +1,14 @@
 using System;
 
-public interface IValueRange 
+namespace CDR
 {
-    float CurrentValue {get;}
-    float MaxValue {get;}
-    void ModifyValue(float value);
-    void ModifyValueWithoutEvent(float value);
+    public interface IValueRange 
+    {
+        float CurrentValue {get;}
+        float MaxValue {get;}
+        void ModifyValue(float value);
+        void ModifyValueWithoutEvent(float value);
 
-    event Action OnModifyValue;
+        event Action<IValueRange> OnModifyValue;
+    }
 }
