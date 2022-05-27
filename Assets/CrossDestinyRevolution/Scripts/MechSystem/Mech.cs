@@ -8,7 +8,7 @@ namespace CDR.MechSystem
 {
     public class Mech : ActiveCharacter, IMech
     {
-        Boost _boost;
+        IBoost _boost;
         IMeleeAttack _meleeAttack;
         IRangeAttack _rangeAttack;
         IShield _shield;
@@ -34,7 +34,7 @@ namespace CDR.MechSystem
         {
             base.Awake();
 
-            //_boost = GetComponent<IBoost>();
+            _boost = GetComponent<IBoost>();
             _meleeAttack = GetComponent<IMeleeAttack>();
             _rangeAttack = GetComponent<IRangeAttack>();
             _shield = GetComponent<IShield>();

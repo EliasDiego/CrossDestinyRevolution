@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace CDR.MechSystem
 {
+    [System.Serializable]
     public class Health : ValueRange, IHealth
     {
         public void CheckHealthStatus()
@@ -28,4 +29,3 @@ namespace CDR.MechSystem
         }
     }
 }
-
