@@ -22,7 +22,31 @@ namespace CDR.MechSystem
 
         public void ModifyValueWithoutEvent(float value)
         {
+            _valueRange.ModifyValueWithoutEvent(value);
+        }
 
+        public void CheckHealthStatus()
+        {
+            if(CurrentValue < 0)
+            {
+                Death();
+            }
+        }
+
+        public void TakeDamage(float damage)
+        {
+            float currentHealth = CurrentValue - damage;
+            ModifyValue(currentHealth);
+        }
+
+        public void Death()
+        {
+            Debug.Log("Player died");
+        }
+
+        private void Update()
+        {
+            CheckHealthStatus();
         }
     }
 }
