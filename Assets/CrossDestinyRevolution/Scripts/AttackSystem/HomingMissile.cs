@@ -2,10 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace CDR.AttackSystem
 {
-    public class HomingBullet : HomingProjectile
+    public class HomingMissile : HomingProjectile
     {
         public override void FixedUpdate()
         {
@@ -13,33 +12,25 @@ namespace CDR.AttackSystem
 
             var leadTimePercentage = Mathf.InverseLerp(_minDistancePredict, _maxDistancePredict, distanceFromTarget);
 
-            if (distanceFromTarget < _maxDistancePredict && isHoming)
-            {
-                //isHoming = true;
-                PredictMovement(leadTimePercentage);
-                AddDeviation(leadTimePercentage);
-            }
-            if (distanceFromTarget > _maxDistancePredict)
-            {
-                isHoming = false;
-            }
+            PredictMovement(leadTimePercentage);
+            AddDeviation(leadTimePercentage);
 
             RotateProjectile();
         }
 
 
-		public override void Start()
-		{
+        public override void Start()
+        {
             base.Start();
         }
 
-        
+
 
         public override void RotateProjectile()
         {
             base.RotateProjectile();
 
-            if (distanceFromTarget < _maxDistancePredict && isHoming)
+            if (distanceFromTarget < _maxDistancePredict)
             {
                 var heading = _deviatedPrediction - transform.position;
                 var rotation = Quaternion.LookRotation(heading);
@@ -55,4 +46,3 @@ namespace CDR.AttackSystem
         }
     }
 }
-
