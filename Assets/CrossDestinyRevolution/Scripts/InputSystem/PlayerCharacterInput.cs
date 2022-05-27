@@ -11,19 +11,15 @@ using System;
 
 namespace CDR.InputSystem
 {
-    public abstract class PlayerCharacterInput<TCharacter, TSettings> : CharacterInput<TCharacter>, IPlayerInput<TSettings> 
+    public abstract class PlayerCharacterInput<TCharacter> : CharacterInput<TCharacter>, IPlayerInput 
         where TCharacter : IActiveCharacter
-        where TSettings : IPlayerInputSettings
     {
         private InputUser _User;
-        private InputActionAsset _ActionAsset;
-        private TSettings _PlayerInputSettings;
-
+        private InputActionMap _ActionMap;
         private Gamepad[] _Gamepads;
 
-        protected InputActionAsset actionAsset => _ActionAsset;
-        protected TSettings settings => _PlayerInputSettings;
-
+        protected InputActionMap actionMap => _ActionMap;
+        
         public InputUser user => _User;
 
         protected virtual void OnDestroy()
@@ -50,7 +46,7 @@ namespace CDR.InputSystem
                 gamepad.ResetHaptics();
         }
 
-        public virtual void SetupInput(TSettings playerInputSettings, InputActionAsset inputActionAsset, params InputDevice[] devices)
+        public virtual void SetupInput(InputActionMap inputActionMap, params InputDevice[] devices)
         {
             _User = default(InputUser);
 
@@ -70,23 +66,19 @@ namespace CDR.InputSystem
 
             Debug.Assert(_User.valid, "[Input System Error] Input User is not valid!");
 
-            _ActionAsset = Instantiate(inputActionAsset);
+            _ActionMap = inputActionMap.Clone();
 
-            _PlayerInputSettings = playerInputSettings;
-
-            _User.AssociateActionsWithUser(_ActionAsset);
+            _User.AssociateActionsWithUser(_ActionMap);
         }
 
         public override void EnableInput()
         {
-            if(actionAsset)
-                actionAsset.Enable();
+            actionMap.Enable();
         }
 
         public override void DisableInput()
         {
-            if(actionAsset)
-                actionAsset.Disable();
+            actionMap.Disable();
         }
 
         public abstract void EnableInput(string name);

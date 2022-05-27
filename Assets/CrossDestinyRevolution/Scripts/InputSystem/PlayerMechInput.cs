@@ -13,12 +13,14 @@ using CDR.TargetingSystem;
 
 namespace CDR.InputSystem
 {
-    public class PlayerMechInput : PlayerCharacterInput<IMech, IPlayerMechInputSettings>
+    public class PlayerMechInput : PlayerCharacterInput<IMech>
     {
         private Vector2 _MovementInput;
 
         private Dictionary<string, InputAction> _InputActions = new Dictionary<string, InputAction>();
-        private Dictionary<string, InputActionUpdate> _InputActionUpdates = new Dictionary<string, InputActionUpdate>(); 
+        private Dictionary<string, InputActionUpdate> _InputActionUpdates = new Dictionary<string, InputActionUpdate>();
+
+        public PlayerMechInputSettings settings { get; set; }
 
         private class InputActionUpdate
         {
@@ -168,11 +170,9 @@ namespace CDR.InputSystem
             Debug.Log($"[Movement Input] {_MovementInput}");
         }
 
-        public override void SetupInput(IPlayerMechInputSettings playerInputSettings, InputActionAsset inputActionAsset, params InputDevice[] devices)
+        public override void SetupInput(InputActionMap inputActionMap, params InputDevice[] devices)
         {
-            base.SetupInput(playerInputSettings, inputActionAsset, devices);
-            
-            InputActionMap actionMap = actionAsset.FindActionMap("Game", true);
+            base.SetupInput(inputActionMap, devices);
 
             foreach(InputAction inputAction in actionMap.actions)
                 _InputActions.Add(inputAction.name, inputAction);
