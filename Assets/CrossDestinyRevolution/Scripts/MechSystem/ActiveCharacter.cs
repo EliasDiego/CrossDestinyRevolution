@@ -12,9 +12,9 @@ namespace CDR.MechSystem
 {
     public class ActiveCharacter : Character, IActiveCharacter
     {
-        IHealth _health;
+        Health _health;
         IHurtBox[] _hurtBoxes;
-        IController _controller;
+        ICharacterController _controller;
         //
         IInput _input;
         //
@@ -29,7 +29,7 @@ namespace CDR.MechSystem
 
         public IHurtBox[] hurtBoxes => _hurtBoxes;
 
-        public IController controller => _controller;
+        public ICharacterController controller => _controller;
 
         public IInput input { get => _input; set => _input = value; }
         public IState currentState { get => _currentState; set => _currentState = value; }
@@ -45,9 +45,9 @@ namespace CDR.MechSystem
         {
             base.Awake();
             characterList.Add(this);
-            _health = GetComponent<IHealth>();
+            //_health = GetComponent<IHealth>();
             _hurtBoxes = GetComponentsInChildren<IHurtBox>();
-            _controller = GetComponent<IController>();
+            _controller = GetComponent<ICharacterController>();
             _targetHandler = GetComponent<ITargetHandler>();
             _movement = GetComponent<IMovement>();
         }
