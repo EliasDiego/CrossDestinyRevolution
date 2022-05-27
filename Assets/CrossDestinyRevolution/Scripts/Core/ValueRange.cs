@@ -13,12 +13,12 @@ namespace CDR
 
         public float MaxValue => maxValue;
 
-        public event Action OnModifyValue;
+        public event Action<IValueRange> OnModifyValue;
 
         public void ModifyValue(float value)
         {
             ModifyValueWithoutEvent(value);
-            OnModifyValue?.Invoke();
+            OnModifyValue?.Invoke(this);
         }
 
         public void ModifyValueWithoutEvent(float value)
