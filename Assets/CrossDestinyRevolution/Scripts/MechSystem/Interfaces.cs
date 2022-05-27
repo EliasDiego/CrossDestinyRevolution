@@ -13,7 +13,9 @@ namespace CDR.MechSystem
 {
     public interface IHealth : IValueRange
     {
-        
+        void TakeDamage(float damage);
+        void CheckHealthStatus();
+        void Death();
     }
 
     public interface ICharacter
