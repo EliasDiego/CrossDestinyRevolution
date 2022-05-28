@@ -16,7 +16,7 @@ namespace CDR.InputSystem
         void DisableInput();
     }
 
-    public interface IPlayerInput: IInput
+    public interface IPlayerInput : IInput
     {
         public InputUser user { get; }
         void SetupInput(InputActionMap inputActionMap, params InputDevice[] devices);
@@ -47,11 +47,6 @@ namespace CDR.InputSystem
     public interface IPlayerInputSettings
     {
         
-    }
-
-    public interface IPlayerUIInputSettings : IPlayerInputSettings
-    {
-
     }
 
     public interface IPlayerMechInputSettings : IPlayerInputSettings

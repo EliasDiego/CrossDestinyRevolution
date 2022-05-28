@@ -17,7 +17,6 @@ namespace CDR.InputSystem
     {
         private Vector2 _MovementInput;
 
-        private Dictionary<string, InputAction> _InputActions = new Dictionary<string, InputAction>();
         private Dictionary<string, InputActionUpdate> _InputActionUpdates = new Dictionary<string, InputActionUpdate>();
 
         public PlayerMechInputSettings settings { get; set; }
@@ -174,52 +173,19 @@ namespace CDR.InputSystem
         {
             base.SetupInput(inputActionMap, devices);
 
-            foreach(InputAction inputAction in actionMap.actions)
-                _InputActions.Add(inputAction.name, inputAction);
+            inputActions["Movement"].performed += OnMovement;
+            inputActions["Movement"].canceled += OnMovement;
 
-            _InputActions["Movement"].performed += OnMovement;
-            _InputActions["Movement"].canceled += OnMovement;
+            inputActions["Boost"].started += OnBoost;
 
-            _InputActions["Boost"].started += OnBoost;
+            inputActions["ChangeTarget"].started += OnChangeTarget;
+            inputActions["MeleeAttack"].started += OnMeleeAttack;
+            inputActions["Shield"].started += OnShield;
+            inputActions["SpecialAttack1"].started += OnSpecialAttack1;
+            inputActions["SpecialAttack2"].started += OnSpecialAttack2;
+            inputActions["SpecialAttack3"].started += OnSpecialAttack3;
 
-            _InputActions["ChangeTarget"].started += OnChangeTarget;
-            _InputActions["MeleeAttack"].started += OnMeleeAttack;
-            _InputActions["Shield"].started += OnShield;
-            _InputActions["SpecialAttack1"].started += OnSpecialAttack1;
-            _InputActions["SpecialAttack2"].started += OnSpecialAttack2;
-            _InputActions["SpecialAttack3"].started += OnSpecialAttack3;
-
-            _InputActionUpdates.Add("RangeAttack", new InputActionUpdate(_InputActions["RangeAttack"], OnRangeAttack));
-        }
-
-        public override void EnableInput()
-        {
-            foreach(InputAction inputAction in _InputActions.Values)
-                inputAction.Enable();
-        }
-
-        public override void DisableInput()
-        {
-            foreach(InputAction inputAction in _InputActions.Values)
-                inputAction.Disable();
-        }
-
-        public override void EnableInput(string name)
-        {
-            if(_InputActions.ContainsKey(name))
-                _InputActions[name].Enable();
-
-            else
-                Debug.Log($"[Input Error] {name} does not exist!");
-        }
-
-        public override void DisableInput(string name)
-        {
-            if(_InputActions.ContainsKey(name))
-                _InputActions[name].Disable();
-
-            else
-                Debug.Log($"[Input Error] {name} does not exist!");
+            _InputActionUpdates.Add("RangeAttack", new InputActionUpdate(inputActions["RangeAttack"], OnRangeAttack));
         }
     }
 }
