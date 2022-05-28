@@ -30,12 +30,9 @@ namespace CDR.AttackSystem
         {
             base.RotateProjectile();
 
-            if (distanceFromTarget < _maxDistancePredict)
-            {
-                var heading = _deviatedPrediction - transform.position;
-                var rotation = Quaternion.LookRotation(heading);
-                _rigidBody.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
-            }
+            var heading = _deviatedPrediction - transform.position;
+            var rotation = Quaternion.LookRotation(heading);
+            _rigidBody.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
         }
 
         private void OnCollisionEnter(Collision collision)
