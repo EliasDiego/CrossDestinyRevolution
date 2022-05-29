@@ -5,8 +5,11 @@ using UnityEngine;
 
 namespace CDR.MechSystem
 {
+    [System.Serializable]
     public class Health : ValueRange, IHealth
     {
+        public event Action OnDeath;
+
         public void CheckHealthStatus()
         {
             if(CurrentValue < 0)
@@ -25,7 +28,7 @@ namespace CDR.MechSystem
         public void Death()
         {
             Debug.Log("Player died");
+            OnDeath?.Invoke();
         }
     }
 }
-
