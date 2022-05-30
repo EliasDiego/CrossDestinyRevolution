@@ -39,6 +39,11 @@ namespace CDR.MovementSystem
             rb.AddForce(force, mode);
         }
 
+        public void AddRelativeForce(Vector3 force, ForceMode mode = ForceMode.VelocityChange)
+        {
+            rb.AddRelativeForce(force, mode);
+        }
+
         public void Translate(Vector3 direction, float magnitude)
         {
             transform.position = direction * magnitude;

@@ -44,6 +44,8 @@ namespace CDR.MovementSystem
         float gravity { get; }
 
         void Move(Vector2 direction);
+        void SetSpeedClamp(bool isClamped);
+        void SetDistanceToTarget(float distance);
     }
 
     public interface IBoost : IAction

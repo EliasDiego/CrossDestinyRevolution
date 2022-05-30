@@ -30,6 +30,7 @@ namespace CDR.MovementSystem
         public override void Use()
         {
             base.Use();
+            
         }
 
         public override void End()
@@ -53,7 +54,7 @@ namespace CDR.MovementSystem
         {
             if(_boostValue.CanUse())
             {
-                
+                Character.movement.SetSpeedClamp(false);               
                 var dir = new Vector3(direction.x, 0f, direction.y);
 
                 _boostValue.Consume();
@@ -67,6 +68,7 @@ namespace CDR.MovementSystem
                     .setOnComplete(() =>
                     {
                         _boostValue.SetIsRegening(true);
+                        Character.movement.SetSpeedClamp(true);
                     });
             }
         }
@@ -75,6 +77,7 @@ namespace CDR.MovementSystem
         {
             if (_boostValue.CanUse())
             {
+                Character.movement.SetSpeedClamp(false);
                 _boostValue.Consume();
                 _boostValue.SetIsRegening(false);
                 var dir = direction * _verticalBoostData.distance;
@@ -87,6 +90,7 @@ namespace CDR.MovementSystem
                     .setOnComplete(() =>
                     {
                         StartCoroutine(ResumeRegen());
+                        Character.movement.SetSpeedClamp(true);
                     });
             }
         }
