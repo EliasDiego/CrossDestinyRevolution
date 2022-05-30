@@ -425,7 +425,6 @@ GameObject:
   - component: {fileID: 979833714228076540}
   - component: {fileID: 979833714228076543}
   - component: {fileID: 979833714228076542}
-  - component: {fileID: 979833714228076541}
   m_Layer: 5
   m_Name: BoostBar_FillImage
   m_TagString: Untagged
@@ -490,19 +489,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &979833714228076541
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 979833714228076531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2623a499c277e7b4b8688d4761953d5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _fillImage: {fileID: 979833714228076542}
 --- !u!1 &979833714444658883
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,7 +579,6 @@ GameObject:
   - component: {fileID: 979833714496116666}
   - component: {fileID: 979833714496115781}
   - component: {fileID: 979833714496115780}
-  - component: {fileID: 979833714496116667}
   m_Layer: 5
   m_Name: HealthBar_FillImage
   m_TagString: Untagged
@@ -658,16 +643,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &979833714496116667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 979833714496116665}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2623a499c277e7b4b8688d4761953d5e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _fillImage: {fileID: 979833714496115780}
