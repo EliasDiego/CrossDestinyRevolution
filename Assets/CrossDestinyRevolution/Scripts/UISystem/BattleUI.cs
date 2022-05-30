@@ -39,10 +39,10 @@ namespace CDR.UISystem
         {
             healthUI.SetValueRange(mech.health);
             boostUI.SetValueRange(mech.boost.boostValue);
-            specialAttack1AttackUI.SetCooldownAction(mech.specialAttack1);
-            specialAttack2AttackUI.SetCooldownAction(mech.specialAttack2);
-            specialAttack3AttackUI.SetCooldownAction(mech.specialAttack3);
-            mech.targetHandler.onSwitchTarget += _targetHandlerUI.SetTargetData;
+            //specialAttack1AttackUI.SetCooldownAction(mech.specialAttack1);
+            //specialAttack2AttackUI.SetCooldownAction(mech.specialAttack2);
+            //specialAttack3AttackUI.SetCooldownAction(mech.specialAttack3);
+            //mech.targetHandler.onSwitchTarget += _targetHandlerUI.SetTargetData;
         }
 
         private void Update()
