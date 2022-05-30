@@ -24,9 +24,11 @@ namespace CDR.AttackSystem
 		[SerializeField] protected float _deviationAmount = 50;
 		[SerializeField] protected float _deviationSpeed = 2;
 
+		public float playerAttackRange;
 		protected float distanceFromTarget;
 
 		public IActiveCharacter target { get; set; }
+		public Vector3 originPoint;
 		
 
 		public override void Start()
@@ -36,12 +38,12 @@ namespace CDR.AttackSystem
 
 			_standardPrediction = target.position;
 			_deviatedPrediction = target.position;
-
-			distanceFromTarget = Vector3.Distance(transform.position, target.position);
 		}
 
 		public virtual void FixedUpdate()
 		{
+			distanceFromTarget = Vector3.Distance(transform.position, target.position);
+
 			MoveProjectile();
 		}
 
@@ -85,8 +87,8 @@ namespace CDR.AttackSystem
 			Gizmos.color = Color.green;
 			Gizmos.DrawLine(_standardPrediction, _deviatedPrediction);
 
-			Gizmos.DrawWireSphere(transform.position, _maxDistancePredict);
-			Gizmos.color = Color.clear;
+			//Gizmos.DrawWireSphere(transform.position, _maxDistancePredict);
+			//Gizmos.color = Color.clear;
 		}
 	}
 }

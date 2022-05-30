@@ -24,8 +24,6 @@ namespace CDR.AttackSystem
             base.Start();
         }
 
-
-
         public override void RotateProjectile()
         {
             base.RotateProjectile();

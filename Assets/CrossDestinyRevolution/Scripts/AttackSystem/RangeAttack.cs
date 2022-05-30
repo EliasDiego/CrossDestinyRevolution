@@ -33,6 +33,8 @@ namespace CDR.AttackSystem
 
 			var bullet = Instantiate(BulletProjectile, GunPoint.transform.position, Quaternion.LookRotation(direction));
 			bullet.GetComponent<HomingProjectile>().target = target.activeCharacter;
+			bullet.GetComponent<HomingProjectile>().playerAttackRange = attackRange;
+			bullet.GetComponent<HomingProjectile>().originPoint = GunPoint.transform.position;
 
 			End();
 		}
@@ -46,6 +48,8 @@ namespace CDR.AttackSystem
 		{
 			Gizmos.color = Color.red;
 			Gizmos.DrawLine(transform.position, Target.transform.position);
+			Gizmos.color = Color.green;
+			Gizmos.DrawWireSphere(transform.position, attackRange);
 		}
 	}
 }
