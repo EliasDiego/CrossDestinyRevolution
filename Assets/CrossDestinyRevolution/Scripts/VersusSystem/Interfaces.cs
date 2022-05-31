@@ -43,7 +43,8 @@ namespace CDR.VersusSystem
 
     public interface IPlayerData
     {
-        InputUser user { get; set; }
+        InputDevice[] devices { get; set; }
+        InputActionAsset actionAsset { get; set; }
         IMechData mechData { get; set; }
     }
 
