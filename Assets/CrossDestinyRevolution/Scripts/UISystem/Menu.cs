@@ -17,10 +17,8 @@ namespace CDR.UISystem
         {
             if(_IsShown)
                 Show();
-
             else
-                Hide();
-            // transform.SetActiveChildren();
+                transform.SetActiveChildren(_IsShown);
         }
 
         private IEnumerator SwitchToCoroutine(IMenu nextMenu)
