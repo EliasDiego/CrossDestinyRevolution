@@ -32,12 +32,5 @@ namespace CDR.AttackSystem
             var rotation = Quaternion.LookRotation(heading);
             _rigidBody.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
         }
-
-        private void OnCollisionEnter(Collision collision)
-        {
-            //if (_explosionPrefab) Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
-            //if (collision.transform.TryGetComponent<IExplode>(out var ex)) ex.Explode();
-            Destroy(gameObject);
-        }
     }
 }

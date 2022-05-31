@@ -18,6 +18,8 @@ namespace CDR.AttackSystem
 
 		public Collider HitBox { get; }
 		public float Lifetime { get; }
+
+		public float Damage { get; }
 	}
 }
 

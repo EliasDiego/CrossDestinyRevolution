@@ -1,8 +1,11 @@
-using CDR.MovementSystem;
-using CDR.ObjectPoolingSystem;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
+using CDR.MovementSystem;
+using CDR.ObjectPoolingSystem;
+using CDR.MechSystem;
+
 
 namespace CDR.AttackSystem
 {
@@ -10,12 +13,15 @@ namespace CDR.AttackSystem
 	{
 		Collider projectileHitbox;
 		public float projectileLifetime;
-
-		public Collider HitBox => projectileHitbox;
-		public float Lifetime => projectileLifetime;
+		public float projectileDamage;
 
 		IProjectileController projectileController;
+		public IActiveCharacter target { get; set; }
 
+		//Increments
+		public Collider HitBox => projectileHitbox;
+		public float Lifetime => projectileLifetime;
+		public float Damage => projectileDamage;
 		public IController controller => projectileController;
 		public IPool pool => throw new System.NotImplementedException();
 
@@ -27,7 +33,6 @@ namespace CDR.AttackSystem
 
 		public virtual void Update()
 		{
-			//projectileTarget = GetComponent<RangeAttack>().TargetPoint.position;
 			ProcessLifetime();
 		}
 
@@ -38,7 +43,7 @@ namespace CDR.AttackSystem
 			if (LifetimeCountDown(deltaTime))
 			{
 				//wait for animation before destroy, or just disable for object pooling
-				Destroy(this.gameObject);
+				Destroy(gameObject);
 			}
 		}
 
@@ -48,14 +53,19 @@ namespace CDR.AttackSystem
 			return projectileLifetime <= 0f;
 		}
 
-		public void ResetObject()
-		{
-			
-		}
+		public void ResetObject(){}
 
-		public void Return()
+		public void Return(){}
+
+		protected virtual void OnCollisionEnter(Collision other)
 		{
-			throw new System.NotImplementedException();
+			if (other.gameObject.CompareTag("Mech"))
+			{
+				other.gameObject.GetComponent<ActiveCharacter>().health.TakeDamage(projectileDamage);
+			}
+
+			//Wait for animation before destroy or return to pool
+			Destroy(gameObject);
 		}
 	}
 

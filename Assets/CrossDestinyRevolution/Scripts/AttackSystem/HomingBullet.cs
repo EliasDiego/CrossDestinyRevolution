@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 namespace CDR.AttackSystem
 {
     public class HomingBullet : HomingProjectile
@@ -51,12 +50,12 @@ namespace CDR.AttackSystem
             }
         }
 
-        private void OnCollisionEnter(Collision collision)
-        {
-            //if (_explosionPrefab) Instantiate(_explosionPrefab, transform.position, Quaternion.identity);
-            //if (collision.transform.TryGetComponent<IExplode>(out var ex)) ex.Explode();
-            Destroy(gameObject);
-        }
-    }
+		protected override void OnCollisionEnter(Collision other)
+		{
+			base.OnCollisionEnter(other);
+
+            //
+		}
+	}
 }
 

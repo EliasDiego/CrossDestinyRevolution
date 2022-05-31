@@ -126,7 +126,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileLifetime: 5
-  currentTarget: {fileID: 0}
+  projectileDamage: 5
   bulletSpeed: 30
   rotateSpeed: 40
   _maxDistancePredict: 20
@@ -134,3 +134,5 @@ MonoBehaviour:
   _maxTimePrediction: 5
   _deviationAmount: 10
   _deviationSpeed: 1
+  playerAttackRange: 0
+  originPoint: {x: 0, y: 0, z: 0}

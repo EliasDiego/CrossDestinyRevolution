@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using CDR.MechSystem;
-using CDR.ActionSystem;
 
 namespace CDR.AttackSystem
 {
@@ -27,7 +25,6 @@ namespace CDR.AttackSystem
 		public float playerAttackRange;
 		protected float distanceFromTarget;
 
-		public IActiveCharacter target { get; set; }
 		public Vector3 originPoint;
 		
 
@@ -70,14 +67,9 @@ namespace CDR.AttackSystem
 			_deviatedPrediction = _standardPrediction + predictionOffset;
 		}
 
-		private void OnCollisionEnter(Collision collision)
+		protected override void OnCollisionEnter(Collision other)
 		{
-			//Check for Collided Character damage function and deal damage
-			if (collision == null)
-			{
-				//collision.GetComponent<>();
-			}
-
+			base.OnCollisionEnter(other);
 		}
 
 		private void OnDrawGizmos()
