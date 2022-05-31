@@ -67,17 +67,12 @@ namespace CDR.AttackSystem
 			_deviatedPrediction = _standardPrediction + predictionOffset;
 		}
 
-		protected override void OnCollisionEnter(Collision other)
-		{
-			base.OnCollisionEnter(other);
-		}
-
 		private void OnDrawGizmos()
 		{
-			Gizmos.color = Color.red;
-			Gizmos.DrawLine(transform.position, _standardPrediction);
-			Gizmos.color = Color.green;
-			Gizmos.DrawLine(_standardPrediction, _deviatedPrediction);
+			//Gizmos.color = Color.red;
+			//Gizmos.DrawLine(transform.position, _standardPrediction);
+			//Gizmos.color = Color.green;
+			//Gizmos.DrawLine(_standardPrediction, _deviatedPrediction);
 
 			//Gizmos.DrawWireSphere(transform.position, _maxDistancePredict);
 			//Gizmos.color = Color.clear;

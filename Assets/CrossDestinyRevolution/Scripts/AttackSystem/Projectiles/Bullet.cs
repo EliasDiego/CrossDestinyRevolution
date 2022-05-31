@@ -31,12 +31,6 @@ namespace CDR.AttackSystem
 		{
 			//_rigidBody.MoveRotation(Quaternion.LookRotation(target));
 		}
-
-		protected override void OnCollisionEnter(Collision other)
-		{
-			base.OnCollisionEnter(other);
-
-		}
 	}
 }
 

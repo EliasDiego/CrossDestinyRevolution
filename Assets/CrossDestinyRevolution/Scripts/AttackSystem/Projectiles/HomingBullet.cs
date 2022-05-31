@@ -32,7 +32,6 @@ namespace CDR.AttackSystem
             RotateProjectile();
         }
 
-
 		public override void Start()
 		{
             base.Start();
@@ -49,13 +48,6 @@ namespace CDR.AttackSystem
                 _rigidBody.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
             }
         }
-
-		protected override void OnCollisionEnter(Collision other)
-		{
-			base.OnCollisionEnter(other);
-
-            //
-		}
 	}
 }
 

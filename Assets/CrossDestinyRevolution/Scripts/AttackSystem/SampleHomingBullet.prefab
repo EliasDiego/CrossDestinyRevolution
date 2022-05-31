@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3401622447246041616}
   - component: {fileID: 3874464055193689795}
   - component: {fileID: 3401622447246041833}
+  - component: {fileID: 9003204531704433537}
   m_Layer: 6
   m_Name: SampleHomingBullet
   m_TagString: Untagged
@@ -136,3 +137,25 @@ MonoBehaviour:
   _deviationSpeed: 1
   playerAttackRange: 0
   originPoint: {x: 0, y: 0, z: 0}
+--- !u!114 &9003204531704433537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3401622447246041622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e5dfdbafa2a6384484a7cfa7eacd232, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliders: {fileID: 3401622447246041616}
+  mask:
+    serializedVersion: 2
+    m_Bits: 256
+  useSphere: 1
+  hitboxSize: {x: 1, y: 1, z: 1}
+  radius: 0.53
+  inactiveColor: {r: 0.353, g: 0, b: 0, a: 1}
+  collisionOpenColor: {r: 1, g: 0, b: 0, a: 1}
+  collidingColor: {r: 1, g: 0.50980395, b: 0, a: 1}

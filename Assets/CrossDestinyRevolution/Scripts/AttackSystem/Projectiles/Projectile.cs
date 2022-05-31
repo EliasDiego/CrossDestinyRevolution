@@ -5,13 +5,14 @@ using UnityEngine;
 using CDR.MovementSystem;
 using CDR.ObjectPoolingSystem;
 using CDR.MechSystem;
+using CDR.HitboxSystem;
 
 
 namespace CDR.AttackSystem
 {
-	public class Projectile : MonoBehaviour, IProjectile
+	public class Projectile : MonoBehaviour, IProjectile, IHitboxResponder
 	{
-		Collider projectileHitbox;
+		HitBox projectileHitbox;
 		public float projectileLifetime;
 		public float projectileDamage;
 
@@ -19,7 +20,7 @@ namespace CDR.AttackSystem
 		public IActiveCharacter target { get; set; }
 
 		//Increments
-		public Collider HitBox => projectileHitbox;
+		public HitBox HitBox => projectileHitbox;
 		public float Lifetime => projectileLifetime;
 		public float Damage => projectileDamage;
 		public IController controller => projectileController;
@@ -27,8 +28,9 @@ namespace CDR.AttackSystem
 
 		public virtual void Start()
 		{
-			projectileHitbox = GetComponent<Collider>();
 			projectileController = GetComponent<ProjectileController>();
+			projectileHitbox = GetComponent<HitBox>();
+			projectileHitbox.setResponder(this);
 		}
 
 		public virtual void Update()
@@ -53,18 +55,13 @@ namespace CDR.AttackSystem
 			return projectileLifetime <= 0f;
 		}
 
-		public void ResetObject(){}
+		public void ResetObject() { }
+		public void Return() { }
 
-		public void Return(){}
-
-		protected virtual void OnCollisionEnter(Collision other)
+		public void collisionedWith(Collider collider)
 		{
-			if (other.gameObject.CompareTag("Mech"))
-			{
-				other.gameObject.GetComponent<ActiveCharacter>().health.TakeDamage(projectileDamage);
-			}
-
-			//Wait for animation before destroy or return to pool
+			HurtBox hurtbox = collider.GetComponent<HurtBox>();
+			hurtbox?.getHitBy(projectileDamage);
 			Destroy(gameObject);
 		}
 	}

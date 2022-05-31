@@ -421,7 +421,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1105448020}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 381777943}
@@ -606,11 +606,11 @@ GameObject:
   - component: {fileID: 1671133289}
   - component: {fileID: 1671133295}
   - component: {fileID: 1671133294}
+  - component: {fileID: 1671133297}
   - component: {fileID: 1671133293}
   - component: {fileID: 1671133298}
-  - component: {fileID: 1671133297}
-  - component: {fileID: 1671133296}
   - component: {fileID: 1671133299}
+  - component: {fileID: 1671133300}
   m_Layer: 8
   m_Name: Test Target
   m_TagString: Mech
@@ -824,21 +824,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1671133296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1671133288}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7f99480e5abd9c41b4d9c14cae02ee8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rb: {fileID: 1671133297}
-  _size: 10
-  _speed: 10
 --- !u!54 &1671133297
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -888,6 +873,28 @@ MonoBehaviour:
     consumeRate: 0
   _verticalBoostData: {fileID: 11400000, guid: 20aa12d4aab0d2f459a269ce7fbaf4ef, type: 2}
   _horizontalBoostData: {fileID: 11400000, guid: d78ae8f4009c71141803c539f2b212cf, type: 2}
+--- !u!114 &1671133300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671133288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba6d68a7300bab84aa818c3b3385c8b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colliders: {fileID: 0}
+  mask:
+    serializedVersion: 2
+    m_Bits: 0
+  useSphere: 0
+  hitboxSize: {x: 0.5, y: 0.5, z: 0.5}
+  radius: 0.94
+  inactiveColor: {r: 0, g: 1, b: 0, a: 1}
+  collisionOpenColor: {r: 0, g: 1, b: 0, a: 1}
+  collidingColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!1001 &1674893341
 PrefabInstance:
   m_ObjectHideFlags: 0
