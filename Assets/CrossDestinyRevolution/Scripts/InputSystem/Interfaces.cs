@@ -53,4 +53,14 @@ namespace CDR.InputSystem
     {
         IBoostInputSettings boostInputSettings { get; }
     }
+
+    public interface IPlayerSubmitHandler
+    {
+        void OnPlayerSubmit(IPlayerInput playerInput);
+    }
+
+    public interface IPlayerCancelHandler
+    {
+        void OnPlayerCancel(IPlayerInput playerInput);
+    }
 }

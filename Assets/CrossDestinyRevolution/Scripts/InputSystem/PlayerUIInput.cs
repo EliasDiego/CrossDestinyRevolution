@@ -19,6 +19,10 @@ namespace CDR.InputSystem
 
         private RectTransform _RectTransform;
 
+        public event Action<Selectable> onSubmit;
+        public event Action<Selectable> onCancel;
+        public event Action<Selectable> onCurrentSelectableChange;
+
         public Selectable currentSelectable { get => _CurrentSelectable; set => SetCurrentSelectable(value); }
 
         private void Awake() 
@@ -28,15 +32,12 @@ namespace CDR.InputSystem
 
         private void SetCurrentSelectable(Selectable selectable)
         {
-            _CurrentSelectable = selectable;
-
             if(!selectable)
                 return;
-                
-            RectTransform selectableRectTransform = selectable.transform as RectTransform;
 
-            _RectTransform.position = selectableRectTransform.position; 
-            _RectTransform.sizeDelta = selectableRectTransform.sizeDelta;
+            _CurrentSelectable = selectable;
+
+            onCurrentSelectableChange?.Invoke(_CurrentSelectable);
         }
 
         private bool IsInsideRect(RectTransform rectTransform, Vector2 point)
@@ -67,7 +68,11 @@ namespace CDR.InputSystem
                 return;
 
             if(currentSelectable is ISubmitHandler s)
+            {
                 s.OnSubmit(null);
+
+                onSubmit?.Invoke(currentSelectable);
+            }
         }
 
         private void OnCancel(InputAction.CallbackContext context)
@@ -76,7 +81,11 @@ namespace CDR.InputSystem
                 return;
 
             if(currentSelectable is ICancelHandler c)
+            {
                 c.OnCancel(null);
+
+                onCancel?.Invoke(currentSelectable);
+            }
         }
 
         private void OnPoint(InputAction.CallbackContext context)
@@ -103,7 +112,11 @@ namespace CDR.InputSystem
             _IsClicked = !_IsClicked;
 
             if(!_IsClicked && currentSelectable is ISubmitHandler s)
+            {
                 s.OnSubmit(null);
+
+                onSubmit?.Invoke(currentSelectable);
+            }
         }
 
         public override void SetupInput(InputActionMap inputActionMap, params InputDevice[] devices)
