@@ -10,40 +10,40 @@ namespace CDR.UISystem
     public class TargetHandlerUI : MonoBehaviour, ITargetHandlerUI
     {
         [SerializeField] Camera _camera;
-        [SerializeField] Image lockImage;
+        [SerializeField] Image targetImage;
 
-        IActiveCharacter _activeCharacter;
-        ITargetData _targetData;
+        //IActiveCharacter _activeCharacter;
+        ITargetData currentTarget;
 
         bool _isShown;
         public bool isShown => _isShown;
 
         public void Hide()
         {
-            lockImage.enabled = false;
+            targetImage.enabled = false;
             _isShown = false;
         }
 
         public void Show()
         {
-            lockImage.enabled = true;
+            targetImage.enabled = true;
             _isShown = true;
         }
 
-        public void SetTarget(IActiveCharacter target)
-        {
-            _activeCharacter = target;
-        }
+        // public void SetTarget(IActiveCharacter target)
+        // {
+        //     _activeCharacter = target;
+        // }
 
-        public void SetTargetData(ITargetData targetData)
+        public void SetTarget(ITargetData targetData)
         {
-            _targetData = targetData;
+            currentTarget = targetData;
         }
 
         private void LateUpdate()
         {
-            Vector2 pos = _camera.WorldToScreenPoint(_activeCharacter.position);
-            lockImage.rectTransform.position = pos;
+            Vector2 pos = _camera.WorldToScreenPoint(currentTarget.activeCharacter.position);
+            targetImage.rectTransform.position = pos;
         }
     }
 }
