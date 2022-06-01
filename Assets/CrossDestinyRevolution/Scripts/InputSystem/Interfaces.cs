@@ -19,7 +19,11 @@ namespace CDR.InputSystem
 
     public interface IPlayerInput : IInput
     {
-        public InputUser user { get; }
+        bool isPaired { get; }
+        InputUser user { get; }
+
+        event Action onDeviceDisconnect;
+
         void SetupInput(InputActionMap inputActionMap, params InputDevice[] devices);
         void EnableInput(string name);
         void DisableInput(string name);
