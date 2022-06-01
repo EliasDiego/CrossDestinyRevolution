@@ -13,6 +13,22 @@ namespace CDR.UISystem
         public IMenu previousMenu { get; set; }
         public bool isShown { get => _IsShown; protected set => _IsShown = value; }
 
+        private static List<Menu> _Menus = new List<Menu>();
+
+        public static Menu[] menus => _Menus.ToArray();
+
+        protected virtual void OnEnable()
+        {
+            if(!_Menus.Contains(this))
+                _Menus.Add(this);
+        }
+
+        protected virtual void OnDisable()
+        {
+            if(_Menus.Contains(this))
+                _Menus.Remove(this);
+        }
+
         protected virtual void Start() 
         {
             if(_IsShown)
