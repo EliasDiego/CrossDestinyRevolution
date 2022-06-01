@@ -19,9 +19,6 @@ namespace CDR.InputSystem
         {
             PlayerUIInput player1Input = InputUtilities.AssignPlayerInput<PlayerUIInput>(_TestObject, _Asset.FindActionMap("UI", true), Keyboard.current, Mouse.current);
             PlayerUIInput player2Input = InputUtilities.AssignPlayerInput<PlayerUIInput>(_TestObject2, _Asset.FindActionMap("UI", true), Gamepad.current);
-
-            player1Input.gameObject.AddComponent<UIHandler>();
-            player2Input.gameObject.AddComponent<UIHandler>();
             
             player1Input.EnableInput();
             player2Input.EnableInput();

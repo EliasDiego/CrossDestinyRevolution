@@ -17,8 +17,6 @@ namespace CDR.InputSystem
 
         private bool _IsClicked = false;
 
-        private RectTransform _RectTransform;
-
         public event Action<Selectable> onSubmit;
         public event Action<Selectable> onCancel;
         public event Action<Selectable> onCurrentSelectableChange;
@@ -26,11 +24,6 @@ namespace CDR.InputSystem
         public event Action onDisableInput;
 
         public Selectable currentSelectable { get => _CurrentSelectable; set => SetCurrentSelectable(value); }
-
-        private void Awake() 
-        {
-            _RectTransform = (RectTransform)transform;
-        }
 
         private void SetCurrentSelectable(Selectable selectable)
         {

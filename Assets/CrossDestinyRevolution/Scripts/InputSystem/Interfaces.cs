@@ -12,6 +12,7 @@ namespace CDR.InputSystem
 {
     public interface IInput
     {
+        bool isEnabled { get; }
         void EnableInput();
         void DisableInput();
     }

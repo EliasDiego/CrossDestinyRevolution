@@ -14,6 +14,8 @@ namespace CDR.InputSystem
         private InputActionMap _ActionMap;
         private Gamepad[] _Gamepads;
 
+        private bool _IsEnabled = false;
+
         private Dictionary<string, InputAction> _InputActions = new Dictionary<string, InputAction>();
 
         private bool _isGamepad = false;
@@ -22,6 +24,8 @@ namespace CDR.InputSystem
         protected Dictionary<string, InputAction> inputActions => _InputActions;
         
         public InputUser user => _User;
+
+        public bool isEnabled => _IsEnabled;
 
         protected virtual void OnDestroy()
         {
@@ -71,6 +75,8 @@ namespace CDR.InputSystem
 
             _ActionMap = inputActionMap.Clone();
 
+            _InputActions.Clear();
+
             foreach(InputAction inputAction in actionMap.actions)
                 _InputActions.Add(inputAction.name, inputAction);
 
@@ -80,11 +86,15 @@ namespace CDR.InputSystem
         public virtual void EnableInput()
         {
             actionMap.Enable();
+
+            _IsEnabled = true;
         }
 
         public virtual void DisableInput()
         {
             actionMap.Disable();
+            
+            _IsEnabled = false;
         }
 
         public void EnableInput(string name)
@@ -94,6 +104,8 @@ namespace CDR.InputSystem
 
             else
                 Debug.Log($"[Input Error] {name} does not exist!");
+
+            _IsEnabled = _InputActions.Values.FirstOrDefault(i => i.enabled) != null;
         }
 
         public void DisableInput(string name)
@@ -103,6 +115,8 @@ namespace CDR.InputSystem
 
             else
                 Debug.Log($"[Input Error] {name} does not exist!");
+
+            _IsEnabled = _InputActions.Values.FirstOrDefault(i => i.enabled) != null;
         }
     }
 }
