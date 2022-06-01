@@ -8,10 +8,15 @@ using CDR.UISystem;
 
 namespace CDR.VersusSystem
 {
-    public class MapSelectMenu : VersusMenu, IMapSelectMenu
+    public class MapSelectMenu : VersusMenu, IMapSelectMenu, IPlayerCancelHandler
     {
         [SerializeField]
         VersusSettingsMenu _VersusSettingsMenu;
+
+        public void OnPlayerCancel(IPlayerInput playerInput)
+        {
+            Back();
+        }
 
         public void PickMap(IPlayerInput playerInput, IMapData mapData)
         {
@@ -25,7 +30,7 @@ namespace CDR.VersusSystem
             base.Show();
 
             player1Input.EnableInput();
-            player2Input.EnableInput();
+            // player2Input.EnableInput();
         }
     }
 }

@@ -7,17 +7,12 @@ using CDR.InputSystem;
 
 namespace CDR.VersusSystem
 {
-    public class MechButton : MonoBehaviour, IPlayerSubmitHandler, IPlayerCancelHandler
+    public class MechButton : MonoBehaviour, IPlayerSubmitHandler
     {
         [SerializeField]
         MechData _MechData;
         [SerializeField]
         MechSelectMenu _MechSelectMenu;
-
-        public void OnPlayerCancel(IPlayerInput playerInput)
-        {
-            Debug.Log("Cancel");
-        }
 
         public void OnPlayerSubmit(IPlayerInput playerInput)
         {
