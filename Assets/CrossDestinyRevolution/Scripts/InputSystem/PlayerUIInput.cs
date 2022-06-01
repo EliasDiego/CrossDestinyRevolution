@@ -22,6 +22,8 @@ namespace CDR.InputSystem
         public event Action<Selectable> onSubmit;
         public event Action<Selectable> onCancel;
         public event Action<Selectable> onCurrentSelectableChange;
+        public event Action onEnableInput;
+        public event Action onDisableInput;
 
         public Selectable currentSelectable { get => _CurrentSelectable; set => SetCurrentSelectable(value); }
 
@@ -67,12 +69,10 @@ namespace CDR.InputSystem
             if(!currentSelectable)
                 return;
 
-            if(currentSelectable is ISubmitHandler s)
-            {
-                s.OnSubmit(null);
+            onSubmit?.Invoke(currentSelectable);
 
-                onSubmit?.Invoke(currentSelectable);
-            }
+            if(currentSelectable is ISubmitHandler s)
+                s.OnSubmit(null);
         }
 
         private void OnCancel(InputAction.CallbackContext context)
@@ -80,12 +80,10 @@ namespace CDR.InputSystem
             if(!currentSelectable)
                 return;
 
-            if(currentSelectable is ICancelHandler c)
-            {
-                c.OnCancel(null);
+            onCancel?.Invoke(currentSelectable);
 
-                onCancel?.Invoke(currentSelectable);
-            }
+            if(currentSelectable is ICancelHandler c)
+                c.OnCancel(null);
         }
 
         private void OnPoint(InputAction.CallbackContext context)
@@ -129,6 +127,20 @@ namespace CDR.InputSystem
             inputActions["Submit"].started += OnSubmit;
             inputActions["Cancel"].started += OnCancel;
             inputActions["Click"].performed += OnClick;
+        }
+
+        public override void EnableInput()
+        {
+            base.EnableInput();
+
+            onEnableInput?.Invoke();
+        }
+
+        public override void DisableInput()
+        {
+            base.DisableInput();
+
+            onDisableInput?.Invoke();
         }
     }
 }
