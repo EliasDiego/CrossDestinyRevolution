@@ -603,7 +603,6 @@ GameObject:
   - component: {fileID: 1671133292}
   - component: {fileID: 1671133291}
   - component: {fileID: 1671133290}
-  - component: {fileID: 1671133289}
   - component: {fileID: 1671133295}
   - component: {fileID: 1671133294}
   - component: {fileID: 1671133297}
@@ -611,6 +610,7 @@ GameObject:
   - component: {fileID: 1671133298}
   - component: {fileID: 1671133299}
   - component: {fileID: 1671133300}
+  - component: {fileID: 1671133289}
   m_Layer: 8
   m_Name: Test Target
   m_TagString: Mech
@@ -688,7 +688,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1671133288}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 34.4, z: 0}
+  m_LocalPosition: {x: -2.78, y: 34.4, z: -0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -885,16 +885,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba6d68a7300bab84aa818c3b3385c8b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliders: {fileID: 0}
-  mask:
-    serializedVersion: 2
-    m_Bits: 0
-  useSphere: 0
-  hitboxSize: {x: 0.5, y: 0.5, z: 0.5}
-  radius: 0.94
-  inactiveColor: {r: 0, g: 1, b: 0, a: 1}
-  collisionOpenColor: {r: 0, g: 1, b: 0, a: 1}
-  collidingColor: {r: 0, g: 1, b: 0, a: 1}
+  m_active: 1
+  m_owner: {fileID: 0}
 --- !u!1001 &1674893341
 PrefabInstance:
   m_ObjectHideFlags: 0

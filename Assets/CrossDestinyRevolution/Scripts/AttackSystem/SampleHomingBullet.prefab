@@ -11,13 +11,14 @@ GameObject:
   - component: {fileID: 3401622447246041709}
   - component: {fileID: 3401622447246041618}
   - component: {fileID: 3401622447246041619}
-  - component: {fileID: 3401622447246041616}
   - component: {fileID: 3874464055193689795}
   - component: {fileID: 3401622447246041833}
   - component: {fileID: 9003204531704433537}
+  - component: {fileID: 5376925869142226359}
+  - component: {fileID: 31494959426300026}
   m_Layer: 6
   m_Name: SampleHomingBullet
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,19 +86,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &3401622447246041616
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3401622447246041622}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!54 &3874464055193689795
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -126,8 +114,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 845fc62bef44c3f4eb1265fc6cd4db80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectileLifetime: 5
+  m_attack: 0
+  projectileHitbox: {fileID: 9003204531704433537}
   projectileDamage: 5
+  projectileLifetime: 5
   bulletSpeed: 30
   rotateSpeed: 40
   _maxDistancePredict: 20
@@ -149,13 +139,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e5dfdbafa2a6384484a7cfa7eacd232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colliders: {fileID: 3401622447246041616}
-  mask:
+  m_BoxCollider: {fileID: 5376925869142226359}
+  m_SphereCollider: {fileID: 31494959426300026}
+  m_layerMask:
     serializedVersion: 2
     m_Bits: 256
-  useSphere: 1
-  hitboxSize: {x: 1, y: 1, z: 1}
-  radius: 0.53
-  inactiveColor: {r: 0.353, g: 0, b: 0, a: 1}
-  collisionOpenColor: {r: 1, g: 0, b: 0, a: 1}
-  collidingColor: {r: 1, g: 0.50980395, b: 0, a: 1}
+  isSphere: 1
+  m_hitBoxSize: {x: 0.53, y: 1, z: 1}
+  m_radius: 0.76
+--- !u!65 &5376925869142226359
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3401622447246041622}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &31494959426300026
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3401622447246041622}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}

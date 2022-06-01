@@ -10,11 +10,14 @@ using CDR.HitboxSystem;
 
 namespace CDR.AttackSystem
 {
-	public class Projectile : MonoBehaviour, IProjectile, IHitboxResponder
+	public class Projectile : MonoBehaviour, IProjectile, IHitResponder
 	{
-		HitBox projectileHitbox;
-		public float projectileLifetime;
+		[SerializeField] bool m_attack;
+		[SerializeField] HitBox projectileHitbox;
 		public float projectileDamage;
+
+		public float projectileLifetime;
+		
 
 		IProjectileController projectileController;
 		public IActiveCharacter target { get; set; }
@@ -22,20 +25,23 @@ namespace CDR.AttackSystem
 		//Increments
 		public HitBox HitBox => projectileHitbox;
 		public float Lifetime => projectileLifetime;
-		public float Damage => projectileDamage;
+		float IProjectile.Damage => projectileDamage;
 		public IController controller => projectileController;
 		public IPool pool => throw new System.NotImplementedException();
+
+		float IHitResponder.Damage => projectileDamage;
 
 		public virtual void Start()
 		{
 			projectileController = GetComponent<ProjectileController>();
-			projectileHitbox = GetComponent<HitBox>();
-			projectileHitbox.setResponder(this);
+			projectileHitbox.HitResponder = this;
+			//projectileHitbox.setResponder(this);
 		}
 
 		public virtual void Update()
 		{
 			ProcessLifetime();
+			projectileHitbox.CheckHit();
 		}
 
 		void ProcessLifetime()
@@ -58,11 +64,16 @@ namespace CDR.AttackSystem
 		public void ResetObject() { }
 		public void Return() { }
 
-		public void collisionedWith(Collider collider)
+		//Hitbox CheckHit and Response
+		public bool CheckHit(HitData data)
 		{
-			HurtBox hurtbox = collider.GetComponent<HurtBox>();
-			hurtbox?.getHitBy(projectileDamage);
+			return true;
+		}
+
+		public void Response(HitData data)
+		{
 			Destroy(gameObject);
+			//throw new System.NotImplementedException();
 		}
 	}
 
