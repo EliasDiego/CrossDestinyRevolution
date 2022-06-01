@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
 
 using CDR.UISystem;
+using CDR.InputSystem;
 
 namespace CDR.VersusSystem
 {
@@ -55,12 +56,12 @@ namespace CDR.VersusSystem
 
     public interface IMechSelectMenu : IMenu
     {
-        void PickMech(int player, IMechData mechData);
+        void PickMech(IPlayerInput playerInput, IMechData mechData);
     }
 
     public interface IMapSelectMenu : IMenu
     {
-        void PickMap(IMapData mapData);
+        void PickMap(IPlayerInput playerInput, IMapData mapData);
     }
 
     public interface IVersusSettingsMenu : IMenu
