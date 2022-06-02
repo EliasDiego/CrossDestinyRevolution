@@ -6,21 +6,21 @@ namespace CDR.AttackSystem
 {
     public class HomingProjectile : Projectile
     {
-        [SerializeField] public float bulletSpeed;
-		[SerializeField] public float rotateSpeed;
+        [SerializeField] public float bulletSpeed = 15f;
+		[HideInInspector] public float rotateSpeed = 95f;
 
 		protected Rigidbody _rigidBody;
 		protected bool isHoming = true;
 
 		[Header("PREDICTION")]
-		[SerializeField] protected float _maxDistancePredict = 100;
-		[SerializeField] protected float _minDistancePredict = 5;
-		[SerializeField] protected float _maxTimePrediction = 5;
+		[HideInInspector] protected float _maxDistancePredict = 100;
+		[HideInInspector] protected float _minDistancePredict = 5;
+		[HideInInspector] protected float _maxTimePrediction = 5;
 		protected Vector3 _standardPrediction, _deviatedPrediction;
 
 		[Header("DEVIATION")]
-		[SerializeField] protected float _deviationAmount = 50;
-		[SerializeField] protected float _deviationSpeed = 2;
+		[HideInInspector] protected float _deviationAmount = 50;
+		[HideInInspector] protected float _deviationSpeed = 2;
 
 		public float playerAttackRange;
 		protected float distanceFromTarget;
@@ -33,8 +33,8 @@ namespace CDR.AttackSystem
 			base.Start();
 			_rigidBody = GetComponent<Rigidbody>();
 
-			_standardPrediction = target.position;
-			_deviatedPrediction = target.position;
+			//_standardPrediction = target.position;
+			//_deviatedPrediction = target.position;
 		}
 
 		public virtual void FixedUpdate()
@@ -66,13 +66,11 @@ namespace CDR.AttackSystem
 
 		private void OnDrawGizmos()
 		{
-			Gizmos.color = Color.red;
-			Gizmos.DrawLine(transform.position, _standardPrediction);
-			Gizmos.color = Color.green;
-			Gizmos.DrawLine(_standardPrediction, _deviatedPrediction);
+			//Gizmos.color = Color.red;
+			//Gizmos.DrawLine(transform.position, _standardPrediction);
 
-			Gizmos.DrawWireSphere(transform.position, _maxDistancePredict);
-			Gizmos.color = Color.clear;
+			//Gizmos.DrawWireSphere(transform.position, _maxDistancePredict);
+			//Gizmos.color = Color.clear;
 		}
 	}
 }
