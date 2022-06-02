@@ -35,7 +35,7 @@ namespace CDR.MovementSystem
 
         bool _IsHorizontal = false;
 
-        private IEnumerator FixedCoroutine(Vector3 direction, float time)
+        private IEnumerator FixedCoroutine(Vector3 direction, float time, bool isHorizontal)
         {
             float currentTime = time;
 
@@ -44,7 +44,9 @@ namespace CDR.MovementSystem
                 RotateObject();
 
                 controller.AddRbForce(transform.rotation * direction);
-                controller.AddRbForce(CentripetalForce(), ForceMode.Acceleration);
+
+                if(isHorizontal)
+                    controller.AddRbForce(CentripetalForce(), ForceMode.Acceleration);
 
                 currentTime -= Time.fixedDeltaTime;
 
@@ -78,7 +80,7 @@ namespace CDR.MovementSystem
             {
                 Use();
                 
-                StartCoroutine(FixedCoroutine(new Vector3(direction.x, 0f, direction.y) * horizontalBoostData.distance / horizontalBoostData.time, horizontalBoostData.time));
+                StartCoroutine(FixedCoroutine(new Vector3(direction.x, 0f, direction.y) * horizontalBoostData.distance / horizontalBoostData.time, horizontalBoostData.time, true));
             }
         }
     
@@ -90,7 +92,7 @@ namespace CDR.MovementSystem
 
                 Debug.Log("Can Boost Up");
                 
-                StartCoroutine(FixedCoroutine(new Vector3(0f, direction, 0f) * verticalBoostData.distance / verticalBoostData.time, verticalBoostData.time));
+                StartCoroutine(FixedCoroutine(new Vector3(0f, direction, 0f) * verticalBoostData.distance / verticalBoostData.time, verticalBoostData.time, false));
             }
         }
 
@@ -118,6 +120,7 @@ namespace CDR.MovementSystem
 
             StartCoroutine(ResumeRegen());
             Character.movement.Use();
+            Character.movement.Move(Vector2.zero);
             Character.input.EnableInput("Movement");
 
             Character.movement.SetDistanceToTarget
