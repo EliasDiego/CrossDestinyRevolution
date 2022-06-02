@@ -53,6 +53,14 @@ namespace CDR.MovementSystem
         {
             transform.rotation = rotation;           
         }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if(collision.gameObject.CompareTag("Player"))
+            {
+                SetVelocity(Vector3.zero);
+            }
+        }
     }
 }
 
