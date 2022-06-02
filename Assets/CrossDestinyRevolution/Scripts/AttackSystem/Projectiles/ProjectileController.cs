@@ -16,7 +16,12 @@ namespace CDR.AttackSystem
 			_rigidBody.rotation = rotation;
 		}
 
-		public void Translate(Vector3 direction, float magnitude)
+        public void SetVelocity(Vector3 velocity)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Translate(Vector3 direction, float magnitude)
 		{
 			_rigidBody.transform.position = direction;
 		}
