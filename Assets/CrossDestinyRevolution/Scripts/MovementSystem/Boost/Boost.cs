@@ -17,6 +17,8 @@ namespace CDR.MovementSystem
         [SerializeField]
         private HorizontalBoostData _horizontalBoostData;
 
+        private Coroutine _FixedCoroutine;
+
         public IBoostValue boostValue => _boostValue;
         public IBoostData horizontalBoostData => _horizontalBoostData;
         public IBoostData verticalBoostData => _verticalBoostData;
@@ -76,17 +78,17 @@ namespace CDR.MovementSystem
 
         public void HorizontalBoost(Vector2 direction)
         {
-            if(_boostValue.CanUse())
+            if(_boostValue.CanUse() && !isActive)
             {
                 Use();
                 
-                StartCoroutine(FixedCoroutine(new Vector3(direction.x, 0f, direction.y) * horizontalBoostData.distance / horizontalBoostData.time, horizontalBoostData.time, true));
+                _FixedCoroutine = StartCoroutine(FixedCoroutine(new Vector3(direction.x, 0f, direction.y) * horizontalBoostData.distance / horizontalBoostData.time, horizontalBoostData.time, true));
             }
         }
     
         public void VerticalBoost(float direction)
         {
-            if (_boostValue.CanUse())
+            if (_boostValue.CanUse() && !isActive)
             {
                 Use();
 
@@ -117,6 +119,9 @@ namespace CDR.MovementSystem
         public override void End()
         {
             base.End();
+
+            if(_FixedCoroutine != null)
+                StopCoroutine(_FixedCoroutine);
 
             StartCoroutine(ResumeRegen());
             Character.movement.Use();

@@ -119,7 +119,7 @@ MonoBehaviour:
   projectileDamage: 5
   projectileLifetime: 5
   bulletSpeed: 30
-  rotateSpeed: 40
+  rotateSpeed: 10
   _maxDistancePredict: 20
   _minDistancePredict: 0
   _maxTimePrediction: 5

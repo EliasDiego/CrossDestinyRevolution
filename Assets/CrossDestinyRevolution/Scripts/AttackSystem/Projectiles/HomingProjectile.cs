@@ -39,8 +39,9 @@ namespace CDR.AttackSystem
 
 		public virtual void FixedUpdate()
 		{
-			distanceFromTarget = Vector3.Distance(transform.position, target.position);
+			// distanceFromTarget = Vector3.Distance(transform.position, target.position);
 
+			// RotateProjectile();
 			MoveProjectile();
 		}
 
@@ -51,7 +52,8 @@ namespace CDR.AttackSystem
 
 		public virtual void RotateProjectile()
 		{
-			//_rigidBody.MoveRotation(Quaternion.LookRotation(projectileTarget));
+			_rigidBody.rotation = Quaternion.RotateTowards(transform.rotation, Quaternion.LookRotation(target.position + target.controller.velocity  - transform.position), rotateSpeed * Time.fixedDeltaTime);
+			// _rigidBody.MoveRotation(Quaternion.LookRotation(target));
 		}
 
 		protected virtual void PredictMovement(float leadTimePercentage)

@@ -13,21 +13,21 @@ namespace CDR.AttackSystem
         {
             base.FixedUpdate();
 
-            var leadTimePercentage = Mathf.InverseLerp(_minDistancePredict, _maxDistancePredict, distanceFromTarget);
+            // var leadTimePercentage = Mathf.InverseLerp(_minDistancePredict, _maxDistancePredict, distanceFromTarget);
 
-            projectileDistanceFromOrigin = Vector3.Distance(transform.position, originPoint);
-            originPointDistanceFromTarget = Vector3.Distance(target.position, originPoint);
+            // projectileDistanceFromOrigin = Vector3.Distance(transform.position, originPoint);
+            // originPointDistanceFromTarget = Vector3.Distance(target.position, originPoint);
 
-            if (distanceFromTarget < _maxDistancePredict && isHoming)
-            {
-                //isHoming = true;
-                PredictMovement(leadTimePercentage);
-                // AddDeviation(leadTimePercentage);
-            }
-            if (projectileDistanceFromOrigin > originPointDistanceFromTarget || playerAttackRange < originPointDistanceFromTarget)
-            {
-                isHoming = false;
-            }
+            // if (distanceFromTarget < _maxDistancePredict && isHoming)
+            // {
+            //     //isHoming = true;
+            //     PredictMovement(leadTimePercentage);
+            //     // AddDeviation(leadTimePercentage);
+            // }
+            // if (projectileDistanceFromOrigin > originPointDistanceFromTarget || playerAttackRange < originPointDistanceFromTarget)
+            // {
+            //     isHoming = false;
+            // }
 
             RotateProjectile();
         }
@@ -41,12 +41,12 @@ namespace CDR.AttackSystem
         {
             base.RotateProjectile();
 
-            if (distanceFromTarget < _maxDistancePredict && isHoming)
-            {
-                var heading = _deviatedPrediction - transform.position;
-                var rotation = Quaternion.LookRotation(heading);
-                _rigidBody.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
-            }
+            // if (distanceFromTarget < _maxDistancePredict && isHoming)
+            // {
+            //     var heading = _deviatedPrediction - transform.position;
+            //     var rotation = Quaternion.LookRotation(heading);
+            //     _rigidBody.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
+            // }
         }
 	}
 }

@@ -2216,7 +2216,7 @@ MonoBehaviour:
   _boostValue:
     currentValue: 0
     maxValue: 100
-    regenRate: 5
+    regenRate: 20
     consumeRate: 10
   _verticalBoostData: {fileID: 11400000, guid: 20aa12d4aab0d2f459a269ce7fbaf4ef, type: 2}
   _horizontalBoostData: {fileID: 11400000, guid: d78ae8f4009c71141803c539f2b212cf, type: 2}
@@ -4850,7 +4850,7 @@ MonoBehaviour:
   _boostValue:
     currentValue: 0
     maxValue: 100
-    regenRate: 5
+    regenRate: 20
     consumeRate: 10
   _verticalBoostData: {fileID: 11400000, guid: 20aa12d4aab0d2f459a269ce7fbaf4ef, type: 2}
   _horizontalBoostData: {fileID: 11400000, guid: d78ae8f4009c71141803c539f2b212cf, type: 2}
