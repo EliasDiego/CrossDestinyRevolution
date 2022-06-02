@@ -22,9 +22,9 @@ namespace CDR.AttackSystem
             {
                 //isHoming = true;
                 PredictMovement(leadTimePercentage);
-                AddDeviation(leadTimePercentage);
+                // AddDeviation(leadTimePercentage);
             }
-            if (projectileDistanceFromOrigin > _maxDistancePredict || projectileDistanceFromOrigin > originPointDistanceFromTarget || playerAttackRange < originPointDistanceFromTarget)
+            if (projectileDistanceFromOrigin > originPointDistanceFromTarget || playerAttackRange < originPointDistanceFromTarget)
             {
                 isHoming = false;
             }

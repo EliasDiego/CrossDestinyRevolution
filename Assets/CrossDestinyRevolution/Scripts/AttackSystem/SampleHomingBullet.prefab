@@ -143,7 +143,7 @@ MonoBehaviour:
   m_SphereCollider: {fileID: 31494959426300026}
   m_layerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 320
   isSphere: 1
   m_hitBoxSize: {x: 0.53, y: 1, z: 1}
   m_radius: 0.76

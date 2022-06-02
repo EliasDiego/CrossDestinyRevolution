@@ -31,25 +31,54 @@ namespace CDR.MovementSystem
             StartCoroutine(_boostValue.Regenerate());
         }
 
+        Vector3 _Direction;
+
+        bool _IsHorizontal = false;
+
+        private IEnumerator FixedCoroutine(Vector3 direction, float time)
+        {
+            float currentTime = time;
+
+            while(currentTime > 0)
+            {
+                RotateObject();
+
+                controller.AddRbForce(transform.rotation * direction);
+                controller.AddRbForce(CentripetalForce(), ForceMode.Acceleration);
+
+                currentTime -= Time.fixedDeltaTime;
+
+                yield return new WaitForFixedUpdate();
+            }
+
+            End();
+        }
+
+        Vector3 CentripetalForce()
+        {
+            CDR.TargetingSystem.ITargetData currentTarget = Character.targetHandler.GetCurrentTarget();
+            float cForce = Mathf.Pow(controller.velocity.magnitude, 2) / currentTarget.distance;
+            return currentTarget.direction * -cForce;
+        }
+        
+        private void RotateObject()
+        {
+            CDR.TargetingSystem.ITargetData currentTarget = Character.targetHandler.GetCurrentTarget();
+            var look = Quaternion.LookRotation(-currentTarget.direction);
+            var quat = Quaternion.RotateTowards(transform.rotation, look, 50f);
+            quat.x = 0f;
+            quat.z = 0f;
+
+            controller.Rotate(Quaternion.RotateTowards(transform.rotation, quat, 50f));
+        }
+
         public void HorizontalBoost(Vector2 direction)
         {
             if(_boostValue.CanUse())
             {
-                var dir = new Vector3(direction.x, 0f, direction.y);
+                Use();
                 
-                Character.movement.SetSpeedClamp(false);               
-                _boostValue.Consume();
-                _boostValue.SetIsRegening(false);
-
-                tweenID = LeanTween.value(_horizontalBoostData.distance / _horizontalBoostData.time, 0f , _horizontalBoostData.time)
-                    .setOnUpdate((float f) =>
-                    {                        
-                        controller.AddRbForce((transform.rotation * dir) * f);
-                    }).setEaseOutExpo()
-                    .setOnComplete(() =>
-                    {
-                        BoostEnd();                       
-                    }).id;
+                StartCoroutine(FixedCoroutine(new Vector3(direction.x, 0f, direction.y) * horizontalBoostData.distance / horizontalBoostData.time, horizontalBoostData.time));
             }
         }
     
@@ -57,21 +86,11 @@ namespace CDR.MovementSystem
         {
             if (_boostValue.CanUse())
             {
-               
-                Character.movement.SetSpeedClamp(false);
-                _boostValue.Consume();
-                _boostValue.SetIsRegening(false);
-                var dir = direction * _verticalBoostData.distance;
+                Use();
 
-                tweenID = LeanTween.value(0f, dir / _verticalBoostData.time, _verticalBoostData.time)
-                    .setOnUpdate((float f) =>
-                    {
-                        controller.AddRbForce(new Vector3(0f, f, 0f));
-                    }).setEaseInQuint()
-                    .setOnComplete(() =>
-                    {
-                        BoostEnd();                       
-                    }).id;
+                Debug.Log("Can Boost Up");
+                
+                StartCoroutine(FixedCoroutine(new Vector3(0f, direction, 0f) * verticalBoostData.distance / verticalBoostData.time, verticalBoostData.time));
             }
         }
 
@@ -81,10 +100,26 @@ namespace CDR.MovementSystem
             _boostValue.SetIsRegening(true);
         }
 
-        private void BoostEnd()
+
+        public override void Use()
         {
+            base.Use();
+
+            _boostValue.Consume();
+            _boostValue.SetIsRegening(false);
+            
+            Character.movement.End();
+            Character.input.DisableInput("Movement");
+        }
+
+        public override void End()
+        {
+            base.End();
+
             StartCoroutine(ResumeRegen());
-            Character.movement.SetSpeedClamp(true);
+            Character.movement.Use();
+            Character.input.EnableInput("Movement");
+
             Character.movement.SetDistanceToTarget
                 (
                     Vector3.Distance(Character.targetHandler.GetCurrentTarget().activeCharacter.position,

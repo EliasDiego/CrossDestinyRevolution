@@ -32,14 +32,11 @@ namespace CDR.MovementSystem
             controller = GetComponent<Controller>();
         }
 
-        private void Start()
-        {
-            currentTarget = Character.targetHandler.GetCurrentTarget();
-            distanceToTarget = Vector3.Distance(transform.position, currentTarget.activeCharacter.position);
-        }
-
         private void Update()
         {
+            if(!isActive)
+                return;
+
             RotateObject();
             if (clampSpeed)
             {
@@ -49,6 +46,9 @@ namespace CDR.MovementSystem
 
         private void FixedUpdate()
         {       
+            if(!isActive)
+                return;
+
             controller.AddRbForce(MoveDirection());
             controller.AddRbForce(CentripetalForce(), ForceMode.Acceleration);
         }       
@@ -104,6 +104,9 @@ namespace CDR.MovementSystem
         public override void Use()
         {
             base.Use();
+            
+            currentTarget = Character.targetHandler.GetCurrentTarget();
+            distanceToTarget = Vector3.Distance(transform.position, currentTarget.activeCharacter.position);
         }
 
         public override void End()

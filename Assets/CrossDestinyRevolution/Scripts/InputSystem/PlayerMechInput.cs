@@ -40,6 +40,9 @@ namespace CDR.InputSystem
 
         private void Update()
         {
+            if(!isEnabled)
+                return;
+                
             foreach(InputActionUpdate actionUpdate in _InputActionUpdates.Values)
             {
                 if(actionUpdate.isUpdate)

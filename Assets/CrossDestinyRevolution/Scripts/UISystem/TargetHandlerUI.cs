@@ -45,7 +45,8 @@ namespace CDR.UISystem
             if(currentTarget != null)
             {
                 Vector2 pos = _camera.WorldToScreenPoint(currentTarget.activeCharacter.position);
-                targetImage.rectTransform.position = pos;
+                
+                targetImage.rectTransform.localPosition = new Vector2(pos.x - (_camera.pixelWidth / 2), pos.y - (_camera.pixelHeight / 3));
             }
         }
     }

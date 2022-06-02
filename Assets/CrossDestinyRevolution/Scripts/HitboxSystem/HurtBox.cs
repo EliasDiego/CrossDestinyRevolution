@@ -24,8 +24,8 @@ namespace CDR.HitboxSystem
 		public Transform Transform { get => transform; }
 		public IHurtResponder hurtResponder { get => m_hurtResponder; set => m_hurtResponder = value; } //Make Array
 
-		void Update()
-		{
+		private void Update() {
+			
 			SwapCollider();
 		}
 
