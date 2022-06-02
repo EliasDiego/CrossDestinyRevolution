@@ -11,17 +11,10 @@ namespace CDR.AttackSystem
 
 		[SerializeField] GameObject GunPoint; 
 		[SerializeField] public GameObject Target; 
-
 		[SerializeField] GameObject BulletProjectile;
+		[SerializeField] float attackRange;
 
-		public IProjectile projectile => throw new System.NotImplementedException();
-
-		public float range => throw new System.NotImplementedException();
-
-		private void Start()
-		{
-			
-		}
+		public float range => attackRange;
 
 		public override void Update()
 		{
@@ -33,12 +26,15 @@ namespace CDR.AttackSystem
 		{
 			base.Use();
 
-			//BulletProjectile.GetComponent<Projectile>().currentTarget = Character.targetHandler.GetCurrentTarget().activeCharacter.;
-			BulletProjectile.GetComponent<Projectile>().currentTarget = Target;
+			var target = Character.targetHandler.GetCurrentTarget();
+			var targetPos = target.activeCharacter.position;
 
-			var direction = Target.transform.position - GunPoint.transform.position;
-			Instantiate(BulletProjectile, GunPoint.transform.position, Quaternion.LookRotation(direction));
-			//Instantiate(BulletProjectile, GunPoint.transform.position, Quaternion.LookRotation(Character.targetHandler.GetCurrentTarget().activeCharacter.position));
+			var direction = targetPos - GunPoint.transform.position;
+
+			var bullet = Instantiate(BulletProjectile, GunPoint.transform.position, Quaternion.LookRotation(direction));
+			bullet.GetComponent<HomingProjectile>().target = target.activeCharacter;
+			bullet.GetComponent<HomingProjectile>().playerAttackRange = attackRange;
+			bullet.GetComponent<HomingProjectile>().originPoint = GunPoint.transform.position;
 
 			End();
 		}
@@ -48,17 +44,12 @@ namespace CDR.AttackSystem
 			base.End();
 		}
 
-		
-
-		void SetProjectile()
-		{
-			//interchange between what projectile to fire
-		}
-
 		private void OnDrawGizmos()
 		{
-			Gizmos.color = Color.red;
-			Gizmos.DrawLine(transform.position, Target.transform.position);
+			//Gizmos.color = Color.red;
+			//Gizmos.DrawLine(transform.position, Target.transform.position);
+			//Gizmos.color = Color.green;
+			//Gizmos.DrawWireSphere(transform.position, attackRange);
 		}
 	}
 }
