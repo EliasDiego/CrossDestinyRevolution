@@ -6,134 +6,154 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.EventSystems;
 
 namespace CDR.InputSystem
 {
     public class PlayerUIInput : PlayerInput
     {
-        private Selectable _CurrentSelectable;
-        private Vector2 _MousePosition;
+        // private Selectable _CurrentSelectable;
+        // private Vector2 _MousePosition;
 
-        private bool _IsClicked = false;
+        // private bool _IsClicked = false;
 
-        public event Action<Selectable> onSubmit;
-        public event Action<Selectable> onCancel;
-        public event Action<Selectable> onCurrentSelectableChange;
-        public event Action onEnableInput;
-        public event Action onDisableInput;
+        public event Action onSubmit;
+        public event Action onCancel;
+        // public event Action<Selectable> onCurrentSelectableChange;
+        // public event Action onEnableInput;
+        // public event Action onDisableInput;
 
-        public Selectable currentSelectable { get => _CurrentSelectable; set => SetCurrentSelectable(value); }
+        // public Selectable currentSelectable { get => _CurrentSelectable; set => SetCurrentSelectable(value); }
 
-        private void SetCurrentSelectable(Selectable selectable)
-        {
-            if(!selectable)
-                return;
+        // private void SetCurrentSelectable(Selectable selectable)
+        // {
+        //     if(!selectable)
+        //         return;
 
-            _CurrentSelectable = selectable;
+        //     _CurrentSelectable = selectable;
 
-            onCurrentSelectableChange?.Invoke(_CurrentSelectable);
-        }
+        //     onCurrentSelectableChange?.Invoke(_CurrentSelectable);
+        // }
 
-        private bool IsInsideRect(RectTransform rectTransform, Vector2 point)
-        {
-            Rect rect = new Rect(rectTransform.position - (Vector3)rectTransform.sizeDelta / 2, rectTransform.sizeDelta);
+        // private bool IsInsideRect(RectTransform rectTransform, Vector2 point)
+        // {
+        //     Rect rect = new Rect(rectTransform.position - (Vector3)rectTransform.sizeDelta / 2, rectTransform.sizeDelta);
             
-            return rect.Contains(point);
-        }
+        //     return rect.Contains(point);
+        // }
 
-        private void OnNavigate(InputAction.CallbackContext context)
+        // private void OnNavigate(InputAction.CallbackContext context)
+        // {
+        //     if(!currentSelectable)
+        //     {
+        //         currentSelectable = Selectable.allSelectablesArray.FirstOrDefault();
+
+        //         return;
+        //     }
+
+        //     Selectable nextSelectable = currentSelectable.FindSelectable(context.ReadValue<Vector2>());
+
+        //     if(nextSelectable)
+        //         currentSelectable = nextSelectable;
+        // }
+
+        // private void OnSubmit(InputAction.CallbackContext context)
+        // {
+        //     if(!currentSelectable)
+        //         return;
+
+        //     onSubmit?.Invoke(currentSelectable);
+
+        //     if(currentSelectable is ISubmitHandler s)
+        //         s.OnSubmit(null);
+        // }
+
+        // private void OnCancel(InputAction.CallbackContext context)
+        // {
+        //     if(!currentSelectable)
+        //         return;
+
+        //     onCancel?.Invoke(currentSelectable);
+
+        //     if(currentSelectable is ICancelHandler c)
+        //         c.OnCancel(null);
+        // }
+
+        // private void OnPoint(InputAction.CallbackContext context)
+        // {
+        //     _MousePosition = context.ReadValue<Vector2>();
+
+        //     Selectable selectable = Selectable.allSelectablesArray.FirstOrDefault(s => IsInsideRect(s.transform as RectTransform, _MousePosition));
+
+        //     if(currentSelectable && currentSelectable != selectable)
+        //         currentSelectable.OnPointerExit(null); 
+
+        //     if(selectable)
+        //     {
+        //         currentSelectable = selectable;
+        //         currentSelectable.OnPointerEnter(null);
+        //     }
+        // }
+
+        // private void OnClick(InputAction.CallbackContext context)
+        // {
+        //     if(!currentSelectable)
+        //         return;
+
+        //     _IsClicked = !_IsClicked;
+
+        //     if(_IsClicked)
+        //         return;
+
+        //     onSubmit?.Invoke(currentSelectable);
+
+        //     if(currentSelectable is ISubmitHandler s)
+        //         s.OnSubmit(null);
+
+        //     if(currentSelectable is IDragHandler d)
+        //     {
+        //         PointerEventData data = new PointerEventData(null);
+
+        //         data.button = PointerEventData.InputButton.Left;
+        //         // data.
+        //     }
+
+        // }
+
+        private void OnActionTriggered(InputAction.CallbackContext context)
         {
-            if(!currentSelectable)
-            {
-                currentSelectable = Selectable.allSelectablesArray.FirstOrDefault();
+            InputValue inputValue = new InputValue();
 
-                return;
-            }
-
-            Selectable nextSelectable = currentSelectable.FindSelectable(context.ReadValue<Vector2>());
-
-            if(nextSelectable)
-                currentSelectable = nextSelectable;
-        }
-
-        private void OnSubmit(InputAction.CallbackContext context)
-        {
-            if(!currentSelectable)
-                return;
-
-            onSubmit?.Invoke(currentSelectable);
-
-            if(currentSelectable is ISubmitHandler s)
-                s.OnSubmit(null);
-        }
-
-        private void OnCancel(InputAction.CallbackContext context)
-        {
-            if(!currentSelectable)
-                return;
-
-            onCancel?.Invoke(currentSelectable);
-
-            if(currentSelectable is ICancelHandler c)
-                c.OnCancel(null);
-        }
-
-        private void OnPoint(InputAction.CallbackContext context)
-        {
-            _MousePosition = context.ReadValue<Vector2>();
-
-            Selectable selectable = Selectable.allSelectablesArray.FirstOrDefault(s => IsInsideRect(s.transform as RectTransform, _MousePosition));
-
-            if(currentSelectable && currentSelectable != selectable)
-                currentSelectable.OnPointerExit(null); 
-
-            if(selectable)
-            {
-                currentSelectable = selectable;
-                currentSelectable.OnPointerEnter(null);
-            }
-        }
-
-        private void OnClick(InputAction.CallbackContext context)
-        {
-            if(!currentSelectable)
-                return;
-
-            _IsClicked = !_IsClicked;
-
-            if(!_IsClicked && currentSelectable is ISubmitHandler s)
-            {
-                s.OnSubmit(null);
-
-                onSubmit?.Invoke(currentSelectable);
-            }
+            SendMessage($"On{ context.action.name }Callback", context, SendMessageOptions.DontRequireReceiver);
         }
 
         public override void SetupInput(InputActionMap inputActionMap, params InputDevice[] devices)
         {
             base.SetupInput(inputActionMap, devices);
 
-            inputActions["Point"].performed += OnPoint;
-            inputActions["Navigate"].started += OnNavigate;
-            inputActions["Navigate"].performed += OnNavigate;
-            inputActions["Submit"].started += OnSubmit;
-            inputActions["Cancel"].started += OnCancel;
-            inputActions["Click"].performed += OnClick;
+            actionMap.actionTriggered += OnActionTriggered;
+
+            // inputActions["Point"].performed += OnPoint;
+            // inputActions["Navigate"].started += OnNavigate;
+            // inputActions["Navigate"].performed += OnNavigate;
+            // inputActions["Submit"].started += OnSubmit;
+            // inputActions["Cancel"].started += OnCancel;
+            // inputActions["Click"].performed += OnClick;
         }
 
         public override void EnableInput()
         {
             base.EnableInput();
 
-            onEnableInput?.Invoke();
+            // onEnableInput?.Invoke();
         }
 
         public override void DisableInput()
         {
             base.DisableInput();
 
-            onDisableInput?.Invoke();
+            // onDisableInput?.Invoke();
         }
     }
 }

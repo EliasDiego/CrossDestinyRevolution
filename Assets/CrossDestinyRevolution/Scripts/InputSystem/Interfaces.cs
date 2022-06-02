@@ -15,18 +15,17 @@ namespace CDR.InputSystem
         bool isEnabled { get; }
         void EnableInput();
         void DisableInput();
+        void EnableInput(string name);
+        void DisableInput(string name);
     }
 
     public interface IPlayerInput : IInput
     {
-        bool isPaired { get; }
+        // bool isPaired { get; }
         InputUser user { get; }
-
-        event Action onDeviceDisconnect;
+        // event Action onDeviceDisconnect;
 
         void SetupInput(InputActionMap inputActionMap, params InputDevice[] devices);
-        void EnableInput(string name);
-        void DisableInput(string name);
     }
 
     public interface IAIInput : IInput
