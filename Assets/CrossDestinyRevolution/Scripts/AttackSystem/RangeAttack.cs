@@ -31,6 +31,7 @@ namespace CDR.AttackSystem
 
 			var direction = targetPos - GunPoint.transform.position;
 
+			//To be changed to get from Object Pooling
 			var bullet = Instantiate(BulletProjectile, GunPoint.transform.position, Quaternion.LookRotation(direction));
 			bullet.GetComponent<HomingProjectile>().target = target.activeCharacter;
 			bullet.GetComponent<HomingProjectile>().playerAttackRange = attackRange;

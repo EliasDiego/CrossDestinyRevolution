@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CDR.ObjectPooling
+namespace CDR.ObjectPoolingSystem
 {
     [System.Serializable]
     public class ObjectPoolItem
@@ -17,7 +17,18 @@ namespace CDR.ObjectPooling
         public int amountToPool;
         //if we reached the maximum amount to pool, instantiate a new prefab instance
         public bool shouldExpand;
+    }
 
+    public class Poolable : MonoBehaviour
+    {
+        [SerializeField]
+        private string _id;
+
+        public string ID
+        {
+            get { return _id; }
+            set { _id = value; }
+        }
     }
 
     public class ObjectPooling : MonoBehaviour
@@ -26,17 +37,11 @@ namespace CDR.ObjectPooling
         [SerializeField]
         private List<GameObject> pooledObjects;
 
-        public void PrintConsole()
-        {
-            Debug.Log("I AM THE OBJECT POOL MANAGER");
-        }
-
-
         private void Start()
         {
             pooledObjects = new List<GameObject>();
 
-            //Traverse through each objectpoolitem in the list
+            
             foreach (ObjectPoolItem item in itemsToPool)
             {
                 //instantiate the object's prefab based on the inital amounttopool
@@ -85,5 +90,5 @@ namespace CDR.ObjectPooling
 
             return null;
         }
-    }
+	}
 }
