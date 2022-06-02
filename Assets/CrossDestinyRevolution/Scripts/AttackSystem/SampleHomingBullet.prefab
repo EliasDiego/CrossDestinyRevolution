@@ -145,8 +145,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   isSphere: 1
-  m_hitBoxSize: {x: 0.53, y: 1, z: 1}
-  m_radius: 0.76
+  m_hitBoxSize: {x: 0, y: 0, z: 0}
+  m_radius: 0.5
 --- !u!65 &5376925869142226359
 BoxCollider:
   m_ObjectHideFlags: 0

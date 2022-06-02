@@ -49,10 +49,7 @@ namespace CDR.AttackSystem
 			_rigidBody.velocity = transform.forward * bulletSpeed;
 		}
 
-		public virtual void RotateProjectile()
-		{
-			//_rigidBody.MoveRotation(Quaternion.LookRotation(projectileTarget));
-		}
+		public virtual void RotateProjectile(){}
 
 		protected virtual void PredictMovement(float leadTimePercentage)
 		{
@@ -69,13 +66,13 @@ namespace CDR.AttackSystem
 
 		private void OnDrawGizmos()
 		{
-			//Gizmos.color = Color.red;
-			//Gizmos.DrawLine(transform.position, _standardPrediction);
-			//Gizmos.color = Color.green;
-			//Gizmos.DrawLine(_standardPrediction, _deviatedPrediction);
+			Gizmos.color = Color.red;
+			Gizmos.DrawLine(transform.position, _standardPrediction);
+			Gizmos.color = Color.green;
+			Gizmos.DrawLine(_standardPrediction, _deviatedPrediction);
 
-			//Gizmos.DrawWireSphere(transform.position, _maxDistancePredict);
-			//Gizmos.color = Color.clear;
+			Gizmos.DrawWireSphere(transform.position, _maxDistancePredict);
+			Gizmos.color = Color.clear;
 		}
 	}
 }

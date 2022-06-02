@@ -48,8 +48,8 @@ namespace CDR.AttackSystem
 		{
 			//Gizmos.color = Color.red;
 			//Gizmos.DrawLine(transform.position, Target.transform.position);
-			//Gizmos.color = Color.green;
-			//Gizmos.DrawWireSphere(transform.position, attackRange);
+			Gizmos.color = Color.green;
+			Gizmos.DrawWireSphere(transform.position, attackRange);
 		}
 	}
 }

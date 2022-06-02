@@ -24,16 +24,11 @@ namespace CDR.HitboxSystem
 		{
 			if(!isSphere)
 			{
-				Vector3 _scaledSize = new Vector3(
-					m_BoxCollider.size.x * m_hitBoxSize.x,
-					m_BoxCollider.size.y * m_hitBoxSize.y,
-					m_BoxCollider.size.z * m_hitBoxSize.z);
-
-				float _distance = _scaledSize.y - m_hitBoxSize.y;
+				float _distance = m_hitBoxSize.y;
 				Vector3 _direction = transform.up;
 				Vector3 _center = transform.TransformPoint(m_BoxCollider.center);
 				Vector3 _start = transform.position;
-				Vector3 _halfExtends = new Vector3(_scaledSize.x, _scaledSize.y, _scaledSize.z) / 2;
+				Vector3 _halfExtends = new Vector3(m_hitBoxSize.x, m_hitBoxSize.y, m_hitBoxSize.z) / 2;
 				Quaternion _orientation = transform.rotation;
 
 				RaycastHit[] _hits = Physics.BoxCastAll(_start, _halfExtends, _direction, _orientation, _distance, m_layerMask);
@@ -87,11 +82,11 @@ namespace CDR.HitboxSystem
 		{
 			Gizmos.color = Color.red;
 			Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.localScale);
-			
+
 			if (!isSphere)
 				Gizmos.DrawCube(Vector3.zero, new Vector3(m_hitBoxSize.x, m_hitBoxSize.y, m_hitBoxSize.z));
 			if (isSphere)
-				Gizmos.DrawSphere(Vector3.zero, m_radius); // Because size is halfExtents
+				Gizmos.DrawSphere(Vector3.zero, m_radius);
 		}
 	}
 }
