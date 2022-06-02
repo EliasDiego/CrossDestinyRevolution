@@ -42,8 +42,11 @@ namespace CDR.UISystem
 
         private void LateUpdate()
         {
-            Vector2 pos = _camera.WorldToScreenPoint(currentTarget.activeCharacter.position);
-            targetImage.rectTransform.position = pos;
+            if(currentTarget != null)
+            {
+                Vector2 pos = _camera.WorldToScreenPoint(currentTarget.activeCharacter.position);
+                targetImage.rectTransform.position = pos;
+            }
         }
     }
 }
