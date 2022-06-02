@@ -17,23 +17,26 @@ namespace CDR.HitboxSystem
 
 		[SerializeField] bool m_active = true;
 		[SerializeField] GameObject m_owner = null;
-		IHurtResponder m_hurtResponder;
+		IHurtResponder m_hurtResponder;// Make Array
 
 		public bool Active {get => m_active; } 
-		public GameObject Owner { get => m_owner; }
+		public GameObject Owner { get => m_owner; } //Make ActiveCharacter
 		public Transform Transform { get => transform; }
-		public IHurtResponder hurtResponder { get => m_hurtResponder; set => m_hurtResponder = value; }
-
-		event Action<IActiveCharacter> onHurt;
+		public IHurtResponder hurtResponder { get => m_hurtResponder; set => m_hurtResponder = value; } //Make Array
 
 		void Update()
+		{
+			SwapCollider();
+		}
+
+		public void SwapCollider()
 		{
 			if (!isSphere)
 			{
 				m_BoxCollider.enabled = true;
 				m_SphereCollider.enabled = false;
 
-				m_BoxCollider.size = m_hitBoxSize;			
+				m_BoxCollider.size = m_hitBoxSize;
 			}
 
 			if (isSphere)

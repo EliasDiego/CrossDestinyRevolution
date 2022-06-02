@@ -72,7 +72,7 @@ namespace CDR.AttackSystem
 
 		public void Response(HitData data)
 		{
-			Destroy(gameObject);
+			Destroy(gameObject); //To Change in Object pooling
 			//throw new System.NotImplementedException();
 		}
 	}
