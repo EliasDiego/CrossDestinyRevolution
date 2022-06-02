@@ -1,7 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using CDR.MechSystem;
-using System;
 
 // This class is for the Boost system and its methods.
 
@@ -20,31 +18,15 @@ namespace CDR.MovementSystem
         private HorizontalBoostData _horizontalBoostData;
 
         public IBoostValue boostValue => _boostValue;
-
         public IBoostData horizontalBoostData => _horizontalBoostData;
-
         public IBoostData verticalBoostData => _verticalBoostData;
 
         private Controller controller;
-
-        public override void Use()
-        {
-            base.Use();
-        }
-
-        public override void End()
-        {
-            base.End();
-        }
-
-        protected override void Awake()
-        {
-            base.Awake();
-            controller = GetComponent<Controller>();
-        }
+        private int tweenID;
 
         private void Start()
         {
+            controller = (Controller)Character.controller;
             _boostValue.ModifyValueWithoutEvent(_boostValue.MaxValue);
             StartCoroutine(_boostValue.Regenerate());
         }
@@ -53,21 +35,21 @@ namespace CDR.MovementSystem
         {
             if(_boostValue.CanUse())
             {
-                
                 var dir = new Vector3(direction.x, 0f, direction.y);
-
+                
+                Character.movement.SetSpeedClamp(false);               
                 _boostValue.Consume();
                 _boostValue.SetIsRegening(false);
 
-                LeanTween.value(_horizontalBoostData.distance / _horizontalBoostData.time, 0f , _horizontalBoostData.time)
+                tweenID = LeanTween.value(_horizontalBoostData.distance / _horizontalBoostData.time, 0f , _horizontalBoostData.time)
                     .setOnUpdate((float f) =>
-                    {
+                    {                        
                         controller.AddRbForce((transform.rotation * dir) * f);
                     }).setEaseOutExpo()
                     .setOnComplete(() =>
                     {
-                        _boostValue.SetIsRegening(true);
-                    });
+                        BoostEnd();                       
+                    }).id;
             }
         }
     
@@ -75,19 +57,21 @@ namespace CDR.MovementSystem
         {
             if (_boostValue.CanUse())
             {
+               
+                Character.movement.SetSpeedClamp(false);
                 _boostValue.Consume();
                 _boostValue.SetIsRegening(false);
                 var dir = direction * _verticalBoostData.distance;
 
-                LeanTween.value(0f, dir / _verticalBoostData.time, _verticalBoostData.time)
+                tweenID = LeanTween.value(0f, dir / _verticalBoostData.time, _verticalBoostData.time)
                     .setOnUpdate((float f) =>
                     {
                         controller.AddRbForce(new Vector3(0f, f, 0f));
                     }).setEaseInQuint()
                     .setOnComplete(() =>
                     {
-                        StartCoroutine(ResumeRegen());
-                    });
+                        BoostEnd();                       
+                    }).id;
             }
         }
 
@@ -97,6 +81,15 @@ namespace CDR.MovementSystem
             _boostValue.SetIsRegening(true);
         }
 
-        
+        private void BoostEnd()
+        {
+            StartCoroutine(ResumeRegen());
+            Character.movement.SetSpeedClamp(true);
+            Character.movement.SetDistanceToTarget
+                (
+                    Vector3.Distance(Character.targetHandler.GetCurrentTarget().activeCharacter.position,
+                    transform.position)
+                );
+        }
     }
 }

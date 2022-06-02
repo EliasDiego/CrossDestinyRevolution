@@ -16,25 +16,26 @@ namespace CDR.MovementSystem
         [SerializeField]
         private bool clampSpeed = false;
 
-        private Boost boost;
         private Controller controller;
         private Vector3 currentDir = Vector3.zero;
         private ITargetData currentTarget;
+        private float distanceToTarget;
+
+        public float intensity = 1f;
 
         public float speed => _speed;
-
         public float gravity => _gravity;
 
         protected override void Awake()
         {
             base.Awake();
             controller = GetComponent<Controller>();
-            boost = GetComponent<Boost>();
         }
 
         private void Start()
         {
             currentTarget = Character.targetHandler.GetCurrentTarget();
+            distanceToTarget = Vector3.Distance(transform.position, currentTarget.activeCharacter.position);
         }
 
         private void Update()
@@ -48,8 +49,15 @@ namespace CDR.MovementSystem
 
         private void FixedUpdate()
         {       
-            controller.AddRbForce(MoveDirection());           
+            controller.AddRbForce(MoveDirection());
+            controller.AddRbForce(CentripetalForce(), ForceMode.Acceleration);
         }       
+
+        Vector3 CentripetalForce()
+        {
+            float cForce = Mathf.Pow(controller.velocity.magnitude, 2) / distanceToTarget;
+            return currentTarget.direction * -cForce;
+        }
 
         private Vector3 MoveDirection()
         {
@@ -58,25 +66,16 @@ namespace CDR.MovementSystem
                 return Vector3.zero;
             }
 
+            if(currentDir.z != 0f)
+            {
+                var distance = Vector3.Distance(transform.position, currentTarget.activeCharacter.position);
+                SetDistanceToTarget(distance);
+                currentTarget?.activeCharacter?.movement?.SetDistanceToTarget(distance);
+            }
+
+
             var current = (transform.rotation * currentDir).normalized;
-            current += transform.forward * 0.35f;
-            //current.z -= (transform.position - currentTarget.activeCharacter.position).normalized.z;
-            return current;
-        }
-         
-        public void SetClamp(bool boo)
-        {
-            clampSpeed = boo;
-        }
-
-        private void ClampSpeed()
-        {
-            SetClamp(true);
-        }
-
-        private void UnclampSpeed()
-        {
-            SetClamp(false);
+            return current;           
         }
 
         private void RotateObject()
@@ -111,6 +110,16 @@ namespace CDR.MovementSystem
         {
             base.End();
         }
-        #endregion        
+
+        public void SetSpeedClamp(bool isClamped)
+        {
+            clampSpeed = isClamped;
+        }
+
+        public void SetDistanceToTarget(float distance)
+        {
+            distanceToTarget = distance;            
+        }
+        #endregion
     }
 }

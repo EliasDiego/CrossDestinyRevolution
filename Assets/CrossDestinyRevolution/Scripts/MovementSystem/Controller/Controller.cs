@@ -39,6 +39,11 @@ namespace CDR.MovementSystem
             rb.AddForce(force, mode);
         }
 
+        public void AddRelativeForce(Vector3 force, ForceMode mode = ForceMode.VelocityChange)
+        {
+            rb.AddRelativeForce(force, mode);
+        }
+
         public void Translate(Vector3 direction, float magnitude)
         {
             transform.position = direction * magnitude;
@@ -47,6 +52,14 @@ namespace CDR.MovementSystem
         public void Rotate(Quaternion rotation)
         {
             transform.rotation = rotation;           
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if(collision.gameObject.CompareTag("Player"))
+            {
+                SetVelocity(Vector3.zero);
+            }
         }
     }
 }
