@@ -16,13 +16,8 @@ namespace CDR.AttackSystem
 	{
 		IController controller { get; }
 
-
-
 		public Collider HitBox { get; }
 		public float Lifetime { get; }
-
-		public Vector3 Target { get; }
-		public Vector3 Origin { get; }
 	}
 }
 

@@ -13,12 +13,13 @@ using CDR.TargetingSystem;
 
 namespace CDR.InputSystem
 {
-    public class PlayerMechInput : PlayerCharacterInput<IMech, IPlayerMechInputSettings>
+    public class PlayerMechInput : PlayerCharacterInput<IMech>
     {
         private Vector2 _MovementInput;
 
-        private Dictionary<string, InputAction> _InputActions = new Dictionary<string, InputAction>();
-        private Dictionary<string, InputActionUpdate> _InputActionUpdates = new Dictionary<string, InputActionUpdate>(); 
+        private Dictionary<string, InputActionUpdate> _InputActionUpdates = new Dictionary<string, InputActionUpdate>();
+
+        public PlayerMechInputSettings settings { get; set; }
 
         private class InputActionUpdate
         {
@@ -168,58 +169,23 @@ namespace CDR.InputSystem
             Debug.Log($"[Movement Input] {_MovementInput}");
         }
 
-        public override void SetupInput(IPlayerMechInputSettings playerInputSettings, InputActionAsset inputActionAsset, params InputDevice[] devices)
+        public override void SetupInput(InputActionMap inputActionMap, params InputDevice[] devices)
         {
-            base.SetupInput(playerInputSettings, inputActionAsset, devices);
-            
-            InputActionMap actionMap = actionAsset.FindActionMap("Game", true);
+            base.SetupInput(inputActionMap, devices);
 
-            foreach(InputAction inputAction in actionMap.actions)
-                _InputActions.Add(inputAction.name, inputAction);
+            inputActions["Movement"].performed += OnMovement;
+            inputActions["Movement"].canceled += OnMovement;
 
-            _InputActions["Movement"].performed += OnMovement;
-            _InputActions["Movement"].canceled += OnMovement;
+            inputActions["Boost"].started += OnBoost;
 
-            _InputActions["Boost"].started += OnBoost;
+            inputActions["ChangeTarget"].started += OnChangeTarget;
+            inputActions["MeleeAttack"].started += OnMeleeAttack;
+            inputActions["Shield"].started += OnShield;
+            inputActions["SpecialAttack1"].started += OnSpecialAttack1;
+            inputActions["SpecialAttack2"].started += OnSpecialAttack2;
+            inputActions["SpecialAttack3"].started += OnSpecialAttack3;
 
-            _InputActions["ChangeTarget"].started += OnChangeTarget;
-            _InputActions["MeleeAttack"].started += OnMeleeAttack;
-            _InputActions["Shield"].started += OnShield;
-            _InputActions["SpecialAttack1"].started += OnSpecialAttack1;
-            _InputActions["SpecialAttack2"].started += OnSpecialAttack2;
-            _InputActions["SpecialAttack3"].started += OnSpecialAttack3;
-
-            _InputActionUpdates.Add("RangeAttack", new InputActionUpdate(_InputActions["RangeAttack"], OnRangeAttack));
-        }
-
-        public override void EnableInput()
-        {
-            foreach(InputAction inputAction in _InputActions.Values)
-                inputAction.Enable();
-        }
-
-        public override void DisableInput()
-        {
-            foreach(InputAction inputAction in _InputActions.Values)
-                inputAction.Disable();
-        }
-
-        public override void EnableInput(string name)
-        {
-            if(_InputActions.ContainsKey(name))
-                _InputActions[name].Enable();
-
-            else
-                Debug.Log($"[Input Error] {name} does not exist!");
-        }
-
-        public override void DisableInput(string name)
-        {
-            if(_InputActions.ContainsKey(name))
-                _InputActions[name].Disable();
-
-            else
-                Debug.Log($"[Input Error] {name} does not exist!");
+            _InputActionUpdates.Add("RangeAttack", new InputActionUpdate(inputActions["RangeAttack"], OnRangeAttack));
         }
     }
 }
