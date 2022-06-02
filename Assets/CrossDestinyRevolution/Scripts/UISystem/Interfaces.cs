@@ -6,6 +6,7 @@ using CDR.MechSystem;
 using CDR.AttackSystem;
 using CDR.ActionSystem;
 using CDR.MovementSystem;
+using CDR.TargetingSystem;
 
 namespace CDR.UISystem
 {
@@ -15,6 +16,12 @@ namespace CDR.UISystem
 
         void Show();
         void Hide();
+    }
+
+    public interface ITargetHandlerUI : IUIElement
+    {
+        //void SetTarget(IActiveCharacter target);
+        void SetTarget(ITargetData target);
     }
 
     public interface ICooldownActionUI : IUIElement
@@ -31,7 +38,7 @@ namespace CDR.UISystem
     {
         IValueRangeUI healthUI { get; }
         IValueRangeUI boostUI { get; }
-        ICooldownActionUI rangeAttackUI { get; }
+        ITargetHandlerUI targetHandlerUI { get; }
         ICooldownActionUI specialAttack1AttackUI { get; }
         ICooldownActionUI specialAttack2AttackUI { get; }
         ICooldownActionUI specialAttack3AttackUI { get; }

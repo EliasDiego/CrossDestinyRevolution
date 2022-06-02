@@ -5,25 +5,30 @@ using UnityEngine;
 
 namespace CDR.MechSystem
 {
-    public class Health : MonoBehaviour, IHealth
+    [System.Serializable]
+    public class Health : ValueRange, IHealth
     {
-        [SerializeField] ValueRange _valueRange;
+        public event Action OnDeath;
 
-
-        public float CurrentValue => _valueRange.CurrentValue;
-        public float MaxValue => _valueRange.MaxValue;
-        public event Action OnModifyValue;
-
-        public void ModifyValue(float value)
+        public void CheckHealthStatus()
         {
-            ModifyValueWithoutEvent(value);
-            OnModifyValue?.Invoke();
+            if(CurrentValue < 0)
+            {
+                Death();
+            }
         }
 
-        public void ModifyValueWithoutEvent(float value)
+        public void TakeDamage(float damage)
         {
+            float currentHealth = CurrentValue - damage;
+            ModifyValue(currentHealth);
+            CheckHealthStatus();
+        }
 
+        public void Death()
+        {
+            Debug.Log("Player died");
+            OnDeath?.Invoke();
         }
     }
 }
-
