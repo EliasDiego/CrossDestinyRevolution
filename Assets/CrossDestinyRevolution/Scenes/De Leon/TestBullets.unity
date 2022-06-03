@@ -168,6 +168,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &95126765
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 95126766}
+  m_Layer: 0
+  m_Name: Player2ObjectPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &95126766
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 95126765}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -61.676235, y: -23.29771, z: -70.90079}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &381777942
 GameObject:
   m_ObjectHideFlags: 0
@@ -403,8 +433,8 @@ GameObject:
   - component: {fileID: 1105448021}
   - component: {fileID: 1105448026}
   - component: {fileID: 1105448025}
-  - component: {fileID: 1105448022}
   - component: {fileID: 1105448024}
+  - component: {fileID: 1105448022}
   - component: {fileID: 1105448023}
   m_Layer: 0
   m_Name: TestPlayer
@@ -441,9 +471,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FireRate: 1
+  playerOwner: 0
   GunPoint: {fileID: 381777942}
-  Target: {fileID: 1671133288}
-  BulletProjectile: {fileID: 3401622447246041622, guid: 70d69503cba1bd643a8b4e2018739a5f, type: 3}
   attackRange: 30
 --- !u!114 &1105448023
 MonoBehaviour:
@@ -603,7 +632,7 @@ GameObject:
   - component: {fileID: 1341434562}
   - component: {fileID: 1341434561}
   m_Layer: 0
-  m_Name: ObjectPool
+  m_Name: Player1ObjectPool
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -616,17 +645,15 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1341434560}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c80cf1d50d44b24081cf1a63f65a085, type: 3}
+  m_Script: {fileID: 11500000, guid: 0588c46c0a06ef34e8dcd671f36ffb8e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPersist: 1
+  PoolingOwner: 0
   itemsToPool:
-  - id: HomingBullet
-    objectToPool: {fileID: 3401622447246041622, guid: 70d69503cba1bd643a8b4e2018739a5f, type: 3}
-    parent: {fileID: 0}
-    amountToPool: 10
-    shouldExpand: 1
+  - {fileID: 11400000, guid: 5fa44ca72dfce524d99e8a495c653dad, type: 2}
   pooledObjects: []
 --- !u!4 &1341434562
 Transform:

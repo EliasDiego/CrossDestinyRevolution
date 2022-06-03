@@ -22,24 +22,25 @@ namespace CDR.AttackSystem
 		[HideInInspector] protected float _deviationAmount = 50;
 		[HideInInspector] protected float _deviationSpeed = 2;
 
-		public float playerAttackRange;
-		protected float distanceFromTarget;
-
-		public Vector3 originPoint;
-		
-
 		public override void Start()
 		{
 			base.Start();
 			_rigidBody = GetComponent<Rigidbody>();
-
+			
 			//_standardPrediction = target.position;
 			//_deviatedPrediction = target.position;
 		}
 
+		public override void OnEnable()
+		{
+			base.OnEnable();
+			isHoming = true;
+		}
+
 		public virtual void FixedUpdate()
 		{
-			distanceFromTarget = Vector3.Distance(transform.position, target.position);
+			if(target != null)
+				distanceFromTarget = Vector3.Distance(transform.position, target.position);
 
 			MoveProjectile();
 		}
@@ -54,7 +55,11 @@ namespace CDR.AttackSystem
 		protected virtual void PredictMovement(float leadTimePercentage)
 		{
 			var predictionTime = Mathf.Lerp(0, _maxTimePrediction, leadTimePercentage);
-			_standardPrediction = target.position + target.controller.velocity * predictionTime;
+
+			if (target != null)
+			{
+				_standardPrediction = target.position + target.controller.velocity * predictionTime;
+			}
 		}
 
 		protected virtual void AddDeviation(float leadTimePercentage)

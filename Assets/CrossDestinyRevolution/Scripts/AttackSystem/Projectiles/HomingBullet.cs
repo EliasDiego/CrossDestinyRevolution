@@ -23,8 +23,11 @@ namespace CDR.AttackSystem
 
             var leadTimePercentage = Mathf.InverseLerp(_minDistancePredict, _maxDistancePredict, distanceFromTarget);
 
-            projectileDistanceFromOrigin = Vector3.Distance(transform.position, originPoint);
-            originPointDistanceFromTarget = Vector3.Distance(target.position, originPoint);
+            if (target != null)
+            {
+                projectileDistanceFromOrigin = Vector3.Distance(transform.position, originPoint);
+                originPointDistanceFromTarget = Vector3.Distance(target.position, originPoint);
+            }
 
             if (isHoming)
             {
