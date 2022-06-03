@@ -40,8 +40,6 @@ namespace CDR.AttackSystem
             {
                 isHoming = false;
             }
-
-            
         }
 
 		public override void Start()
