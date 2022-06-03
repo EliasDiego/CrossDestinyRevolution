@@ -18,15 +18,9 @@ namespace CDR.ObjectPoolingSystem
         //if we reached the maximum amount to pool, instantiate a new prefab instance
         public bool shouldExpand;
 
-		public void ResetObject()
-		{
-			//throw new System.NotImplementedException();
-		}
+		public void ResetObject(){}
 
-		public void Return()
-		{
-			//throw new System.NotImplementedException();
-		}
+		public void Return(){}
 	}
 }
 
