@@ -5,17 +5,9 @@ using CDR.MechSystem;
 
 namespace CDR.ObjectPoolingSystem
 {
-    public enum Owner
-	{
-        Player1,
-        Player2
-	}
-
     public interface IPoolable //attach to scripts to pool
     {
         string ID { get; set; }
-        Owner objectOwner { get; set; }
-
         void ResetObject();
         void Return();
     }
@@ -30,6 +22,6 @@ namespace CDR.ObjectPoolingSystem
         void Initialize();
         void Destroy();
         void ReturnAll();
-        GameObject GetPoolable(string _id, Owner _PoolingOwner);
+        GameObject GetPoolable(string _id);
     }
 }

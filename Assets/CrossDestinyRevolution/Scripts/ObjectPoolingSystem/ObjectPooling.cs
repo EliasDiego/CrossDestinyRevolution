@@ -6,9 +6,8 @@ using CDR.MechSystem;
 
 namespace CDR.ObjectPoolingSystem
 {
-    public class Player1ObjectPooling : Singleton<Player1ObjectPooling> , IPool
+    public class ObjectPooling : Singleton<ObjectPooling>, IPool
     {
-        [SerializeField] Owner PoolingOwner;
         public List<ObjectPoolingScriptableObject> itemsToPool;
 
         [SerializeField]
@@ -31,26 +30,23 @@ namespace CDR.ObjectPoolingSystem
                 for (int i = 0; i < item.amountToPool; i++)
                 {
                     //Set Object Owner
-                    item._objectOwner = PoolingOwner;
 
                     //Instantiate the prefab
                     GameObject obj = Instantiate(item.objectToPool, item.parent);
                     obj.GetComponent<IPoolable>().ID = item._id;
-                    obj.GetComponent<IPoolable>().objectOwner = item._objectOwner;
                     obj.SetActive(false);
                     pooledObjects.Add(obj);
                 }
             }
         }
 
-        public GameObject GetPoolable(string _id, Owner _PoolingOwner)
+        public GameObject GetPoolable(string _id)
         {
             for (int i = 0; i < pooledObjects.Count; i++)
             {
                 //we need to make sure that the object is not active
                 if (!pooledObjects[i].activeInHierarchy &&
-                    pooledObjects[i].GetComponent<IPoolable>().ID == _id &&
-                    pooledObjects[i].GetComponent<IPoolable>().objectOwner == _PoolingOwner)
+                    pooledObjects[i].GetComponent<IPoolable>().ID == _id)
                 {
                     return pooledObjects[i];
                 }
@@ -64,7 +60,6 @@ namespace CDR.ObjectPoolingSystem
                 {
                     GameObject obj = Instantiate(item.objectToPool, item.parent);
                     obj.GetComponent<IPoolable>().ID = item._id;
-                    obj.GetComponent<IPoolable>().objectOwner = item._objectOwner;
                     obj.SetActive(false);
                     pooledObjects.Add(obj);
                     return obj;

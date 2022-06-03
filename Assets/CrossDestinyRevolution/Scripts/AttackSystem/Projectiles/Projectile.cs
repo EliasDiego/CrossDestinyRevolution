@@ -12,9 +12,7 @@ namespace CDR.AttackSystem
 {
 	public class Projectile : MonoBehaviour, IProjectile, IHitResponder
 	{
-		public Owner owner;
-		string id;
-
+		string _id;
 		[SerializeField] HitBox projectileHitbox;
 		public float projectileDamage;
 		
@@ -36,8 +34,7 @@ namespace CDR.AttackSystem
 		public IController controller => projectileController;
 		float IHitResponder.Damage => projectileDamage;
 
-		public string ID { get => id; set => id = value; }
-		public Owner objectOwner { get => owner; set => owner = value; }
+		public string ID { get => _id; set => _id = value; }
 
 		public virtual void Start()
 		{

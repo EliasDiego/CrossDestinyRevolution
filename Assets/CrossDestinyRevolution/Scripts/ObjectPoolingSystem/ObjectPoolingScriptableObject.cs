@@ -10,8 +10,6 @@ namespace CDR.ObjectPoolingSystem
     {
         public string _id;
 
-		public Owner _objectOwner;
-
         public GameObject objectToPool;
         //parent transform to attach the object once instantiated
         public Transform parent;

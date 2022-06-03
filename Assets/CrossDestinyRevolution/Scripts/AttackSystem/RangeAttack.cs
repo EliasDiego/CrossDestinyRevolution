@@ -9,7 +9,6 @@ namespace CDR.AttackSystem
 	public class RangeAttack : CooldownAction , IRangeAttack
 	{
 		[SerializeField] float FireRate;
-		[SerializeField] Owner playerOwner;
 		[SerializeField] GameObject GunPoint;
 		[SerializeField] float attackRange;
 
@@ -42,20 +41,12 @@ namespace CDR.AttackSystem
 
 			var direction = targetPos - GunPoint.transform.position;
 			
-			if(playerOwner == Owner.Player1)
-			{
-				var bullet = Player1ObjectPooling.Instance.GetPoolable("HomingBullet", playerOwner);
+			var bullet = ObjectPooling.Instance.GetPoolable("HomingBullet");
 
-				bullet.GetComponent<Projectile>().target = target.activeCharacter;
-				bullet.GetComponent<Projectile>().playerAttackRange = attackRange;
-				bullet.GetComponent<Projectile>().originPoint = GunPoint.transform.position;
-				bullet.SetActive(true);
-			}
-			if(playerOwner == Owner.Player2)
-			{
-
-			}
-
+			bullet.GetComponent<Projectile>().target = target.activeCharacter;
+			bullet.GetComponent<Projectile>().playerAttackRange = attackRange;
+			bullet.GetComponent<Projectile>().originPoint = GunPoint.transform.position;
+			bullet.SetActive(true);
 		}
 
 		public override void End()
