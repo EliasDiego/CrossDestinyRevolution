@@ -38,7 +38,6 @@ namespace CDR.AttackSystem
 
     public interface IRangeAttack : ICooldownAction
     {
-        IProjectile projectile  { get; }
         float range { get; }
     }
 

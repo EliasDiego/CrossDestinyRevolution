@@ -9,6 +9,7 @@ using CDR.StateSystem;
 using CDR.ActionSystem;
 using CDR.MovementSystem;
 using CDR.ObjectPoolingSystem;
+using CDR.HitboxSystem;
 
 namespace CDR.AttackSystem
 {
@@ -16,13 +17,9 @@ namespace CDR.AttackSystem
 	{
 		IController controller { get; }
 
-
-
-		public Collider HitBox { get; }
+		public HitBox HitBox { get; }
 		public float Lifetime { get; }
-
-		public Vector3 Target { get; }
-		public Vector3 Origin { get; }
+		public float Damage { get; }
 	}
 }
 
