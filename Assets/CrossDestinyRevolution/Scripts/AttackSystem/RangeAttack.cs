@@ -2,16 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CDR.ActionSystem;
+using CDR.ObjectPoolingSystem;
 
 namespace CDR.AttackSystem
 {
 	public class RangeAttack : CooldownAction , IRangeAttack
 	{
 		[SerializeField] float FireRate;
-
-		[SerializeField] GameObject GunPoint; 
-		[SerializeField] public GameObject Target; 
-		[SerializeField] GameObject BulletProjectile;
+		[SerializeField] GameObject GunPoint;
 		[SerializeField] float attackRange;
 
 		public float range => attackRange;
@@ -22,21 +20,33 @@ namespace CDR.AttackSystem
 			_cooldownDuration = FireRate;
 		}
 
+		public void Start()
+		{
+
+		}
+
 		public override void Use()
 		{
 			base.Use();
 
+			GetBulletFromObjectPool();
+			
+			End();
+		}
+
+		void GetBulletFromObjectPool()
+		{
 			var target = Character.targetHandler.GetCurrentTarget();
 			var targetPos = target.activeCharacter.position;
 
 			var direction = targetPos - GunPoint.transform.position;
+			
+			var bullet = ObjectPooling.Instance.GetPoolable("HomingBullet");
 
-			var bullet = Instantiate(BulletProjectile, GunPoint.transform.position, Quaternion.LookRotation(direction));
-			bullet.GetComponent<HomingProjectile>().target = target.activeCharacter;
-			bullet.GetComponent<HomingProjectile>().playerAttackRange = attackRange;
-			bullet.GetComponent<HomingProjectile>().originPoint = GunPoint.transform.position;
-
-			End();
+			bullet.GetComponent<Projectile>().target = target.activeCharacter;
+			bullet.GetComponent<Projectile>().playerAttackRange = attackRange;
+			bullet.GetComponent<Projectile>().originPoint = GunPoint.transform.position;
+			bullet.SetActive(true);
 		}
 
 		public override void End()

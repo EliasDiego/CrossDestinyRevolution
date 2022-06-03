@@ -20,6 +20,11 @@ namespace CDR.HitboxSystem
 
 		public IHitResponder HitResponder { get => m_hitResponder; set => m_hitResponder = value; }
 
+		void Awake()
+		{
+			SwapCollider();
+		}
+
 		public void CheckHit()
 		{
 			if(!isSphere)
@@ -42,7 +47,7 @@ namespace CDR.HitboxSystem
 				Vector3 _center = transform.TransformPoint(m_SphereCollider.center);
 				Vector3 _start = transform.position;
 
-				RaycastHit[] _hits = Physics.SphereCastAll(_start, m_radius, _direction, m_layerMask);
+				RaycastHit[] _hits = Physics.SphereCastAll(_start, m_radius, _direction, m_radius, m_layerMask);
 
 				CheckCollisions(_hits, _center);
 			}
@@ -75,6 +80,25 @@ namespace CDR.HitboxSystem
 						}
 					}
 				}
+			}
+		}
+
+		public void SwapCollider()
+		{
+			if (!isSphere)
+			{
+				m_BoxCollider.enabled = true;
+				m_SphereCollider.enabled = false;
+
+				m_BoxCollider.size = m_hitBoxSize;
+			}
+
+			if (isSphere)
+			{
+				m_BoxCollider.enabled = false;
+				m_SphereCollider.enabled = true;
+
+				m_SphereCollider.radius = m_radius;
 			}
 		}
 

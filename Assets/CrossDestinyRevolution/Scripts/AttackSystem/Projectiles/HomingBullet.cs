@@ -23,20 +23,25 @@ namespace CDR.AttackSystem
 
             var leadTimePercentage = Mathf.InverseLerp(_minDistancePredict, _maxDistancePredict, distanceFromTarget);
 
-            projectileDistanceFromOrigin = Vector3.Distance(transform.position, originPoint);
-            originPointDistanceFromTarget = Vector3.Distance(target.position, originPoint);
+            if (target != null)
+            {
+                projectileDistanceFromOrigin = Vector3.Distance(transform.position, originPoint);
+                originPointDistanceFromTarget = Vector3.Distance(target.position, originPoint);
+            }
 
             if (isHoming)
             {
                 PredictMovement(leadTimePercentage);
                 AddDeviation(leadTimePercentage);
+
+                RotateProjectile();
             }
             if (projectileDistanceFromOrigin > originPointDistanceFromTarget)
             {
                 isHoming = false;
             }
 
-            RotateProjectile();
+            
         }
 
 		public override void Start()
@@ -46,12 +51,10 @@ namespace CDR.AttackSystem
 
         public override void RotateProjectile()
         {
-            if (isHoming)
-            {
-                var heading = _deviatedPrediction - transform.position;
-                var rotation = Quaternion.LookRotation(heading);
-                _rigidBody.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
-            }
+            var heading = _deviatedPrediction - transform.position;
+            var rotation = Quaternion.LookRotation(heading);
+            _rigidBody.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
+            //_rigidBody.MoveRotation(rotation);
         }
 	}
 }

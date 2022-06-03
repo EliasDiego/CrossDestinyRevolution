@@ -6,40 +6,41 @@ namespace CDR.AttackSystem
 {
     public class HomingProjectile : Projectile
     {
-        [SerializeField] public float bulletSpeed;
-		[SerializeField] public float rotateSpeed;
+        [SerializeField] public float bulletSpeed = 15f;
+		[HideInInspector] public float rotateSpeed = 95f;
 
 		protected Rigidbody _rigidBody;
 		protected bool isHoming = true;
 
 		[Header("PREDICTION")]
-		[SerializeField] protected float _maxDistancePredict = 100;
-		[SerializeField] protected float _minDistancePredict = 5;
-		[SerializeField] protected float _maxTimePrediction = 5;
+		[HideInInspector] protected float _maxDistancePredict = 100;
+		[HideInInspector] protected float _minDistancePredict = 5;
+		[HideInInspector] protected float _maxTimePrediction = 5;
 		protected Vector3 _standardPrediction, _deviatedPrediction;
 
 		[Header("DEVIATION")]
-		[SerializeField] protected float _deviationAmount = 50;
-		[SerializeField] protected float _deviationSpeed = 2;
-
-		public float playerAttackRange;
-		protected float distanceFromTarget;
-
-		public Vector3 originPoint;
-		
+		[HideInInspector] protected float _deviationAmount = 50;
+		[HideInInspector] protected float _deviationSpeed = 2;
 
 		public override void Start()
 		{
 			base.Start();
 			_rigidBody = GetComponent<Rigidbody>();
+			
+			//_standardPrediction = target.position;
+			//_deviatedPrediction = target.position;
+		}
 
-			_standardPrediction = target.position;
-			_deviatedPrediction = target.position;
+		public override void OnEnable()
+		{
+			base.OnEnable();
+			isHoming = true;
 		}
 
 		public virtual void FixedUpdate()
 		{
-			distanceFromTarget = Vector3.Distance(transform.position, target.position);
+			if(target != null)
+				distanceFromTarget = Vector3.Distance(transform.position, target.position);
 
 			MoveProjectile();
 		}
@@ -54,7 +55,11 @@ namespace CDR.AttackSystem
 		protected virtual void PredictMovement(float leadTimePercentage)
 		{
 			var predictionTime = Mathf.Lerp(0, _maxTimePrediction, leadTimePercentage);
-			_standardPrediction = target.position + target.controller.velocity * predictionTime;
+
+			if (target != null)
+			{
+				_standardPrediction = target.position + target.controller.velocity * predictionTime;
+			}
 		}
 
 		protected virtual void AddDeviation(float leadTimePercentage)
@@ -66,13 +71,11 @@ namespace CDR.AttackSystem
 
 		private void OnDrawGizmos()
 		{
-			Gizmos.color = Color.red;
-			Gizmos.DrawLine(transform.position, _standardPrediction);
-			Gizmos.color = Color.green;
-			Gizmos.DrawLine(_standardPrediction, _deviatedPrediction);
+			//Gizmos.color = Color.red;
+			//Gizmos.DrawLine(transform.position, _standardPrediction);
 
-			Gizmos.DrawWireSphere(transform.position, _maxDistancePredict);
-			Gizmos.color = Color.clear;
+			//Gizmos.DrawWireSphere(transform.position, _maxDistancePredict);
+			//Gizmos.color = Color.clear;
 		}
 	}
 }

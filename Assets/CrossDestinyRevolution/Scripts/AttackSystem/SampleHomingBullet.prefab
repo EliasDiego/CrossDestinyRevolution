@@ -114,19 +114,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 845fc62bef44c3f4eb1265fc6cd4db80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_attack: 0
+  owner: 0
   projectileHitbox: {fileID: 9003204531704433537}
   projectileDamage: 5
-  projectileLifetime: 5
-  bulletSpeed: 30
-  rotateSpeed: 40
-  _maxDistancePredict: 20
-  _minDistancePredict: 0
-  _maxTimePrediction: 5
-  _deviationAmount: 10
-  _deviationSpeed: 1
+  projectileMaxLifetime: 5
   playerAttackRange: 0
   originPoint: {x: 0, y: 0, z: 0}
+  bulletSpeed: 15
+  rotateSpeed: 95
 --- !u!114 &9003204531704433537
 MonoBehaviour:
   m_ObjectHideFlags: 0

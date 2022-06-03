@@ -12,30 +12,47 @@ namespace CDR.AttackSystem
 {
 	public class Projectile : MonoBehaviour, IProjectile, IHitResponder
 	{
-		[SerializeField] bool m_attack;
+		string _id;
 		[SerializeField] HitBox projectileHitbox;
 		public float projectileDamage;
-
-		public float projectileLifetime;
 		
+		float projectileLifetime;
+		public float projectileMaxLifetime;
 
 		IProjectileController projectileController;
 		public IActiveCharacter target { get; set; }
 
+		public float playerAttackRange;
+		protected float distanceFromTarget;
+
+		public Vector3 originPoint;
+
 		//Increments
 		public HitBox HitBox => projectileHitbox;
-		public float Lifetime => projectileLifetime;
+		public float Lifetime => projectileMaxLifetime;
 		float IProjectile.Damage => projectileDamage;
 		public IController controller => projectileController;
-		public IPool pool => throw new System.NotImplementedException();
-
 		float IHitResponder.Damage => projectileDamage;
+
+		public string ID { get => _id; set => _id = value; }
 
 		public virtual void Start()
 		{
 			projectileController = GetComponent<ProjectileController>();
 			projectileHitbox.HitResponder = this;
-			//projectileHitbox.setResponder(this);
+			projectileLifetime = projectileMaxLifetime;
+		}
+
+		public virtual void OnEnable()
+		{
+			transform.position = originPoint;
+			projectileLifetime = projectileMaxLifetime;
+
+			if(target != null)
+			{
+				transform.rotation = Quaternion.LookRotation(target.position);
+			}
+			
 		}
 
 		public virtual void Update()
@@ -51,7 +68,8 @@ namespace CDR.AttackSystem
 			if (LifetimeCountDown(deltaTime))
 			{
 				//wait for animation before destroy, or just disable for object pooling
-				Destroy(gameObject);
+				//Destroy(gameObject);
+				gameObject.SetActive(false);
 			}
 		}
 
@@ -61,8 +79,8 @@ namespace CDR.AttackSystem
 			return projectileLifetime <= 0f;
 		}
 
-		public void ResetObject() { }
-		public void Return() { }
+		//public void ResetObject() { }
+		//public void Return() { }
 
 		//Hitbox CheckHit and Response
 		public bool CheckHit(HitData data)
@@ -72,8 +90,19 @@ namespace CDR.AttackSystem
 
 		public void Response(HitData data)
 		{
-			Destroy(gameObject); //To Change in Object pooling
+			gameObject.SetActive(false);
+			//Destroy(gameObject); //To Change in Object pooling
 			//throw new System.NotImplementedException();
+		}
+
+		public void ResetObject()
+		{
+			
+		}
+
+		public void Return()
+		{
+			
 		}
 	}
 
