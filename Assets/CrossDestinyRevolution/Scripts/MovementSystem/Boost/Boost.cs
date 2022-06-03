@@ -9,6 +9,9 @@ namespace CDR.MovementSystem
 {
     public class Boost : ActionSystem.Action, IBoost
     {
+        [Tooltip("Delay before resuming boost regen in seconds.")]
+        [SerializeField]
+        private float regenDelaySeconds;
         [SerializeField]
         private BoostValue _boostValue;
         [SerializeField]
@@ -22,59 +25,22 @@ namespace CDR.MovementSystem
 
         public IBoostData verticalBoostData => _verticalBoostData;
 
-
-
-        public override void End()
-        {
-            base.End();
-        }
-
-        public void HorizontalBoost(Vector2 direction)
-        {
-            if(_boostValue.CanUse())
-            {
-                var direction1 = new Vector3(direction.x, 0f, direction.y);
-                direction1 = transform.rotation * direction1;
-
-                var dir = transform.position + direction1 * _horizontalBoostData.distance;
-
-                Vector3 point = dir;
-
-                if(Physics.Raycast(transform.position, direction1, out RaycastHit hit, _horizontalBoostData.distance))
-                {
-                    point = hit.point;
-                }
-
-                _boostValue.Consume();
-                _boostValue.SetIsRegening(false);
-
-                LeanTween.move(gameObject, point, _horizontalBoostData.time).setEaseOutQuad()
-                    .setOnComplete(() =>
-                    {
-                        _boostValue.SetIsRegening(true);
-                    }); 
-            }
-        }
+        private Controller controller;
 
         public override void Use()
         {
             base.Use();
         }
 
-        public void VerticalBoost(float direction)
+        public override void End()
         {
-            if(_boostValue.CanUse())
-            {
-                _boostValue.Consume();
-                _boostValue.SetIsRegening(false);
-                var dir = direction * _verticalBoostData.distance;
+            base.End();
+        }
 
-                LeanTween.moveY(gameObject, dir, _horizontalBoostData.time).setEaseOutExpo()
-                    .setOnComplete(() =>
-                    {
-                        _boostValue.SetIsRegening(true);
-                    });
-            }
+        protected override void Awake()
+        {
+            base.Awake();
+            controller = GetComponent<Controller>();
         }
 
         private void Start()
@@ -82,5 +48,55 @@ namespace CDR.MovementSystem
             _boostValue.ModifyValueWithoutEvent(_boostValue.MaxValue);
             StartCoroutine(_boostValue.Regenerate());
         }
+
+        public void HorizontalBoost(Vector2 direction)
+        {
+            if(_boostValue.CanUse())
+            {
+                
+                var dir = new Vector3(direction.x, 0f, direction.y);
+
+                _boostValue.Consume();
+                _boostValue.SetIsRegening(false);
+
+                LeanTween.value(_horizontalBoostData.distance / _horizontalBoostData.time, 0f , _horizontalBoostData.time)
+                    .setOnUpdate((float f) =>
+                    {
+                        controller.AddRbForce((transform.rotation * dir) * f);
+                    }).setEaseOutExpo()
+                    .setOnComplete(() =>
+                    {
+                        _boostValue.SetIsRegening(true);
+                    });
+            }
+        }
+    
+        public void VerticalBoost(float direction)
+        {
+            if (_boostValue.CanUse())
+            {
+                _boostValue.Consume();
+                _boostValue.SetIsRegening(false);
+                var dir = direction * _verticalBoostData.distance;
+
+                LeanTween.value(0f, dir / _verticalBoostData.time, _verticalBoostData.time)
+                    .setOnUpdate((float f) =>
+                    {
+                        controller.AddRbForce(new Vector3(0f, f, 0f));
+                    }).setEaseInQuint()
+                    .setOnComplete(() =>
+                    {
+                        StartCoroutine(ResumeRegen());
+                    });
+            }
+        }
+
+        private IEnumerator ResumeRegen()
+        {
+            yield return new WaitForSeconds(regenDelaySeconds);
+            _boostValue.SetIsRegening(true);
+        }
+
+        
     }
 }

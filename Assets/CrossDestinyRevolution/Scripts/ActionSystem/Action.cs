@@ -8,7 +8,7 @@ namespace CDR.ActionSystem
 	public class Action : MonoBehaviour, IAction
 	{
 		private bool isActionActive;
-		private IActiveCharacter activeCharacter;
+		[SerializeField] private ActiveCharacter activeCharacter;
 
 		public event System.Action onUse;
 		public event System.Action onEnd;
@@ -18,7 +18,7 @@ namespace CDR.ActionSystem
 
 		protected virtual void Awake()
 		{
-			activeCharacter = GetComponent<ActiveCharacter>();
+			//activeCharacter = GetComponent<ActiveCharacter>();
 		}
 
 		public virtual void Use()

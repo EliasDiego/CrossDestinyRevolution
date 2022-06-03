@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26992ad1e5f5ced40a1ee8376289c93d, type: 3}
   m_Name: New Vertical Boost Data
   m_EditorClassIdentifier: 
-  _time: 1
-  _distance: 30
+  _time: 0.13
+  _distance: 10

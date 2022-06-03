@@ -13,51 +13,76 @@ namespace CDR.MovementSystem
         private float _speed;
         [SerializeField]
         private float _gravity;
-
-        private Controller controller;
-        private Vector3 currentDir = Vector3.zero;
-        private Vector3 targetDiection;
-
         [SerializeField]
         private bool clampSpeed = false;
 
-        protected override void Awake()
-        {
-            base.Awake();
-            controller = GetComponent<Controller>();
-        }
-
-        private void Start()
-        {
-            ITargetData targetData = Character.targetHandler.GetCurrentTarget();
-            targetDiection = targetData.activeCharacter.position - transform.position;
-        }
+        private Boost boost;
+        private Controller controller;
+        private Vector3 currentDir = Vector3.zero;
+        private ITargetData currentTarget;
 
         public float speed => _speed;
 
         public float gravity => _gravity;
 
-        public override void End()
+        protected override void Awake()
         {
-            base.End();
+            base.Awake();
+            controller = GetComponent<Controller>();
+            boost = GetComponent<Boost>();
+        }
+
+        private void Start()
+        {
+            currentTarget = Character.targetHandler.GetCurrentTarget();
         }
 
         private void Update()
         {
             RotateObject();
-            controller.MoveRb(currentDir);
-
             if (clampSpeed)
             {
                 controller.ClampVelocity(speed);
             }
         }
 
+        private void FixedUpdate()
+        {       
+            controller.AddRbForce(MoveDirection());           
+        }       
+
+        private Vector3 MoveDirection()
+        {
+            if(currentDir.magnitude == 0f)
+            {
+                return Vector3.zero;
+            }
+
+            var current = (transform.rotation * currentDir).normalized;
+            current += transform.forward * 0.35f;
+            //current.z -= (transform.position - currentTarget.activeCharacter.position).normalized.z;
+            return current;
+        }
+         
+        public void SetClamp(bool boo)
+        {
+            clampSpeed = boo;
+        }
+
+        private void ClampSpeed()
+        {
+            SetClamp(true);
+        }
+
+        private void UnclampSpeed()
+        {
+            SetClamp(false);
+        }
+
         private void RotateObject()
         {
-            ITargetData targetData = Character.targetHandler.GetCurrentTarget();
-
-            var look = Quaternion.LookRotation(-targetData.direction);
+            currentTarget = Character.targetHandler.GetCurrentTarget();
+            var look = Quaternion.LookRotation(-currentTarget.direction);
             var quat = Quaternion.RotateTowards(transform.rotation, look, 50f);
             quat.x = 0f;
             quat.z = 0f;
@@ -65,21 +90,27 @@ namespace CDR.MovementSystem
             controller.Rotate(Quaternion.RotateTowards(transform.rotation, quat, 50f));
         }
 
-        public void SetClamp(bool boo)
-        {
-            clampSpeed = boo;
-        }
-
+        #region INTERFACE_Methods
         public void Move(Vector2 direction)
         {
             var dir = new Vector3(direction.x, 0f, direction.y);
-            dir = transform.rotation * dir;
-            currentDir = dir;
+            currentDir = dir;    
+            
+            if(direction.magnitude == 0f)
+            {
+                currentDir = Vector3.zero;
+            }
         }
 
         public override void Use()
         {
             base.Use();
         }
+
+        public override void End()
+        {
+            base.End();
+        }
+        #endregion        
     }
 }
