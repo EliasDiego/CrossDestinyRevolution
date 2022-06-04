@@ -22,9 +22,11 @@ namespace CDR.InputSystem
     public interface IPlayerInput : IInput
     {
         // bool isPaired { get; }
-        InputUser user { get; }
+        InputDevice[] pairedDevices { get; }
+
         // event Action onDeviceDisconnect;
 
+        void PairDevice(params InputDevice[] devices);
         void SetupInput(InputActionMap inputActionMap, params InputDevice[] devices);
     }
 
@@ -45,7 +47,6 @@ namespace CDR.InputSystem
     {
         float movementInputThreshold { get; }
         IMinMaxRange boostUpHeightRange { get; }
-        float boostDownMinHeight { get; }
     }
 
     public interface IPlayerInputSettings
