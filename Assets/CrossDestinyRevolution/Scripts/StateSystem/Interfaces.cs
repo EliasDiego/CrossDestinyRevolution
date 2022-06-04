@@ -18,7 +18,7 @@ namespace CDR.StateSystem
 
     public interface IStun : IState
     {
-        float time { get; }
+        float duration { get; }
     }
 
     public interface IKnockback : IStun

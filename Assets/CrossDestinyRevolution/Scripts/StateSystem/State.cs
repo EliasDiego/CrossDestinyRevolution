@@ -15,6 +15,7 @@ namespace CDR.StateSystem
             get => _sender;
             set => _sender = value;
         }
+        
         public IMech receiver 
         {  
             get => _receiver;
@@ -24,20 +25,13 @@ namespace CDR.StateSystem
         public void EndState()
         {
             _receiver.input.EnableInput();
-            //enable actions
-            //enable input
-            //enable movement
+            _receiver.currentState = null;
         }
 
         public void StartState()
         {
             _receiver.input.DisableInput();
             DisableActions();
-            
-            
-            //disable actions
-            //disable input
-            //disable movement
         }
 
         void DisableActions()

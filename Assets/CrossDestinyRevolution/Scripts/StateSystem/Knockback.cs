@@ -6,19 +6,29 @@ namespace CDR.StateSystem
 {
     public class Knockback : State, IKnockback
     {
-        float _distance;
-        float _time;
+        [SerializeField] float _distance;
+        [SerializeField] float _duration;
 
         public float distance => _distance;
+        public float duration => _duration;
 
-        public float time => _time;
 
-        private void Update()
+        IEnumerator StartKnockback(float duration)
         {
-            while(time > 0)
-            {
-                
-            }
+            EnemyKnockback();
+            StartState();
+
+            yield return new WaitForSeconds(duration);
+
+            EndState();
+        }
+
+        void EnemyKnockback()
+        {
+            Vector3 dir = sender.targetHandler.GetCurrentTarget().direction;
+            dir.y = 0;
+
+            receiver.controller.Translate(dir, distance);
         }
     }
 }

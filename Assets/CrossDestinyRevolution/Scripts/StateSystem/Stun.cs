@@ -6,10 +6,17 @@ namespace CDR.StateSystem
 {
     public class Stun : State, IStun
     {
-        float _time;
+        [SerializeField] float _duration;
 
-        public float time => _time;
+        public float duration => _duration;
 
-        
+        IEnumerator StartStun(float duration)
+        {
+            StartState();
+
+            yield return new WaitForSeconds(duration);
+
+            EndState();
+        }
     }
 }
