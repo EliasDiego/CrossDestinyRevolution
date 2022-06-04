@@ -41,6 +41,10 @@ namespace CDR.MovementSystem
         private void Update()
         {
             RotateObject();
+            if(!isActive)
+            {
+                return;
+            }
             if (clampSpeed)
             {
                 controller.ClampVelocity(speed);
@@ -49,6 +53,10 @@ namespace CDR.MovementSystem
 
         private void FixedUpdate()
         {       
+            if(!isActive)
+            {
+                return;
+            }
             controller.AddRbForce(MoveDirection());
             controller.AddRbForce(CentripetalForce(), ForceMode.Acceleration);
         }       
