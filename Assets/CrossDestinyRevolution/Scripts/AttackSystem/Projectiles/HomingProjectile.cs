@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Collections;
 
 namespace CDR.AttackSystem
 {
@@ -16,11 +17,12 @@ namespace CDR.AttackSystem
 		[HideInInspector] protected float _maxDistancePredict = 100;
 		[HideInInspector] protected float _minDistancePredict = 5;
 		[HideInInspector] protected float _maxTimePrediction = 5;
-		protected Vector3 _standardPrediction, _deviatedPrediction;
 
 		[Header("DEVIATION")]
 		[HideInInspector] protected float _deviationAmount = 50;
 		[HideInInspector] protected float _deviationSpeed = 2;
+
+		protected Vector3 _standardPrediction, _deviatedPrediction;
 
 		public override void Start()
 		{

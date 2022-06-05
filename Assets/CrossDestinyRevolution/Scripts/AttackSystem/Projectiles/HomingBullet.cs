@@ -6,12 +6,12 @@ namespace CDR.AttackSystem
 {
     public class HomingBullet : HomingProjectile
     {
-        float projectileDistanceFromOrigin; //From origin point to the current position of the projectile
-        float originPointDistanceFromTarget;
+        float originDistanceFromProjectile; //From origin point to the current position of the projectile
+        float originDistanceFromTarget; // From origin point to the current position of the target
 
         public void Awake()
 		{
-            if(playerAttackRange < originPointDistanceFromTarget)
+            if(playerAttackRange < originDistanceFromTarget)
 			{
                 isHoming = false;
 			}
@@ -25,8 +25,8 @@ namespace CDR.AttackSystem
 
             if (target != null)
             {
-                projectileDistanceFromOrigin = Vector3.Distance(transform.position, originPoint);
-                originPointDistanceFromTarget = Vector3.Distance(target.position, originPoint);
+                originDistanceFromProjectile = Vector3.Distance(transform.position, originPoint);
+                originDistanceFromTarget = Vector3.Distance(target.position, originPoint);
             }
 
             if (isHoming)
@@ -36,7 +36,7 @@ namespace CDR.AttackSystem
 
                 RotateProjectile();
             }
-            if (projectileDistanceFromOrigin > originPointDistanceFromTarget)
+            if (originDistanceFromProjectile > originDistanceFromTarget)
             {
                 isHoming = false;
             }
@@ -52,7 +52,6 @@ namespace CDR.AttackSystem
             var heading = _deviatedPrediction - transform.position;
             var rotation = Quaternion.LookRotation(heading);
             _rigidBody.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
-            //_rigidBody.MoveRotation(rotation);
         }
 	}
 }

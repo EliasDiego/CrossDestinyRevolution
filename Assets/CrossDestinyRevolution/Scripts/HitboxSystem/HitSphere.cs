@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,25 +5,22 @@ using CDR.MechSystem;
 
 namespace CDR.HitboxSystem
 {
-    public class HitBox : MonoBehaviour, IHitDetector
-	{
-		[SerializeField] BoxCollider m_BoxCollider;
+    public class HitSphere : MonoBehaviour, IHitDetector
+    {
+		[SerializeField] SphereCollider m_SphereCollider;
 		[SerializeField] LayerMask m_layerMask;
-		[SerializeField] Vector3 m_hitBoxSize = Vector3.one;
-		
+		[SerializeField] float m_radius = 0.025f;
 		private IHitResponder m_hitResponder;
+
 		public IHitResponder HitResponder { get => m_hitResponder; set => m_hitResponder = value; }
 
 		public void CheckHit()
 		{
-			float _distance = m_hitBoxSize.y;
 			Vector3 _direction = transform.up;
-			Vector3 _center = transform.TransformPoint(m_BoxCollider.center);
+			Vector3 _center = transform.TransformPoint(m_SphereCollider.center);
 			Vector3 _start = transform.position;
-			Vector3 _halfExtends = new Vector3(m_hitBoxSize.x, m_hitBoxSize.y, m_hitBoxSize.z) / 2;
-			Quaternion _orientation = transform.rotation;
 
-			RaycastHit[] _hits = Physics.BoxCastAll(_start, _halfExtends, _direction, _orientation, _distance, m_layerMask);
+			RaycastHit[] _hits = Physics.SphereCastAll(_start, m_radius, _direction, m_radius, m_layerMask);
 
 			CheckCollisions(_hits, _center);
 		}
@@ -63,8 +59,10 @@ namespace CDR.HitboxSystem
 		{
 			Gizmos.color = Color.red;
 			Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.localScale);
-			Gizmos.DrawCube(Vector3.zero, new Vector3(m_hitBoxSize.x, m_hitBoxSize.y, m_hitBoxSize.z));
+			Gizmos.DrawSphere(Vector3.zero, m_radius);
 		}
 	}
 }
+
+
 
