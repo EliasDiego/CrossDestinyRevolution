@@ -475,6 +475,9 @@ MonoBehaviour:
   _health:
     currentValue: 0
     maxValue: 0
+  _hurtBoxes: []
+  _boost: {fileID: 0}
+  _rangeAttack: {fileID: 0}
 --- !u!95 &534994791
 Animator:
   serializedVersion: 3
@@ -884,6 +887,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _BattleUIObject: {fileID: 1483865097}
   _Mech: {fileID: 1462921554}
+--- !u!114 &1119177765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1119177763}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 320451038973a9945bc23dae9cf6c234, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stunPrefab: {fileID: 3733380749619653258, guid: 74857966578b3c845a4b7f1b8c637611, type: 3}
+  knockbackPrefab: {fileID: 2446635574957657619, guid: 3ccd0001887974a42bf3f975b836c3bc, type: 3}
+  mech: {fileID: 1462921554}
+  sender: {fileID: 534994790}
 --- !u!1 &1129614810 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1348231216086845792, guid: e56300928328b5b4baabe88ac4022b45, type: 3}
@@ -1052,6 +1071,9 @@ MonoBehaviour:
   _health:
     currentValue: 0
     maxValue: 0
+  _hurtBoxes: []
+  _boost: {fileID: 0}
+  _rangeAttack: {fileID: 0}
 --- !u!95 &1294913718
 Animator:
   serializedVersion: 3
@@ -1503,6 +1525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25ea01c051b983940bccf9cdfc1c2b6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeCharacter: {fileID: 1462921554}
   _speed: 15
   _gravity: 10
   clampSpeed: 1
@@ -1601,6 +1624,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 891a8a7539489eb4792bf35aebe8eeec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeCharacter: {fileID: 1462921554}
   regenDelaySeconds: 0
   _boostValue:
     currentValue: 0
@@ -1637,6 +1661,9 @@ MonoBehaviour:
   _health:
     currentValue: 0
     maxValue: 0
+  _hurtBoxes: []
+  _boost: {fileID: 1462921552}
+  _rangeAttack: {fileID: 0}
 --- !u!114 &1462921555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1649,6 +1676,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb8647a94e83711448b60fc91cabcb14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeCharacter: {fileID: 1462921554}
 --- !u!65 &1462921556
 BoxCollider:
   m_ObjectHideFlags: 0

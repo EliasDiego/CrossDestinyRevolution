@@ -22,13 +22,13 @@ namespace CDR.StateSystem
             set => _receiver = value;
         }
 
-        public void EndState()
+        public virtual void EndState()
         {
             _receiver.input.EnableInput();
             _receiver.currentState = null;
         }
 
-        public void StartState()
+        public virtual void StartState()
         {
             _receiver.input.DisableInput();
             DisableActions();

@@ -10,12 +10,20 @@ namespace CDR.StateSystem
 
         public float duration => _duration;
 
-        IEnumerator StartStun(float duration)
+        public override void StartState()
         {
-            StartState();
+            base.StartState();
+            StartCoroutine(StunCoroutine(duration));
+        }
 
+        public override void EndState()
+        {
+            base.EndState();
+        }
+
+        IEnumerator StunCoroutine(float duration)
+        {
             yield return new WaitForSeconds(duration);
-
             EndState();
         }
     }

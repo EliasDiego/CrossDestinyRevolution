@@ -12,11 +12,20 @@ namespace CDR.StateSystem
         public float distance => _distance;
         public float duration => _duration;
 
+        public override void StartState()
+        {
+            base.StartState();
+            StartCoroutine(StartKnockback(duration));
+        }
+
+        public override void EndState()
+        {
+            base.EndState();
+        }
 
         IEnumerator StartKnockback(float duration)
         {
             EnemyKnockback();
-            StartState();
 
             yield return new WaitForSeconds(duration);
 
@@ -32,4 +41,3 @@ namespace CDR.StateSystem
         }
     }
 }
-
