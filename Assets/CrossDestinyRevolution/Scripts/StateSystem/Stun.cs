@@ -13,6 +13,7 @@ namespace CDR.StateSystem
         public override void StartState()
         {
             base.StartState();
+            Debug.Log("Start Stun");
             StartCoroutine(StunCoroutine(duration));
         }
 

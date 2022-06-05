@@ -15,6 +15,7 @@ namespace CDR.StateSystem
         public override void StartState()
         {
             base.StartState();
+            Debug.Log("Start Knockback");
             StartCoroutine(StartKnockback(duration));
         }
 
