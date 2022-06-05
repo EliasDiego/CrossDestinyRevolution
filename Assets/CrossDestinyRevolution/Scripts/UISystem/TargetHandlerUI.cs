@@ -12,7 +12,6 @@ namespace CDR.UISystem
         [SerializeField] Camera _camera;
         [SerializeField] Image targetImage;
 
-        //IActiveCharacter _activeCharacter;
         ITargetData currentTarget;
 
         bool _isShown;
@@ -30,11 +29,6 @@ namespace CDR.UISystem
             _isShown = true;
         }
 
-        // public void SetTarget(IActiveCharacter target)
-        // {
-        //     _activeCharacter = target;
-        // }
-
         public void SetTarget(ITargetData targetData)
         {
             currentTarget = targetData;
@@ -46,7 +40,11 @@ namespace CDR.UISystem
             {
                 Vector2 pos = _camera.WorldToScreenPoint(currentTarget.activeCharacter.position);
 
-                targetImage.rectTransform.localPosition = new Vector2(pos.x - (_camera.pixelWidth / 2), pos.y - (_camera.pixelHeight / 3));
+                /*Debug.Log("cam width: " + _camera.pixelWidth + "screen width: " + Screen.width);
+                Debug.Log("cam height: " + _camera.pixelHeight + "screen height" + Screen.height);
+                Debug.Log("Screen pos: " + pos);*/
+
+                targetImage.rectTransform.localPosition = new Vector2(pos.x - (_camera.pixelWidth / 2), pos.y - (_camera.pixelHeight / 2));
             }
         }
     }

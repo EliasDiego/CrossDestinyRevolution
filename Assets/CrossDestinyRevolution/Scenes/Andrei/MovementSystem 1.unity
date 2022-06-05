@@ -262,7 +262,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 324805073}
   m_LocalRotation: {x: -0.9323744, y: -0.0020525607, z: -0.0013984666, w: -0.3614856}
-  m_LocalPosition: {x: 0.024, y: 0.137, z: 0.763}
+  m_LocalPosition: {x: 0, y: 0.137, z: 0.763}
   m_LocalScale: {x: 12.65313, y: 12.653125, z: 12.653125}
   m_Children: []
   m_Father: {fileID: 1863459198}
@@ -1871,17 +1871,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 979833713275267927, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 324805077}
+    - target: {fileID: 979833713275267927, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
+      propertyPath: m_PlaneDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2597784398174808062, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
       propertyPath: _camera
       value: 
       objectReference: {fileID: 324805077}
     - target: {fileID: 5478286738607419545, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 5478286738607419545, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
@@ -2041,7 +2049,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d484c63baf9570745851beba29ffaff2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.37
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d484c63baf9570745851beba29ffaff2, type: 3}
       propertyPath: m_LocalPosition.y
