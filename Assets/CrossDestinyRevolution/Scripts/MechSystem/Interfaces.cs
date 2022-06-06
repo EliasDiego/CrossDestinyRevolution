@@ -8,12 +8,16 @@ using CDR.StateSystem;
 using CDR.AttackSystem;
 using CDR.MovementSystem;
 using CDR.TargetingSystem;
+using CDR.HitboxSystem;
 
 namespace CDR.MechSystem
 {
     public interface IHealth : IValueRange
     {
-        
+        event System.Action OnDeath;
+        void TakeDamage(float damage);
+        void CheckHealthStatus();
+        void Death();
     }
 
     public interface ICharacter
@@ -26,7 +30,7 @@ namespace CDR.MechSystem
     {
         Vector3 position { get; }
         IHealth health { get; }
-        IHurtBox[] hurtBoxes { get; }
+        HitboxSystem.IHurtBox[] hurtBoxes { get; }
         ICharacterController controller { get; }
         IInput input { get; set; }
         IState currentState { get; set; }

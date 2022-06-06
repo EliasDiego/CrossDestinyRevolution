@@ -13,8 +13,8 @@ public class TestVelocity : MonoBehaviour
 		_rigidbody = GetComponent<Rigidbody>();
 	}
 
-	private void Update()
+	private void FixedUpdate()
 	{
-		_rigidbody.velocity += velocity.normalized * speed;
+		_rigidbody.velocity = velocity.normalized * speed;
 	}
 }

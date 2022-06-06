@@ -13,13 +13,18 @@ namespace CDR.MovementSystem
         private float _speed;
         [SerializeField]
         private float _gravity;
+        [SerializeField]
+        private bool clampSpeed = false;
 
         private Controller controller;
         private Vector3 currentDir = Vector3.zero;
-        private Vector3 targetDiection;
+        private ITargetData currentTarget;
+        private float distanceToTarget;
 
-        [SerializeField]
-        private bool clampSpeed = false;
+        public float intensity = 1f;
+
+        public float speed => _speed;
+        public float gravity => _gravity;
 
         protected override void Awake()
         {
@@ -29,35 +34,62 @@ namespace CDR.MovementSystem
 
         private void Start()
         {
-            ITargetData targetData = Character.targetHandler.GetCurrentTarget();
-            targetDiection = targetData.activeCharacter.position - transform.position;
-        }
-
-        public float speed => _speed;
-
-        public float gravity => _gravity;
-
-        public override void End()
-        {
-            base.End();
+            currentTarget = Character.targetHandler.GetCurrentTarget();
+            distanceToTarget = Vector3.Distance(transform.position, currentTarget.activeCharacter.position);
         }
 
         private void Update()
         {
             RotateObject();
-            controller.MoveRb(currentDir);
-
+            if(!isActive)
+            {
+                return;
+            }
             if (clampSpeed)
             {
                 controller.ClampVelocity(speed);
             }
         }
 
+        private void FixedUpdate()
+        {       
+            if(!isActive)
+            {
+                return;
+            }
+            controller.AddRbForce(MoveDirection());
+            controller.AddRbForce(CentripetalForce(), ForceMode.Acceleration);
+        }       
+
+        Vector3 CentripetalForce()
+        {
+            float cForce = Mathf.Pow(controller.velocity.magnitude, 2) / distanceToTarget;
+            return currentTarget.direction * -cForce;
+        }
+
+        private Vector3 MoveDirection()
+        {
+            if(currentDir.magnitude == 0f)
+            {
+                return Vector3.zero;
+            }
+
+            if(currentDir.z != 0f)
+            {
+                var distance = Vector3.Distance(transform.position, currentTarget.activeCharacter.position);
+                SetDistanceToTarget(distance);
+                currentTarget?.activeCharacter?.movement?.SetDistanceToTarget(distance);
+            }
+
+
+            var current = (transform.rotation * currentDir).normalized;
+            return current;           
+        }
+
         private void RotateObject()
         {
-            ITargetData targetData = Character.targetHandler.GetCurrentTarget();
-
-            var look = Quaternion.LookRotation(-targetData.direction);
+            currentTarget = Character.targetHandler.GetCurrentTarget();
+            var look = Quaternion.LookRotation(-currentTarget.direction);
             var quat = Quaternion.RotateTowards(transform.rotation, look, 50f);
             quat.x = 0f;
             quat.z = 0f;
@@ -65,21 +97,37 @@ namespace CDR.MovementSystem
             controller.Rotate(Quaternion.RotateTowards(transform.rotation, quat, 50f));
         }
 
-        public void SetClamp(bool boo)
-        {
-            clampSpeed = boo;
-        }
-
+        #region INTERFACE_Methods
         public void Move(Vector2 direction)
         {
             var dir = new Vector3(direction.x, 0f, direction.y);
-            dir = transform.rotation * dir;
-            currentDir = dir;
+            currentDir = dir;    
+            
+            if(direction.magnitude == 0f)
+            {
+                currentDir = Vector3.zero;
+            }
         }
 
         public override void Use()
         {
             base.Use();
         }
+
+        public override void End()
+        {
+            base.End();
+        }
+
+        public void SetSpeedClamp(bool isClamped)
+        {
+            clampSpeed = isClamped;
+        }
+
+        public void SetDistanceToTarget(float distance)
+        {
+            distanceToTarget = distance;            
+        }
+        #endregion
     }
 }
