@@ -11,55 +11,19 @@ using System;
 
 namespace CDR.InputSystem
 {
-    public abstract class PlayerCharacterInput<TCharacter, TSettings> : CharacterInput<TCharacter>, IPlayerInput<TSettings> 
-        where TCharacter : IActiveCharacter
-        where TSettings : IPlayerInputSettings
+    public abstract class PlayerCharacterInput<T> : PlayerInput 
+        where T : IActiveCharacter
     {
-        private InputUser _User;
-        private InputActionAsset _ActionAsset;
-        private TSettings _PlayerInputSettings;
+        private T _Character;
 
-        protected InputActionAsset actionAsset => _ActionAsset;
-        protected TSettings settings => _PlayerInputSettings;
+        protected T character => _Character;
 
-        public InputUser user => _User;
-
-        protected virtual void OnDestroy()
+        protected virtual void Awake()
         {
-            if(user != null && user.valid)
-                user.UnpairDevicesAndRemoveUser();
+            _Character = GetComponent<T>();
+
+            if(_Character != null)
+                _Character.input = this;
         }
-
-        public virtual void SetupInput(TSettings playerInputSettings, InputActionAsset inputActionAsset, params InputDevice[] devices)
-        {
-            _User = default(InputUser);
-            
-            foreach(InputDevice device in devices.Where(d => d != null))
-                _User = InputUser.PerformPairingWithDevice(device, _User);
-
-            Debug.Assert(_User.valid, "[Input System Error] Input User is not valid!");
-
-            _ActionAsset = Instantiate(inputActionAsset);
-
-            _PlayerInputSettings = playerInputSettings;
-
-            _User.AssociateActionsWithUser(_ActionAsset);
-        }
-
-        public override void EnableInput()
-        {
-            if(actionAsset)
-                actionAsset.Enable();
-        }
-
-        public override void DisableInput()
-        {
-            if(actionAsset)
-                actionAsset.Disable();
-        }
-
-        public abstract void EnableInput(string name);
-
-        public abstract void DisableInput(string name);
     }
 }

@@ -27,7 +27,7 @@ namespace CDR.MechSystem
         Vector3 position { get; }
         IHealth health { get; }
         IHurtBox[] hurtBoxes { get; }
-        IController controller { get; }
+        ICharacterController controller { get; }
         IInput input { get; set; }
         IState currentState { get; set; }
         ITargetHandler targetHandler { get; }
