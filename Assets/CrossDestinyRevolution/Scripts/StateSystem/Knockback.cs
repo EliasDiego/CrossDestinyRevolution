@@ -39,7 +39,7 @@ namespace CDR.StateSystem
             Vector3 dir = (sender.position - receiver.position).normalized;
             dir.y = 0;
 
-            receiver.controller.Translate(-dir, distance);
+            receiver.controller.SetVelocity(-dir * distance / duration);
         }
     }
 }
