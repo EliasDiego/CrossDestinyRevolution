@@ -1021,7 +1021,7 @@ MonoBehaviour:
   stunPrefab: {fileID: 189461642}
   knockbackPrefab: {fileID: 1829388555}
   mech: {fileID: 1462921554}
-  sender: {fileID: 534994790}
+  target: {fileID: 534994790}
 --- !u!1 &1129614810 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1348231216086845792, guid: e56300928328b5b4baabe88ac4022b45, type: 3}

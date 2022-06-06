@@ -21,26 +21,30 @@ namespace CDR.StateSystem
             get => _receiver;
             set => _receiver = value;
         }
+        
+        public virtual void StartState()
+        {
+            if(_receiver != null)
+            {
+                _receiver.input.DisableInput();
+                Debug.Log("Disable Input");
+
+                DisableActions();
+            }
+        }
 
         public virtual void EndState()
         {
-            if(_receiver.input != null)
+            if(_receiver != null)
             {
                 _receiver.input.EnableInput();
-            }
+                Debug.Log("Enable Input");
 
-            _receiver.currentState = null;
+                _receiver.currentState = null;
+                EnableActions();
+            }
         }
 
-        public virtual void StartState()
-        {
-            if(_receiver.input != null)
-            {
-                _receiver.input.DisableInput();
-            }
-
-            DisableActions();
-        }
 
         void DisableActions()
         {
@@ -52,6 +56,20 @@ namespace CDR.StateSystem
             //if(_receiver.specialAttack1.isActive) { _receiver.specialAttack1.End(); }
             //if(_receiver.specialAttack2.isActive) { _receiver.specialAttack2.End(); }
             //if(_receiver.specialAttack3.isActive) { _receiver.specialAttack3.End(); }
+        }
+
+        void EnableActions()
+        {
+            //Need to enable movement after state is finished
+
+            if(!_receiver.movement.isActive) { _receiver.movement.Use(); }
+            //if(!_receiver.boost.isActive) { _receiver.boost.Use(); }
+            //if(!_receiver.meleeAttack.isActive) { _receiver.meleeAttack.Use(); }
+            //if(!_receiver.rangeAttack.isActive) { _receiver.rangeAttack.Use(); }
+            //if(!_receiver.shield.isActive) { _receiver.shield.Use(); }
+            //if(!_receiver.specialAttack1.isActive) { _receiver.specialAttack1.Use(); }
+            //if(!_receiver.specialAttack2.isActive) { _receiver.specialAttack2.Use(); }
+            //if(!_receiver.specialAttack3.isActive) { _receiver.specialAttack3.Use(); }
         }
     }
 }

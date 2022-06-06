@@ -12,15 +12,20 @@ namespace CDR.StateSystem
         [SerializeField] GameObject knockbackPrefab;
 
         [SerializeField] Mech mech;
-        [SerializeField] Mech sender;
+        [SerializeField] Mech target;
+
+        IMech receiver;
+        IMech sender;
 
         private void Start()
         {
-            mech.currentState = stunPrefab.GetComponent<IState>();
+            receiver = mech.GetComponent<IMech>();
+            sender = target.GetComponent<IMech>();
 
-            mech.currentState.receiver = mech;
-            mech.currentState.sender = sender;
-            mech.currentState.StartState();
+            receiver.currentState = knockbackPrefab.GetComponent<IState>();
+            receiver.currentState.receiver = receiver;
+            receiver.currentState.sender = sender;
+            receiver.currentState.StartState();
         }
     }
 }

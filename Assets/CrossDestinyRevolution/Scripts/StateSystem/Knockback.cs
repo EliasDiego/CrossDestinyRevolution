@@ -16,29 +16,30 @@ namespace CDR.StateSystem
         {
             base.StartState();
             Debug.Log("Start Knockback");
-            StartCoroutine(StartKnockback(duration));
+
+            StartCoroutine(KnockbackCoroutine(duration));
         }
 
         public override void EndState()
         {
             base.EndState();
+            Debug.Log("End Knockback");
         }
 
-        IEnumerator StartKnockback(float duration)
+        IEnumerator KnockbackCoroutine(float duration)
         {
             EnemyKnockback();
 
             yield return new WaitForSeconds(duration);
-
             EndState();
         }
 
         void EnemyKnockback()
         {
-            Vector3 dir = sender.targetHandler.GetCurrentTarget().direction;
+            Vector3 dir = (sender.position - receiver.position).normalized;
             dir.y = 0;
 
-            receiver.controller.Translate(dir, distance);
+            receiver.controller.Translate(-dir, distance);
         }
     }
 }

@@ -14,12 +14,14 @@ namespace CDR.StateSystem
         {
             base.StartState();
             Debug.Log("Start Stun");
+            
             StartCoroutine(StunCoroutine(duration));
         }
 
         public override void EndState()
         {
             base.EndState();
+            Debug.Log("End Stun");
         }
 
         IEnumerator StunCoroutine(float duration)
