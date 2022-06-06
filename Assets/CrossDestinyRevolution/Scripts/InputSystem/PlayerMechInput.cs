@@ -40,6 +40,9 @@ namespace CDR.InputSystem
 
         private void Update()
         {
+            if(!isEnabled)
+                return;
+
             foreach(InputActionUpdate actionUpdate in _InputActionUpdates.Values)
             {
                 if(actionUpdate.isUpdate)
@@ -119,6 +122,37 @@ namespace CDR.InputSystem
             Debug.Log($"[Change Target Input] Changed Target");
         }
 
+        private void OnBoostDown(InputAction.CallbackContext context)
+        {
+            if(CheckBoolean(character?.boost?.isActive))
+                return;
+
+            float? height = character?.position.y - character?.controller?.flightPlane?.position.y;
+
+            if(!height.HasValue)
+            {
+                Debug.LogAssertion($"[Boost Input Error] Character: { (character?.position).HasValue } | FlightPlane: { (character?.controller?.flightPlane?.position).HasValue }");
+
+                return;
+            }
+
+            Debug.Log($"[Boost Input] Height : {height}");
+            
+            if(settings.boostInputSettings.boostUpHeightRange.IsWithinRange(height.Value))
+            {
+                character?.boost?.VerticalBoost(1);
+
+                Debug.Log($"[Boost Input] Vertical Boost Up!");
+            }
+
+            else
+            {
+                character?.boost?.VerticalBoost(-1);
+
+                Debug.Log($"[Boost Input] Vertical Boost Down!");
+            }
+        }
+
         // Works directional and then boost (boost and then direction is different action. Only boost is up and down so it won't work yet until boost is actually part of game object)
         private void OnBoost(InputAction.CallbackContext context)
         {
@@ -127,26 +161,9 @@ namespace CDR.InputSystem
 
             if(_MovementInput.magnitude < settings.boostInputSettings.movementInputThreshold)
             {
-                float? height = character?.position.y - character?.controller?.flightPlane?.position.y;
+                character?.boost?.VerticalBoost(1);
 
-                Debug.Log($"[Boost Input] Height : {height}");
-                
-                if(settings.boostInputSettings.boostUpHeightRange.IsWithinRange(height.Value))
-                {
-                    character?.boost?.VerticalBoost(1);
-
-                    Debug.Log($"[Boost Input] Vertical Boost Up!");
-                }
-
-                else if(height > settings.boostInputSettings.boostDownMinHeight)
-                {
-                    character?.boost?.VerticalBoost(-1);
-
-                    Debug.Log($"[Boost Input] Vertical Boost Down!");
-                }
-
-                else
-                    Debug.Log($"[Boost Input] Vertical Boost!");
+                Debug.Log($"[Boost Input] Vertical Boost Up!");
             }
 
             else
@@ -176,7 +193,8 @@ namespace CDR.InputSystem
             inputActions["Movement"].performed += OnMovement;
             inputActions["Movement"].canceled += OnMovement;
 
-            inputActions["Boost"].started += OnBoost;
+            inputActions["Boost"].canceled += OnBoost;
+            inputActions["Boost"].performed += OnBoostDown;
 
             inputActions["ChangeTarget"].started += OnChangeTarget;
             inputActions["MeleeAttack"].started += OnMeleeAttack;

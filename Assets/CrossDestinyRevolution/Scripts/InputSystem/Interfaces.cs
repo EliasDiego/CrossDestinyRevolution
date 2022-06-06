@@ -12,16 +12,22 @@ namespace CDR.InputSystem
 {
     public interface IInput
     {
+        bool isEnabled { get; }
         void EnableInput();
         void DisableInput();
+        void EnableInput(string name);
+        void DisableInput(string name);
     }
 
     public interface IPlayerInput : IInput
     {
-        public InputUser user { get; }
+        // bool isPaired { get; }
+        InputDevice[] pairedDevices { get; }
+
+        // event Action onDeviceDisconnect;
+
+        void PairDevice(params InputDevice[] devices);
         void SetupInput(InputActionMap inputActionMap, params InputDevice[] devices);
-        void EnableInput(string name);
-        void DisableInput(string name);
     }
 
     public interface IAIInput : IInput
@@ -41,7 +47,6 @@ namespace CDR.InputSystem
     {
         float movementInputThreshold { get; }
         IMinMaxRange boostUpHeightRange { get; }
-        float boostDownMinHeight { get; }
     }
 
     public interface IPlayerInputSettings

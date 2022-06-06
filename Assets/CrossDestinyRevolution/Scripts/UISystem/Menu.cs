@@ -45,8 +45,6 @@ namespace CDR.UISystem
                 yield return null;
 
             nextMenu.Show();
-
-            Debug.Log(nextMenu);
         }
 
         public void Back()
