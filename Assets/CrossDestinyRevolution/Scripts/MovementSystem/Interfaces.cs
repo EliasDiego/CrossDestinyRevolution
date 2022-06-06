@@ -25,6 +25,8 @@ namespace CDR.MovementSystem
 
         void Translate(Vector3 direction, float magnitude);
         void Rotate(Quaternion rotation);
+        void SetVelocity(Vector3 velocity);
+        void AddRbForce(Vector3 force, ForceMode mode = ForceMode.VelocityChange);
     }
 
     public interface ICharacterController : IController
@@ -44,6 +46,8 @@ namespace CDR.MovementSystem
         float gravity { get; }
 
         void Move(Vector2 direction);
+        void SetSpeedClamp(bool isClamped);
+        void SetDistanceToTarget(float distance);
     }
 
     public interface IBoost : IAction
