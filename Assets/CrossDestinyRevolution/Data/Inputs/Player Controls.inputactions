@@ -20,7 +20,7 @@
                     "id": "ead1492e-5112-47a3-86e1-9e2519f2b4d1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "MultiTap(tapTime=0.2,tapDelay=0.1)",
+                    "interactions": "MultiTap(tapTime=0.2,tapDelay=0.2)",
                     "initialStateCheck": true
                 },
                 {
