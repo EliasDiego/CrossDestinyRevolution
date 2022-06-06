@@ -136,14 +136,14 @@ namespace CDR.InputSystem
         {
             base.EnableInput();
 
-            // onEnableInput?.Invoke();
+            onEnableInput?.Invoke();
         }
 
         public override void DisableInput()
         {
             base.DisableInput();
 
-            // onDisableInput?.Invoke();
+            onDisableInput?.Invoke();
         }
     }
 }
