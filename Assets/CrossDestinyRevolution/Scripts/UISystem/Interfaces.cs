@@ -48,7 +48,7 @@ namespace CDR.UISystem
 
     public interface IMenu : IUIElement
     {
-        IMenu previousMenu { get; }
+        IMenu previousMenu { get; set; }
         void SwitchTo(IMenu nextMenu);
         void Back();
     }
