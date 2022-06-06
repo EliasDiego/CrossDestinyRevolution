@@ -6,6 +6,8 @@ namespace CDR.CameraSystem
 {
     public interface IVirtualCam
     {
-        public int SetPriority(int priority);
+        public void SetPriority(int priority);
+        public void SetLookTarget(Transform target);
+        public void SetFollowTarget(Transform followTarget);
     }
 }

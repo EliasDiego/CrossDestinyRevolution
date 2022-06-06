@@ -6,6 +6,14 @@ namespace CDR.CameraSystem
 {
     public class CameraManager : MonoBehaviour
     {
+        [SerializeField]
+        private GameObject[] playerCams;
+        [SerializeField]
+        private Cinemachine.CinemachineTargetGroup targetGroup;
+
+        //DEBUG ONLY
+        public List<Transform> Players;
+
         public List<IVirtualCam> VirtualCameras;
 
         public void AddVirtualCamera(IVirtualCam vcam)
@@ -18,6 +26,26 @@ namespace CDR.CameraSystem
             VirtualCameras[index].SetPriority(priority);
         }
 
+        public void SetPlayerCam(Transform player, int index)
+        {
+            IVirtualCam vcam = playerCams[index].GetComponent<IVirtualCam>();
+            if (vcam != null)
+            {
+                vcam.SetFollowTarget(player);
+                vcam.SetLookTarget(targetGroup.transform);
+                targetGroup.AddMember(player, 1f, 0f);
+                playerCams[index].SetActive(true);
+            }
+        }
 
+        private void Start()
+        {
+            var index = 0;
+            foreach(Transform t in Players)
+            {
+                SetPlayerCam(t, index);
+                index++;
+            }
+        }
     }
 }
