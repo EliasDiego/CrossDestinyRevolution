@@ -26,7 +26,7 @@ namespace CDR.VersusSystem
             
             Debug.Log(_VersusData + " | " + _VersusData?.player1Data + " | " + _VersusData?.player1Data?.mechData + " | " + _VersusData?.player1Data?.mechData?.mechPrefab);
             GameObject.Instantiate(_VersusData.player1Data.mechData.mechPrefab);
-            // GameObject.Instantiate(_VersusData.player2Data.mechData.mechPrefab);
+            GameObject.Instantiate(_VersusData.player2Data.mechData.mechPrefab);
             GameObject.Instantiate(_VersusData.mapData.mapPrefab);
 
             yield return null;
