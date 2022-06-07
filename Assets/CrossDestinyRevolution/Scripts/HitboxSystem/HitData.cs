@@ -14,31 +14,13 @@ namespace CDR.HitboxSystem
 		public Vector3 hitNormal;
 		public IHurtBox hurtbox;
 		public IHitDetector hitDetector;
-
-		public bool Validate()
-		{
-			if (hurtbox != null)
-			{
-				if (hurtbox.CheckHit(this))
-				{
-					if (hurtbox.hurtResponder == null || hurtbox.hurtResponder.CheckHit(this))
-					{
-						if (hitDetector.HitResponder == null || hitDetector.HitResponder.CheckHit(this))
-						{
-							return true;
-						}
-					}
-				}
-			}
-			return false;
-		}
 	}
 
 	public interface IHitResponder
 	{
 		public float Damage { get; }
-		public bool CheckHit(HitData data);
-		public void Response(HitData data);
+		public bool CheckHit();
+		public void Response();
 	}
 	public interface IHitDetector
 	{
@@ -47,8 +29,8 @@ namespace CDR.HitboxSystem
 	}
 	public interface IHurtResponder
 	{
-		public bool CheckHit(HitData data);
-		public void Response(HitData data);
+		public bool CheckHit();
+		public void Response(float damage);
 	}
 	public interface IHurtBox
 	{
@@ -56,6 +38,6 @@ namespace CDR.HitboxSystem
 		public GameObject Owner { get; }
 		public Transform Transform { get; }
 		public IHurtResponder hurtResponder { get; set; }
-		public bool CheckHit(HitData hitData);
+		public bool CheckHit();
 	}
 }

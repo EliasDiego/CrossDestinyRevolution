@@ -6,30 +6,36 @@ using CDR.MechSystem;
 
 namespace CDR.HitboxSystem
 {
-	public class HurtBox : MonoBehaviour, IHurtBox
+	public class HurtBox : MonoBehaviour, IHurtBox, IHurtResponder
 	{
-		[SerializeField] BoxCollider m_BoxCollider;
+		[SerializeField] BoxCollider m_boxCollider;
 		[SerializeField] Vector3 m_hitBoxSize = Vector3.one;
 		[SerializeField] bool m_active = true;
 		[SerializeField] GameObject m_owner = null;
+
+
 		IHurtResponder m_hurtResponder;// Make Array
 
-		public bool Active {get => m_active; } 
+		public bool Active { get => m_active; }
 		public GameObject Owner { get => m_owner; } //Make ActiveCharacter
 		public Transform Transform { get => transform; }
 		public IHurtResponder hurtResponder { get => m_hurtResponder; set => m_hurtResponder = value; } //Make Array
 
-		public bool CheckHit(HitData hitData)
+		void Update()
 		{
-			if(m_hurtResponder == null)
-			{
-				//Debug.LogWarning("No responder");
-			}
+			m_boxCollider.size = m_hitBoxSize;
+			m_hurtResponder = this;
+		}
 
-			gameObject.GetComponent<ActiveCharacter>().health.TakeDamage(hitData.damage);
-
+		public bool CheckHit()
+		{
 			return true;
 		}
+		public void Response(float damage)
+		{
+			m_owner.GetComponent<ActiveCharacter>().health.TakeDamage(damage);
+		}
+
 
 		private void OnDrawGizmos()
 		{

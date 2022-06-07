@@ -45,6 +45,9 @@ namespace CDR.AttackSystem
 			bullet.GetComponent<Projectile>().target = target.activeCharacter;
 			bullet.GetComponent<Projectile>().playerAttackRange = attackRange;
 			bullet.GetComponent<Projectile>().originPoint = GunPoint.transform.position;
+			//bullet.GetComponent<Transform>().rotation = Quaternion.LookRotation(target.activeCharacter.position);
+			bullet.GetComponent<Transform>().LookAt(-target.direction);
+
 			bullet.SetActive(true);
 		}
 
@@ -56,7 +59,7 @@ namespace CDR.AttackSystem
 		private void OnDrawGizmos()
 		{
 			//Gizmos.color = Color.red;
-			//Gizmos.DrawLine(transform.position, Target.transform.position);
+			//Gizmos.DrawLine(transform.position, Character.targetHandler.GetCurrentTarget().activeCharacter.position);
 			//Gizmos.color = Color.green;
 			//Gizmos.DrawWireSphere(transform.position, attackRange);
 		}
