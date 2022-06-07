@@ -2,23 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 using CDR.InputSystem;
 using CDR.UISystem;
 
 namespace CDR.VersusSystem
 {
-    public class MapSelectMenu : VersusMenu, IMapSelectMenu, IPlayerCancelHandler
+    public class MapSelectMenu : VersusMenu, IMapSelectMenu
     {
+        [SerializeField]
+        InputActionReference _CancelAction;
         [SerializeField]
         VersusSettingsMenu _VersusSettingsMenu;
 
-        public void OnPlayerCancel(IPlayerInput playerInput)
+        private void OnCancel(InputAction.CallbackContext context)
         {
             Back();
         }
 
-        public void PickMap(IPlayerInput playerInput, IMapData mapData)
+        public void PickMap(IMapData mapData)
         {
             versusData.mapData = mapData;
 
@@ -29,8 +32,16 @@ namespace CDR.VersusSystem
         {
             base.Show();
 
-            player1Input.EnableInput();
-            // player2Input.EnableInput();
+            _CancelAction.action.Enable();
+            _CancelAction.action.started += OnCancel;
+        }
+
+        public override void Hide()
+        {
+            _CancelAction.action.Disable();
+            _CancelAction.action.started -= OnCancel;
+
+            base.Hide();
         }
     }
 }

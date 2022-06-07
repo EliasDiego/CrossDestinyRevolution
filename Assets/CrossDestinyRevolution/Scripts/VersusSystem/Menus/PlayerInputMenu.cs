@@ -13,6 +13,11 @@ namespace CDR.VersusSystem
 {
     public class PlayerInputMenu : VersusMenu
     {
+        [Header("UI Input")]
+        [SerializeField]
+        PlayerUIInput _Player1Input;
+        [SerializeField]
+        PlayerUIInput _Player2Input;
         [SerializeField]
         InputActionAsset _ActionAsset;
         [SerializeField]
@@ -37,8 +42,8 @@ namespace CDR.VersusSystem
 
             if(Gamepad.all.Count > 2)
             {
-                player1Input.SetupInput(_ActionAsset.FindActionMap("UI", true), Keyboard.current, Mouse.current, Gamepad.all[0]);
-                player2Input.SetupInput(_ActionAsset.FindActionMap("UI", true), Gamepad.all[1]);
+                _Player1Input.SetupInput(_ActionAsset.FindActionMap("UI", true), Keyboard.current, Mouse.current, Gamepad.all[0]);
+                _Player2Input.SetupInput(_ActionAsset.FindActionMap("UI", true), Gamepad.all[1]);
 
                 player1Data = SetPlayerData(_ActionAsset, Keyboard.current, Mouse.current, Gamepad.all[0]);
                 player2Data = SetPlayerData(_ActionAsset, Gamepad.all[1]);
@@ -46,8 +51,8 @@ namespace CDR.VersusSystem
 
             else if(Gamepad.all.Count == 1)
             {
-                player1Input.SetupInput(_ActionAsset.FindActionMap("UI", true), Keyboard.current, Mouse.current);
-                player2Input.SetupInput(_ActionAsset.FindActionMap("UI", true), Gamepad.current);
+                _Player1Input.SetupInput(_ActionAsset.FindActionMap("UI", true), Keyboard.current, Mouse.current);
+                _Player2Input.SetupInput(_ActionAsset.FindActionMap("UI", true), Gamepad.current);
 
                 player1Data = SetPlayerData(_ActionAsset, Keyboard.current, Mouse.current);
                 player2Data = SetPlayerData(_ActionAsset, Gamepad.current);
@@ -57,15 +62,15 @@ namespace CDR.VersusSystem
             {
                 return;
 
-                player1Input.SetupInput(_ActionAsset.FindActionMap("UI", true), Keyboard.current, Mouse.current);
-                player2Input.SetupInput(_SplitKeyboardActionAsset.FindActionMap("UI", true), Keyboard.current);
+                _Player1Input.SetupInput(_ActionAsset.FindActionMap("UI", true), Keyboard.current, Mouse.current);
+                _Player2Input.SetupInput(_SplitKeyboardActionAsset.FindActionMap("UI", true), Keyboard.current);
 
                 player1Data = SetPlayerData(_ActionAsset, Keyboard.current, Mouse.current);
                 player2Data = SetPlayerData(_SplitKeyboardActionAsset, Keyboard.current);
             }
 
-            player1Input.EnableInput();
-            player2Input.EnableInput();
+            _Player1Input.EnableInput();
+            _Player2Input.EnableInput();
 
             versusData.player1Data = player1Data;
             versusData.player2Data = player2Data;

@@ -10,12 +10,20 @@ using CDR.InputSystem;
 
 namespace CDR.VersusSystem
 {
+    public interface IParticipant
+    {
+        int score { get; set; }
+
+        void Reset();
+    }
+
     public interface IVersusData
     {
         IPlayerData player1Data { get; set; }
         IPlayerData player2Data { get; set; } 
         IMapData mapData { get; set; }
         IVersusSettings settings { get; set; }
+        GameObject versusManagerPrefab { get; }
     }
 
     public interface IMechData
@@ -61,7 +69,7 @@ namespace CDR.VersusSystem
 
     public interface IMapSelectMenu : IMenu
     {
-        void PickMap(IPlayerInput playerInput, IMapData mapData);
+        void PickMap(IMapData mapData);
     }
 
     public interface IVersusSettingsMenu : IMenu

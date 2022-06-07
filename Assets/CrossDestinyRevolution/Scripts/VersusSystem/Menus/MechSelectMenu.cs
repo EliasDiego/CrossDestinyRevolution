@@ -8,7 +8,7 @@ using CDR.InputSystem;
 
 namespace CDR.VersusSystem
 {
-    public class MechSelectMenu : VersusMenu, IMechSelectMenu, IPlayerCancelHandler
+    public class MechSelectMenu : MultipleUsersVersusMenu, IMechSelectMenu, IPlayerCancelHandler
     {
         [SerializeField]
         MapSelectMenu _MapSelectMenu;
