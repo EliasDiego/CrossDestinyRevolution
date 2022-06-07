@@ -13,7 +13,7 @@ namespace CDR.AttackSystem
             var leadTimePercentage = Mathf.InverseLerp(_minDistancePredict, _maxDistancePredict, distanceFromTarget);
 
             PredictMovement(leadTimePercentage);
-            AddDeviation(leadTimePercentage);
+            //AddDeviation(leadTimePercentage);
 
             RotateProjectile();
         }

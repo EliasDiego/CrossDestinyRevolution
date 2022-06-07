@@ -6,12 +6,12 @@ namespace CDR.AttackSystem
 {
     public class HomingBullet : HomingProjectile
     {
-        float projectileDistanceFromOrigin; //From origin point to the current position of the projectile
-        float originPointDistanceFromTarget;
+        float originDistanceFromProjectile; //From origin point to the current position of the projectile
+        float originDistanceFromTarget; // From origin point to the current position of the target
 
         public void Awake()
 		{
-            if(playerAttackRange < originPointDistanceFromTarget)
+            if(playerAttackRange < originDistanceFromTarget)
 			{
                 isHoming = false;
 			}
@@ -25,18 +25,18 @@ namespace CDR.AttackSystem
 
             if (target != null)
             {
-                projectileDistanceFromOrigin = Vector3.Distance(transform.position, originPoint);
-                originPointDistanceFromTarget = Vector3.Distance(target.position, originPoint);
+                originDistanceFromProjectile = Vector3.Distance(transform.position, originPoint);
+                originDistanceFromTarget = Vector3.Distance(target.position, originPoint);
             }
 
             if (isHoming)
             {
                 PredictMovement(leadTimePercentage);
                 AddDeviation(leadTimePercentage);
-
                 RotateProjectile();
             }
-            if (projectileDistanceFromOrigin > originPointDistanceFromTarget)
+
+            if (originDistanceFromProjectile > originDistanceFromTarget || originDistanceFromTarget > playerAttackRange)
             {
                 isHoming = false;
             }
@@ -47,13 +47,21 @@ namespace CDR.AttackSystem
             base.Start();
         }
 
-        public override void RotateProjectile()
+		public override void RotateProjectile()
         {
             var heading = _deviatedPrediction - transform.position;
             var rotation = Quaternion.LookRotation(heading);
-            _rigidBody.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
+            _rigidBody.MoveRotation(Quaternion.RotateTowards(rotation, rotation, rotateSpeed * Time.deltaTime));
             //_rigidBody.MoveRotation(rotation);
         }
-	}
+
+		private void OnDrawGizmos()
+		{
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(transform.position, _standardPrediction);
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(_standardPrediction, _deviatedPrediction);
+        }
+    }
 }
 

@@ -13,9 +13,8 @@ GameObject:
   - component: {fileID: 3401622447246041619}
   - component: {fileID: 3874464055193689795}
   - component: {fileID: 3401622447246041833}
-  - component: {fileID: 9003204531704433537}
-  - component: {fileID: 5376925869142226359}
-  - component: {fileID: 31494959426300026}
+  - component: {fileID: 5402213288612070275}
+  - component: {fileID: 5041559319022618853}
   m_Layer: 6
   m_Name: SampleHomingBullet
   m_TagString: Bullet
@@ -31,7 +30,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3401622447246041622}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 11.72, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -114,15 +113,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 845fc62bef44c3f4eb1265fc6cd4db80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  owner: 0
-  projectileHitbox: {fileID: 9003204531704433537}
+  projectileHitBox: {fileID: 0}
+  projectileHitSphere: {fileID: 5402213288612070275}
   projectileDamage: 5
   projectileMaxLifetime: 5
   playerAttackRange: 0
   originPoint: {x: 0, y: 0, z: 0}
-  bulletSpeed: 15
+  bulletSpeed: 40
   rotateSpeed: 95
---- !u!114 &9003204531704433537
+--- !u!114 &5402213288612070275
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -131,31 +130,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 3401622447246041622}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e5dfdbafa2a6384484a7cfa7eacd232, type: 3}
+  m_Script: {fileID: 11500000, guid: 5f15cdd73fb161a4fbf954bc9173bb94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BoxCollider: {fileID: 5376925869142226359}
-  m_SphereCollider: {fileID: 31494959426300026}
+  m_SphereCollider: {fileID: 5041559319022618853}
   m_layerMask:
     serializedVersion: 2
     m_Bits: 256
-  isSphere: 1
-  m_hitBoxSize: {x: 0, y: 0, z: 0}
-  m_radius: 0.5
---- !u!65 &5376925869142226359
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3401622447246041622}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!135 &31494959426300026
+  m_radius: 0.52
+--- !u!135 &5041559319022618853
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

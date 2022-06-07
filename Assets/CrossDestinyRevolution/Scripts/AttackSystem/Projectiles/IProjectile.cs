@@ -18,6 +18,7 @@ namespace CDR.AttackSystem
 		IController controller { get; }
 
 		public HitBox HitBox { get; }
+		public HitSphere HitSphere { get; }
 		public float Lifetime { get; }
 		public float Damage { get; }
 	}
