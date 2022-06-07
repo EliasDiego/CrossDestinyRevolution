@@ -34,7 +34,6 @@ namespace CDR.MovementSystem
 
         private void Update()
         {
-            RotateObject();
             if(!isActive)
             {
                 return;
@@ -43,6 +42,7 @@ namespace CDR.MovementSystem
             {
                 controller.ClampVelocity(speed);
             }
+            RotateObject();
         }
 
         private void FixedUpdate()
