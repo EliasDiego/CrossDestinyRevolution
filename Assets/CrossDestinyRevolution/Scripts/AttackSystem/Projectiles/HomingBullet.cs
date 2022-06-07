@@ -33,10 +33,10 @@ namespace CDR.AttackSystem
             {
                 PredictMovement(leadTimePercentage);
                 AddDeviation(leadTimePercentage);
-
                 RotateProjectile();
             }
-            if (originDistanceFromProjectile > originDistanceFromTarget)
+
+            if (originDistanceFromProjectile > originDistanceFromTarget || originDistanceFromTarget > playerAttackRange)
             {
                 isHoming = false;
             }
@@ -47,12 +47,21 @@ namespace CDR.AttackSystem
             base.Start();
         }
 
-        public override void RotateProjectile()
+		public override void RotateProjectile()
         {
             var heading = _deviatedPrediction - transform.position;
             var rotation = Quaternion.LookRotation(heading);
-            _rigidBody.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
+            _rigidBody.MoveRotation(Quaternion.RotateTowards(rotation, rotation, rotateSpeed * Time.deltaTime));
+            //_rigidBody.MoveRotation(rotation);
         }
-	}
+
+		private void OnDrawGizmos()
+		{
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(transform.position, _standardPrediction);
+            Gizmos.color = Color.green;
+            Gizmos.DrawLine(_standardPrediction, _deviatedPrediction);
+        }
+    }
 }
 

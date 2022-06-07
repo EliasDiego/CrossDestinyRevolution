@@ -8,27 +8,23 @@ namespace CDR.HitboxSystem
 {
 	public class HurtBox : MonoBehaviour, IHurtBox
 	{
-		[SerializeField] BoxCollider m_BoxCollider;
+		[SerializeField] BoxCollider m_boxCollider;
 		[SerializeField] Vector3 m_hitBoxSize = Vector3.one;
 		[SerializeField] bool m_active = true;
-		[SerializeField] GameObject m_owner = null;
-		IHurtResponder m_hurtResponder;// Make Array
+		[SerializeField] ActiveCharacter m_owner = null;
 
-		public bool Active {get => m_active; } 
-		public GameObject Owner { get => m_owner; } //Make ActiveCharacter
+		public bool Active { get => m_active; }
+		public ActiveCharacter Owner { get => m_owner; } //Make ActiveCharacter
 		public Transform Transform { get => transform; }
-		public IHurtResponder hurtResponder { get => m_hurtResponder; set => m_hurtResponder = value; } //Make Array
 
-		public bool CheckHit(HitData hitData)
+		void Update()
 		{
-			if(m_hurtResponder == null)
-			{
-				//Debug.LogWarning("No responder");
-			}
+			m_boxCollider.size = m_hitBoxSize;
+		}
 
-			gameObject.GetComponent<ActiveCharacter>().health.TakeDamage(hitData.damage);
-
-			return true;
+		public void HurtBoxResponse(float damage)
+		{
+			m_owner.health.TakeDamage(damage);
 		}
 
 		private void OnDrawGizmos()

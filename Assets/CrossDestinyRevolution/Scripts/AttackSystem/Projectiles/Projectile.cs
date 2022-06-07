@@ -21,6 +21,8 @@ namespace CDR.AttackSystem
 		float projectileLifetime;
 		public float projectileMaxLifetime;
 
+		protected Rigidbody _rigidBody;
+
 		IProjectileController projectileController;
 		public IActiveCharacter target { get; set; }
 
@@ -35,12 +37,18 @@ namespace CDR.AttackSystem
 		public float Lifetime => projectileMaxLifetime;
 		float IProjectile.Damage => projectileDamage;
 		public IController controller => projectileController;
-		float IHitResponder.Damage => projectileDamage;
+
 		public IPool pool { get => _pool; set => _pool = value; }
+
+		float IHitResponder.Damage => projectileDamage;
 
 		public virtual void Start()
 		{
 			projectileController = GetComponent<ProjectileController>();
+
+			_rigidBody = GetComponent<Rigidbody>();
+
+			projectileLifetime = projectileMaxLifetime;
 
 			if (projectileHitBox != null)
 			{
@@ -51,18 +59,16 @@ namespace CDR.AttackSystem
 			{
 				projectileHitSphere.HitResponder = this;
 			}
-			
-			projectileLifetime = projectileMaxLifetime;
 		}
 
 		public virtual void OnEnable()
 		{
 			transform.position = originPoint;
 			projectileLifetime = projectileMaxLifetime;
-
-			if(target != null)
+			
+			if (target != null)
 			{
-				transform.rotation = Quaternion.LookRotation(target.position);
+				transform.LookAt(target.position); ;
 			}
 		}
 
@@ -72,12 +78,12 @@ namespace CDR.AttackSystem
 
 			if (projectileHitBox != null)
 			{
-				projectileHitBox.CheckHit();
+				projectileHitBox.HitBoxCheckHit();
 			}
 
 			if (projectileHitSphere != null)
 			{
-				projectileHitSphere.CheckHit();
+				projectileHitSphere.HitBoxCheckHit();
 			}
 		}
 
@@ -87,8 +93,7 @@ namespace CDR.AttackSystem
 
 			if (LifetimeCountDown(deltaTime))
 			{
-				gameObject.SetActive(false);
-				//ResetObject();
+				ResetObject();
 				//Return();
 			}
 		}
@@ -99,22 +104,17 @@ namespace CDR.AttackSystem
 			return projectileLifetime <= 0f;
 		}
 
-		public bool CheckHit(HitData data) //Hitbox CheckHit 
+		public void HitBoxResponse() //Hitbox Response
 		{
-			return true;
-		}
-
-		public void Response(HitData data) //Hitbox Response
-		{
-			gameObject.SetActive(false);
 			ResetObject();
-			//Return();
 		}
 
 		public void ResetObject() //Parameters reset
 		{
+			gameObject.SetActive(false);
 			projectileLifetime = projectileMaxLifetime;
 			originPoint = Vector3.zero;
+			transform.rotation = Quaternion.identity;
 			distanceFromTarget = 0f;
 		}
 
