@@ -15,15 +15,14 @@ namespace CDR.MechSystem
     {
         [SerializeField] Health _health;
         [SerializeField] HurtBox[] _hurtBoxes;
+        [SerializeField] Controller _controller;
 
-        ICharacterController _controller;
-
-        [SerializeField] IInput _input;
+        IInput _input;
 
         IState _currentState;
 
-        [SerializeField] ITargetHandler _targetHandler;
-        [SerializeField] IMovement _movement;
+        [SerializeField] TargetingHandler _targetHandler;
+        [SerializeField] ControllerMovement _movement;
 
 
         public Vector3 position => transform.position;
@@ -48,9 +47,6 @@ namespace CDR.MechSystem
         {
             base.Awake();
             characterList.Add(this);
-            _controller = GetComponent<ICharacterController>();
-            _targetHandler = GetComponent<ITargetHandler>();
-            _movement = GetComponent<IMovement>();
         }
 
         protected virtual void OnDestroy() {
