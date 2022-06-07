@@ -23,6 +23,7 @@ namespace CDR.StateSystem
         public override void EndState()
         {
             base.EndState();
+            receiver.controller.SetVelocity(Vector3.zero);
             Debug.Log("End Knockback");
         }
 
