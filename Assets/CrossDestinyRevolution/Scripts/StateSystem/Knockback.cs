@@ -39,7 +39,8 @@ namespace CDR.StateSystem
             Vector3 dir = (sender.position - receiver.position).normalized;
             dir.y = 0;
 
-            receiver.controller.SetVelocity(-dir * distance / duration);
+            //receiver.controller.SetVelocity(-dir * distance / duration);
+            receiver.controller.AddRbForce(-dir * distance, ForceMode.Impulse);
         }
     }
 }
