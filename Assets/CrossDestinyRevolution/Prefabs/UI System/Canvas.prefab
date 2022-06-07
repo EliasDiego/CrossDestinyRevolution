@@ -734,3 +734,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _camera: {fileID: 0}
   targetImage: {fileID: 3654087407919790740}
+  minScale: 0.5
+  maxScale: 2

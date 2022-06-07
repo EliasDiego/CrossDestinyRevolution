@@ -1883,6 +1883,14 @@ PrefabInstance:
       propertyPath: _camera
       value: 
       objectReference: {fileID: 324805077}
+    - target: {fileID: 2597784398174808062, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
+      propertyPath: maxSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2597784398174808062, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
+      propertyPath: minSize
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5478286738607419545, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
       propertyPath: m_SizeDelta.x
       value: 100
@@ -1890,6 +1898,18 @@ PrefabInstance:
     - target: {fileID: 5478286738607419545, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
       propertyPath: m_SizeDelta.y
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5478286738607419545, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5478286738607419545, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5478286738607419545, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}

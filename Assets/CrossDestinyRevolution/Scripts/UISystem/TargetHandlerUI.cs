@@ -11,6 +11,7 @@ namespace CDR.UISystem
     {
         [SerializeField] Camera _camera;
         [SerializeField] Image targetImage;
+        [SerializeField] float minScale, maxScale;
 
         ITargetData currentTarget;
 
@@ -39,12 +40,13 @@ namespace CDR.UISystem
             if(currentTarget != null)
             {
                 Vector2 pos = _camera.WorldToScreenPoint(currentTarget.activeCharacter.position);
+                float distance = Vector3.Distance(transform.position, currentTarget.activeCharacter.position);
 
-                /*Debug.Log("cam width: " + _camera.pixelWidth + "screen width: " + Screen.width);
-                Debug.Log("cam height: " + _camera.pixelHeight + "screen height" + Screen.height);
-                Debug.Log("Screen pos: " + pos);*/
-
+                //Modify Image
                 targetImage.rectTransform.localPosition = new Vector2(pos.x - (_camera.pixelWidth / 2), pos.y - (_camera.pixelHeight / 2));
+
+                targetImage.rectTransform.localScale = new Vector2(Mathf.Clamp((distance / 10), minScale, maxScale),
+                    Mathf.Clamp((distance / 10), minScale, maxScale));
             }
         }
     }
