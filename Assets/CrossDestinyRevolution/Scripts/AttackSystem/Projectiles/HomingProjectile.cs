@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Collections;
 
 namespace CDR.AttackSystem
 {
@@ -9,26 +10,22 @@ namespace CDR.AttackSystem
         [SerializeField] public float bulletSpeed = 15f;
 		[HideInInspector] public float rotateSpeed = 95f;
 
-		protected Rigidbody _rigidBody;
 		protected bool isHoming = true;
 
 		[Header("PREDICTION")]
 		[HideInInspector] protected float _maxDistancePredict = 100;
 		[HideInInspector] protected float _minDistancePredict = 5;
 		[HideInInspector] protected float _maxTimePrediction = 5;
-		protected Vector3 _standardPrediction, _deviatedPrediction;
 
 		[Header("DEVIATION")]
 		[HideInInspector] protected float _deviationAmount = 50;
 		[HideInInspector] protected float _deviationSpeed = 2;
 
+		protected Vector3 _standardPrediction, _deviatedPrediction;
+
 		public override void Start()
 		{
 			base.Start();
-			_rigidBody = GetComponent<Rigidbody>();
-			
-			//_standardPrediction = target.position;
-			//_deviatedPrediction = target.position;
 		}
 
 		public override void OnEnable()
@@ -64,18 +61,9 @@ namespace CDR.AttackSystem
 
 		protected virtual void AddDeviation(float leadTimePercentage)
 		{
-			var deviation = new Vector3(Mathf.Cos(Time.time * _deviationSpeed), 0, 0);
+			var deviation = new Vector3(Mathf.Cos(Time.time * _deviationSpeed), 0 , 0);
 			var predictionOffset = transform.TransformDirection(deviation) * _deviationAmount * leadTimePercentage;
 			_deviatedPrediction = _standardPrediction + predictionOffset;
-		}
-
-		private void OnDrawGizmos()
-		{
-			//Gizmos.color = Color.red;
-			//Gizmos.DrawLine(transform.position, _standardPrediction);
-
-			//Gizmos.DrawWireSphere(transform.position, _maxDistancePredict);
-			//Gizmos.color = Color.clear;
 		}
 	}
 }

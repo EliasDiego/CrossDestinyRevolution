@@ -11,22 +11,22 @@ namespace CDR.AttackSystem
 
 		public Vector3 velocity => _rigidBody.velocity;
 
-        public void AddRbForce(Vector3 force, ForceMode mode = ForceMode.VelocityChange)
-        {
-            throw new System.NotImplementedException();
-        }
+		public void AddRbForce(Vector3 force, ForceMode mode = ForceMode.VelocityChange)
+		{
+			throw new System.NotImplementedException();
+		}
 
-        public void Rotate(Quaternion rotation)
+		public void Rotate(Quaternion rotation)
 		{
 			_rigidBody.rotation = rotation;
 		}
 
-        public void SetVelocity(Vector3 velocity)
-        {
-            throw new System.NotImplementedException();
-        }
+		public void SetVelocity(Vector3 velocity)
+		{
+			throw new System.NotImplementedException();
+		}
 
-        public void Translate(Vector3 direction, float magnitude)
+		public void Translate(Vector3 direction, float magnitude)
 		{
 			_rigidBody.transform.position = direction;
 		}

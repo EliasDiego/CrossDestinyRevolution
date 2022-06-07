@@ -7,21 +7,17 @@ namespace CDR.ObjectPoolingSystem
 {
     public interface IPoolable //attach to scripts to pool
     {
-        string ID { get; set; }
+        IPool pool { get; set; }
         void ResetObject();
         void Return();
     }
 
     public interface IPool
     {
-        //IPoolable poolable { get; }
-        //int poolSize { get; }
-        //int activePoolables { get; }
-        IActiveCharacter targetCharacter { get; }
-
         void Initialize();
         void Destroy();
         void ReturnAll();
-        GameObject GetPoolable(string _id);
+        void ReturnObject(IPoolable poolable);
+        GameObject GetPoolable();
     }
 }
