@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: New Map Data
   m_EditorClassIdentifier: 
   _MapName: Sample Map
-  _MapPrefab: {fileID: 7666370423531100595, guid: bd9e068cce144574c983022dfd677f35, type: 3}
+  _MapPrefab: {fileID: 5757873314778955397, guid: f6d0230ee024a9d4b842e24033b921f6, type: 3}

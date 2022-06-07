@@ -6,6 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Users;
 
 using CDR.UISystem;
+using CDR.MapSystem;
 using CDR.InputSystem;
 
 namespace CDR.VersusSystem
@@ -15,6 +16,12 @@ namespace CDR.VersusSystem
         int score { get; set; }
 
         void Reset();
+    }
+
+    public interface IVersusMap : IMap
+    {
+        Vector3 player1Position { get; }
+        Vector3 player2Position { get; }
     }
 
     public interface IVersusData
