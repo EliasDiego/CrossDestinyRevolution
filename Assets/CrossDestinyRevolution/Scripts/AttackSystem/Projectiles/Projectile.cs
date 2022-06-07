@@ -78,12 +78,12 @@ namespace CDR.AttackSystem
 
 			if (projectileHitBox != null)
 			{
-				projectileHitBox.CheckHit();
+				projectileHitBox.HitBoxCheckHit();
 			}
 
 			if (projectileHitSphere != null)
 			{
-				projectileHitSphere.CheckHit();
+				projectileHitSphere.HitBoxCheckHit();
 			}
 		}
 
@@ -104,12 +104,7 @@ namespace CDR.AttackSystem
 			return projectileLifetime <= 0f;
 		}
 
-		public bool CheckHit() //Hitbox CheckHit 
-		{
-			return true;
-		}
-
-		public void Response() //Hitbox Response
+		public void HitBoxResponse() //Hitbox Response
 		{
 			ResetObject();
 		}

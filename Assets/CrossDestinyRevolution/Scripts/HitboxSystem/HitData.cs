@@ -14,44 +14,27 @@ namespace CDR.HitboxSystem
 		public Vector3 hitNormal;
 		public IHurtBox hurtbox;
 		public IHitDetector hitDetector;
-
-		public void Explosion()
-		{
-
-		}
 	}
 
 	public class HurtData
 	{
-		public void TakeDamage()
-		{
-
-		}
+		//put variables that is needed by hurtbox
 	}
 
 	public interface IHitResponder
 	{
 		public float Damage { get; }
-		public bool CheckHit();
-		public void Response();
+		public void HitBoxResponse();
 	}
 	public interface IHitDetector
 	{
 		public IHitResponder HitResponder { get; set; }
-		public void CheckHit();
-	}
-	public interface IHurtResponder
-	{
-		public bool CheckHit();
-		public void Response(float damage);
+		public void HitBoxCheckHit();
 	}
 	public interface IHurtBox
 	{
 		public bool Active { get; }
-		public GameObject Owner { get; }
-		public Transform Transform { get; }
-		public IHurtResponder hurtResponder { get; set; }
-		public bool CheckHit();
-		public void Response(float damage);
+		public ActiveCharacter Owner { get; }
+		public void HurtBoxResponse(float damage);
 	}
 }

@@ -16,7 +16,7 @@ namespace CDR.HitboxSystem
 		public IHitResponder m_hitResponder;
 		public IHitResponder HitResponder { get => m_hitResponder; set => m_hitResponder = value; }
 
-		public void CheckHit()
+		public void HitBoxCheckHit()
 		{
 			float _distance = m_hitBoxSize.y;
 			Vector3 _direction = transform.up;
@@ -31,8 +31,8 @@ namespace CDR.HitboxSystem
 			foreach (RaycastHit _hit in _hits)
 			{
 				IHurtBox _hurtbox = _hit.collider.GetComponentInChildren<IHurtBox>();
-				_hurtbox.hurtResponder.Response(m_hitResponder.Damage);
-				HitResponder.Response();
+				_hurtbox.HurtBoxResponse(m_hitResponder.Damage);
+				HitResponder.HitBoxResponse();
 			}
 		}
 
