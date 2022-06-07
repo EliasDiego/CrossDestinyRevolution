@@ -58,9 +58,11 @@ namespace CDR.MovementSystem
         {
             if(collision.gameObject.CompareTag("Player"))
             {
-                SetVelocity(Vector3.zero);
+                rb.isKinematic = true;
             }
+            rb.isKinematic = false;
         }
+
     }
 }
 
