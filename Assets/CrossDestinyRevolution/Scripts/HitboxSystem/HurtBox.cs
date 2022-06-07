@@ -31,11 +31,11 @@ namespace CDR.HitboxSystem
 		{
 			return true;
 		}
+
 		public void Response(float damage)
 		{
 			m_owner.GetComponent<ActiveCharacter>().health.TakeDamage(damage);
 		}
-
 
 		private void OnDrawGizmos()
 		{

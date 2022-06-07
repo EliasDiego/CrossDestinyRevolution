@@ -14,6 +14,19 @@ namespace CDR.HitboxSystem
 		public Vector3 hitNormal;
 		public IHurtBox hurtbox;
 		public IHitDetector hitDetector;
+
+		public void Explosion()
+		{
+
+		}
+	}
+
+	public class HurtData
+	{
+		public void TakeDamage()
+		{
+
+		}
 	}
 
 	public interface IHitResponder
@@ -39,5 +52,6 @@ namespace CDR.HitboxSystem
 		public Transform Transform { get; }
 		public IHurtResponder hurtResponder { get; set; }
 		public bool CheckHit();
+		public void Response(float damage);
 	}
 }
