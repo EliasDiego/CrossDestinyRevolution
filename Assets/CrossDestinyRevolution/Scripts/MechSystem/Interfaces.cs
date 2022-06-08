@@ -8,7 +8,6 @@ using CDR.StateSystem;
 using CDR.AttackSystem;
 using CDR.MovementSystem;
 using CDR.TargetingSystem;
-using CDR.HitboxSystem;
 
 namespace CDR.MechSystem
 {
@@ -30,7 +29,7 @@ namespace CDR.MechSystem
     {
         Vector3 position { get; }
         IHealth health { get; }
-        HitboxSystem.IHurtBox[] hurtBoxes { get; }
+        IHurtShape[] hurtBoxes { get; }
         ICharacterController controller { get; }
         IInput input { get; set; }
         IState currentState { get; set; }

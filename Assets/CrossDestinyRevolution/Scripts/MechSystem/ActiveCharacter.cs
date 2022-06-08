@@ -7,7 +7,6 @@ using CDR.MovementSystem;
 using CDR.InputSystem;
 using CDR.StateSystem;
 using CDR.TargetingSystem;
-using CDR.HitboxSystem;
 
 namespace CDR.MechSystem
 {
@@ -29,7 +28,7 @@ namespace CDR.MechSystem
 
         public IHealth health => _health;
 
-        public HitboxSystem.IHurtBox[] hurtBoxes => _hurtBoxes;
+        public IHurtShape[] hurtBoxes => _hurtBoxes;
 
         public ICharacterController controller => _controller;
 
