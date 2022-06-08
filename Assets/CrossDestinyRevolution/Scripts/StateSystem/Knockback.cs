@@ -27,21 +27,23 @@ namespace CDR.StateSystem
             Debug.Log("End Knockback");
         }
 
-        IEnumerator KnockbackCoroutine(float duration)
-        {
-            EnemyKnockback();
-
-            yield return new WaitForSeconds(duration);
-            EndState();
-        }
-
-        void EnemyKnockback()
+        IEnumerator KnockbackCoroutine(float time)
         {
             Vector3 dir = (sender.position - receiver.position).normalized;
             dir.y = 0;
 
-            //receiver.controller.SetVelocity(-dir * distance / duration);
-            receiver.controller.AddRbForce(-dir * distance, ForceMode.Impulse);
+            while(time > 0)
+            {
+                //every 10 distance = 4.35f change in position
+                time -= Time.fixedDeltaTime;
+
+                //multiplied dir with 2.3f to make position = distance
+                receiver.controller.AddRbForce((-dir * 2.3f) * distance / duration * Time.fixedDeltaTime);
+
+                yield return new WaitForFixedUpdate();
+            }
+
+            EndState();
         }
     }
 }
