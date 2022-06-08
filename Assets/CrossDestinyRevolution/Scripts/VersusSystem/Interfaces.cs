@@ -9,17 +9,21 @@ using CDR.UISystem;
 using CDR.MapSystem;
 using CDR.MechSystem;
 using CDR.InputSystem;
+using CDR.MovementSystem;
 using CDR.SceneManagementSystem;
 
 namespace CDR.VersusSystem
 {
+    public interface ICameraParticipant : IParticipant
+    {
+        Rect cameraRect { set; }
+    }
+
     public interface IParticipant
     {
         int score { get; set; }
         
         IMech mech { get; }
-        IPlayerMechBattleUI battleUI { get; }
-        Camera camera { get; }
 
         void Start();
         void Reset();
@@ -33,8 +37,8 @@ namespace CDR.VersusSystem
 
     public interface IVersusData
     {
-        IPlayerData player1Data { get; set; }
-        IPlayerData player2Data { get; set; } 
+        IParticipantData player1Data { get; set; }
+        IParticipantData player2Data { get; set; } 
         IMapData mapData { get; set; }
         IVersusSettings settings { get; set; }
         GameObject versusMap { get; }
@@ -45,7 +49,6 @@ namespace CDR.VersusSystem
     {
         string mechName { get; }
         GameObject mechPrefab { get; }
-        GameObject UIPrefab { get; }
     }
 
     public interface IMapData : ISceneTask
@@ -59,21 +62,10 @@ namespace CDR.VersusSystem
         public int roundTime { get; }
     }
 
-    public interface IPlayerInputData
-    {
-        InputUser user { get; set; }
-    }
-
-    public interface IPlayerData
-    {
-        InputDevice[] devices { get; set; }
-        InputActionAsset actionAsset { get; set; }
+    public interface IParticipantData
+    { 
         IMechData mechData { get; set; }
-    }
-
-    public interface IInputAssignmentMenu : IMenu
-    {
-
+        IParticipant GetParticipant(Vector3 startPosition, IFlightPlane flightPlane);
     }
 
     public interface IMechSelectMenu : IMenu

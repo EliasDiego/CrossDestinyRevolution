@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _MechName: Sample Mech
   _MechPrefab: {fileID: 4587967963171265783, guid: df834bcd75c79a041b94a81512dfc545, type: 3}
-  _UIPrefab: {fileID: 0}
+  _UIPrefab: {fileID: 8892535310215494356, guid: ac9a04520e839ac4d89be78ea1edb1dd, type: 3}

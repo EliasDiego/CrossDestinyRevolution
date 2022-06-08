@@ -11,11 +11,8 @@ namespace CDR.VersusSystem
         string _MechName;
         [SerializeField]
         GameObject _MechPrefab;
-        [SerializeField]
-        GameObject _UIPrefab;
 
         public string mechName => _MechName;
         public GameObject mechPrefab => _MechPrefab;
-        public GameObject UIPrefab => _UIPrefab;
     }
 }

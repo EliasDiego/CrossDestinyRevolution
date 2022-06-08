@@ -8,29 +8,23 @@ using CDR.UISystem;
 
 namespace CDR.VersusSystem
 {
-    public struct Participant : IParticipant
+    public class Participant : IParticipant
     {
         IMech _Mech;
-        IPlayerMechBattleUI _BattleUI;
-        Camera _Camera;
         Vector3 _StartPosition;
 
         public int score { get; set; }
         public IMech mech => _Mech;
-        public IPlayerMechBattleUI battleUI => _BattleUI;
-        public Camera camera => _Camera;
 
-        public Participant(IMech mech, IPlayerMechBattleUI battleUI, Camera camera, Vector3 startPosition)
+        public Participant(IMech mech, Vector3 startPosition)
         {
             _Mech = mech;
-            _BattleUI = battleUI;
-            _Camera = camera;
             _StartPosition = startPosition;
 
             score = 0;
         }
 
-        public void Reset()
+        public virtual void Reset()
         {
             mech.health.ModifyValue(_Mech.health.MaxValue);
             mech.boost?.boostValue.ModifyValue(_Mech.boost.boostValue.MaxValue);
@@ -50,13 +44,11 @@ namespace CDR.VersusSystem
             (mech as Mech).transform.position = _StartPosition;
         }
 
-        public void Start()
+        public virtual void Start()
         {
             mech.input?.EnableInput();
             mech.targetHandler?.Use();
             mech.movement?.Use();
-
-            // battleUI.SetMech(mech);
         }
     }
 }

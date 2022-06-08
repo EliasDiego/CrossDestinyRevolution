@@ -22,13 +22,16 @@ namespace CDR.VersusSystem
         InputActionAsset _ActionAsset;
         [SerializeField]
         InputActionAsset _SplitKeyboardActionAsset;
+        [SerializeField]
+        GameObject _BattleUIPrefab;
 
-        private IPlayerData SetPlayerData(InputActionAsset actionAsset, params InputDevice[] devices)
+        private IParticipantData SetPlayerData(InputActionAsset actionAsset, params InputDevice[] devices)
         {
-            PlayerData playerData = new PlayerData();
+            PlayerParticipantData playerData = new PlayerParticipantData();
 
             playerData.actionAsset = actionAsset;
             playerData.devices = devices;
+            playerData.battleUIPrefab = _BattleUIPrefab;
 
             return playerData; 
         }
@@ -37,8 +40,8 @@ namespace CDR.VersusSystem
         {
             base.Show();
             
-            IPlayerData player1Data;
-            IPlayerData player2Data;
+            IParticipantData player1Data;
+            IParticipantData player2Data;
 
             if(Gamepad.all.Count > 2)
             {

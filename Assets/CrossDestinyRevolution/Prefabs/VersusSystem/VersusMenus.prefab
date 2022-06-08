@@ -1610,7 +1610,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _IsShown: 0
   _VersusData: {fileID: 11400000, guid: 039d1738bea236646b3cf05a8f6f0a2c, type: 2}
-  _CancelAction: {fileID: -8771739968787767711, guid: 68bdc22a752cb6f419983bee70ecd6cd, type: 3}
   _VersusSettingsMenu: {fileID: 163291014240451214}
 --- !u!1 &163291013592119665
 GameObject:
@@ -1986,6 +1985,7 @@ MonoBehaviour:
   _Player2Input: {fileID: 163291014006527398}
   _ActionAsset: {fileID: -944628639613478452, guid: 68bdc22a752cb6f419983bee70ecd6cd, type: 3}
   _SplitKeyboardActionAsset: {fileID: -944628639613478452, guid: ed267bcfc933e1147a0f828f0901952c, type: 3}
+  _BattleUIPrefab: {fileID: 8892535310215494356, guid: ac9a04520e839ac4d89be78ea1edb1dd, type: 3}
 --- !u!1 &163291013860186134
 GameObject:
   m_ObjectHideFlags: 0
@@ -2565,6 +2565,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _IsShown: 0
   _VersusData: {fileID: 11400000, guid: 039d1738bea236646b3cf05a8f6f0a2c, type: 2}
+  _EventSystemObject: {fileID: 0}
   _Player1Input: {fileID: 163291012355065266}
   _Player2Input: {fileID: 163291014006527398}
   _MapSelectMenu: {fileID: 163291013580999907}
@@ -2622,7 +2623,6 @@ MonoBehaviour:
   _IsShown: 0
   _VersusData: {fileID: 11400000, guid: 039d1738bea236646b3cf05a8f6f0a2c, type: 2}
   _SceneLoader: {fileID: 11400000, guid: f5384e6046073054f92b1c074ece52dc, type: 2}
-  _CancelAction: {fileID: -8771739968787767711, guid: 68bdc22a752cb6f419983bee70ecd6cd, type: 3}
 --- !u!1 &163291014267871533
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,8 +12,8 @@ namespace CDR.VersusSystem
         [SerializeField]
         GameObject _VersusMap;
         
-        public IPlayerData player1Data { get; set; }
-        public IPlayerData player2Data { get; set; }
+        public IParticipantData player1Data { get; set; }
+        public IParticipantData player2Data { get; set; }
         public IMapData mapData { get; set; }
         public IVersusSettings settings { get; set; }
         public GameObject versusManagerPrefab => _VersusManagerPrefab;
