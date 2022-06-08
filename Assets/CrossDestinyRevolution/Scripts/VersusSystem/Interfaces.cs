@@ -8,6 +8,7 @@ using UnityEngine.InputSystem.Users;
 using CDR.UISystem;
 using CDR.MapSystem;
 using CDR.InputSystem;
+using CDR.SceneManagementSystem;
 
 namespace CDR.VersusSystem
 {
@@ -30,6 +31,7 @@ namespace CDR.VersusSystem
         IPlayerData player2Data { get; set; } 
         IMapData mapData { get; set; }
         IVersusSettings settings { get; set; }
+        GameObject versusMap { get; }
         GameObject versusManagerPrefab { get; }
     }
 
@@ -40,10 +42,9 @@ namespace CDR.VersusSystem
         GameObject UIPrefab { get; }
     }
 
-    public interface IMapData
+    public interface IMapData : ISceneTask
     {
         string mapName { get; }
-        GameObject mapPrefab { get; }
     }
 
     public interface IVersusSettings

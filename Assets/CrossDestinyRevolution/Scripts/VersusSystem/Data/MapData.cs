@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace CDR.VersusSystem
 {
@@ -10,9 +12,18 @@ namespace CDR.VersusSystem
         [SerializeField]
         string _MapName;
         [SerializeField]
-        GameObject _MapPrefab;
+        int _MapSceneIndex;
 
         public string mapName => _MapName;
-        public GameObject mapPrefab => _MapPrefab;
+
+        public IEnumerator Process()
+        {
+            AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(_MapSceneIndex, LoadSceneMode.Additive);
+
+            while(!asyncOperation.isDone)
+                yield return null;
+
+            SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(_MapSceneIndex));
+        }
     }
 }

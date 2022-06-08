@@ -32,20 +32,18 @@ namespace CDR.VersusSystem
 
         public IEnumerator Process()
         {
-            Scene versusScene = SceneManager.CreateScene("Versus Scene");
-            
-            SceneManager.SetActiveScene(versusScene);
+            yield return _VersusData.mapData.Process();
 
-            // yield break;
+            GameObject.CreatePrimitive(PrimitiveType.Sphere);
 
             VersusManager versusManager = GameObject.Instantiate(_VersusData.versusManagerPrefab).GetComponent<VersusManager>();
             
-            IVersusMap versusMap = GameObject.Instantiate(_VersusData.mapData.mapPrefab, Vector3.zero, Quaternion.identity).GetComponent<IVersusMap>();
+            IVersusMap versusMap = GameObject.Instantiate(_VersusData.versusMap, Vector3.zero, Quaternion.identity).GetComponent<IVersusMap>();
 
-            IMech player1Mech = InitializeMech(_VersusData.player1Data.mechData.mechPrefab, _VersusData.player1Data.mechData.UIPrefab, versusMap.player1Position);
-            IMech player2Mech = InitializeMech(_VersusData.player2Data.mechData.mechPrefab, _VersusData.player2Data.mechData.UIPrefab, versusMap.player2Position);
+            // IMech player1Mech = InitializeMech(_VersusData.player1Data.mechData.mechPrefab, _VersusData.player1Data.mechData.UIPrefab, versusMap.player1Position);
+            // IMech player2Mech = InitializeMech(_VersusData.player2Data.mechData.mechPrefab, _VersusData.player2Data.mechData.UIPrefab, versusMap.player2Position);
 
-            versusManager.Initialize(_VersusData.settings, player1Mech, player2Mech);
+            // versusManager.Initialize(_VersusData.settings, player1Mech, player2Mech);
 
             yield return null;
         }

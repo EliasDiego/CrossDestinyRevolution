@@ -217,7 +217,7 @@ GameObject:
   - component: {fileID: 5757873314778955399}
   - component: {fileID: 5757873314778955396}
   m_Layer: 0
-  m_Name: SampleVersusMap
+  m_Name: VersusMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
