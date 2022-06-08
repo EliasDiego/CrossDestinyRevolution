@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CDR.AttackSystem.New
+namespace CDR.AttackSystem
 {
     public struct HitExitData : IHitExitData
     {

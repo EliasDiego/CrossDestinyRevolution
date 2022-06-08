@@ -1,47 +1,74 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
+
 using CDR.MechSystem;
 
-namespace CDR.HitboxSystem
+namespace CDR.AttackSystem
 {
-	public class HitBox : MonoBehaviour, IHitDetector
-	{
-		[SerializeField] BoxCollider m_BoxCollider;
-		[SerializeField] LayerMask m_layerMask;
+    public class HitBox : MonoBehaviour, IHitShape
+    {
+        [SerializeField]
+        private ActiveCharacter _ActiveCharacter;
+        [SerializeField]
+        Bounds _Bounds;
+        [SerializeField]
+        private LayerMask _HitLayer;
 
-		[SerializeField] Vector3 m_hitBoxSize = Vector3.one;
+        private List<IHurtShape> _EnteredHurtShapes = new List<IHurtShape>();
 
-		public IHitResponder m_hitResponder;
-		public IHitResponder HitResponder { get => m_hitResponder; set => m_hitResponder = value; }
+        public IActiveCharacter character => _ActiveCharacter;
 
-		public void HitBoxCheckHit()
-		{
-			float _distance = m_hitBoxSize.y;
-			Vector3 _direction = transform.up;
-			Vector3 _center = transform.TransformPoint(m_BoxCollider.center);
-			Vector3 _start = transform.position;
-			Vector3 _halfExtends = new Vector3(m_hitBoxSize.x, m_hitBoxSize.y, m_hitBoxSize.z) / 2;
-			Quaternion _orientation = transform.rotation;
+        public Vector3 position => transform.position + _Bounds.center;
 
-			RaycastHit[] _hits = Physics.BoxCastAll(_start, _halfExtends, _direction, _orientation, _distance, m_layerMask);
+        public event Action<IHitEnterData> onHitEnter;
+        public event Action<IHitExitData> onHitExit;
 
+        private void FixedUpdate() 
+        {
+            IEnumerable<IHurtShape> currentHurtShapes = Physics.OverlapBox(position, _Bounds.extents / 2, transform.rotation, _HitLayer)?.Where(c => c.TryGetComponent(out IHurtShape h))?.
+                Select(c => c.GetComponent<IHurtShape>()).Where(h => h.character == null && character == null || h.character != character);
 
-			foreach (RaycastHit _hit in _hits)
-			{
-				IHurtBox _hurtbox = _hit.collider.GetComponentInChildren<IHurtBox>();
-				_hurtbox.HurtBoxResponse(m_hitResponder.Damage);
-				HitResponder.HitBoxResponse();
-			}
-		}
+            IHurtShape[] exitedHurtShapes = _EnteredHurtShapes?.Except(currentHurtShapes)?.ToArray();
+            IHurtShape[] enteredHurtShapes = currentHurtShapes?.Except(_EnteredHurtShapes)?.ToArray();
 
-		private void OnDrawGizmos()
-		{
-			Gizmos.color = Color.red;
-			Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.localScale);
-			Gizmos.DrawCube(Vector3.zero, new Vector3(m_hitBoxSize.x, m_hitBoxSize.y, m_hitBoxSize.z));
-		}
-	}
+            foreach(IHurtShape h in exitedHurtShapes)
+            {
+                HitExitData data = new HitExitData(this, h);
+
+                h.HitExit(data);
+
+                onHitExit?.Invoke(data);
+
+                _EnteredHurtShapes.Remove(h);
+            }
+
+            foreach(IHurtShape h in enteredHurtShapes)
+            {
+                if(Physics.Raycast(position, (h.position - position).normalized, out RaycastHit hit, float.MaxValue, _HitLayer))
+                {
+                    HitEnterData data = new HitEnterData(this, h, hit);
+
+                    h.HitEnter(data);
+
+                    onHitEnter?.Invoke(data);
+ 
+                    _EnteredHurtShapes.Add(h);
+                }
+            }
+        }
+
+        #if UNITY_EDITOR
+        private void OnDrawGizmos() 
+        {
+            Gizmos.matrix = transform.localToWorldMatrix;
+            Gizmos.color = _EnteredHurtShapes?.Count <= 0 ? Color.green : Color.red;
+            
+            Gizmos.DrawCube(_Bounds.center, _Bounds.extents);    
+        }
+        #endif  
+    }
 }
-

@@ -6,7 +6,7 @@ using UnityEngine;
 
 using CDR.MechSystem;
 
-namespace CDR.AttackSystem.New
+namespace CDR.AttackSystem
 {
     public interface ICollisionShape
     {
