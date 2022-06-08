@@ -4,36 +4,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+using CDR.InputSystem;
 using CDR.SceneManagementSystem;
 
 namespace CDR.VersusSystem
 {
-    public class VersusSettingsMenu : VersusMenu, IVersusSettingsMenu
+    public class VersusSettingsMenu : VersusMenu, IVersusSettingsMenu, IMenuCancelHandler
     {
         [SerializeField]
         SceneLoader _SceneLoader;
-        [SerializeField]
-        InputActionReference _CancelAction;
 
-        private void OnCancel(InputAction.CallbackContext context)
+        public void OnCancel()
         {
             Back();
-        }
-        
-        public override void Show()
-        {
-            base.Show();
-
-            _CancelAction.action.Enable();
-            _CancelAction.action.started += OnCancel;
-        }
-
-        public override void Hide()
-        {
-            _CancelAction.action.Disable();
-            _CancelAction.action.started -= OnCancel;
-
-            base.Hide();
         }
         
         public void SetSettings()
