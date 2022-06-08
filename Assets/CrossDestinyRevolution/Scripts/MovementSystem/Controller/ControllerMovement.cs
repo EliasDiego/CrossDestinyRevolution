@@ -32,15 +32,8 @@ namespace CDR.MovementSystem
             controller = GetComponent<Controller>();
         }
 
-        private void Start()
-        {
-            currentTarget = Character.targetHandler.GetCurrentTarget();
-            distanceToTarget = Vector3.Distance(transform.position, currentTarget.activeCharacter.position);
-        }
-
         private void Update()
         {
-            RotateObject();
             if(!isActive)
             {
                 return;
@@ -49,6 +42,7 @@ namespace CDR.MovementSystem
             {
                 controller.ClampVelocity(speed);
             }
+            RotateObject();
         }
 
         private void FixedUpdate()
@@ -112,6 +106,8 @@ namespace CDR.MovementSystem
         public override void Use()
         {
             base.Use();
+            currentTarget = Character.targetHandler.GetCurrentTarget();
+            distanceToTarget = Vector3.Distance(transform.position, currentTarget.activeCharacter.position);
         }
 
         public override void End()
