@@ -25,7 +25,7 @@ namespace CDR.ObjectPoolingSystem
             for (int i = 0; i < amountToPool; i++)
             {
                 GameObject obj = Instantiate(itemToPool);
-                //obj.GetComponent<IPoolable>().ID = _id;
+                obj.GetComponent<IPoolable>().pool = this;
                 obj.SetActive(false);
                 pooledObjects.Add(obj);
             }
@@ -48,7 +48,7 @@ namespace CDR.ObjectPoolingSystem
             if (shouldExpand)
             {
                 GameObject obj = Instantiate(itemToPool);
-                //obj.GetComponent<IPoolable>().ID = item._id;
+                obj.GetComponent<IPoolable>().pool = this;
                 obj.SetActive(false);
                 pooledObjects.Add(obj);
                 return obj;
@@ -63,14 +63,22 @@ namespace CDR.ObjectPoolingSystem
 
         public void ReturnObject(IPoolable poolable)
 		{
-
-		}
+            for (int i = 0; i < pooledObjects.Count; i++)
+            { 
+                if (pooledObjects[i].activeInHierarchy)
+                {
+                    if(pooledObjects[i].GetComponent<IPoolable>() == poolable)
+					{
+                        pooledObjects[i].SetActive(false);
+                    }
+                }
+            }
+        }
 
         public void ReturnAll()
         {
             for (int i = 0; i < pooledObjects.Count; i++)
             {
-                //we need to make sure that the object is not active
                 if (pooledObjects[i].activeInHierarchy)
                 {
                     pooledObjects[i].SetActive(false);

@@ -42,14 +42,17 @@ namespace CDR.AttackSystem
 			var target = Character.targetHandler.GetCurrentTarget();
 			
 			var bullet = _pool.GetPoolable();
+
+			bullet.GetComponent<HitBox>()._ActiveCharacter = activeCharacter;
 			bullet.GetComponent<Projectile>().target = target.activeCharacter;
 			bullet.GetComponent<Projectile>().playerAttackRange = attackRange;
 			bullet.GetComponent<Projectile>().originPoint = GunPoint.transform.position;
-			bullet.GetComponent<Transform>().rotation = Quaternion.LookRotation(target.activeCharacter.position);
-			//bullet.GetComponent<Transform>().LookAt(-target.direction);
+			//bullet.GetComponent<Transform>().LookAt(target.activeCharacter.position);
 
 			bullet.SetActive(true);
 		}
+
+		
 
 		public override void End()
 		{

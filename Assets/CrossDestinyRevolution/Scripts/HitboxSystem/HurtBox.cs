@@ -24,18 +24,11 @@ namespace CDR.AttackSystem
         private void Awake() 
         {
             _BoxCollider = GetComponent<BoxCollider>();
-
-            onHitEnter += OnHitEnter;
         }
 
         public void HitEnter(IHitEnterData hitData)
         {
             onHitEnter?.Invoke(hitData);
-        }
-
-        void OnHitEnter(IHitEnterData hitData)
-		{
-            hitData.hurtShape.character.health.TakeDamage(5);
         }
 
         public void HitExit(IHitExitData hitData)

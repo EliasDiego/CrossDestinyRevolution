@@ -11,11 +11,12 @@ namespace CDR.AttackSystem
 {
 	public class Projectile : MonoBehaviour, IProjectile
 	{
-		[SerializeField] IPool _pool;
+		IPool _pool;
 
-		[SerializeField] HitBox projectileHitBox;
+		[SerializeField] public HitBox projectileHitBox;
 
 		public float projectileDamage;
+
 		float projectileLifetime;
 		public float projectileMaxLifetime;
 
@@ -37,7 +38,6 @@ namespace CDR.AttackSystem
 
 		public IPool pool { get => _pool; set => _pool = value; }
 
-
 		public virtual void Start()
 		{
 			projectileController = GetComponent<ProjectileController>();
@@ -45,26 +45,21 @@ namespace CDR.AttackSystem
 			_rigidBody = GetComponent<Rigidbody>();
 
 			projectileLifetime = projectileMaxLifetime;
-
-			if (projectileHitBox != null)
-			{
-				//projectileHitBox.HitResponder = this;
-			}
-
-			//if (projectileHitSphere != null)
-			//{
-				//projectileHitSphere.HitResponder = this;
-			//}
 		}
 
 		public virtual void OnEnable()
 		{
 			transform.position = originPoint;
 			projectileLifetime = projectileMaxLifetime;
-			
+
 			if (target != null)
 			{
-				transform.LookAt(target.position); ;
+				transform.LookAt(target.position);
+			}
+
+			if (projectileHitBox != null)
+			{
+				projectileHitBox.onHitEnter += OnHitEnter;
 			}
 		}
 
@@ -80,7 +75,10 @@ namespace CDR.AttackSystem
 			if (LifetimeCountDown(deltaTime))
 			{
 				ResetObject();
-				//Return();
+
+				projectileHitBox.onHitEnter -= OnHitEnter;
+
+				Return();
 			}
 		}
 
@@ -90,18 +88,24 @@ namespace CDR.AttackSystem
 			return projectileLifetime <= 0f;
 		}
 
-		public void HitBoxResponse() //Hitbox Response
-		{
+		public void OnHitEnter(IHitEnterData hitData) //Hitbox Response
+		{ 
+			hitData.hurtShape.character.health.TakeDamage(projectileDamage);
+
 			ResetObject();
+
+			projectileHitBox.onHitEnter -= OnHitEnter;
+
+			Return();
 		}
 
 		public void ResetObject() //Parameters reset
 		{
-			gameObject.SetActive(false);
 			projectileLifetime = projectileMaxLifetime;
 			originPoint = Vector3.zero;
 			transform.rotation = Quaternion.identity;
 			distanceFromTarget = 0f;
+			_rigidBody.rotation = Quaternion.identity;
 		}
 
 		public void Return() //Return to Object Pool

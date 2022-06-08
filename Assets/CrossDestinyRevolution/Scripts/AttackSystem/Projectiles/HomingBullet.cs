@@ -9,12 +9,19 @@ namespace CDR.AttackSystem
         float originDistanceFromProjectile; //From origin point to the current position of the projectile
         float originDistanceFromTarget; // From origin point to the current position of the target
 
-        public void Awake()
+        public override void OnEnable()
 		{
+            base.OnEnable();
+
             if(playerAttackRange < originDistanceFromTarget)
 			{
                 isHoming = false;
 			}
+
+            if (target != null)
+            {
+                transform.LookAt(target.position);
+            }
         }
 
         public override void FixedUpdate()

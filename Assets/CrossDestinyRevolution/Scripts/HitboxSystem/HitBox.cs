@@ -12,7 +12,7 @@ namespace CDR.AttackSystem
     public class HitBox : MonoBehaviour, IHitShape
     {
         [SerializeField]
-        private ActiveCharacter _ActiveCharacter;
+        public ActiveCharacter _ActiveCharacter;
         [SerializeField]
         Bounds _Bounds;
         [SerializeField]
