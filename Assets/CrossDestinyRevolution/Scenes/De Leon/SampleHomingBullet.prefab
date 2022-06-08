@@ -120,7 +120,9 @@ MonoBehaviour:
   playerAttackRange: 0
   originPoint: {x: 0, y: 0, z: 0}
   bulletSpeed: 40
-  rotateSpeed: 95
+  rotateSpeed: 50
+  _maxDistancePredict: 25
+  _deviationAmount: 15
 --- !u!114 &5402213288612070275
 MonoBehaviour:
   m_ObjectHideFlags: 0

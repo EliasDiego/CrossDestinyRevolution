@@ -45,8 +45,8 @@ namespace CDR.AttackSystem
 			bullet.GetComponent<Projectile>().target = target.activeCharacter;
 			bullet.GetComponent<Projectile>().playerAttackRange = attackRange;
 			bullet.GetComponent<Projectile>().originPoint = GunPoint.transform.position;
-			//bullet.GetComponent<Transform>().rotation = Quaternion.LookRotation(target.activeCharacter.position);
-			bullet.GetComponent<Transform>().LookAt(-target.direction);
+			bullet.GetComponent<Transform>().rotation = Quaternion.LookRotation(target.activeCharacter.position);
+			//bullet.GetComponent<Transform>().LookAt(-target.direction);
 
 			bullet.SetActive(true);
 		}
