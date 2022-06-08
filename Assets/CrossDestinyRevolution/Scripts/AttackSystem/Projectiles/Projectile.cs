@@ -5,17 +5,15 @@ using UnityEngine;
 using CDR.MovementSystem;
 using CDR.ObjectPoolingSystem;
 using CDR.MechSystem;
-using CDR.HitboxSystem;
 
 
 namespace CDR.AttackSystem
 {
-	public class Projectile : MonoBehaviour, IProjectile, IHitResponder
+	public class Projectile : MonoBehaviour, IProjectile
 	{
 		[SerializeField] IPool _pool;
 
 		[SerializeField] HitBox projectileHitBox;
-		[SerializeField] HitSphere projectileHitSphere;
 
 		public float projectileDamage;
 		float projectileLifetime;
@@ -33,14 +31,12 @@ namespace CDR.AttackSystem
 
 		//Increments
 		public HitBox HitBox => projectileHitBox;
-		public HitSphere HitSphere => projectileHitSphere;
 		public float Lifetime => projectileMaxLifetime;
 		float IProjectile.Damage => projectileDamage;
 		public IController controller => projectileController;
 
 		public IPool pool { get => _pool; set => _pool = value; }
 
-		float IHitResponder.Damage => projectileDamage;
 
 		public virtual void Start()
 		{
@@ -52,13 +48,13 @@ namespace CDR.AttackSystem
 
 			if (projectileHitBox != null)
 			{
-				projectileHitBox.HitResponder = this;
+				//projectileHitBox.HitResponder = this;
 			}
 
-			if (projectileHitSphere != null)
-			{
-				projectileHitSphere.HitResponder = this;
-			}
+			//if (projectileHitSphere != null)
+			//{
+				//projectileHitSphere.HitResponder = this;
+			//}
 		}
 
 		public virtual void OnEnable()
@@ -75,16 +71,6 @@ namespace CDR.AttackSystem
 		public virtual void Update()
 		{
 			ProcessLifetime();
-
-			if (projectileHitBox != null)
-			{
-				projectileHitBox.HitBoxCheckHit();
-			}
-
-			if (projectileHitSphere != null)
-			{
-				projectileHitSphere.HitBoxCheckHit();
-			}
 		}
 
 		void ProcessLifetime()

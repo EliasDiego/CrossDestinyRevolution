@@ -1,38 +1,60 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using CDR.MechSystem;
+using UnityEngine;
 
-namespace CDR.HitboxSystem
+namespace CDR.AttackSystem
 {
-	public class HurtBox : MonoBehaviour, IHurtBox
-	{
-		[SerializeField] BoxCollider m_boxCollider;
-		[SerializeField] Vector3 m_hitBoxSize = Vector3.one;
-		[SerializeField] bool m_active = true;
-		[SerializeField] ActiveCharacter m_owner = null;
+    [RequireComponent(typeof(BoxCollider))]
+    public class HurtBox : MonoBehaviour, IHurtShape
+    {
+        [SerializeField]
+        ActiveCharacter _ActiveCharacter;
 
-		public bool Active { get => m_active; }
-		public ActiveCharacter Owner { get => m_owner; } //Make ActiveCharacter
-		public Transform Transform { get => transform; }
+        BoxCollider _BoxCollider;
 
-		void Update()
+        public IActiveCharacter character => _ActiveCharacter;
+
+        public Vector3 position => transform.position + _BoxCollider.center;
+
+        public event Action<IHitEnterData> onHitEnter;
+        public event Action<IHitExitData> onHitExit;
+
+        private void Awake() 
+        {
+            _BoxCollider = GetComponent<BoxCollider>();
+
+            onHitEnter += OnHitEnter;
+        }
+
+        public void HitEnter(IHitEnterData hitData)
+        {
+            onHitEnter?.Invoke(hitData);
+        }
+
+        void OnHitEnter(IHitEnterData hitData)
 		{
-			m_boxCollider.size = m_hitBoxSize;
-		}
+            hitData.hurtShape.character.health.TakeDamage(5);
+        }
 
-		public void HurtBoxResponse(float damage)
-		{
-			m_owner.health.TakeDamage(damage);
-		}
+        public void HitExit(IHitExitData hitData)
+        {
+            onHitExit?.Invoke(hitData);
+        }
 
-		private void OnDrawGizmos()
-		{
-			Gizmos.color = Color.green;
-			Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.localScale);
-			Gizmos.DrawCube(Vector3.zero, new Vector3(m_hitBoxSize.x, m_hitBoxSize.y, m_hitBoxSize.z));
-		}
-	}
+        #if UNITY_EDITOR
+        private void OnDrawGizmos() 
+        {
+            Gizmos.matrix = transform.localToWorldMatrix;
+
+            Gizmos.color = Color.yellow;
+
+            if(!UnityEditor.EditorApplication.isPlaying && !_BoxCollider)
+                _BoxCollider = GetComponent<BoxCollider>();    
+
+            Gizmos.DrawCube(_BoxCollider.center, _BoxCollider.size);  
+        }
+        #endif  
+    }
 }
-
