@@ -7,6 +7,7 @@ using UnityEngine.InputSystem.Users;
 
 using CDR.UISystem;
 using CDR.MapSystem;
+using CDR.MechSystem;
 using CDR.InputSystem;
 using CDR.SceneManagementSystem;
 
@@ -15,7 +16,12 @@ namespace CDR.VersusSystem
     public interface IParticipant
     {
         int score { get; set; }
+        
+        IMech mech { get; }
+        IPlayerMechBattleUI battleUI { get; }
+        Camera camera { get; }
 
+        void Start();
         void Reset();
     }
 

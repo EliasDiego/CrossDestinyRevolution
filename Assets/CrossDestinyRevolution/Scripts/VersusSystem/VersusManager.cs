@@ -6,6 +6,8 @@ using UnityEngine;
 
 using CDR.MechSystem;
 
+using CDR.InputSystem;
+
 namespace CDR.VersusSystem
 {
     public class VersusManager : MonoBehaviour
@@ -30,33 +32,37 @@ namespace CDR.VersusSystem
             float currentTime = roundTime;
 
             foreach(IParticipant p in _Participants)
-                p.Reset();
+                p.Start();
 
             while(currentRound > 0)
             {
                 currentTime -= Time.deltaTime;
-
                 currentTime = Mathf.Max(currentTime, 0);
 
                 yield return null;
             }
 
-            EndRound();
+            // EndRound();
         }
 
         private IEnumerator EndRoundSequence()
         {
             yield return null;
+
+            foreach(IParticipant p in _Participants)
+                p.Reset();
             
             if(currentRound >= _VersusSettings.rounds)
                 ShowResults();
         }
 
-        public void Initialize(IVersusSettings versusSettings, params IMech[] mechs)
+        public void Initialize(IVersusSettings versusSettings, params IParticipant[] participants)
         {
             _VersusSettings = versusSettings;
 
-            _Participants = mechs.Select(m => new Participant(m)).Cast<IParticipant>().ToArray();
+            _Participants = participants;
+
+            StartRound();
         }
 
         public void StartRound()

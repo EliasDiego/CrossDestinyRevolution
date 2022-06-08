@@ -358,9 +358,9 @@ MonoBehaviour:
     currentValue: 0
     maxValue: 0
   _hurtBoxes: []
-  _controller: {fileID: 0}
-  _targetHandler: {fileID: 0}
-  _movement: {fileID: 0}
+  _controller: {fileID: 4587967963171265664}
+  _targetHandler: {fileID: 4587967963171265785}
+  _movement: {fileID: 4587967963171265790}
   _boost: {fileID: 4587967963171265791}
   _rangeAttack: {fileID: 4587967963171265784}
 --- !u!114 &4587967963171265785
