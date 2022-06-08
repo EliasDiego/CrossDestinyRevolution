@@ -6,6 +6,7 @@ using CDR.MechSystem;
 using CDR.AttackSystem;
 using CDR.ActionSystem;
 using CDR.MovementSystem;
+using CDR.TargetingSystem;
 
 namespace CDR.UISystem
 {
@@ -19,7 +20,8 @@ namespace CDR.UISystem
 
     public interface ITargetHandlerUI : IUIElement
     {
-        void SetTarget(IActiveCharacter target);
+        //void SetTarget(IActiveCharacter target);
+        void SetTarget(ITargetData target);
     }
 
     public interface ICooldownActionUI : IUIElement

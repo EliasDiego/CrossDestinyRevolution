@@ -472,16 +472,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68f88f0aef8b94d44aa460f80cf81417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 0}
   _health:
     currentValue: 0
     maxValue: 0
-  _hurtBoxes: []
-  _controller: {fileID: 0}
-  _targetHandler: {fileID: 0}
-  _movement: {fileID: 0}
-  _boost: {fileID: 0}
-  _rangeAttack: {fileID: 0}
 --- !u!95 &534994791
 Animator:
   serializedVersion: 3
@@ -1056,16 +1049,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68f88f0aef8b94d44aa460f80cf81417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 0}
   _health:
     currentValue: 0
     maxValue: 0
-  _hurtBoxes: []
-  _controller: {fileID: 0}
-  _targetHandler: {fileID: 0}
-  _movement: {fileID: 0}
-  _boost: {fileID: 0}
-  _rangeAttack: {fileID: 0}
 --- !u!95 &1294913718
 Animator:
   serializedVersion: 3
@@ -1517,7 +1503,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25ea01c051b983940bccf9cdfc1c2b6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeCharacter: {fileID: 1462921554}
   _speed: 15
   _gravity: 10
   clampSpeed: 1
@@ -1615,7 +1600,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 891a8a7539489eb4792bf35aebe8eeec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeCharacter: {fileID: 0}
   regenDelaySeconds: 0
   _boostValue:
     currentValue: 0
@@ -1649,16 +1633,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68f88f0aef8b94d44aa460f80cf81417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 0}
   _health:
     currentValue: 0
     maxValue: 0
-  _hurtBoxes: []
-  _controller: {fileID: 1462921553}
-  _targetHandler: {fileID: 1462921555}
-  _movement: {fileID: 1462921547}
-  _boost: {fileID: 1462921552}
-  _rangeAttack: {fileID: 0}
 --- !u!114 &1462921555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1671,7 +1648,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb8647a94e83711448b60fc91cabcb14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  activeCharacter: {fileID: 1462921554}
 --- !u!65 &1462921556
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1907,6 +1883,14 @@ PrefabInstance:
       propertyPath: _camera
       value: 
       objectReference: {fileID: 324805077}
+    - target: {fileID: 2597784398174808062, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
+      propertyPath: maxSize
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2597784398174808062, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
+      propertyPath: minSize
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 5478286738607419545, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
       propertyPath: m_SizeDelta.x
       value: 100
@@ -1914,6 +1898,18 @@ PrefabInstance:
     - target: {fileID: 5478286738607419545, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
       propertyPath: m_SizeDelta.y
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5478286738607419545, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5478286738607419545, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5478286738607419545, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
