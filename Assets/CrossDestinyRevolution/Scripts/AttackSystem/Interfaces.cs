@@ -44,6 +44,7 @@ namespace CDR.AttackSystem
     public interface IMeleeAttack : ICooldownAction
     {
         IHitShape hitbox { get; }
+        
         float speed { get; }
     }
 
