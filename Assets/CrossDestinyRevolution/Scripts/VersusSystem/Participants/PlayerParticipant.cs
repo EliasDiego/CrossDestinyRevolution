@@ -15,7 +15,7 @@ namespace CDR.VersusSystem
 
         public Rect cameraRect { set => _Camera.rect = value; }
 
-        public PlayerParticipant(IMech mech, IPlayerMechBattleUI battleUI, Camera camera, Vector3 startPosition) : base(mech, startPosition)
+        public PlayerParticipant(IMech mech, IPlayerMechBattleUI battleUI, Camera camera, Vector3 startPosition, Quaternion startRotation) : base(mech, startPosition, startRotation)
         {
             _BattleUI = battleUI;
             _Camera = camera;

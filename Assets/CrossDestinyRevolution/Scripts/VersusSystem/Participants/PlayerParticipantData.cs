@@ -18,9 +18,9 @@ namespace CDR.VersusSystem
         public InputActionAsset actionAsset { get; set; }
         public InputDevice[] devices { get; set; }
 
-        public override IParticipant GetParticipant(Vector3 position, IFlightPlane flightPlane)
+        public override IParticipant GetParticipant(Vector3 startPosition, Quaternion startRotation, IFlightPlane flightPlane)
         {
-            IParticipant participant = base.GetParticipant(position, flightPlane);
+            IParticipant participant = base.GetParticipant(startPosition, startRotation, flightPlane);
 
             GameObject battleUIObject = GameObject.Instantiate(battleUIPrefab);
 
@@ -36,7 +36,7 @@ namespace CDR.VersusSystem
 
             cameraData.cameraStack.Add(battleUIObject.GetComponentInChildren<Camera>());
 
-            return new PlayerParticipant(participant.mech, battleUI, cam, position);
+            return new PlayerParticipant(participant.mech, battleUI, cam, startPosition, startRotation);
         }
     }
 }

@@ -14,13 +14,13 @@ namespace CDR.VersusSystem
     {
         public IMechData mechData { get; set; }
 
-        public virtual IParticipant GetParticipant(Vector3 startPosition, IFlightPlane flightPlane)
+        public virtual IParticipant GetParticipant(Vector3 startPosition, Quaternion startRotation, IFlightPlane flightPlane)
         {
-            IMech mech = GameObject.Instantiate(mechData.mechPrefab, startPosition, Quaternion.identity).GetComponent<IMech>();
+            IMech mech = GameObject.Instantiate(mechData.mechPrefab, startPosition, startRotation).GetComponent<IMech>();
 
             mech.controller.flightPlane = flightPlane;
 
-            return new Participant(mech, startPosition);
+            return new Participant(mech, startPosition, startRotation);
         }
     }
 }

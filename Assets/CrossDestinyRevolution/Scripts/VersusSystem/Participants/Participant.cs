@@ -12,14 +12,16 @@ namespace CDR.VersusSystem
     {
         IMech _Mech;
         Vector3 _StartPosition;
+        Quaternion _StartRotation;
 
         public int score { get; set; }
         public IMech mech => _Mech;
 
-        public Participant(IMech mech, Vector3 startPosition)
+        public Participant(IMech mech, Vector3 startPosition, Quaternion startRotation)
         {
             _Mech = mech;
             _StartPosition = startPosition;
+            _StartRotation = startRotation;
 
             score = 0;
         }

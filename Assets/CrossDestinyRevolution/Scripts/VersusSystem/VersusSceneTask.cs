@@ -23,6 +23,20 @@ namespace CDR.VersusSystem
             _VersusData = versusData;
         }
 
+        // Rect GetRect(int cameras, int index)
+        // {
+        //     int oddFolds = Mathf.Max(cameras % 2 == 1 ? cameras : cameras - 1, 1);
+        //     int evenFolds = Mathf.Max(cameras % 2 == 0 ? cameras : cameras - 1, 1);
+
+        //     Vector2 cameraSize = new Vector2(1 / oddFolds, 1 / evenFolds);
+            
+        //     if(index > oddFolds)
+
+
+
+        //     return new Rect(oddFolds * cameraSize.x, evenFolds * cameraSize.y, cameraSize.x, cameraSize.y);
+        // }
+
         public IEnumerator Process()
         {
             yield return _VersusData.mapData.Process();
@@ -33,18 +47,17 @@ namespace CDR.VersusSystem
             
             IVersusMap versusMap = GameObject.Instantiate(_VersusData.versusMap, Vector3.zero, Quaternion.identity).GetComponent<IVersusMap>();
 
-            IParticipant player1 = _VersusData.player1Data.GetParticipant(versusMap.player1Position, versusMap.flightPlane);
-            IParticipant player2 = _VersusData.player2Data.GetParticipant(versusMap.player2Position, versusMap.flightPlane);
+            IParticipant player1 = _VersusData.player1Data.GetParticipant(versusMap.player1Position, Quaternion.LookRotation(versusMap.flightPlane.position - versusMap.player1Position, Vector3.up), versusMap.flightPlane);
+            IParticipant player2 = _VersusData.player2Data.GetParticipant(versusMap.player2Position, Quaternion.LookRotation(versusMap.flightPlane.position - versusMap.player2Position, Vector3.up), versusMap.flightPlane);
 
             yield return null;
 
-            player1.mech.controller.Rotate(Quaternion.LookRotation(player2.mech.position - player1.mech.position, Vector3.up));
-            player2.mech.controller.Rotate(Quaternion.LookRotation(player1.mech.position - player2.mech.position, Vector3.up));
-
             if(player1 is ICameraParticipant)
+                // (player1 as ICameraParticipant).cameraRect = GetRect(2, 1);
                 (player1 as ICameraParticipant).cameraRect = new Rect(Vector2.zero, new Vector2(0.5f, 1));
             
             if(player2 is ICameraParticipant)
+                // (player2 as ICameraParticipant).cameraRect = GetRect(2, 2);
                 (player2 as ICameraParticipant).cameraRect = new Rect(Vector2.right * 0.5f, new Vector2(0.5f, 1));
 
             yield return new WaitForSeconds(2);

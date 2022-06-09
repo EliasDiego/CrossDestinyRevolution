@@ -65,7 +65,7 @@ namespace CDR.VersusSystem
     public interface IParticipantData
     { 
         IMechData mechData { get; set; }
-        IParticipant GetParticipant(Vector3 startPosition, IFlightPlane flightPlane);
+        IParticipant GetParticipant(Vector3 startPosition, Quaternion startRotation, IFlightPlane flightPlane);
     }
 
     public interface IMechSelectMenu : IMenu
