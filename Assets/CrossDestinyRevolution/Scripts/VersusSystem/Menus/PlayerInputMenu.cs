@@ -15,6 +15,8 @@ namespace CDR.VersusSystem
     {
         [Header("UI Input")]
         [SerializeField]
+        GameObject _CameraPrefab;
+        [SerializeField]
         PlayerUIInput _Player1Input;
         [SerializeField]
         PlayerUIInput _Player2Input;
@@ -23,12 +25,16 @@ namespace CDR.VersusSystem
         [SerializeField]
         InputActionAsset _SplitKeyboardActionAsset;
         [SerializeField]
+        PlayerMechInputSettings _Settings;
+        [SerializeField]
         GameObject _BattleUIPrefab;
 
         private IParticipantData SetPlayerData(InputActionAsset actionAsset, params InputDevice[] devices)
         {
             return new PlayerParticipantData() 
             { 
+                settings = _Settings,
+                cameraPrefab = _CameraPrefab,
                 actionAsset = actionAsset, 
                 devices = devices, 
                 battleUIPrefab = _BattleUIPrefab 

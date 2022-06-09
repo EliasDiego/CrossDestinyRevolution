@@ -49,8 +49,13 @@ namespace CDR.VersusSystem
 
             IParticipant player1 = _VersusData.player1Data.GetParticipant(versusMap.player1Position, Quaternion.LookRotation(versusMap.flightPlane.position - versusMap.player1Position, Vector3.up), versusMap.flightPlane);
             IParticipant player2 = _VersusData.player2Data.GetParticipant(versusMap.player2Position, Quaternion.LookRotation(versusMap.flightPlane.position - versusMap.player2Position, Vector3.up), versusMap.flightPlane);
+            
+            // Cinemachine.CinemachineBrain b;
 
-            yield return null;
+            // Cinemachine.CinemachineVirtualCamera c;
+
+            // c.camera
+            // yield return null;
 
             if(player1 is ICameraParticipant)
                 // (player1 as ICameraParticipant).cameraRect = GetRect(2, 1);

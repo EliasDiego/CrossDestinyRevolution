@@ -14,9 +14,11 @@ namespace CDR.VersusSystem
 {
     public class PlayerParticipantData : ParticipantData
     {
+        public GameObject cameraPrefab { get; set; }
         public GameObject battleUIPrefab { get; set; }
         public InputActionAsset actionAsset { get; set; }
         public InputDevice[] devices { get; set; }
+        public PlayerMechInputSettings settings { get; set; }
 
         public override IParticipant GetParticipant(Vector3 startPosition, Quaternion startRotation, IFlightPlane flightPlane)
         {
@@ -26,17 +28,25 @@ namespace CDR.VersusSystem
 
             IPlayerMechBattleUI battleUI = battleUIObject.GetComponentInChildren<IPlayerMechBattleUI>();
             
-            participant.mech.input = InputUtilities.AssignPlayerInput<PlayerMechInput>((participant.mech as Mech).gameObject, actionAsset.FindActionMap("Game", true), devices);
             
             // Debug
-            Camera cam = (participant.mech as Mech).GetComponentInChildren<Camera>();
-            // Debug
+            // Camera cam = (participant.mech as Mech).GetComponentInChildren<Camera>();
+            // // GameObject.Instantiate(camera, (participant.mech as Mech).transform, true);
+            // // Debug
 
-            UniversalAdditionalCameraData cameraData = cam.GetUniversalAdditionalCameraData();
+            // UniversalAdditionalCameraData cameraData = cam.GetUniversalAdditionalCameraData();
 
-            cameraData.cameraStack.Add(battleUIObject.GetComponentInChildren<Camera>());
+            // cameraData.cameraStack.Add(battleUIObject.GetComponentInChildren<Camera>());
 
-            return new PlayerParticipant(participant.mech, battleUI, cam, startPosition, startRotation);
+            // Input
+            
+            PlayerMechInput playerInput = InputUtilities.AssignPlayerInput<PlayerMechInput>((participant.mech as Mech).gameObject, actionAsset.FindActionMap("Game", true), devices);
+
+            playerInput.settings = settings;
+            
+            participant.mech.input = playerInput;
+
+            return new PlayerParticipant(participant.mech, battleUI, null, startPosition, startRotation);
         }
     }
 }

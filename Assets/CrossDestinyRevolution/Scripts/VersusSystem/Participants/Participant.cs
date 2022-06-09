@@ -26,20 +26,41 @@ namespace CDR.VersusSystem
             score = 0;
         }
 
+        private bool CheckBoolean(bool? boolean)
+        {
+            return boolean.HasValue && boolean.Value;
+        }
+
         public virtual void Reset()
         {
             mech.health.ModifyValue(_Mech.health.MaxValue);
             mech.boost?.boostValue.ModifyValue(_Mech.boost.boostValue.MaxValue);
 
             mech.input?.DisableInput();
-            mech.movement?.End();
-            mech.boost?.End();
-            mech.targetHandler?.End();
-            mech.meleeAttack?.End();
-            mech.rangeAttack?.End();
+
+            if(CheckBoolean(mech.targetHandler?.isActive))
+                mech.targetHandler?.End();
+
+            if(CheckBoolean(mech.specialAttack1?.isActive))
             mech.specialAttack1?.End();
+
+            if(CheckBoolean(mech.specialAttack2?.isActive))
             mech.specialAttack2?.End();
+
+            if(CheckBoolean(mech.specialAttack3?.isActive))
             mech.specialAttack3?.End();
+
+            if(CheckBoolean(mech.meleeAttack?.isActive))
+            mech.meleeAttack?.End();
+
+            if(CheckBoolean(mech.rangeAttack?.isActive))
+            mech.rangeAttack?.End();
+
+            if(CheckBoolean(mech.boost?.isActive))
+                mech.boost?.End();
+            
+            if(CheckBoolean(mech.movement?.isActive))
+                mech.movement?.End();
 
             mech.controller?.SetVelocity(Vector3.zero);
             

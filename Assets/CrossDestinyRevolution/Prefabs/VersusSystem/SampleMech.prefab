@@ -357,12 +357,16 @@ MonoBehaviour:
   _health:
     currentValue: 0
     maxValue: 0
-  _hurtBoxes: []
+  _hitShape: []
   _controller: {fileID: 4587967963171265664}
   _targetHandler: {fileID: 4587967963171265785}
   _movement: {fileID: 4587967963171265790}
   _boost: {fileID: 4587967963171265791}
+  _meleeAttack: {fileID: 0}
   _rangeAttack: {fileID: 4587967963171265784}
+  _specialAttack1: {fileID: 0}
+  _specialAttack2: {fileID: 0}
+  _specialAttack3: {fileID: 0}
 --- !u!114 &4587967963171265785
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,6 +410,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _flightPlane: {fileID: 0}
+  rb: {fileID: 4587967963171265665}
 --- !u!114 &4587967963171265791
 MonoBehaviour:
   m_ObjectHideFlags: 0

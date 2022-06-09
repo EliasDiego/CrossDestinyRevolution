@@ -356,6 +356,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 163291013825950591, guid: becb1154dc4450647b7888e992840ae9, type: 3}
+      propertyPath: _Settings
+      value: 
+      objectReference: {fileID: 11400000, guid: b5b309fa0d20d414783776f576d8f401, type: 2}
+    - target: {fileID: 163291013825950591, guid: becb1154dc4450647b7888e992840ae9, type: 3}
+      propertyPath: _CameraPrefab
+      value: 
+      objectReference: {fileID: 979833713275267924, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
     - target: {fileID: 163291014159111843, guid: becb1154dc4450647b7888e992840ae9, type: 3}
       propertyPath: _EventSystemObject
       value: 
