@@ -11,7 +11,7 @@ namespace CDR.AttackSystem
     public interface ICollisionShape
     {
         Vector3 position { get; }
-        IActiveCharacter character { get; }
+        IActiveCharacter character { get; set; }
         
         event Action<IHitEnterData> onHitEnter;
         event Action<IHitExitData> onHitExit;
@@ -19,7 +19,7 @@ namespace CDR.AttackSystem
 
     public interface IHitShape : ICollisionShape
     {
-
+        LayerMask hitLayer { get; set; }
     }
 
     public interface IHurtShape : ICollisionShape
