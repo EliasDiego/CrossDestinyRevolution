@@ -21,13 +21,10 @@ namespace CDR.MovementSystem
         public IBoostData horizontalBoostData => _horizontalBoostData;
         public IBoostData verticalBoostData => _verticalBoostData;
 
-        private Controller controller;
         private Coroutine _FixedCoroutine;
 
         private void Start()
         {
-            controller = (Controller)Character.controller;
-            _boostValue.ModifyValueWithoutEvent(_boostValue.MaxValue);
             StartCoroutine(_boostValue.Regenerate());
         }
 
@@ -38,10 +35,10 @@ namespace CDR.MovementSystem
             {
                 RotateObject();
 
-                controller.AddRbForce(transform.rotation * direction);
+                Character.controller.AddRbForce(Character.rotation * direction);
 
                 if(isHorizontal)
-                    controller.AddRbForce(CentripetalForce(), ForceMode.Acceleration);
+                    Character.controller.AddRbForce(CentripetalForce(), ForceMode.Acceleration);
 
                 currentTime -= Time.fixedDeltaTime;
 
@@ -53,7 +50,7 @@ namespace CDR.MovementSystem
         Vector3 CentripetalForce()
         {
             TargetingSystem.ITargetData currentTarget = Character.targetHandler.GetCurrentTarget();
-            float cForce = Mathf.Pow(controller.velocity.magnitude, 2f) / currentTarget.distance;
+            float cForce = Mathf.Pow(Character.controller.velocity.magnitude, 2f) / currentTarget.distance;
             return currentTarget.direction * (-cForce * 1.195f);
         }
 
@@ -61,11 +58,11 @@ namespace CDR.MovementSystem
         {
             TargetingSystem.ITargetData currentTarget = Character.targetHandler.GetCurrentTarget();
             var look = Quaternion.LookRotation(-currentTarget.direction);
-            var quat = Quaternion.RotateTowards(transform.rotation, look, 50f);
+            var quat = Quaternion.RotateTowards(Character.rotation, look, 50f);
             quat.x = 0f;
             quat.z = 0f;
 
-            controller.Rotate(Quaternion.RotateTowards(transform.rotation, quat, 50f));
+            Character.controller.Rotate(Quaternion.RotateTowards(Character.rotation, quat, 50f));
         }
      
         public void HorizontalBoost(Vector2 direction)
@@ -106,7 +103,7 @@ namespace CDR.MovementSystem
             Character.movement.SetSpeedClamp(false);
 
             Character.movement.End();
-            //Character.input.DisableInput("Movement");
+            Character.input.DisableInput("Movement");
         }
 
         public override void End()
@@ -120,12 +117,12 @@ namespace CDR.MovementSystem
             Character.movement.Use();
             Character.movement.Move(Vector2.zero);
             Character.movement.SetSpeedClamp(true);
-            //Character.input.EnableInput("Movement");
+            Character.input.EnableInput("Movement");
 
             Character.movement.SetDistanceToTarget
                 (
                     Vector3.Distance(Character.targetHandler.GetCurrentTarget().activeCharacter.position,
-                    transform.position)
+                    Character.position)
                 );
         }
     }
