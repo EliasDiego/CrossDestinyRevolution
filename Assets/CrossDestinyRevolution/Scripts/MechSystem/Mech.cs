@@ -9,7 +9,7 @@ namespace CDR.MechSystem
     public class Mech : ActiveCharacter, IMech
     {
         [SerializeField] Boost _boost;
-        [SerializeField] IMeleeAttack _meleeAttack;
+        [SerializeField] MeleeAttack _meleeAttack;
         [SerializeField] RangeAttack _rangeAttack;
         [SerializeField] IShield _shield;
         [SerializeField] ISpecialAttack _specialAttack1;
@@ -34,7 +34,6 @@ namespace CDR.MechSystem
         {
             base.Awake();
 
-            _meleeAttack = GetComponent<IMeleeAttack>();
             _shield = GetComponent<IShield>();
             // TO BE CHANGED
             _specialAttack1 = GetComponent<ISpecialAttack>();

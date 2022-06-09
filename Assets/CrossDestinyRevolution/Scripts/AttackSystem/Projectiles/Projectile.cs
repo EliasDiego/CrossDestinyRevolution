@@ -5,19 +5,19 @@ using UnityEngine;
 using CDR.MovementSystem;
 using CDR.ObjectPoolingSystem;
 using CDR.MechSystem;
-using CDR.HitboxSystem;
 
 
 namespace CDR.AttackSystem
 {
-	public class Projectile : MonoBehaviour, IProjectile, IHitResponder
+	public class Projectile : MonoBehaviour, IProjectile
 	{
-		[SerializeField] IPool _pool;
+		IPool _pool;
 
-		[SerializeField] HitBox projectileHitBox;
-		[SerializeField] HitSphere projectileHitSphere;
+		[SerializeField] public HitBox projectileHitBox;
 
 		public float projectileDamage;
+
+		[SerializeField] bool hasLifeTime = true;
 		float projectileLifetime;
 		public float projectileMaxLifetime;
 
@@ -31,16 +31,15 @@ namespace CDR.AttackSystem
 
 		public Vector3 originPoint;
 
+		public Vector3 staticTargetPoint;
+
 		//Increments
 		public HitBox HitBox => projectileHitBox;
-		public HitSphere HitSphere => projectileHitSphere;
 		public float Lifetime => projectileMaxLifetime;
 		float IProjectile.Damage => projectileDamage;
 		public IController controller => projectileController;
 
 		public IPool pool { get => _pool; set => _pool = value; }
-
-		float IHitResponder.Damage => projectileDamage;
 
 		public virtual void Start()
 		{
@@ -49,52 +48,38 @@ namespace CDR.AttackSystem
 			_rigidBody = GetComponent<Rigidbody>();
 
 			projectileLifetime = projectileMaxLifetime;
-
-			if (projectileHitBox != null)
-			{
-				projectileHitBox.HitResponder = this;
-			}
-
-			if (projectileHitSphere != null)
-			{
-				projectileHitSphere.HitResponder = this;
-			}
 		}
 
 		public virtual void OnEnable()
 		{
 			transform.position = originPoint;
 			projectileLifetime = projectileMaxLifetime;
-			
-			if (target != null)
+
+			if (projectileHitBox != null)
 			{
-				transform.LookAt(target.position); ;
+				projectileHitBox.onHitEnter += OnHitEnter;
 			}
 		}
 
 		public virtual void Update()
 		{
 			ProcessLifetime();
-
-			if (projectileHitBox != null)
-			{
-				projectileHitBox.HitBoxCheckHit();
-			}
-
-			if (projectileHitSphere != null)
-			{
-				projectileHitSphere.HitBoxCheckHit();
-			}
 		}
 
 		void ProcessLifetime()
 		{
-			float deltaTime = Time.deltaTime;
-
-			if (LifetimeCountDown(deltaTime))
+			if(hasLifeTime)
 			{
-				ResetObject();
-				//Return();
+				float deltaTime = Time.deltaTime;
+
+				if (LifetimeCountDown(deltaTime))
+				{
+					ResetObject();
+
+					projectileHitBox.onHitEnter -= OnHitEnter;
+
+					Return();
+				}
 			}
 		}
 
@@ -104,18 +89,24 @@ namespace CDR.AttackSystem
 			return projectileLifetime <= 0f;
 		}
 
-		public void HitBoxResponse() //Hitbox Response
-		{
+		public void OnHitEnter(IHitEnterData hitData) //Hitbox Response
+		{ 
+			hitData.hurtShape.character.health.TakeDamage(projectileDamage);
+
 			ResetObject();
+
+			projectileHitBox.onHitEnter -= OnHitEnter;
+
+			Return();
 		}
 
 		public void ResetObject() //Parameters reset
 		{
-			gameObject.SetActive(false);
 			projectileLifetime = projectileMaxLifetime;
 			originPoint = Vector3.zero;
 			transform.rotation = Quaternion.identity;
 			distanceFromTarget = 0f;
+			_rigidBody.rotation = Quaternion.identity;
 		}
 
 		public void Return() //Return to Object Pool

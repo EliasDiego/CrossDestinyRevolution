@@ -8,7 +8,7 @@ namespace CDR.ActionSystem
 	public class Action : MonoBehaviour, IAction
 	{
 		private bool isActionActive;
-		[SerializeField] private ActiveCharacter activeCharacter;
+		[SerializeField] protected ActiveCharacter activeCharacter;
 
 		public event System.Action onUse;
 		public event System.Action onEnd;

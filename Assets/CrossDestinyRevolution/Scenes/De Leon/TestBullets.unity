@@ -495,7 +495,7 @@ PrefabInstance:
       objectReference: {fileID: 1389555313}
     - target: {fileID: 3007737515874209335, guid: eed773af46d63704ba188eaa6b869149, type: 3}
       propertyPath: m_Name
-      value: Test Manager (2)
+      value: TestManager1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eed773af46d63704ba188eaa6b869149, type: 3}
@@ -672,6 +672,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 305201883}
+  - component: {fileID: 305201885}
   - component: {fileID: 305201884}
   m_Layer: 8
   m_Name: Box Collider
@@ -703,13 +704,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 305201882}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba6d68a7300bab84aa818c3b3385c8b3, type: 3}
+  m_Script: {fileID: 11500000, guid: ecf2e1fac7215d448ac4ab8e37e85885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_boxCollider: {fileID: 1389555314}
-  m_hitBoxSize: {x: 1.55, y: 3.86, z: 0.41}
-  m_active: 1
-  m_owner: {fileID: 1389555321}
+  _ActiveCharacter: {fileID: 1389555321}
+--- !u!65 &305201885
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 305201882}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.94, y: 3.86, z: 0.72}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &342709753
 GameObject:
   m_ObjectHideFlags: 0
@@ -1759,6 +1770,7 @@ GameObject:
   - component: {fileID: 928325177}
   - component: {fileID: 928325172}
   - component: {fileID: 928325171}
+  - component: {fileID: 928325182}
   m_Layer: 8
   m_Name: PlayerMech2
   m_TagString: Mech
@@ -1890,8 +1902,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 0}
   _health:
-    currentValue: 0
-    maxValue: 0
+    currentValue: 100
+    maxValue: 100
   _hurtBoxes: []
   _controller: {fileID: 928325175}
   _targetHandler: {fileID: 928325177}
@@ -2031,6 +2043,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &928325182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928325170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f503a9679dfdb49b0a30fddc297fb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeCharacter: {fileID: 0}
+  _pool:
+  - {fileID: 0}
+  - {fileID: 0}
+  bulletSpawnPoint: []
+  SpecialAbilityCooldown: 0
+  amountOfBullets: 0
+  staticPositions: []
+  FirstPhaseBullets: []
+  SecondPhaseBullets: []
+  minDistanceFromTarget: 5
+  maxDistanceFromTarget: 25
 --- !u!1 &1065065840
 GameObject:
   m_ObjectHideFlags: 0
@@ -2185,7 +2221,7 @@ PrefabInstance:
       objectReference: {fileID: -944628639613478452, guid: ed267bcfc933e1147a0f828f0901952c, type: 3}
     - target: {fileID: 3007737515874209335, guid: eed773af46d63704ba188eaa6b869149, type: 3}
       propertyPath: m_Name
-      value: Test Manager (3)
+      value: TestManager2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eed773af46d63704ba188eaa6b869149, type: 3}
@@ -2966,6 +3002,7 @@ GameObject:
   - component: {fileID: 1389555318}
   - component: {fileID: 1389555317}
   - component: {fileID: 1389555316}
+  - component: {fileID: 1389555325}
   - component: {fileID: 1389555315}
   - component: {fileID: 1389555314}
   m_Layer: 8
@@ -3240,6 +3277,61 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1389555325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389555313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f503a9679dfdb49b0a30fddc297fb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeCharacter: {fileID: 1389555321}
+  _pool:
+  - {fileID: 11400000, guid: 804bf247edd7fe7459215e75a5dbb8b8, type: 2}
+  - {fileID: 11400000, guid: 1b330dc9ef22766419273df5adaf764f, type: 2}
+  bulletSpawnPoint:
+  - {fileID: 52856850}
+  SpecialAbilityCooldown: 3
+  amountOfBullets: 10
+  staticPositions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  FirstPhaseBullets:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  SecondPhaseBullets:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  minDistanceFromTarget: 5
+  maxDistanceFromTarget: 15
 --- !u!1 &1472272636
 GameObject:
   m_ObjectHideFlags: 0
@@ -4201,6 +4293,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1928507490}
+  - component: {fileID: 1928507492}
   - component: {fileID: 1928507491}
   m_Layer: 8
   m_Name: Box Collider
@@ -4232,13 +4325,23 @@ MonoBehaviour:
   m_GameObject: {fileID: 1928507489}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba6d68a7300bab84aa818c3b3385c8b3, type: 3}
+  m_Script: {fileID: 11500000, guid: ecf2e1fac7215d448ac4ab8e37e85885, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_boxCollider: {fileID: 928325171}
-  m_hitBoxSize: {x: 1.55, y: 3.86, z: 0.41}
-  m_active: 1
-  m_owner: {fileID: 928325178}
+  _ActiveCharacter: {fileID: 928325178}
+--- !u!65 &1928507492
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928507489}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.98, y: 3.59, z: 0.91}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2010655286
 GameObject:
   m_ObjectHideFlags: 0
@@ -4438,7 +4541,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2090737816}
-  - component: {fileID: 2090737815}
   - component: {fileID: 2090737814}
   m_Layer: 0
   m_Name: GameObject (1)
@@ -4455,23 +4557,6 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2090737813}
   m_Enabled: 1
---- !u!114 &2090737815
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2090737813}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isGlobal: 1
-  priority: 0
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: 67ff322a383e18a46b12db274a5d8b94, type: 2}
 --- !u!4 &2090737816
 Transform:
   m_ObjectHideFlags: 0
