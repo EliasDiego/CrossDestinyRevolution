@@ -14,7 +14,7 @@ namespace CDR.MechSystem
     public class ActiveCharacter : Character, IActiveCharacter
     {
         [SerializeField] Health _health;
-        [SerializeField] HitShape[] _hitShape;
+        [SerializeField] HurtShape[] _HurtShape;
         [SerializeField] Controller _controller;
 
         IInput _input;
@@ -28,7 +28,7 @@ namespace CDR.MechSystem
         public Vector3 position => transform.position;
         public Quaternion rotation => transform.rotation;
         public IHealth health => _health;
-        public IHurtShape[] hurtBoxes => _hitShape.Cast<IHurtShape>().ToArray();
+        public IHurtShape[] hurtBoxes => _HurtShape.Cast<IHurtShape>().ToArray();
         public ICharacterController controller => _controller;
         public IInput input { get => _input; set => _input = value; }
         public IState currentState { get => _currentState; set => _currentState = value; }

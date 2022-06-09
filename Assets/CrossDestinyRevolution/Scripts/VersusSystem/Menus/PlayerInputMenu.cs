@@ -11,7 +11,7 @@ using CDR.InputSystem;
 
 namespace CDR.VersusSystem
 {
-    public class PlayerInputMenu : VersusMenu
+    public class PlayerInputMenu : VersusMenu, IMenuCancelHandler
     {
         [Header("UI Input")]
         [SerializeField]
@@ -28,6 +28,11 @@ namespace CDR.VersusSystem
         PlayerMechInputSettings _Settings;
         [SerializeField]
         GameObject _BattleUIPrefab;
+
+        public void OnCancel()
+        {
+            Back();
+        }
 
         private IParticipantData SetPlayerData(InputActionAsset actionAsset, params InputDevice[] devices)
         {
