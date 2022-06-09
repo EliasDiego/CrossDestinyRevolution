@@ -8,7 +8,7 @@ namespace CDR.MovementSystem
     {
         [SerializeField]
         private FlightPlane _flightPlane;
-
+        [SerializeField]
         private Rigidbody rb;
 
         public Vector3 velocity => rb.velocity;
@@ -17,11 +17,6 @@ namespace CDR.MovementSystem
         { 
             get => _flightPlane; 
             set => _flightPlane = (FlightPlane)value; 
-        }
-
-        private void Awake()
-        {
-            rb = GetComponent<Rigidbody>();
         }
 
         public void SetVelocity(Vector3 value)
