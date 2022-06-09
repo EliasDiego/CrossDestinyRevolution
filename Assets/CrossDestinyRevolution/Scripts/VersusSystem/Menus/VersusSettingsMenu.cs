@@ -12,18 +12,31 @@ namespace CDR.VersusSystem
     public class VersusSettingsMenu : VersusMenu, IVersusSettingsMenu, IMenuCancelHandler
     {
         [SerializeField]
-        SceneLoader _SceneLoader;
+        MechSelectMenu _MechSelectMenu;
+
+        private int _Rounds = 1;
+        private int _RoundTime = 60;
 
         public void OnCancel()
         {
             Back();
         }
+
+        public void SetRounds(int rounds)
+        {
+            _Rounds = rounds;
+        }
+
+        public void SetRoundTime(int roundTime)
+        {
+            _RoundTime = roundTime;
+        }
         
         public void SetSettings()
         {
-            versusData.settings = new VersusSettings(3, 90);
+            versusData.settings = new VersusSettings(_Rounds, _RoundTime);
 
-            _SceneLoader.LoadSceneAsync(new VersusSceneTask(versusData));
+            SwitchTo(_MechSelectMenu);
         }
     }
 }

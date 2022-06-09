@@ -76,10 +76,7 @@ namespace CDR.VersusSystem
                 player1Data = SetPlayerData(_ActionAsset, Keyboard.current, Mouse.current);
                 player2Data = SetPlayerData(_SplitKeyboardActionAsset, Keyboard.current);
             }
-
-            _Player1Input.EnableInput();
-            _Player2Input.EnableInput();
-
+            
             versusData.player1Data = player1Data;
             versusData.player2Data = player2Data;
         }

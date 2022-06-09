@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _VersusManagerPrefab: {fileID: 2896002814986124884, guid: 8e827c3f329d98846b27a1e775b146fe, type: 3}
   _VersusMap: {fileID: 5757873314778955397, guid: f6d0230ee024a9d4b842e24033b921f6, type: 3}
+  _VersusUI: {fileID: 2001060054826935760, guid: 005f1805ce6ac0e43bc29f2fb2a8ea42, type: 3}

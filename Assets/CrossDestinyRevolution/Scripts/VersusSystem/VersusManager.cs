@@ -23,33 +23,43 @@ namespace CDR.VersusSystem
 
         private int _CurrentRound;
 
+        private IVersusUI _VersusUI;
+
         private IParticipant[] _Participants;
 
         private Coroutine _RoundCoroutine;
         private Coroutine _EndRoundCoroutine;
 
         public int currentRound => _CurrentRound;
-
         public bool isRoundOnPlay => _IsRoundOnPlay;
 
         private IEnumerator RoundSequence(float roundTime)
         {
             Debug.Log("Round Start!");
+            
+            _VersusUI.roundUIHandler.Show();
 
             yield return new WaitForSeconds(3);
+            _VersusUI.roundUIHandler.Hide();
 
             foreach(IParticipant p in _Participants)
                 p.Start();
+
+            _VersusUI.roundTimeUIHandler.Show();
 
             while(roundTime > 0)
             {
                 roundTime -= Time.deltaTime;
                 roundTime = Mathf.Max(roundTime, 0);
 
+                _VersusUI.roundTimeUIHandler.roundTimeText = Mathf.RoundToInt(roundTime).ToString();
+
                 Debug.Log(roundTime);
 
                 yield return null;
             }
+            
+            _VersusUI.roundTimeUIHandler.Hide();
 
             EndRound();
         }
@@ -70,11 +80,15 @@ namespace CDR.VersusSystem
                 StartRound();
         }
 
-        public void Initialize(IVersusSettings versusSettings, params IParticipant[] participants)
+        public void Initialize(IVersusSettings versusSettings, IVersusUI versusUI, params IParticipant[] participants)
         {
             _VersusSettings = versusSettings;
 
             _Participants = participants;
+
+            _VersusUI = versusUI;
+
+            _VersusUI.Hide();
 
             StartRound();
         }

@@ -4,15 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-using CDR.InputSystem;
 using CDR.UISystem;
+using CDR.InputSystem;
+using CDR.SceneManagementSystem;
 
 namespace CDR.VersusSystem
 {
     public class MapSelectMenu : VersusMenu, IMapSelectMenu, IMenuCancelHandler
     {
         [SerializeField]
-        VersusSettingsMenu _VersusSettingsMenu;
+        private SceneLoader _SceneLoader;
 
         public void OnCancel()
         {
@@ -23,7 +24,7 @@ namespace CDR.VersusSystem
         {
             versusData.mapData = mapData;
 
-            SwitchTo(_VersusSettingsMenu);
+            _SceneLoader.LoadSceneAsync(new VersusSceneTask(versusData));
         }
     }
 }

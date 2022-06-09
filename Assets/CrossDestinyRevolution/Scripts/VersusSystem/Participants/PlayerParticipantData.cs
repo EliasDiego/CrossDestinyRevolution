@@ -30,7 +30,7 @@ namespace CDR.VersusSystem
             
             
             // Debug
-            // Camera cam = (participant.mech as Mech).GetComponentInChildren<Camera>();
+            Camera cam = (participant.mech as Mech).GetComponentInChildren<Camera>();
             // // GameObject.Instantiate(camera, (participant.mech as Mech).transform, true);
             // // Debug
 
@@ -46,7 +46,7 @@ namespace CDR.VersusSystem
             
             participant.mech.input = playerInput;
 
-            return new PlayerParticipant(participant.mech, battleUI, null, startPosition, startRotation);
+            return new PlayerParticipant(participant.mech, battleUI, cam, startPosition, startRotation);
         }
     }
 }

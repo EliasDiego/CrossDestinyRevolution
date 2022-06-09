@@ -41,8 +41,9 @@ namespace CDR.VersusSystem
         IParticipantData player2Data { get; set; } 
         IMapData mapData { get; set; }
         IVersusSettings settings { get; set; }
-        GameObject versusMap { get; }
+        GameObject versusMapPrefab { get; }
         GameObject versusManagerPrefab { get; }
+        GameObject versusUIPrefab { get; }
     }
 
     public interface IMechData
@@ -81,5 +82,21 @@ namespace CDR.VersusSystem
     public interface IVersusSettingsMenu : IMenu
     {
         void SetSettings();
+    }
+
+    public interface IVersusUI : IUIElement
+    {
+        IRoundUIHandler roundUIHandler { get; }
+        IRoundTimeUIHandler roundTimeUIHandler { get; }
+    }
+
+    public interface IRoundUIHandler : IUIElement
+    {
+
+    }
+
+    public interface IRoundTimeUIHandler : IUIElement
+    {
+        string roundTimeText { get; set; }
     }
 }
