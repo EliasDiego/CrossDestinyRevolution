@@ -29,15 +29,17 @@ namespace CDR.AttackSystem
 			if (target != null)
 				distanceFromTarget = Vector3.Distance(transform.position, target.position);
 
+			isInPosition = CheckIfInPosition();
+
 			if (!isInPosition)
 			{
 				MoveProjectile();
-				isInPosition = CheckIfInPosition();
 			}
 		}
 
 		public virtual void MoveProjectile()
 		{
+			//_rigidBody.MovePosition(staticTargetPoint);
 			_rigidBody.velocity = transform.forward * bulletSpeed;
 		}
 

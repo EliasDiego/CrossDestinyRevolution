@@ -7,14 +7,22 @@ namespace CDR.AttackSystem
     public class NuclearGrenade : SpecialAttack
     {
         [SerializeField] int amountOfBullets;
-        private Vector3[] staticPositions;
+        [SerializeField] Vector3[] staticPositions;
 
-        GameObject[] FirstPhaseBullets;
-        GameObject[] SecondPhaseBullets;
+        [SerializeField] GameObject[] FirstPhaseBullets;
+        [SerializeField] GameObject[] SecondPhaseBullets;
 
         [SerializeField] float minDistanceFromTarget = 5f;
         [SerializeField] float maxDistanceFromTarget = 25f;
 
+
+        protected override void Awake()
+        {
+            if (_pool[0] != null)
+                _pool[0].Initialize();
+            if (_pool[1] != null)
+                _pool[1].Initialize();
+        }
 
         public override void Use()
         {
@@ -28,7 +36,7 @@ namespace CDR.AttackSystem
             base.End();
         }
 
-        IEnumerator NGSequence()
+		IEnumerator NGSequence()
 		{
             //1ST PHASE
 
@@ -38,9 +46,9 @@ namespace CDR.AttackSystem
             for (int i = 0; i < amountOfBullets; i++) //Set Random positions based on target's position
 			{
                 staticPositions[i] = new Vector3(
-                    Random.Range(target.activeCharacter.position.x, maxDistanceFromTarget), 
-                    Random.Range(target.activeCharacter.position.y, maxDistanceFromTarget), 
-                    Random.Range(target.activeCharacter.position.z, maxDistanceFromTarget));
+                    Random.Range(target.activeCharacter.position.x, target.activeCharacter.position.x + maxDistanceFromTarget), 
+                    Random.Range(target.activeCharacter.position.y, target.activeCharacter.position.y + maxDistanceFromTarget), 
+                    Random.Range(target.activeCharacter.position.z, target.activeCharacter.position.z + maxDistanceFromTarget));
 
                 FirstPhaseBullets[i] = _pool[0].GetPoolable();
 
@@ -50,9 +58,9 @@ namespace CDR.AttackSystem
                 FirstPhaseBullets[i].SetActive(true);
             }
 
-            yield return new WaitUntil(() => CheckBulletPosition());
-
             End();
+
+            yield return new WaitUntil(() => CheckBulletPosition());
 
             //2ND PHASE
 

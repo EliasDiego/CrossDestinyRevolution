@@ -2062,6 +2062,9 @@ MonoBehaviour:
   bulletSpawnPoint: []
   cooldown: 0
   amountOfBullets: 0
+  staticPositions: []
+  FirstPhaseBullets: []
+  SecondPhaseBullets: []
   minDistanceFromTarget: 5
   maxDistanceFromTarget: 25
 --- !u!1 &1065065840
@@ -3294,6 +3297,39 @@ MonoBehaviour:
   - {fileID: 52856850}
   cooldown: 5
   amountOfBullets: 10
+  staticPositions:
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  - {x: 0, y: 0, z: 0}
+  FirstPhaseBullets:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  SecondPhaseBullets:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   minDistanceFromTarget: 5
   maxDistanceFromTarget: 25
 --- !u!1 &1472272636
