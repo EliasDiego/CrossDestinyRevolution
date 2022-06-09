@@ -3807,8 +3807,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeCharacter: {fileID: 1389555321}
-  _hitBox: {fileID: 0}
-  MeleeDamage: 0
+  _hitBox: {fileID: 1752113632}
+  _speed: 10
+  _meleeDamage: 10
+  _knockbackPrefab: {fileID: 0}
 --- !u!114 &1752113632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3823,7 +3825,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _ActiveCharacter: {fileID: 0}
   _Bounds:
-    m_Center: {x: 0, y: 0, z: 0.69}
+    m_Center: {x: 0, y: 0, z: 0.81}
     m_Extent: {x: 1.47, y: 0.93, z: 0.77}
   _HitLayer:
     serializedVersion: 2

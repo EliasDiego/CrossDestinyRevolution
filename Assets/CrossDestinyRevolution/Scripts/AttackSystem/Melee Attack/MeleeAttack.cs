@@ -2,24 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CDR.ActionSystem;
-using CDR.AttackSystem.New;
+using CDR.StateSystem;
 
 namespace CDR.AttackSystem
 {
-    public class MeleeAttack : CooldownAction
+    public class MeleeAttack : CooldownAction, IMeleeAttack
     {
 		[SerializeField] HitBox _hitBox;
-		bool MeleeHitboxActive = false;
+		[SerializeField] float _speed;
+		[SerializeField] float _meleeDamage;
 
+		[SerializeField] GameObject _knockbackPrefab;
+		IKnockback knockback;
 
-		[SerializeField] float MeleeDamage;
-
+        public IHitShape hitbox => _hitBox;
+        public float speed => _speed;
+		
 
 		public override void Use()
 		{
 			base.Use();
+			
 			_hitBox.enabled = true;
-			_hitBox.onHitEnter += TestHit;
+			_hitBox.onHitEnter += HitEnter;
 
 			End();
 		}
@@ -29,7 +34,13 @@ namespace CDR.AttackSystem
 			base.End();
 
 			_hitBox.enabled = false;
-			_hitBox.onHitEnter -= TestHit;
+			_hitBox.onHitEnter -= HitEnter;
+		}
+
+		void HitEnter(IHitEnterData data)
+		{
+			//knockback
+			//end melee atk
 		}
 
 		public void DoMeleeAttack()
@@ -40,17 +51,7 @@ namespace CDR.AttackSystem
 				//After animation set hitbox damage inactive and set cooldown of melee
 			}
 		}
-
-		void TestHit(IHitEnterData hitData)
-		{
-			//kb
-			//end melee atk
-		}
-
-		private void OnCollisionEnter(Collision collision)
-		{
-			//find health of character script of collided then do damage based on Melee Damage
-		}
+		
 	}
 }
 
