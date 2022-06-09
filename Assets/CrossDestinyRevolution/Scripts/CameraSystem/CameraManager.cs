@@ -31,13 +31,14 @@ namespace CDR.CameraSystem
             IVirtualCam vcam = playerCams[index].GetComponent<IVirtualCam>();
             if (vcam != null)
             {
-                vcam.SetFollowTarget(player);
+                vcam.SetFollowTarget(player.GetComponentInChildren<CameraPivot>().transform);
                 vcam.SetLookTarget(targetGroup.transform);
                 targetGroup.AddMember(player, 1f, 0f);
                 playerCams[index].SetActive(true);
             }
         }
 
+        // DEBUG ONLY
         private void Start()
         {
             var index = 0;

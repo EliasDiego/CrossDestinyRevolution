@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccaaee84a4d92df49b12e60e21147d6c, type: 3}
   m_Name: New Horizontal Boost Data
   m_EditorClassIdentifier: 
-  _time: 0.23
-  _distance: 18.5
+  _time: 0.2
+  _distance: 3
