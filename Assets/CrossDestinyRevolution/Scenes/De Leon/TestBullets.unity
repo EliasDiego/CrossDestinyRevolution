@@ -497,8 +497,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestManager1
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3007737515874209334, guid: eed773af46d63704ba188eaa6b869149, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eed773af46d63704ba188eaa6b869149, type: 3}
 --- !u!1 &246771001
 GameObject:
@@ -720,7 +719,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.94, y: 3.86, z: 0.72}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &342709753
 GameObject:
@@ -1771,6 +1770,7 @@ GameObject:
   - component: {fileID: 928325177}
   - component: {fileID: 928325172}
   - component: {fileID: 928325171}
+  - component: {fileID: 928325182}
   m_Layer: 8
   m_Name: PlayerMech2
   m_TagString: Mech
@@ -2043,6 +2043,27 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &928325182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 928325170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f503a9679dfdb49b0a30fddc297fb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeCharacter: {fileID: 0}
+  _pool:
+  - {fileID: 0}
+  - {fileID: 0}
+  bulletSpawnPoint: []
+  cooldown: 0
+  amountOfBullets: 0
+  minDistanceFromTarget: 5
+  maxDistanceFromTarget: 25
 --- !u!1 &1065065840
 GameObject:
   m_ObjectHideFlags: 0
@@ -2199,8 +2220,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: TestManager2
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3007737515874209334, guid: eed773af46d63704ba188eaa6b869149, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eed773af46d63704ba188eaa6b869149, type: 3}
 --- !u!1 &1119063860
 GameObject:
@@ -2979,6 +2999,7 @@ GameObject:
   - component: {fileID: 1389555318}
   - component: {fileID: 1389555317}
   - component: {fileID: 1389555316}
+  - component: {fileID: 1389555325}
   - component: {fileID: 1389555315}
   - component: {fileID: 1389555314}
   m_Layer: 8
@@ -3253,6 +3274,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1389555325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1389555313}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10f503a9679dfdb49b0a30fddc297fb7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeCharacter: {fileID: 1389555321}
+  _pool:
+  - {fileID: 11400000, guid: 804bf247edd7fe7459215e75a5dbb8b8, type: 2}
+  - {fileID: 11400000, guid: 1b330dc9ef22766419273df5adaf764f, type: 2}
+  bulletSpawnPoint:
+  - {fileID: 52856850}
+  cooldown: 5
+  amountOfBullets: 10
+  minDistanceFromTarget: 5
+  maxDistanceFromTarget: 25
 --- !u!1 &1472272636
 GameObject:
   m_ObjectHideFlags: 0
@@ -4261,7 +4304,7 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 0.98, y: 3.59, z: 0.91}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2010655286
 GameObject:

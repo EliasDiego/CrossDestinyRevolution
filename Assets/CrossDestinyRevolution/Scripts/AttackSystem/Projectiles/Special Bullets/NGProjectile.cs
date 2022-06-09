@@ -1,16 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Unity.Collections;
 
 namespace CDR.AttackSystem
 {
-    public class HomingProjectile : Projectile
-    {
-        [SerializeField] public float bulletSpeed = 15f;
-		[SerializeField] public float rotateSpeed = 5f;
+	public class NGProjectile : Projectile
+	{
+		[SerializeField] public float bulletSpeed = 15f;
 
-		protected bool isHoming = true;
+		public Vector3 targetPoint;
+
+		public bool isInPosition;
 
 		public override void Start()
 		{
@@ -20,21 +20,20 @@ namespace CDR.AttackSystem
 		public override void OnEnable()
 		{
 			base.OnEnable();
-			isHoming = true;
 
-			if (target != null)
-			{
-				transform.LookAt(target.position);
-			}
-
+			transform.LookAt(targetPoint);
 		}
 
 		public virtual void FixedUpdate()
 		{
-			if(target != null)
+			if (target != null)
 				distanceFromTarget = Vector3.Distance(transform.position, target.position);
 
-			MoveProjectile();
+			if (!isInPosition)
+			{
+				MoveProjectile();
+				isInPosition = CheckIfInPosition();
+			}
 		}
 
 		public virtual void MoveProjectile()
@@ -42,9 +41,15 @@ namespace CDR.AttackSystem
 			_rigidBody.velocity = transform.forward * bulletSpeed;
 		}
 
-		public virtual void RotateProjectile(){}
+		bool CheckIfInPosition()
+		{
+			if (transform.position == targetPoint)
+				return true;
 
-		
+			return false;
+		}
 	}
 }
+
+
 

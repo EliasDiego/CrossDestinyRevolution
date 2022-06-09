@@ -17,6 +17,7 @@ namespace CDR.AttackSystem
 
 		public float projectileDamage;
 
+		[SerializeField] bool hasLifeTime = true;
 		float projectileLifetime;
 		public float projectileMaxLifetime;
 
@@ -29,6 +30,8 @@ namespace CDR.AttackSystem
 		protected float distanceFromTarget;
 
 		public Vector3 originPoint;
+
+		public Vector3 staticTargetPoint;
 
 		//Increments
 		public HitBox HitBox => projectileHitBox;
@@ -52,11 +55,6 @@ namespace CDR.AttackSystem
 			transform.position = originPoint;
 			projectileLifetime = projectileMaxLifetime;
 
-			if (target != null)
-			{
-				transform.LookAt(target.position);
-			}
-
 			if (projectileHitBox != null)
 			{
 				projectileHitBox.onHitEnter += OnHitEnter;
@@ -70,15 +68,18 @@ namespace CDR.AttackSystem
 
 		void ProcessLifetime()
 		{
-			float deltaTime = Time.deltaTime;
-
-			if (LifetimeCountDown(deltaTime))
+			if(hasLifeTime)
 			{
-				ResetObject();
+				float deltaTime = Time.deltaTime;
 
-				projectileHitBox.onHitEnter -= OnHitEnter;
+				if (LifetimeCountDown(deltaTime))
+				{
+					ResetObject();
 
-				Return();
+					projectileHitBox.onHitEnter -= OnHitEnter;
+
+					Return();
+				}
 			}
 		}
 

@@ -1,0 +1,28 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using CDR.ActionSystem;
+using CDR.ObjectPoolingSystem;
+
+namespace CDR.AttackSystem
+{
+    public class SpecialAttack : CooldownAction, ISpecialAttack
+    {
+		[SerializeField] protected ObjectPooling[] _pool; //1st Stage Bullets, make a list for multiple bullets
+
+		[SerializeField] protected GameObject[] bulletSpawnPoint; // Spawn point of 1st Stage bullets
+
+		[SerializeField] float cooldown;
+
+		public override void Use()
+		{
+			base.Use();
+		}
+
+		public override void End()
+		{
+			base.End();
+		}
+	}
+}
+
