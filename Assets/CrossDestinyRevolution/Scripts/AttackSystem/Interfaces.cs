@@ -43,8 +43,8 @@ namespace CDR.AttackSystem
 
     public interface IMeleeAttack : ICooldownAction
     {
-        IHitbox hitbox { get; }
-        IKnockback knockback { get; }
+        IHitShape hitbox { get; }
+        
         float speed { get; }
     }
 
