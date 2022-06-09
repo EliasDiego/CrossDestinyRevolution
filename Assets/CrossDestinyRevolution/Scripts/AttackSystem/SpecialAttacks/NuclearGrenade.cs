@@ -67,6 +67,8 @@ namespace CDR.AttackSystem
 
             for (int i = 0; i < amountOfBullets; i++) //Instantiate/GetFromPool bullets
             {
+
+
                 SecondPhaseBullets[i] = _pool[1].GetPoolable(); //Pool of Homing Bullets
 
                 SecondPhaseBullets[i].GetComponent<HomingBullet>().target = target.activeCharacter;
@@ -77,6 +79,8 @@ namespace CDR.AttackSystem
                 FirstPhaseBullets[i].GetComponent<NGProjectile>().ResetObject();
                 FirstPhaseBullets[i].GetComponent<NGProjectile>().Return();
             }
+
+            yield break;
         }
 
         bool CheckBulletPosition()

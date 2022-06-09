@@ -15,6 +15,8 @@ namespace CDR.AttackSystem
 		public override void Start()
 		{
 			base.Start();
+
+			isInPosition = false;
 		}
 
 		public override void OnEnable()

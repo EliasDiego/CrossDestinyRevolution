@@ -12,7 +12,18 @@ namespace CDR.AttackSystem
 
 		[SerializeField] protected GameObject[] bulletSpawnPoint; // Spawn point of 1st Stage bullets
 
-		[SerializeField] float cooldown;
+		[SerializeField] float SpecialAbilityCooldown;
+		
+		void Start()
+		{
+			_cooldownDuration = SpecialAbilityCooldown;
+		}
+
+		public override void Update()
+		{
+			base.Update();
+			//_cooldownDuration = SpecialAbilityCooldown;
+		}
 
 		public override void Use()
 		{

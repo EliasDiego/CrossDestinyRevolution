@@ -2060,7 +2060,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   bulletSpawnPoint: []
-  cooldown: 0
+  SpecialAbilityCooldown: 0
   amountOfBullets: 0
   staticPositions: []
   FirstPhaseBullets: []
@@ -3295,7 +3295,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1b330dc9ef22766419273df5adaf764f, type: 2}
   bulletSpawnPoint:
   - {fileID: 52856850}
-  cooldown: 5
+  SpecialAbilityCooldown: 10
   amountOfBullets: 10
   staticPositions:
   - {x: 0, y: 0, z: 0}
