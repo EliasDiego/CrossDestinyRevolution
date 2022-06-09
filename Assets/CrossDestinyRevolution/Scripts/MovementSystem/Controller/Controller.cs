@@ -8,7 +8,7 @@ namespace CDR.MovementSystem
     {
         [SerializeField]
         private FlightPlane _flightPlane;
-
+        [SerializeField]
         private Rigidbody rb;
 
         public Vector3 velocity => rb.velocity;
@@ -17,11 +17,6 @@ namespace CDR.MovementSystem
         { 
             get => _flightPlane; 
             set => _flightPlane = (FlightPlane)value; 
-        }
-
-        private void Awake()
-        {
-            rb = GetComponent<Rigidbody>();
         }
 
         public void SetVelocity(Vector3 value)
@@ -39,11 +34,6 @@ namespace CDR.MovementSystem
             rb.AddForce(force, mode);
         }
 
-        public void AddRelativeForce(Vector3 force, ForceMode mode = ForceMode.VelocityChange)
-        {
-            rb.AddRelativeForce(force, mode);
-        }
-
         public void Translate(Vector3 direction, float magnitude)
         {
             transform.position = direction * magnitude;
@@ -51,7 +41,7 @@ namespace CDR.MovementSystem
 
         public void Rotate(Quaternion rotation)
         {
-            transform.rotation = rotation;           
+            rb.rotation = rotation;
         }
 
         private void OnCollisionEnter(Collision collision)

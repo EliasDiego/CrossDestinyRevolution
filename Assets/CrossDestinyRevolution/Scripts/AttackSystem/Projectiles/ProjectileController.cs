@@ -16,7 +16,12 @@ namespace CDR.AttackSystem
 			throw new System.NotImplementedException();
 		}
 
-		public void Rotate(Quaternion rotation)
+        public void ClampVelocity(float magnitude)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Rotate(Quaternion rotation)
 		{
 			_rigidBody.rotation = rotation;
 		}

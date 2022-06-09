@@ -9,19 +9,24 @@ namespace CDR.AttackSystem
         float originDistanceFromProjectile; //From origin point to the current position of the projectile
         float originDistanceFromTarget; // From origin point to the current position of the target
 
-        public void Awake()
+        public override void OnEnable()
 		{
+            base.OnEnable();
+
             if(playerAttackRange < originDistanceFromTarget)
 			{
                 isHoming = false;
 			}
+
+            if (target != null)
+            {
+                transform.LookAt(target.position);
+            }
         }
 
         public override void FixedUpdate()
         {
             base.FixedUpdate();
-
-            var leadTimePercentage = Mathf.InverseLerp(_minDistancePredict, _maxDistancePredict, distanceFromTarget);
 
             if (target != null)
             {
@@ -31,8 +36,6 @@ namespace CDR.AttackSystem
 
             if (isHoming)
             {
-                PredictMovement(leadTimePercentage);
-                AddDeviation(leadTimePercentage);
                 RotateProjectile();
             }
 
@@ -49,18 +52,19 @@ namespace CDR.AttackSystem
 
 		public override void RotateProjectile()
         {
-            var heading = _deviatedPrediction - transform.position;
+            var heading = target.position - transform.position;
+            //var heading = _deviatedPrediction - transform.position;
             var rotation = Quaternion.LookRotation(heading);
-            _rigidBody.MoveRotation(Quaternion.RotateTowards(rotation, rotation, rotateSpeed * Time.deltaTime));
+            _rigidBody.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
             //_rigidBody.MoveRotation(rotation);
         }
 
 		private void OnDrawGizmos()
 		{
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(transform.position, _standardPrediction);
-            Gizmos.color = Color.green;
-            Gizmos.DrawLine(_standardPrediction, _deviatedPrediction);
+            //Gizmos.color = Color.red;
+            //Gizmos.DrawLine(transform.position, _standardPrediction);
+            //Gizmos.color = Color.green;
+            //Gizmos.DrawLine(_standardPrediction, _deviatedPrediction);
         }
     }
 }

@@ -8,20 +8,9 @@ namespace CDR.AttackSystem
     public class HomingProjectile : Projectile
     {
         [SerializeField] public float bulletSpeed = 15f;
-		[HideInInspector] public float rotateSpeed = 95f;
+		[SerializeField] public float rotateSpeed = 5f;
 
 		protected bool isHoming = true;
-
-		[Header("PREDICTION")]
-		[HideInInspector] protected float _maxDistancePredict = 100;
-		[HideInInspector] protected float _minDistancePredict = 5;
-		[HideInInspector] protected float _maxTimePrediction = 5;
-
-		[Header("DEVIATION")]
-		[HideInInspector] protected float _deviationAmount = 50;
-		[HideInInspector] protected float _deviationSpeed = 2;
-
-		protected Vector3 _standardPrediction, _deviatedPrediction;
 
 		public override void Start()
 		{
@@ -32,6 +21,12 @@ namespace CDR.AttackSystem
 		{
 			base.OnEnable();
 			isHoming = true;
+
+			if (target != null)
+			{
+				transform.LookAt(target.position);
+			}
+
 		}
 
 		public virtual void FixedUpdate()
@@ -49,22 +44,7 @@ namespace CDR.AttackSystem
 
 		public virtual void RotateProjectile(){}
 
-		protected virtual void PredictMovement(float leadTimePercentage)
-		{
-			var predictionTime = Mathf.Lerp(0, _maxTimePrediction, leadTimePercentage);
-
-			if (target != null)
-			{
-				_standardPrediction = target.position + target.controller.velocity * predictionTime;
-			}
-		}
-
-		protected virtual void AddDeviation(float leadTimePercentage)
-		{
-			var deviation = new Vector3(Mathf.Cos(Time.time * _deviationSpeed), 0 , 0);
-			var predictionOffset = transform.TransformDirection(deviation) * _deviationAmount * leadTimePercentage;
-			_deviatedPrediction = _standardPrediction + predictionOffset;
-		}
+		
 	}
 }
 
