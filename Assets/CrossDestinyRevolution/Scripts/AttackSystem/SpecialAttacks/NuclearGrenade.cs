@@ -50,9 +50,10 @@ namespace CDR.AttackSystem
                     Random.Range(target.activeCharacter.position.y, target.activeCharacter.position.y + maxDistanceFromTarget), 
                     Random.Range(target.activeCharacter.position.z, target.activeCharacter.position.z + maxDistanceFromTarget));
 
-                FirstPhaseBullets[i] = _pool[0].GetPoolable();
+                FirstPhaseBullets[i] = _pool[0].GetPoolable(); //Pool of NG Bullets
 
                 FirstPhaseBullets[i].GetComponent<NGProjectile>().targetPoint = staticPositions[i];
+
                 FirstPhaseBullets[i].GetComponent<NGProjectile>().originPoint = bulletSpawnPoint[0].transform.position;
                 
                 FirstPhaseBullets[i].SetActive(true);
@@ -66,6 +67,8 @@ namespace CDR.AttackSystem
 
             for (int i = 0; i < amountOfBullets; i++) //Instantiate/GetFromPool bullets
             {
+                SecondPhaseBullets[i] = _pool[1].GetPoolable(); //Pool of Homing Bullets
+
                 SecondPhaseBullets[i].GetComponent<HomingBullet>().target = target.activeCharacter;
                 SecondPhaseBullets[i].GetComponent<HomingBullet>().originPoint = FirstPhaseBullets[i].transform.position;
 

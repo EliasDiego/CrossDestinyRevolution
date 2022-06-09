@@ -40,7 +40,10 @@ namespace CDR.AttackSystem
 		public virtual void MoveProjectile()
 		{
 			//_rigidBody.MovePosition(staticTargetPoint);
-			_rigidBody.velocity = transform.forward * bulletSpeed;
+			//_rigidBody.velocity = transform.forward * bulletSpeed;
+
+			float step = bulletSpeed * Time.deltaTime;
+			transform.position = Vector3.MoveTowards(transform.position, targetPoint, step);
 		}
 
 		bool CheckIfInPosition()
