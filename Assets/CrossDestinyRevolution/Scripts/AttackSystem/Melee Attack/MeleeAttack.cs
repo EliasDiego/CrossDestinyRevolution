@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CDR.ActionSystem;
+using CDR.AttackSystem.New;
 
 namespace CDR.AttackSystem
 {
     public class MeleeAttack : CooldownAction
     {
-		[SerializeField] Collider MeleeHitbox;
+		[SerializeField] HitBox _hitBox;
 		bool MeleeHitboxActive = false;
 
 
@@ -17,8 +18,8 @@ namespace CDR.AttackSystem
 		public override void Use()
 		{
 			base.Use();
-
-
+			_hitBox.enabled = true;
+			_hitBox.onHitEnter += TestHit;
 
 			End();
 		}
@@ -26,6 +27,9 @@ namespace CDR.AttackSystem
 		public override void End()
 		{
 			base.End();
+
+			_hitBox.enabled = false;
+			_hitBox.onHitEnter -= TestHit;
 		}
 
 		public void DoMeleeAttack()
@@ -35,6 +39,12 @@ namespace CDR.AttackSystem
 				//On input, do animation and Hitbox active damage true
 				//After animation set hitbox damage inactive and set cooldown of melee
 			}
+		}
+
+		void TestHit(IHitEnterData hitData)
+		{
+			//kb
+			//end melee atk
 		}
 
 		private void OnCollisionEnter(Collision collision)
