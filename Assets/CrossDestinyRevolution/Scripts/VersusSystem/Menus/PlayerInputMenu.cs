@@ -27,13 +27,12 @@ namespace CDR.VersusSystem
 
         private IParticipantData SetPlayerData(InputActionAsset actionAsset, params InputDevice[] devices)
         {
-            PlayerParticipantData playerData = new PlayerParticipantData();
-
-            playerData.actionAsset = actionAsset;
-            playerData.devices = devices;
-            playerData.battleUIPrefab = _BattleUIPrefab;
-
-            return playerData; 
+            return new PlayerParticipantData() 
+            { 
+                actionAsset = actionAsset, 
+                devices = devices, 
+                battleUIPrefab = _BattleUIPrefab 
+            }; 
         }
 
         public override void Show()

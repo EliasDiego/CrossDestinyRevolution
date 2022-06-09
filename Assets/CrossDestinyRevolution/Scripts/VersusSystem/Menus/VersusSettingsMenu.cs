@@ -21,7 +21,7 @@ namespace CDR.VersusSystem
         
         public void SetSettings()
         {
-            versusData.settings = new VersusSettings(5, 20);
+            versusData.settings = new VersusSettings(1, 20);
 
             _SceneLoader.LoadSceneAsync(new VersusSceneTask(versusData));
         }

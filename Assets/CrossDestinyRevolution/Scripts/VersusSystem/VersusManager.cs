@@ -5,13 +5,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using CDR.MechSystem;
-
 using CDR.InputSystem;
+using CDR.SceneManagementSystem;
 
 namespace CDR.VersusSystem
 {
     public class VersusManager : MonoBehaviour
     {
+        [SerializeField]
+        SceneLoader _SceneLoader;
+        [SerializeField]
+        AfterVersusSceneTask _AfterVersusSceneTask;
+
         private IVersusSettings _VersusSettings;
 
         private bool _IsRoundOnPlay;
@@ -29,20 +34,24 @@ namespace CDR.VersusSystem
 
         private IEnumerator RoundSequence(float roundTime)
         {
-            float currentTime = roundTime;
+            Debug.Log("Round Start!");
+
+            yield return new WaitForSeconds(3);
 
             foreach(IParticipant p in _Participants)
                 p.Start();
 
-            while(currentRound > 0)
+            while(roundTime > 0)
             {
-                currentTime -= Time.deltaTime;
-                currentTime = Mathf.Max(currentTime, 0);
+                roundTime -= Time.deltaTime;
+                roundTime = Mathf.Max(roundTime, 0);
+
+                Debug.Log(roundTime);
 
                 yield return null;
             }
 
-            // EndRound();
+            EndRound();
         }
 
         private IEnumerator EndRoundSequence()
@@ -51,9 +60,14 @@ namespace CDR.VersusSystem
 
             foreach(IParticipant p in _Participants)
                 p.Reset();
+
+            yield return new WaitForSeconds(3);
             
             if(currentRound >= _VersusSettings.rounds)
                 ShowResults();
+
+            else
+                StartRound();
         }
 
         public void Initialize(IVersusSettings versusSettings, params IParticipant[] participants)
@@ -80,6 +94,8 @@ namespace CDR.VersusSystem
             if(_EndRoundCoroutine != null)
                 StopCoroutine(_EndRoundCoroutine);
 
+            Debug.Log("End Round");
+
             _CurrentRound++;
 
             _IsRoundOnPlay = false;
@@ -89,12 +105,16 @@ namespace CDR.VersusSystem
 
         public void ShowResults()
         {
+            Debug.Log("Show Results!");
+
             StopVersus();
         }
 
         public void StopVersus()
         {
-            
+            Debug.Log("Stop Versus");
+
+            _SceneLoader.LoadSceneAsync(_AfterVersusSceneTask);
         }
     }
 }

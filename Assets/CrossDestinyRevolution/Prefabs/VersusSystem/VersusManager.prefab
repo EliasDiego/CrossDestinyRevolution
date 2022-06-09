@@ -43,3 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c18bcc8da7b66b84b836f67bb3973d4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _SceneLoader: {fileID: 11400000, guid: f5384e6046073054f92b1c074ece52dc, type: 2}
+  _AfterVersusSceneTask: {fileID: 11400000, guid: 3d6b90b78b8500741b7815beac57c0d3, type: 2}
