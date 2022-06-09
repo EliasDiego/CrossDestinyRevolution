@@ -2,34 +2,25 @@ using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
-
 using UnityEngine;
-
-using CDR.MechSystem;
 
 namespace CDR.AttackSystem
 {
-    public class HitBox : MonoBehaviour, IHitShape
+    public abstract class HitShape : CollisionShape, IHitShape
     {
-        [SerializeField]
-        public ActiveCharacter _ActiveCharacter;
-        [SerializeField]
-        Bounds _Bounds;
         [SerializeField]
         private LayerMask _HitLayer;
 
         private List<IHurtShape> _EnteredHurtShapes = new List<IHurtShape>();
 
-        public IActiveCharacter character => _ActiveCharacter;
+        public LayerMask hitLayer { get => _HitLayer; set => _HitLayer = value; }
 
-        public Vector3 position => transform.position + _Bounds.center;
-
-        public event Action<IHitEnterData> onHitEnter;
-        public event Action<IHitExitData> onHitExit;
+        public override event Action<IHitEnterData> onHitEnter;
+        public override event Action<IHitExitData> onHitExit;
 
         private void FixedUpdate() 
         {
-            IEnumerable<IHurtShape> currentHurtShapes = Physics.OverlapBox(position, _Bounds.extents / 2, transform.rotation, _HitLayer)?.Where(c => c.TryGetComponent(out IHurtShape h))?.
+            IEnumerable<IHurtShape> currentHurtShapes = GetColliders()?.Where(c => c.TryGetComponent(out IHurtShape h))?.
                 Select(c => c.GetComponent<IHurtShape>()).Where(h => h.character == null && character == null || h.character != character);
 
             IHurtShape[] exitedHurtShapes = _EnteredHurtShapes?.Except(currentHurtShapes)?.ToArray();
@@ -48,7 +39,7 @@ namespace CDR.AttackSystem
 
             foreach(IHurtShape h in enteredHurtShapes)
             {
-                if(Physics.Raycast(position, (h.position - position).normalized, out RaycastHit hit, float.MaxValue, _HitLayer))
+                if(Physics.Raycast(position, (h.position - position).normalized, out RaycastHit hit, float.MaxValue, hitLayer))
                 {
                     HitEnterData data = new HitEnterData(this, h, hit);
 
@@ -62,13 +53,15 @@ namespace CDR.AttackSystem
         }
 
         #if UNITY_EDITOR
-        private void OnDrawGizmos() 
+        protected override void OnDrawGizmos() 
         {
-            Gizmos.matrix = transform.localToWorldMatrix;
-            Gizmos.color = _EnteredHurtShapes?.Count <= 0 ? Color.green : Color.red;
+            base.OnDrawGizmos();
             
-            Gizmos.DrawCube(_Bounds.center, _Bounds.extents);    
+            Gizmos.color = _EnteredHurtShapes.Count > 0 ? Color.red : Color.green;
         }
         #endif  
+
+        protected abstract Collider[] GetColliders();
+        
     }
 }
