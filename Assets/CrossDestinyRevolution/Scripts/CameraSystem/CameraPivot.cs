@@ -9,39 +9,48 @@ namespace CDR.CameraSystem
         [SerializeField]
         private MechSystem.ActiveCharacter activeCharacter;
         [SerializeField]
-        private float maxX;
-        [SerializeField]
         private float maxY;
+        [SerializeField]
+        private float maxZ;
+        [SerializeField]
+        private float maxYDiff = 10f;
 
-        [Range(0f,1f)]
-        public float tempX = 0f;
-        [Range(0f,1f)]
-        public float tempY = 0f;
+        private float currentY = 0f;
+        private float currentZ = 0f;
+        private float defaultY;
+        private float defaultZ;
 
-        private void SetPos()
+        private void Start()
         {
-            var x = Mathf.Lerp(0f, maxX, tempX);
-            var y = Mathf.Lerp(0f, maxY, tempY);
-            transform.localPosition = new Vector3(x, y, transform.localPosition.z);
+            defaultY = transform.localPosition.y;
+            defaultZ = transform.localPosition.z;
         }
 
         private void Update()
         {
             SetPos();
-            Debugger();
+            ChangeYZ();
         }
 
-        private void Debugger()
+        private void SetPos()
         {
-            var diff = activeCharacter.position.y -
+            var y = Mathf.Lerp(defaultY, maxY, currentY);
+            var z = Mathf.Lerp(Mathf.Abs(maxZ), Mathf.Abs(defaultZ), currentZ) * -1f;
+            transform.localPosition = new Vector3(transform.localPosition.x, y, z);
+        }
+    
+        private void ChangeYZ()
+        {
+            var diffY = activeCharacter.position.y -
                 activeCharacter.targetHandler.GetCurrentTarget().activeCharacter.position.y;
 
-            if(diff > 0f)
-            {
-                
+            currentY = diffY / maxYDiff;
+            currentZ = 1f - Mathf.Abs(currentY);
 
-                Debug.Log(diff);
-            }
-        }
+            //if(diffY > 0f)
+            //{
+            //    Debug.Log(currentZ);
+            //}
+        }     
     }
 }
