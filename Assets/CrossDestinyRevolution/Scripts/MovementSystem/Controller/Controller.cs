@@ -41,7 +41,7 @@ namespace CDR.MovementSystem
 
         public void Rotate(Quaternion rotation)
         {
-            transform.rotation = rotation;           
+            rb.rotation = rotation;
         }
 
         private void OnCollisionEnter(Collision collision)
