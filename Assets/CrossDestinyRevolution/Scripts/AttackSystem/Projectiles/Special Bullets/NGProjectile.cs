@@ -50,7 +50,7 @@ namespace CDR.AttackSystem
 
 		bool CheckIfInPosition()
 		{
-			if (transform.position == targetPoint)
+			if ((targetPoint - transform.position).magnitude < 1)
 				return true;
 
 			return false;
