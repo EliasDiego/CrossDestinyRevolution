@@ -116,6 +116,8 @@ namespace CDR.MovementSystem
             {
                 StopCoroutine(_FixedCoroutine);
             }
+
+            
             StartCoroutine(ResumeRegen());
             Character.movement.Use();
             Character.movement.Move(Vector2.zero);
