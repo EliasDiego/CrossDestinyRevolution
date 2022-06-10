@@ -29,7 +29,7 @@ namespace CDR.VersusSystem
                 playerInput.EnableInput();
             }
 
-            else if(versusData.player1Data.mechData == null && versusData.player2Data.mechData == null)
+            if(versusData.player1Data.mechData == null && versusData.player2Data.mechData == null)
             {
                 Debug.Log("Back");
 
