@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CDR.ActionSystem;
 using CDR.StateSystem;
+using CDR.MechSystem;
 
 namespace CDR.AttackSystem
 {
@@ -13,7 +14,8 @@ namespace CDR.AttackSystem
 		[SerializeField] float _meleeDamage;
 
 		[SerializeField] GameObject _knockbackPrefab;
-		IKnockback knockback;
+		IMech sender;
+		IMech receiver;
 
         public IHitShape hitbox => _hitBox;
         public float speed => _speed;
@@ -26,6 +28,10 @@ namespace CDR.AttackSystem
 			_hitBox.enabled = true;
 			_hitBox.onHitEnter += HitEnter;
 
+			sender.input.DisableInput();
+			sender.movement.End();
+			//sender.shield.End();
+
 			End();
 		}
 
@@ -35,12 +41,26 @@ namespace CDR.AttackSystem
 
 			_hitBox.enabled = false;
 			_hitBox.onHitEnter -= HitEnter;
+
+			sender.input.EnableInput();
+			sender.movement.Use();
+			//sender.shield.Use();
 		}
 
-		void HitEnter(IHitEnterData data)
+		void HitEnter(IHitEnterData hitData)
 		{
-			//knockback
-			//end melee atk
+			if(hitData.hurtShape.character != Character)
+			{
+				GameObject kb = Instantiate(_knockbackPrefab);
+
+				sender = (IMech)Character;
+				receiver = (IMech)hitData.hurtShape.character;
+
+				receiver.currentState = kb.GetComponent<IState>();
+				receiver.currentState.sender = sender;
+				receiver.currentState.receiver = receiver;
+				receiver.currentState.StartState();
+			}
 		}
 
 		public void DoMeleeAttack()

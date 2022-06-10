@@ -3810,7 +3810,7 @@ MonoBehaviour:
   _hitBox: {fileID: 1752113632}
   _speed: 10
   _meleeDamage: 10
-  _knockbackPrefab: {fileID: 0}
+  _knockbackPrefab: {fileID: 2446635574957657619, guid: 3ccd0001887974a42bf3f975b836c3bc, type: 3}
 --- !u!114 &1752113632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3824,12 +3824,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ActiveCharacter: {fileID: 0}
-  _Bounds:
-    m_Center: {x: 0, y: 0, z: 0.81}
-    m_Extent: {x: 1.47, y: 0.93, z: 0.77}
   _HitLayer:
     serializedVersion: 2
     m_Bits: 512
+  _Bounds:
+    m_Center: {x: 0, y: 0, z: 0.81}
+    m_Extent: {x: 1.47, y: 0.93, z: 0.77}
 --- !u!1 &1822052315
 GameObject:
   m_ObjectHideFlags: 0
