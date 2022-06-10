@@ -98,6 +98,11 @@ namespace CDR.VersusSystem
             if(_RoundCoroutine != null)
                 StopCoroutine(_RoundCoroutine);
 
+                
+            foreach(IParticipant p in _Participants)
+                p.mech.health.OnDeath += EndRound;
+
+
             _IsRoundOnPlay = true;
 
             _RoundCoroutine = StartCoroutine(RoundSequence(_VersusSettings.roundTime));
@@ -107,6 +112,9 @@ namespace CDR.VersusSystem
         {
             if(_EndRoundCoroutine != null)
                 StopCoroutine(_EndRoundCoroutine);
+
+            foreach(IParticipant p in _Participants)
+                p.mech.health.OnDeath -= EndRound;
 
             Debug.Log("End Round");
 
