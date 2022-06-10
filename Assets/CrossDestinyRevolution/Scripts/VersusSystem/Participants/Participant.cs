@@ -42,7 +42,11 @@ namespace CDR.VersusSystem
                 mech.targetHandler?.End();
 
             if(CheckBoolean(mech.specialAttack1?.isActive))
-            mech.specialAttack1?.End();
+            {
+                mech.specialAttack1?.EndCoolDown();
+
+                mech.specialAttack1?.End();
+            }
 
             if(CheckBoolean(mech.specialAttack2?.isActive))
             mech.specialAttack2?.End();

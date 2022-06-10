@@ -99,7 +99,7 @@ Camera:
   m_GameObject: {fileID: 6712624732958077064}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 2
+  m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 2
   m_GateFitMode: 2
@@ -317,7 +317,7 @@ MonoBehaviour:
   _animator: {fileID: 0}
   _health:
     currentValue: 0
-    maxValue: 100
+    maxValue: 350
   _HurtShape: []
   _controller: {fileID: 7281039689900866123}
   _targetHandler: {fileID: 8684808194649894697}
@@ -367,6 +367,14 @@ PrefabInstance:
     - target: {fileID: 104275379936504733, guid: a14d3b2633d550e4b94f1e0c6d2ce61c, type: 3}
       propertyPath: m_Name
       value: RangeAttack
+      objectReference: {fileID: 0}
+    - target: {fileID: 908903558953591605, guid: a14d3b2633d550e4b94f1e0c6d2ce61c, type: 3}
+      propertyPath: FireRate
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 908903558953591605, guid: a14d3b2633d550e4b94f1e0c6d2ce61c, type: 3}
+      propertyPath: attackRange
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 908903558953591605, guid: a14d3b2633d550e4b94f1e0c6d2ce61c, type: 3}
       propertyPath: activeCharacter
@@ -445,6 +453,26 @@ PrefabInstance:
       propertyPath: activeCharacter
       value: 
       objectReference: {fileID: 8684808194649894696}
+    - target: {fileID: 1340859940084886449, guid: 1d5472dfbea0b9946922a5c567f51f2f, type: 3}
+      propertyPath: amountOfBullets
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340859940084886449, guid: 1d5472dfbea0b9946922a5c567f51f2f, type: 3}
+      propertyPath: SpecialAbilityCooldown
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340859940084886449, guid: 1d5472dfbea0b9946922a5c567f51f2f, type: 3}
+      propertyPath: staticPositions.Array.size
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340859940084886449, guid: 1d5472dfbea0b9946922a5c567f51f2f, type: 3}
+      propertyPath: FirstPhaseBullets.Array.size
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340859940084886449, guid: 1d5472dfbea0b9946922a5c567f51f2f, type: 3}
+      propertyPath: SecondPhaseBullets.Array.size
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 5816485605749745736, guid: 1d5472dfbea0b9946922a5c567f51f2f, type: 3}
       propertyPath: m_Name
       value: SpecialAttack (NuclearGrenade)
@@ -518,6 +546,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8684808194649894693}
     m_Modifications:
+    - target: {fileID: 140093037427550056, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
+      propertyPath: pullSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1831913344042762315, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
       propertyPath: rb
       value: 
@@ -530,6 +562,14 @@ PrefabInstance:
       propertyPath: activeCharacter
       value: 
       objectReference: {fileID: 8684808194649894696}
+    - target: {fileID: 6489849201931218856, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
+      propertyPath: _boostValue.maxValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489849201931218856, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
+      propertyPath: _boostValue.regenRate
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 6489849201931218857, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
       propertyPath: m_RootOrder
       value: 2

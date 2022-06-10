@@ -110,7 +110,10 @@ namespace CDR.VersusSystem
 
         public void EndRound()
         {
-            if(_EndRoundCoroutine != null)
+            if (_RoundCoroutine != null)
+                StopCoroutine(_RoundCoroutine);
+
+            if (_EndRoundCoroutine != null)
                 StopCoroutine(_EndRoundCoroutine);
 
             foreach(IParticipant p in _Participants)

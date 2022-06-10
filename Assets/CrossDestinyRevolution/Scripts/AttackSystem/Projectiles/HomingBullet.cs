@@ -52,7 +52,7 @@ namespace CDR.AttackSystem
 
 		public override void RotateProjectile()
         {
-            var heading = target.position + target.controller.velocity - transform.position;
+            var heading = target.position + (target.controller.velocity * Time.deltaTime) - transform.position;
             //var heading = _deviatedPrediction - transform.position;
             var rotation = Quaternion.LookRotation(heading);
             _rigidBody.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
