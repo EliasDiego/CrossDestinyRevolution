@@ -13,10 +13,12 @@ namespace CDR.AttackSystem
 		[SerializeField] float _speed;
 		[SerializeField] float _coolDown;
 		[SerializeField] float _meleeDamage;
-
+		[SerializeField] Vector3 _followOffset;
 		[SerializeField] GameObject _knockbackPrefab;
 		IMech sender;
 		IMech receiver;
+
+		bool isHoming;
 
         public IHitShape hitbox => _hitBox;
         public float speed => _speed;
@@ -31,6 +33,7 @@ namespace CDR.AttackSystem
 			base.Use();
 			
 			_hitBox.enabled = true;
+			isHoming = true;
 			_hitBox.onHitEnter += HitEnter;
 
 			sender.input.DisableInput();
@@ -56,7 +59,7 @@ namespace CDR.AttackSystem
 		{
 			if(hitData.hurtShape.character != Character)
 			{
-				Character.controller.Rotate(Quaternion.LookRotation(hitData.hurtShape.character.position - Character.position));
+				isHoming = false;	
 
 				GameObject kb = Instantiate(_knockbackPrefab);
 
@@ -67,6 +70,18 @@ namespace CDR.AttackSystem
 				receiver.currentState.sender = sender;
 				receiver.currentState.receiver = receiver;
 				receiver.currentState.StartState();
+			}
+		}
+
+		private void FixedUpdate()
+		{
+			if(isHoming)
+			{
+				Vector3 targetPos = Character.targetHandler.GetCurrentTarget().activeCharacter.position;
+				Quaternion lookRot = Quaternion.LookRotation(targetPos - Character.position);
+
+				Character.controller.Rotate(Quaternion.Slerp(transform.rotation, lookRot, speed * Time.fixedDeltaTime));
+				Character.controller.Translate((targetPos - _followOffset), speed * Time.fixedDeltaTime);
 			}
 		}
 	}
