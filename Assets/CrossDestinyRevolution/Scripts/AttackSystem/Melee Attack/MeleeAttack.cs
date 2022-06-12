@@ -11,6 +11,7 @@ namespace CDR.AttackSystem
     {
 		[SerializeField] HitBox _hitBox;
 		[SerializeField] float _speed;
+		[SerializeField] float _coolDown;
 		[SerializeField] float _meleeDamage;
 
 		[SerializeField] GameObject _knockbackPrefab;
@@ -20,6 +21,10 @@ namespace CDR.AttackSystem
         public IHitShape hitbox => _hitBox;
         public float speed => _speed;
 		
+		private void Start()
+		{
+			_cooldownDuration = _coolDown;
+		}
 
 		public override void Use()
 		{
@@ -51,6 +56,8 @@ namespace CDR.AttackSystem
 		{
 			if(hitData.hurtShape.character != Character)
 			{
+				Character.controller.Rotate(Quaternion.LookRotation(hitData.hurtShape.character.position - Character.position));
+
 				GameObject kb = Instantiate(_knockbackPrefab);
 
 				sender = (IMech)Character;
@@ -62,16 +69,6 @@ namespace CDR.AttackSystem
 				receiver.currentState.StartState();
 			}
 		}
-
-		public void DoMeleeAttack()
-		{
-			if(!_isCoolingDown)
-			{
-				//On input, do animation and Hitbox active damage true
-				//After animation set hitbox damage inactive and set cooldown of melee
-			}
-		}
-		
 	}
 }
 
