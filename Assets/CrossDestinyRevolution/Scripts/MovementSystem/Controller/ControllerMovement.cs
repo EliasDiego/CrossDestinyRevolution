@@ -13,73 +13,115 @@ namespace CDR.MovementSystem
         private float _speed;
         [SerializeField]
         private float _gravity;
-
-        private Controller controller;
-        private Vector3 currentDir = Vector3.zero;
-        private Vector3 targetDiection;
-
         [SerializeField]
         private bool clampSpeed = false;
+
+        private Vector3 currentDir = Vector3.zero;
+        private ITargetData currentTarget;
+        private float distanceToTarget;
+
+        public float intensity = 1f;
+
+        public float speed => _speed;
+        public float gravity => _gravity;
 
         protected override void Awake()
         {
             base.Awake();
-            controller = GetComponent<Controller>();
         }
 
-        private void Start()
+        private void Update()
         {
-            ITargetData targetData = Character.targetHandler.GetCurrentTarget();
-            targetDiection = targetData.activeCharacter.position - transform.position;
+            if(!isActive)
+            {
+                return;
+            }
+            if (clampSpeed)
+            {
+                Character.controller.ClampVelocity(speed);
+            }
+            RotateObject();
         }
 
-        public float speed => _speed;
+        private void FixedUpdate()
+        {       
+            if(!isActive)
+            {
+                return;
+            }
+            Character.controller.AddRbForce(MoveDirection());
+            Character.controller.AddRbForce(CentripetalForce(), ForceMode.Acceleration);
+        }       
 
-        public float gravity => _gravity;
+        Vector3 CentripetalForce()
+        {
+            float cForce = Mathf.Pow(Character.controller.velocity.magnitude, 2) / distanceToTarget;
+            return currentTarget.direction * -cForce;
+        }
+
+        private Vector3 MoveDirection()
+        {
+            if(currentDir.magnitude == 0f)
+            {
+                return Vector3.zero;
+            }
+
+            if(currentDir.z != 0f)
+            {
+                var distance = Vector3.Distance(Character.position, currentTarget.activeCharacter.position);
+                SetDistanceToTarget(distance);
+                currentTarget?.activeCharacter?.movement?.SetDistanceToTarget(distance);
+            }
+
+
+            var current = (Character.rotation * currentDir).normalized;
+            return current;           
+        }
+
+        private void RotateObject()
+        {
+            currentTarget = Character.targetHandler.GetCurrentTarget();
+            var look = Quaternion.LookRotation(-currentTarget.direction);
+            var quat = Quaternion.RotateTowards(Character.rotation, look, 50f);
+            quat.x = 0f;
+            quat.z = 0f;
+
+            Character.controller.Rotate(Quaternion.RotateTowards(Character.rotation, quat, 50f));
+        }
+
+        #region INTERFACE_Methods
+        public void Move(Vector2 direction)
+        {
+            var dir = new Vector3(direction.x, 0f, direction.y);
+            currentDir = dir;    
+            
+            if(direction.magnitude == 0f)
+            {
+                currentDir = Vector3.zero;
+            }
+        }
+
+        public override void Use()
+        {
+            base.Use();
+            currentTarget = Character.targetHandler.GetCurrentTarget();
+            distanceToTarget = Vector3.Distance(Character.position, currentTarget.activeCharacter.position);
+        }
 
         public override void End()
         {
             base.End();
         }
 
-        private void Update()
+        public void SetSpeedClamp(bool isClamped)
         {
-            RotateObject();
-            controller.MoveRb(currentDir);
-
-            if (clampSpeed)
-            {
-                controller.ClampVelocity(speed);
-            }
+            clampSpeed = isClamped;
         }
 
-        private void RotateObject()
+        public void SetDistanceToTarget(float distance)
         {
-            ITargetData targetData = Character.targetHandler.GetCurrentTarget();
-
-            var look = Quaternion.LookRotation(-targetData.direction);
-            var quat = Quaternion.RotateTowards(transform.rotation, look, 50f);
-            quat.x = 0f;
-            quat.z = 0f;
-
-            controller.Rotate(Quaternion.RotateTowards(transform.rotation, quat, 50f));
+            distanceToTarget = distance;            
         }
-
-        public void SetClamp(bool boo)
-        {
-            clampSpeed = boo;
-        }
-
-        public void Move(Vector2 direction)
-        {
-            var dir = new Vector3(direction.x, 0f, direction.y);
-            dir = transform.rotation * dir;
-            currentDir = dir;
-        }
-
-        public override void Use()
-        {
-            base.Use();
-        }
+        #endregion
     }
 }

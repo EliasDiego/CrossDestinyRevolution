@@ -8,13 +8,13 @@ namespace CDR.MechSystem
 {
     public class Mech : ActiveCharacter, IMech
     {
-        IBoost _boost;
-        IMeleeAttack _meleeAttack;
-        IRangeAttack _rangeAttack;
-        IShield _shield;
-        ISpecialAttack _specialAttack1;
-        ISpecialAttack _specialAttack2;
-        ISpecialAttack _specialAttack3;
+        [SerializeField] Boost _boost;
+        [SerializeField] MeleeAttack _meleeAttack;
+        [SerializeField] RangeAttack _rangeAttack;
+        [SerializeField] IShield _shield;
+        [SerializeField] SpecialAttack _specialAttack1;
+        [SerializeField] SpecialAttack _specialAttack2;
+        [SerializeField] SpecialAttack _specialAttack3;
 
         public IBoost boost => _boost;
 
@@ -34,14 +34,7 @@ namespace CDR.MechSystem
         {
             base.Awake();
 
-            _boost = GetComponent<IBoost>();
-            _meleeAttack = GetComponent<IMeleeAttack>();
-            _rangeAttack = GetComponent<IRangeAttack>();
             _shield = GetComponent<IShield>();
-            // TO BE CHANGED
-            _specialAttack1 = GetComponent<ISpecialAttack>();
-            _specialAttack2 = GetComponent<ISpecialAttack>();
-            _specialAttack3 = GetComponent<ISpecialAttack>();
         }
     }
 }

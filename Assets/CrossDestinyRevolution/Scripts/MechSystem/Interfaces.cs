@@ -13,7 +13,10 @@ namespace CDR.MechSystem
 {
     public interface IHealth : IValueRange
     {
-        
+        event System.Action OnDeath;
+        void TakeDamage(float damage);
+        void CheckHealthStatus();
+        void Death();
     }
 
     public interface ICharacter
@@ -25,8 +28,9 @@ namespace CDR.MechSystem
     public interface IActiveCharacter : ICharacter
     {
         Vector3 position { get; }
+        Quaternion rotation { get; }
         IHealth health { get; }
-        IHurtBox[] hurtBoxes { get; }
+        IHurtShape[] hurtBoxes { get; }
         ICharacterController controller { get; }
         IInput input { get; set; }
         IState currentState { get; set; }

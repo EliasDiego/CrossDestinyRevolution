@@ -9,8 +9,8 @@ namespace CDR.StateSystem
 {
     public interface IState
     {
-        IActiveCharacter sender { get; }
-        IActiveCharacter receiver { get; }
+        IMech sender { get; set; }
+        IMech receiver { get; set; }
 
         void StartState();
         void EndState();
@@ -18,7 +18,7 @@ namespace CDR.StateSystem
 
     public interface IStun : IState
     {
-        float time { get; }
+        float duration { get; }
     }
 
     public interface IKnockback : IStun

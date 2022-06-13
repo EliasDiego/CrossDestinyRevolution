@@ -1,26 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CDR.MechSystem;
 
 namespace CDR.ObjectPoolingSystem
 {
-    public interface IPoolable
+    public interface IPoolable //attach to scripts to pool
     {
-        IPool pool { get; }
-
+        IPool pool { get; set; }
         void ResetObject();
         void Return();
     }
 
     public interface IPool
     {
-        IPoolable poolable { get; }
-        int poolSize { get; }
-        int activePoolables { get; }
-
         void Initialize();
         void Destroy();
-        IPoolable GetPoolable();
-        IPoolable[] GetPoolables();
+        void ReturnAll();
+        void ReturnObject(IPoolable poolable);
+        GameObject GetPoolable();
     }
 }
