@@ -6,9 +6,15 @@ namespace CDR.UISystem
 {
     public class PauseMenu : Menu
     {
+        private bool _IsPaused = false;
+
+        public bool isPaused => _IsPaused;
+
         public void Activate()
         {
             Time.timeScale = 0;
+
+            _IsPaused = true;
 
             Show();
         }
@@ -16,6 +22,8 @@ namespace CDR.UISystem
         public void Deactivate()
         {
             Time.timeScale = 1;
+
+            _IsPaused = false;
 
             Hide();
         }

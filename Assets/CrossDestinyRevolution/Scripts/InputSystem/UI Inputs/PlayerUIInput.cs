@@ -120,6 +120,16 @@ namespace CDR.InputSystem
                 s.OnSubmit(null);
         }
 
+        private void OnStart(InputAction.CallbackContext context)
+        {
+            Debug.Log("Start");
+        }
+
+        private void OnPause(InputAction.CallbackContext context)
+        {
+            Debug.Log("Pause");
+        }
+
         public override void SetupInput(InputActionMap inputActionMap, params InputDevice[] devices)
         {
             base.SetupInput(inputActionMap, devices);
@@ -130,6 +140,8 @@ namespace CDR.InputSystem
             inputActions["Submit"].started += OnSubmit;
             inputActions["Cancel"].started += OnCancel;
             inputActions["Click"].performed += OnClick;
+            // inputActions["Start"].started += OnStart;
+            inputActions["Pause"].started += OnPause;
         }
 
         public override void EnableInput()
