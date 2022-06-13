@@ -28,6 +28,7 @@ namespace CDR.MechSystem
     public interface IActiveCharacter : ICharacter
     {
         Vector3 position { get; }
+        Quaternion rotation { get; }
         IHealth health { get; }
         IHurtShape[] hurtBoxes { get; }
         ICharacterController controller { get; }

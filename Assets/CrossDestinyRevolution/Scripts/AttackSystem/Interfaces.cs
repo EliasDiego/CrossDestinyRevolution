@@ -12,30 +12,6 @@ using CDR.ObjectPoolingSystem;
 
 namespace CDR.AttackSystem
 {
-    public interface IBox
-    {
-        Vector3 size { get; }
-    }
-
-    public interface IHurtBox : IBox
-    {
-        IActiveCharacter activeCharacter  { get; }
-        event Action<IActiveCharacter> onHurt;
-    }
-
-    public interface IHitbox : IBox
-    {
-        float damage { get; }
-        event Action<IActiveCharacter> onHit;
-    }
-
-    public interface IBullet : IProjectile
-    {
-        IHitbox hitbox { get; }
-        float speed { get; }
-        Vector3 direction { get; }
-    }
-
     public interface IRangeAttack : ICooldownAction
     {
         float range { get; }
