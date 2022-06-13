@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,9 +22,10 @@ namespace CDR.AttackSystem
             Gizmos.DrawSphere(_Center, _Radius);
         }
 
-        protected override Collider[] GetColliders()
+        protected override HitData[] GetHitData(Vector3 velocity)
         {
-            return Physics.OverlapSphere(position, _Radius, hitLayer);
+            return Physics.SphereCastAll(position, _Radius, velocity.normalized, velocity.magnitude, hitLayer)?.
+                Select(r => new HitData() { hit = r, hurtShape = r.collider.GetComponent<IHurtShape>() })?.Where(h => h.hurtShape != null)?.ToArray();
         }
     }
 }
