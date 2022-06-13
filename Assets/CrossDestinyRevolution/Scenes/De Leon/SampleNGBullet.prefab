@@ -11,11 +11,10 @@ GameObject:
   - component: {fileID: 913767120149972310}
   - component: {fileID: 3971450612688874480}
   - component: {fileID: 1932345140810933651}
-  - component: {fileID: 4131968318957470714}
   - component: {fileID: 5831834160720572854}
   - component: {fileID: 6230128931090889574}
   - component: {fileID: 6949673405960922833}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: SampleNGBullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -85,19 +84,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &4131968318957470714
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6420653630352239956}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &5831834160720572854
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,12 +97,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ActiveCharacter: {fileID: 0}
+  _HitLayer:
+    serializedVersion: 2
+    m_Bits: 128
   _Bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 0, y: 0, z: 0}
-  _HitLayer:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!114 &6230128931090889574
 MonoBehaviour:
   m_ObjectHideFlags: 0

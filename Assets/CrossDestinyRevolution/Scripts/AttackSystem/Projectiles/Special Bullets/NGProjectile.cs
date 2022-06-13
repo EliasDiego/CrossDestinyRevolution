@@ -24,6 +24,7 @@ namespace CDR.AttackSystem
 			base.OnEnable();
 
 			transform.LookAt(targetPoint);
+			isInPosition = false;
 		}
 
 		public virtual void FixedUpdate()
@@ -51,7 +52,11 @@ namespace CDR.AttackSystem
 		bool CheckIfInPosition()
 		{
 			if ((targetPoint - transform.position).magnitude < 1)
+			{
+				//transform.position = targetPoint;
 				return true;
+			}
+				
 
 			return false;
 		}
