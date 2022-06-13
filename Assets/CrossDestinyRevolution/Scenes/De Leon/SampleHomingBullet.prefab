@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3874464055193689795}
   - component: {fileID: 3401622447246041833}
   - component: {fileID: 6103551261855339763}
-  m_Layer: 6
+  m_Layer: 7
   m_Name: SampleHomingBullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}
@@ -114,9 +114,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectileHitBox: {fileID: 6103551261855339763}
   projectileDamage: 5
+  hasLifeTime: 1
   projectileMaxLifetime: 5
   playerAttackRange: 0
   originPoint: {x: 0, y: 0, z: 0}
+  staticTargetPoint: {x: 0, y: 0, z: 0}
   bulletSpeed: 40
   rotateSpeed: 50
 --- !u!114 &6103551261855339763
@@ -132,9 +134,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ActiveCharacter: {fileID: 0}
+  _HitLayer:
+    serializedVersion: 2
+    m_Bits: 128
   _Bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 1.05, y: 1.05, z: 1.05}
-  _HitLayer:
-    serializedVersion: 2
-    m_Bits: 256
