@@ -4,20 +4,12 @@ using UnityEngine;
 
 namespace CDR.MovementSystem
 {
-    public class Controller : MonoBehaviour , ICharacterController
+    public class CharacterController : MonoBehaviour , IController
     {
-        [SerializeField]
-        private FlightPlane _flightPlane;
         [SerializeField]
         private Rigidbody rb;
 
         public Vector3 velocity => rb.velocity;
-
-        public IFlightPlane flightPlane 
-        { 
-            get => _flightPlane; 
-            set => _flightPlane = (FlightPlane)value; 
-        }
 
         public void SetVelocity(Vector3 value)
         {

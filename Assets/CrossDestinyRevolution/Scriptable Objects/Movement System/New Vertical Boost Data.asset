@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: New Vertical Boost Data
   m_EditorClassIdentifier: 
   _time: 0.13
-  _distance: 10
+  _distance: 2
