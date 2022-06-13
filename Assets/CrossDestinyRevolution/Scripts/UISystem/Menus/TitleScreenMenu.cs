@@ -9,17 +9,11 @@ namespace CDR.UISystem
     public class TitleScreenMenu : Menu
     {
         [SerializeField]
-        InputActionAsset _Asset;
+        InputActionReference _StartActionReference;
         [SerializeField]
         MainMenu _MainMenu;
-        InputActionMap _ActionMap;
 
-        private void Awake() 
-        {
-            _ActionMap = _Asset.FindActionMap("UI", true);
-        }
-
-        private void OnActionTriggered(InputAction.CallbackContext context)
+        private void OnStart(InputAction.CallbackContext context)
         {
             SwitchTo(_MainMenu);
         }
@@ -28,18 +22,18 @@ namespace CDR.UISystem
         {
             base.Show();
 
-            _ActionMap.Enable();
+            _StartActionReference.action.Enable();
 
-            _ActionMap.actionTriggered += OnActionTriggered;
+            _StartActionReference.action.started += OnStart;
         }
 
         public override void Hide()
         {
             base.Hide();
 
-            _ActionMap.Disable();
+            _StartActionReference.action.Disable();
 
-            _ActionMap.actionTriggered -= OnActionTriggered;
+            _StartActionReference.action.started -= OnStart;
         }
     }
 }
