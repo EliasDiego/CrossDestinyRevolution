@@ -21,12 +21,14 @@ namespace CDR.AttackSystem
 
 		void MoveBullet()
 		{
-			_rigidBody.velocity = transform.forward * BulletSpeed;
+			SetVelocity(transform.forward * BulletSpeed);
+			//_rigidBody.velocity = transform.forward * BulletSpeed;
 		}
 
 		void RotateBullet()
 		{
-			_rigidBody.MoveRotation(Quaternion.LookRotation(target.position));
+			Rotate(Quaternion.LookRotation(target.position));
+			//_rigidBody.MoveRotation(Quaternion.LookRotation(target.position));
 		}
 	}
 }

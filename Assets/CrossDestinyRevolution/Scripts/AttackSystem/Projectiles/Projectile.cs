@@ -9,7 +9,7 @@ using CDR.MechSystem;
 
 namespace CDR.AttackSystem
 {
-	public class Projectile : MonoBehaviour, IProjectile
+	public class Projectile : ProjectileController, IProjectile
 	{
 		IPool _pool;
 
@@ -20,8 +20,6 @@ namespace CDR.AttackSystem
 		[SerializeField] bool hasLifeTime = true;
 		float projectileLifetime;
 		public float projectileMaxLifetime;
-
-		protected Rigidbody _rigidBody;
 
 		IProjectileController projectileController;
 		public IActiveCharacter target { get; set; }
@@ -44,9 +42,6 @@ namespace CDR.AttackSystem
 		public virtual void Start()
 		{
 			projectileController = GetComponent<ProjectileController>();
-
-			_rigidBody = GetComponent<Rigidbody>();
-
 			projectileLifetime = projectileMaxLifetime;
 		}
 
@@ -106,7 +101,7 @@ namespace CDR.AttackSystem
 			originPoint = Vector3.zero;
 			transform.rotation = Quaternion.identity;
 			distanceFromTarget = 0f;
-			_rigidBody.rotation = Quaternion.identity;
+			Rotate(Quaternion.identity);
 		}
 
 		public void Return() //Return to Object Pool

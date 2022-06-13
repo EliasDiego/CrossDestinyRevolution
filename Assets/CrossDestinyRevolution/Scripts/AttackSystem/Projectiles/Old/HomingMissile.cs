@@ -41,7 +41,9 @@ namespace CDR.AttackSystem
 
             var heading = _deviatedPrediction - transform.position;
             var rotation = Quaternion.LookRotation(heading);
-            _rigidBody.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
+
+            Rotate(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
+            //_rigidBody.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
         }
 
         protected virtual void PredictMovement(float leadTimePercentage)

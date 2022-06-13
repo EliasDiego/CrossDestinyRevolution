@@ -39,7 +39,8 @@ namespace CDR.AttackSystem
 
 		public virtual void MoveProjectile()
 		{
-			_rigidBody.velocity = transform.forward * bulletSpeed;
+			SetVelocity(transform.forward * bulletSpeed);
+			//_rigidBody.velocity = transform.forward * bulletSpeed;
 		}
 
 		public virtual void RotateProjectile(){}

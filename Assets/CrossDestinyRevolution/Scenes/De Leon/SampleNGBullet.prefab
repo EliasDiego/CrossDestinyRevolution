@@ -97,6 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ActiveCharacter: {fileID: 0}
+  _Controller: {fileID: 0}
   _HitLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -115,6 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61d2f6d4e117bc0418e3896d1d390999, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Rigidbody: {fileID: 6949673405960922833}
   projectileHitBox: {fileID: 5831834160720572854}
   projectileDamage: 5
   hasLifeTime: 0
