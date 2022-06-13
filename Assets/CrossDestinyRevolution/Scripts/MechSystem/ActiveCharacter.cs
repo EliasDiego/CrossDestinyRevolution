@@ -15,7 +15,7 @@ namespace CDR.MechSystem
     {
         [SerializeField] Health _health;
         [SerializeField] HitShape[] _hitShape;
-        [SerializeField] Controller _controller;
+        [SerializeField] CDR.MovementSystem.CharacterController _controller;
 
         IInput _input;
 

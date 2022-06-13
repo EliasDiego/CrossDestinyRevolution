@@ -11,14 +11,17 @@ namespace CDR.MovementSystem
         [SerializeField]
         private float minDistToPull;
         [SerializeField]
-        private Controller controller;
+        private CharacterController controller;
         [SerializeField]
         private float pullSpeed = 12f;
         [SerializeField]
         private bool enableGravity = true;
 
+        private float defaultY;
+
         private void Start()
         {
+            defaultY = transform.position.y;
             StartCoroutine(GravityOnRigidbody());
         }
 
@@ -42,7 +45,7 @@ namespace CDR.MovementSystem
 
         private float GetDistance()
         {
-            return transform.position.y - controller.flightPlane.position.y;
+            return transform.position.y - defaultY;
         }
     }
 }
