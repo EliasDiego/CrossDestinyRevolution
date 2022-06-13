@@ -22,10 +22,10 @@ namespace CDR.AttackSystem
             Gizmos.DrawCube(_Bounds.center, _Bounds.extents);
         }
 
-        protected override HitData[] GetHitData(Vector3 velocity)
+        protected override HitEnterData[] GetHitData(Vector3 velocity)
         {
             return Physics.BoxCastAll(position, _Bounds.extents / 2, velocity.normalized, transform.rotation, velocity.magnitude, hitLayer)?.
-                Select(r => new HitData() { hit = r, hurtShape = r.collider.GetComponent<IHurtShape>() })?.Where(h => h.hurtShape != null)?.ToArray();
+                Select(r => new HitEnterData(this, r.collider.GetComponent<IHurtShape>(), r))?.Where(h => h.hurtShape != null)?.ToArray();
         }
     }
 }
