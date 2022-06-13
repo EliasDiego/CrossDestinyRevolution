@@ -11,7 +11,7 @@ using CDR.InputSystem;
 
 namespace CDR.VersusSystem
 {
-    public class PlayerInputMenu : VersusMenu
+    public class PlayerSelectMenu : VersusMenu, IMenuCancelHandler
     {
         [Header("UI Input")]
         [SerializeField]
@@ -41,10 +41,15 @@ namespace CDR.VersusSystem
             }; 
         }
 
+        public void OnCancel()
+        {
+            Back();
+        }
+
         public override void Show()
         {
             base.Show();
-            
+
             IParticipantData player1Data;
             IParticipantData player2Data;
 
