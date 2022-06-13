@@ -27,6 +27,11 @@ namespace CDR.ActionSystem
 		{
 			isActionActive = false;
 		}
+
+		public virtual void ForceEnd()
+		{
+			isActionActive = false;
+		}
 	}
 }
 
