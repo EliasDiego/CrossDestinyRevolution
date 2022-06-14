@@ -107,7 +107,7 @@ namespace CDR.InputSystem
 
         private void OnMeleeAttack(InputAction.CallbackContext context)
         {
-            if(CheckBoolean(character?.meleeAttack?.isActive))
+            if(CheckBoolean(character?.meleeAttack?.isActive) || CheckBoolean(character?.meleeAttack?.isCoolingDown))
                 return;
 
             character?.meleeAttack?.Use();
