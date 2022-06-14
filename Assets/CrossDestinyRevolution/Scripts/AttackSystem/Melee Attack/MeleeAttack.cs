@@ -13,7 +13,8 @@ namespace CDR.AttackSystem
 		[SerializeField] float _speed;
 		[SerializeField] float _attackCoolDown;
 		[SerializeField] float _meleeDamage;
-		[SerializeField] Vector3 _followOffset;
+		[SerializeField] float _meleeAttackTime;
+		[SerializeField] float _timer;
 		[SerializeField] GameObject _knockbackPrefab;
 		IMech sender;
 		IMech receiver;
@@ -22,6 +23,11 @@ namespace CDR.AttackSystem
 
         public IHitShape hitbox => _hitBox;
         public float speed => _speed;
+
+		private void Start()
+		{
+			_timer = _meleeAttackTime;
+		}
 
 		public override void Use()
 		{
@@ -42,22 +48,25 @@ namespace CDR.AttackSystem
 		{
 			base.End();
 
+			_timer = _meleeAttackTime;
 			_hitBox.enabled = false;
 			_hitBox.onHitEnter -= HitEnter;
 
 			Character.input.EnableInput();
 			Character.movement.Use();
 			//Character.shield.Use();
+
 			Debug.Log("Melee atk end");
 		}
 
 		void HitEnter(IHitEnterData hitData)
 		{
 			isHoming = false;
-			Debug.LogWarning("Hit!!!" + hitData.hurtShape.character);
+			Character.controller.SetVelocity(Vector3.zero);
+			Debug.Log("Hit!!! " + hitData.hurtShape.character);
+
 			hitData.hurtShape.character.health.TakeDamage(_meleeDamage);
 		
-
 			sender = (IMech)Character;
 			receiver = (IMech)hitData.hurtShape.character;
 
@@ -74,6 +83,11 @@ namespace CDR.AttackSystem
 		public override void Update()
 		{
 			base.Update();
+
+			if(isHoming)
+			{
+				CheckAttackTimer();
+			}
 		}
 
 		private void FixedUpdate()
@@ -86,7 +100,18 @@ namespace CDR.AttackSystem
 
 				Character.controller.Rotate(Quaternion.Slerp(transform.rotation, lookRot, speed * Time.fixedDeltaTime));
 				Character.controller.AddRbForce(-dir * speed);
-				//Character.controller.Translate((targetPos - _followOffset), speed * Time.fixedDeltaTime);
+			}
+		}
+
+		void CheckAttackTimer()
+		{
+			_timer -= Time.deltaTime;
+
+			if(_timer < 0)
+			{
+				isHoming = false;
+				Character.controller.SetVelocity(Vector3.zero);
+				End();
 			}
 		}
 	}
