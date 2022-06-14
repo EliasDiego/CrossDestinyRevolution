@@ -47,8 +47,6 @@ namespace CDR.InputSystem
 
         private bool IsDeviceValid(InputDevice[] devices)
         {
-            devices = devices?.Where(d => d != null)?.ToArray();
-
             if(devices == null || devices.Length <= 0)
             {
                 Debug.LogAssertion("[Input System Error] No Device(s) Assigned!");
@@ -117,6 +115,8 @@ namespace CDR.InputSystem
         public void SetupInput(InputActionMap inputActionMap, params InputDevice[] devices)
         {
             _User = default(InputUser);
+
+            devices = devices?.Where(d => d != null)?.ToArray();
 
             PairDevice(devices);
 
