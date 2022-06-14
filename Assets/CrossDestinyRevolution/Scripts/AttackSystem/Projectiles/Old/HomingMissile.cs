@@ -4,8 +4,11 @@ using UnityEngine;
 
 namespace CDR.AttackSystem
 {
-    public class HomingMissile : HomingProjectile
+    public class HomingMissile : Projectile
     {
+        [SerializeField] public float bulletSpeed = 15f;
+        [SerializeField] public float rotateSpeed = 5f;
+
         [Header("PREDICTION")]
         [SerializeField] protected float _maxDistancePredict = 45;
         [HideInInspector] protected float _minDistancePredict = 5;
@@ -17,9 +20,8 @@ namespace CDR.AttackSystem
 
         protected Vector3 _standardPrediction, _deviatedPrediction;
 
-        public override void FixedUpdate()
+        public void FixedUpdate()
         {
-            base.FixedUpdate();
 
             var leadTimePercentage = Mathf.InverseLerp(_minDistancePredict, _maxDistancePredict, distanceFromTarget);
 
@@ -35,10 +37,8 @@ namespace CDR.AttackSystem
             base.Start();
         }
 
-        public override void RotateProjectile()
+        public void RotateProjectile()
         {
-            base.RotateProjectile();
-
             var heading = _deviatedPrediction - transform.position;
             var rotation = Quaternion.LookRotation(heading);
 

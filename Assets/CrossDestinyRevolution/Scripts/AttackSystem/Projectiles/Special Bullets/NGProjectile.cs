@@ -12,6 +12,8 @@ namespace CDR.AttackSystem
 
 		public bool isInPosition;
 
+		public Vector3 staticTargetPoint;
+
 		public override void Start()
 		{
 			base.Start();

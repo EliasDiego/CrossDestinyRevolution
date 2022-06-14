@@ -58,7 +58,7 @@ namespace CDR.AttackSystem
 
                 firstPhaseBullets.GetComponent<NGProjectile>().targetPoint = staticPositions;
 
-                firstPhaseBullets.GetComponent<NGProjectile>().originPoint = bulletSpawnPoint[0].transform.position;
+                firstPhaseBullets.GetComponent<NGProjectile>().transform.position = bulletSpawnPoint[0].transform.position;
 
                 firstPhaseBullets.SetActive(true);
             }
@@ -76,6 +76,7 @@ namespace CDR.AttackSystem
                     var SecondPhaseBullets = _pool[1].GetPoolable(); //Pool of Homing Bullets
 
                     SecondPhaseBullets.GetComponent<HomingBullet>().target = target.activeCharacter;
+                    SecondPhaseBullets.GetComponent<HomingBullet>().transform.position = firstPhaseBullets.transform.position;
                     SecondPhaseBullets.GetComponent<HomingBullet>().originPoint = firstPhaseBullets.transform.position;
 
                     SecondPhaseBullets.SetActive(true);

@@ -27,10 +27,6 @@ namespace CDR.AttackSystem
 		public float playerAttackRange;
 		protected float distanceFromTarget;
 
-		public Vector3 originPoint;
-
-		public Vector3 staticTargetPoint;
-
 		//Increments
 		public HitBox HitBox => projectileHitBox;
 		public float Lifetime => projectileMaxLifetime;
@@ -47,7 +43,6 @@ namespace CDR.AttackSystem
 
 		public virtual void OnEnable()
 		{
-			transform.position = originPoint;
 			projectileLifetime = projectileMaxLifetime;
 
 			if (projectileHitBox != null)
@@ -98,7 +93,7 @@ namespace CDR.AttackSystem
 		public void ResetObject() //Parameters reset
 		{
 			projectileLifetime = projectileMaxLifetime;
-			originPoint = Vector3.zero;
+			transform.position = Vector3.zero;
 			transform.rotation = Quaternion.identity;
 			distanceFromTarget = 0f;
 			Rotate(Quaternion.identity);

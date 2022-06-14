@@ -4,8 +4,15 @@ using UnityEngine;
 
 namespace CDR.AttackSystem
 {
-    public class HomingBullet : HomingProjectile
+    public class HomingBullet : Projectile
     {
+        [SerializeField] public float bulletSpeed = 15f;
+        [SerializeField] public float rotateSpeed = 5f;
+
+        public Vector3 originPoint;
+
+        protected bool isHoming = true;
+
         float originDistanceFromProjectile; //From origin point to the current position of the projectile
         float originDistanceFromTarget; // From origin point to the current position of the target
 
@@ -13,7 +20,9 @@ namespace CDR.AttackSystem
 		{
             base.OnEnable();
 
-            if(playerAttackRange < originDistanceFromTarget)
+            isHoming = true;
+
+            if (playerAttackRange < originDistanceFromTarget)
 			{
                 isHoming = false;
 			}
@@ -24,9 +33,12 @@ namespace CDR.AttackSystem
             }
         }
 
-        public override void FixedUpdate()
+        public void FixedUpdate()
         {
-            base.FixedUpdate();
+            if (target != null)
+                distanceFromTarget = Vector3.Distance(transform.position, target.position);
+
+            MoveProjectile();
 
             if (target != null)
             {
@@ -50,7 +62,13 @@ namespace CDR.AttackSystem
             base.Start();
         }
 
-		public override void RotateProjectile()
+        public void MoveProjectile()
+        {
+            SetVelocity(transform.forward * bulletSpeed);
+            //_rigidBody.velocity = transform.forward * bulletSpeed;
+        }
+
+        public void RotateProjectile()
         {
             var heading = target.position - transform.position;
             var rotation = Quaternion.LookRotation(heading);
