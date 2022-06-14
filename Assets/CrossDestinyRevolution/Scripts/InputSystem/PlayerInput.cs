@@ -33,6 +33,32 @@ namespace CDR.InputSystem
                 _User.UnpairDevicesAndRemoveUser();
         }
 
+        private bool IsUserNotNull(InputUser user)
+        {
+            if(user == null)
+            {
+                Debug.LogAssertion("[Input System Error] Input User has not yet been created!");
+
+                return false;
+            }
+
+            return true;
+        }
+
+        private bool IsDeviceValid(InputDevice[] devices)
+        {
+            devices = devices?.Where(d => d != null)?.ToArray();
+
+            if(devices == null || devices.Length <= 0)
+            {
+                Debug.LogAssertion("[Input System Error] No Device(s) Assigned!");
+
+                return false;
+            }
+
+            return true;
+        }
+
         protected void StartHaptic(float lowFrequency, float highFrequency)
         {
             if(!_isGamepad)
@@ -53,21 +79,8 @@ namespace CDR.InputSystem
 
         public void PairDevice(params InputDevice[] devices)
         {
-            if(_User == null)
-            {
-                Debug.LogAssertion("[Input System Error] Input User has not yet been created!");
-
+            if(!IsUserNotNull(_User) || !IsDeviceValid(devices))
                 return;
-            }
-
-            devices = devices?.Where(d => d != null)?.ToArray();
-
-            if(devices == null || devices.Length <= 0)
-            {
-                Debug.LogAssertion("[Input System Error] No Device(s) Assigned!");
-
-                return;
-            }
 
             _Gamepads = devices?.Where(d => d is Gamepad)?.Cast<Gamepad>()?.ToArray();
 
@@ -77,13 +90,19 @@ namespace CDR.InputSystem
                 _User = InputUser.PerformPairingWithDevice(device, _User);
         }
 
-        public virtual void SetupInput(InputActionMap inputActionMap, params InputDevice[] devices)
+        public void UnpairDevice(params InputDevice[] devices)
         {
-            _User = default(InputUser);
+            if(!IsUserNotNull(_User) || !_User.valid || !IsDeviceValid(devices))
+                return;
 
-            PairDevice(devices);
+            foreach(InputDevice device in devices)
+                _User.UnpairDevice(device);
+        }
 
-            Debug.Assert(_User.valid, "[Input System Error] Input User is not valid!");
+        public virtual void AssociateActionMap(InputActionMap inputActionMap)
+        {
+            if(!_User.valid)
+                return;
 
             _ActionMap = inputActionMap.Clone();
 
@@ -93,6 +112,17 @@ namespace CDR.InputSystem
                 _InputActions.Add(inputAction.name, inputAction);
 
             _User.AssociateActionsWithUser(_ActionMap);
+        }
+
+        public void SetupInput(InputActionMap inputActionMap, params InputDevice[] devices)
+        {
+            _User = default(InputUser);
+
+            PairDevice(devices);
+
+            Debug.Assert(_User.valid, "[Input System Error] Input User is not valid!");
+
+            AssociateActionMap(inputActionMap);
         }
 
         public virtual void EnableInput()
