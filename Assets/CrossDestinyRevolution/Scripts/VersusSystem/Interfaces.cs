@@ -42,9 +42,6 @@ namespace CDR.VersusSystem
         GameObject versusMapPrefab { get; }
         GameObject versusManagerPrefab { get; }
         GameObject versusUIPrefab { get; }
-
-        void AddParticipantData(IParticipantData participantData);
-        void RemoveParticipantData(IParticipantData participantData);
     }
 
     public interface IMechData

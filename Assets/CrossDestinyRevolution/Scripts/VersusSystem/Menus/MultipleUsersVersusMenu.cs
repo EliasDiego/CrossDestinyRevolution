@@ -13,12 +13,9 @@ namespace CDR.VersusSystem
         GameObject _EventSystemObject;
         [Header("UI Input")]
         [SerializeField]
-        PlayerUIInput _Player1Input;
-        [SerializeField]
-        PlayerUIInput _Player2Input;
+        PlayerUIInput[] _PlayerInputs;
 
-        public PlayerUIInput player1Input => _Player1Input;
-        public PlayerUIInput player2Input => _Player2Input;
+        public PlayerUIInput[] playerInputs => _PlayerInputs;
 
         public override void Show()
         {
@@ -31,8 +28,8 @@ namespace CDR.VersusSystem
         {
             base.Hide();
 
-            player1Input.DisableInput();
-            player2Input.DisableInput();
+            foreach(PlayerUIInput playerInput in playerInputs)
+                playerInput.DisableInput();
 
             _EventSystemObject?.SetActive(true);
         }

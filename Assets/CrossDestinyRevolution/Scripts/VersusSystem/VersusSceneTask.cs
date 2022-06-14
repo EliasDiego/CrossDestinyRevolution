@@ -24,19 +24,16 @@ namespace CDR.VersusSystem
             _VersusData = versusData;
         }
 
-        // Rect GetRect(int cameras, int index)
-        // {
-        //     int oddFolds = Mathf.Max(cameras % 2 == 1 ? cameras : cameras - 1, 1);
-        //     int evenFolds = Mathf.Max(cameras % 2 == 0 ? cameras : cameras - 1, 1);
+        Rect GetRect(int cameras, int playerNumber)
+        {
+            int folds = Mathf.RoundToInt(Mathf.Pow(1, cameras));
+            // int oddFolds = Mathf.Max(cameras % 2 == 1 ? cameras : cameras - 1, 1);
+            // int evenFolds = Mathf.Max(cameras % 2 == 0 ? cameras : cameras - 1, 1);
 
-        //     Vector2 cameraSize = new Vector2(1 / oddFolds, 1 / evenFolds);
-            
-        //     if(index > oddFolds)
+            Vector2 cameraSize = Vector2.one / folds;
 
-
-
-        //     return new Rect(oddFolds * cameraSize.x, evenFolds * cameraSize.y, cameraSize.x, cameraSize.y);
-        // }
+            return new Rect(playerNumber * cameraSize.x, playerNumber * cameraSize.y, cameraSize.x, cameraSize.y);
+        }
 
         private Quaternion LookRotationTopDown(Vector3 direction)
         {
@@ -62,6 +59,14 @@ namespace CDR.VersusSystem
             // IParticipant player2 = _VersusData.player2Data.GetParticipant(versusMap.player2Position, Quaternion.LookRotation(versusMap.flightPlane.position - versusMap.player2Position, Vector3.up), versusMap.flightPlane);
 
             versusUI.Hide();
+
+            ICameraParticipant[] cameraParticipants = participants.Where(p => p is ICameraParticipant).Cast<ICameraParticipant>().ToArray();
+
+            for(int i = 0; i < cameraParticipants.Length; i++)
+            {
+                cameraParticipants[i].cameraRect = GetRect(cameraParticipants.Length, i + 1);
+
+            }
 
             // if(player1 is ICameraParticipant)
             //     (player1 as ICameraParticipant).cameraRect = new Rect(Vector2.zero, new Vector2(0.5f, 1));

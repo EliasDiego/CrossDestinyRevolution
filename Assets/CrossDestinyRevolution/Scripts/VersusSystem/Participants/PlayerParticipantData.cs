@@ -34,9 +34,9 @@ namespace CDR.VersusSystem
             // // GameObject.Instantiate(camera, (participant.mech as Mech).transform, true);
             // // Debug
 
-            // UniversalAdditionalCameraData cameraData = cam.GetUniversalAdditionalCameraData();
+            UniversalAdditionalCameraData cameraData = cam.GetUniversalAdditionalCameraData();
 
-            // cameraData.cameraStack.Add(battleUIObject.GetComponentInChildren<Camera>());
+            cameraData.cameraStack.Add(battleUIObject.GetComponentInChildren<Camera>());
 
             // Input
             

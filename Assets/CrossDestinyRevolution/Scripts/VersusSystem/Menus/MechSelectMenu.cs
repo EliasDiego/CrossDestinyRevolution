@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,22 +17,16 @@ namespace CDR.VersusSystem
 
         public void OnPlayerCancel(IPlayerInput playerInput)
         {
-            // if(player1Input == (PlayerUIInput)playerInput)
-            // {
-            //     versusData.player1Data.mechData = null;
+            int index = Array.FindIndex(playerInputs, p => p == (PlayerUIInput)playerInput);
 
-            //     playerInput.EnableInput();
-            // }
-            
-            // else if(player2Input == (PlayerUIInput)playerInput)
-            // {
-            //     versusData.player2Data.mechData = null;
+            if(index == -1)
+                return;
 
-            //     playerInput.EnableInput();
-            // }
+            versusData.participantDatas[index].mechData = null;
 
-            // else if(versusData.participantDatas.Any(p => p.mechData != null))
-            if(versusData.participantDatas.Any(p => p.mechData != null))
+            playerInput.EnableInput();
+
+            if(!versusData.participantDatas.Any(p => p.mechData != null))
             {
                 Debug.Log("Back");
 
@@ -41,22 +36,15 @@ namespace CDR.VersusSystem
 
         public void PickMech(IPlayerInput playerInput, IMechData mechData)
         {
-            // if(player1Input == (PlayerUIInput)playerInput)
-            // {
-            //     versusData.player1Data.mechData = mechData;
+            int index = Array.FindIndex(playerInputs, p => p == (PlayerUIInput)playerInput);
 
-            //     playerInput.DisableInput();
-            //     playerInput.EnableInput("Cancel");
-            // }
-            
+            if(index == -1)
+                return;
 
-            // else if(player2Input == (PlayerUIInput)playerInput)
-            // {
-            //     versusData.player2Data.mechData = mechData;
+            versusData.participantDatas[index].mechData = mechData;
 
-            //     playerInput.DisableInput();
-            //     playerInput.EnableInput("Cancel");
-            // }
+            playerInput.DisableInput();
+            playerInput.EnableInput("Cancel");
 
             if(!versusData.participantDatas.Any(p => p.mechData == null))
                 SwitchTo(_MapSelectMenu);
@@ -69,8 +57,12 @@ namespace CDR.VersusSystem
             for(int i = 0; i < versusData.participantDatas.Length; i++)
                 versusData.participantDatas[i].mechData = null;
 
-            player1Input.EnableInput();
-            player2Input.EnableInput();
+            foreach(PlayerUIInput playerInput in playerInputs)
+            {
+                playerInput.currentSelectable = null;
+
+                playerInput.EnableInput();
+            }
         }
     }
 }

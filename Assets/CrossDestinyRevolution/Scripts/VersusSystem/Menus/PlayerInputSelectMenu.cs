@@ -14,15 +14,11 @@ using CDR.InputSystem;
 
 namespace CDR.VersusSystem
 {
-    public class PlayerInputSelectMenu : VersusMenu, IMenuCancelHandler, IObserver<InputEventPtr>
+    public class PlayerInputSelectMenu : MultipleUsersVersusMenu, IMenuCancelHandler, IObserver<InputEventPtr>
     {
         [Header("UI Input")]
         [SerializeField]
         GameObject _CameraPrefab;
-        [SerializeField]
-        PlayerUIInput _Player1Input;
-        [SerializeField]
-        PlayerUIInput _Player2Input;
         [SerializeField]
         PlayerUIInput _PlayerSelectInput;
         [SerializeField]
@@ -33,14 +29,19 @@ namespace CDR.VersusSystem
         PlayerMechInputSettings _Settings;
         [SerializeField]
         GameObject _BattleUIPrefab;
-
-        [Header("Player Input Select")]
+        [Header("UI Input")]
         [SerializeField]
-        Image _Player1Image;
-        [SerializeField]
-        Image _Player2Image;
+        VersusSettingsMenu _VersusSettingsMenu;
 
+        List<InputDevice>[] _PlayerDevices = new List<InputDevice>[2];
+        
         private IDisposable _Disposable;
+
+        private void OnDestroy() 
+        {
+            if(_Disposable != null)
+                _Disposable.Dispose();
+        }
 
         private IParticipantData SetPlayerData(InputActionAsset actionAsset, params InputDevice[] devices)
         {
@@ -66,46 +67,18 @@ namespace CDR.VersusSystem
 
             _Disposable = UnityEngine.InputSystem.InputSystem.onEvent.Subscribe(this);
 
-            // _SplitKeyboardActionAsset.actionMaps[0].devices.actions[0].controls
+            versusData.participantDataList.Clear();
 
-            // InputUser a;
+            Debug.Log(versusData.participantDatas.Length);
 
-            // a.AssociateActionsWithUser()
-            
-            // IParticipantData player1Data;
-            // IParticipantData player2Data;
+            for(int i = 0 ; i < _PlayerDevices.Length; i++)
+            {
+                if(_PlayerDevices[i] == null)
+                    _PlayerDevices[i] = new List<InputDevice>();
 
-            // if(Gamepad.all.Count > 2)
-            // {
-            //     _Player1Input.SetupInput(_ActionAsset.FindActionMap("UI", true), Keyboard.current, Mouse.current, Gamepad.all[0]);
-            //     _Player2Input.SetupInput(_ActionAsset.FindActionMap("UI", true), Gamepad.all[1]);
-
-            //     player1Data = SetPlayerData(_ActionAsset, Keyboard.current, Mouse.current, Gamepad.all[0]);
-            //     player2Data = SetPlayerData(_ActionAsset, Gamepad.all[1]);
-            // }
-
-            // else if(Gamepad.all.Count == 1)
-            // {
-            //     _Player1Input.SetupInput(_ActionAsset.FindActionMap("UI", true), Keyboard.current, Mouse.current);
-            //     _Player2Input.SetupInput(_ActionAsset.FindActionMap("UI", true), Gamepad.current);
-
-            //     player1Data = SetPlayerData(_ActionAsset, Keyboard.current, Mouse.current);
-            //     player2Data = SetPlayerData(_ActionAsset, Gamepad.current);
-            // }
-
-            // else
-            // {
-            //     return;
-
-            //     _Player1Input.SetupInput(_ActionAsset.FindActionMap("UI", true), Keyboard.current, Mouse.current);
-            //     _Player2Input.SetupInput(_SplitKeyboardActionAsset.FindActionMap("UI", true), Keyboard.current);
-
-            //     player1Data = SetPlayerData(_ActionAsset, Keyboard.current, Mouse.current);
-            //     player2Data = SetPlayerData(_SplitKeyboardActionAsset, Keyboard.current);
-            // }
-            
-            // versusData.player1Data = player1Data;
-            // versusData.player2Data = player2Data;
+                else
+                    _PlayerDevices[i]?.Clear();
+            }
         }
 
         public override void Hide()
@@ -116,15 +89,9 @@ namespace CDR.VersusSystem
                 _Disposable.Dispose();
         }
 
-        public void OnCompleted()
-        {
-            
-        }
+        public void OnCompleted() { }
 
-        public void OnError(Exception error)
-        {
-            
-        }
+        public void OnError(Exception error) { }
 
         public void OnNext(InputEventPtr value)
         {
@@ -154,9 +121,29 @@ namespace CDR.VersusSystem
             }
         }
 
-        public void SetPlayerDevice(int playerIndex, InputDevice device)
+        public void SetPlayerDevice(int playerIndex, params InputDevice[] devices)
         {
-            
+            if(_PlayerDevices.Length < playerIndex + 1)
+            {
+                Debug.LogError("index is less than what is in capacity");
+            }
+
+            _PlayerDevices[playerIndex].AddRange(devices.Except(_PlayerDevices[playerIndex]));
+
+            if(_PlayerDevices.Any(l => l.Count <= 0))
+                return;
+
+            for(int i = 0; i < _PlayerDevices.Length; i++)
+            {
+                versusData.participantDataList.Add(SetPlayerData(_ActionAsset, _PlayerDevices[i].ToArray()));
+
+                playerInputs[i].SetupInput(_ActionAsset.FindActionMap("UI"), _PlayerDevices[i].ToArray());
+                playerInputs[i].DisableInput();
+            }
+
+            Debug.Log(versusData.participantDatas.Length);
+
+            SwitchTo(_VersusSettingsMenu);
         }
     }
 }
