@@ -130,9 +130,9 @@ namespace CDR.InputSystem
             Debug.Log("Pause");
         }
 
-        public override void SetupInput(InputActionMap inputActionMap, params InputDevice[] devices)
+        public override void AssociateActionMap(InputActionMap inputActionMap)
         {
-            base.SetupInput(inputActionMap, devices);
+            base.AssociateActionMap(inputActionMap);
 
             inputActions["Point"].performed += OnPoint;
             inputActions["Move"].started += OnMove;
@@ -140,8 +140,6 @@ namespace CDR.InputSystem
             inputActions["Submit"].started += OnSubmit;
             inputActions["Cancel"].started += OnCancel;
             inputActions["Click"].performed += OnClick;
-            // inputActions["Start"].started += OnStart;
-            inputActions["Pause"].started += OnPause;
         }
 
         public override void EnableInput()
