@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ActiveCharacter: {fileID: 0}
+  _Controller: {fileID: 0}
   _HitLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -66,7 +67,7 @@ MonoBehaviour:
   activeCharacter: {fileID: 0}
   _hitBox: {fileID: 6548558590547492350}
   _speed: 10
-  _coolDown: 2
+  _attackCoolDown: 5
   _meleeDamage: 10
   _followOffset: {x: 0, y: 0, z: 0}
   _knockbackPrefab: {fileID: 2446635574957657619, guid: 3ccd0001887974a42bf3f975b836c3bc, type: 3}

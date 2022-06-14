@@ -42,7 +42,6 @@ namespace CDR.AttackSystem
 		{
 			base.End();
 
-			isHoming = false;
 			_hitBox.enabled = false;
 			_hitBox.onHitEnter -= HitEnter;
 
@@ -54,13 +53,15 @@ namespace CDR.AttackSystem
 
 		void HitEnter(IHitEnterData hitData)
 		{
+			isHoming = false;
 			Debug.LogWarning("Hit!!!" + hitData.hurtShape.character);
 			hitData.hurtShape.character.health.TakeDamage(_meleeDamage);
-			
-			GameObject kb = Instantiate(_knockbackPrefab, transform.parent);
+		
 
 			sender = (IMech)Character;
 			receiver = (IMech)hitData.hurtShape.character;
+
+			GameObject kb = Instantiate(_knockbackPrefab, ((ActiveCharacter)receiver).transform);
 
 			receiver.currentState = kb.GetComponent<IState>();
 			receiver.currentState.sender = sender;
@@ -77,14 +78,16 @@ namespace CDR.AttackSystem
 
 		private void FixedUpdate()
 		{
-			// if(isHoming)
-			// {
-			// 	Vector3 targetPos = Character.targetHandler.GetCurrentTarget().activeCharacter.position;
-			// 	Quaternion lookRot = Quaternion.LookRotation(targetPos - Character.position);
+			if(isHoming)
+			{
+				Vector3 targetPos = Character.targetHandler.GetCurrentTarget().activeCharacter.position;
+				Vector3 dir = (Character.position - targetPos).normalized;
+				Quaternion lookRot = Quaternion.LookRotation(targetPos - Character.position);
 
-			// 	Character.controller.Rotate(Quaternion.Slerp(transform.rotation, lookRot, speed * Time.fixedDeltaTime));
-			// 	Character.controller.Translate((targetPos - _followOffset), speed * Time.fixedDeltaTime);
-			// }
+				Character.controller.Rotate(Quaternion.Slerp(transform.rotation, lookRot, speed * Time.fixedDeltaTime));
+				Character.controller.AddRbForce(-dir * speed);
+				//Character.controller.Translate((targetPos - _followOffset), speed * Time.fixedDeltaTime);
+			}
 		}
 	}
 }
