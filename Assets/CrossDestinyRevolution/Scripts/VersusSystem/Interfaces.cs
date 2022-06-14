@@ -31,19 +31,20 @@ namespace CDR.VersusSystem
 
     public interface IVersusMap : IMap
     {
-        Vector3 player1Position { get; }
-        Vector3 player2Position { get; }
+        Vector3[] participantPositions { get; }
     }
 
     public interface IVersusData
     {
-        IParticipantData player1Data { get; set; }
-        IParticipantData player2Data { get; set; } 
+        IParticipantData[] participantDatas { get; }
         IMapData mapData { get; set; }
         IVersusSettings settings { get; set; }
         GameObject versusMapPrefab { get; }
         GameObject versusManagerPrefab { get; }
         GameObject versusUIPrefab { get; }
+
+        void AddParticipantData(IParticipantData participantData);
+        void RemoveParticipantData(IParticipantData participantData);
     }
 
     public interface IMechData

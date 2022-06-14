@@ -24,6 +24,8 @@ namespace CDR.VersusSystem
         [SerializeField]
         PlayerUIInput _Player2Input;
         [SerializeField]
+        PlayerUIInput _PlayerSelectInput;
+        [SerializeField]
         InputActionAsset _ActionAsset;
         [SerializeField]
         InputActionAsset _SplitKeyboardActionAsset;
@@ -142,8 +144,19 @@ namespace CDR.VersusSystem
             if(device == null)
                 return;
 
+            if(_PlayerSelectInput.pairedDevices != null && _PlayerSelectInput.pairedDevices.Contains(device))
+                return;
+
             if(_ActionAsset.FindActionMap("Game").IsUsableWithDevice(device))
-                Debug.LogWarning(device + " is pressed~~");
+            {
+                _PlayerSelectInput.SetupInput(_ActionAsset.FindActionMap("UI"), device);
+                _PlayerSelectInput.EnableInput();
+            }
+        }
+
+        public void SetPlayerDevice(int playerIndex, InputDevice device)
+        {
+            
         }
     }
 }

@@ -11,22 +11,20 @@ namespace CDR.VersusSystem
     public class VersusMap : Map, IVersusMap
     {
         [SerializeField]
-        Vector3 _Player1Position;
-        [SerializeField]
-        Vector3 _Player2Position;
-        
-        public Vector3 player1Position => transform.position + _Player1Position;
-        public Vector3 player2Position => transform.position + _Player2Position;
+        Vector3[] _ParticipantPositions;
+
+        public Vector3[] participantPositions => _ParticipantPositions;
 
         private void OnDrawGizmos() 
         {
+            if(_ParticipantPositions.Length <= 0)
+                return;
+                
             Gizmos.matrix = Matrix4x4.TRS(transform.position, transform.rotation, transform.localScale);
+            Gizmos.color = Color.grey;
 
-            Gizmos.color = Color.red;
-            Gizmos.DrawSphere(_Player1Position, 1);
-
-            Gizmos.color = Color.blue;
-            Gizmos.DrawSphere(_Player2Position, 1);    
+            for(int i = 0; i < _ParticipantPositions.Length; i++)
+                Gizmos.DrawSphere(_ParticipantPositions[i], 1);
         }
     }
 }

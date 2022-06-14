@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -37,6 +38,11 @@ namespace CDR.VersusSystem
         //     return new Rect(oddFolds * cameraSize.x, evenFolds * cameraSize.y, cameraSize.x, cameraSize.y);
         // }
 
+        private Quaternion LookRotationTopDown(Vector3 direction)
+        {
+            return Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z), Vector3.up);
+        }
+
         public IEnumerator Process()
         {
             yield return _VersusData.mapData.Process();
@@ -49,27 +55,23 @@ namespace CDR.VersusSystem
 
             IVersusUI versusUI = GameObject.Instantiate(_VersusData.versusUIPrefab).GetComponentInChildren<IVersusUI>();
 
-            IParticipant player1 = _VersusData.player1Data.GetParticipant(versusMap.player1Position, Quaternion.LookRotation(versusMap.flightPlane.position - versusMap.player1Position, Vector3.up), versusMap.flightPlane);
-            IParticipant player2 = _VersusData.player2Data.GetParticipant(versusMap.player2Position, Quaternion.LookRotation(versusMap.flightPlane.position - versusMap.player2Position, Vector3.up), versusMap.flightPlane);
+            IParticipant[] participants = _VersusData.participantDatas.Select((p, i) => p.GetParticipant(versusMap.participantPositions[i], 
+                Quaternion.LookRotation(versusMap.flightPlane.position.xz() - versusMap.participantPositions[i].xz(), Vector3.up), versusMap.flightPlane)).ToArray();
+
+            // IParticipant player1 = _VersusData.player1Data.GetParticipant(versusMap.player1Position, Quaternion.LookRotation(versusMap.flightPlane.position - versusMap.player1Position, Vector3.up), versusMap.flightPlane);
+            // IParticipant player2 = _VersusData.player2Data.GetParticipant(versusMap.player2Position, Quaternion.LookRotation(versusMap.flightPlane.position - versusMap.player2Position, Vector3.up), versusMap.flightPlane);
 
             versusUI.Hide();
+
+            // if(player1 is ICameraParticipant)
+            //     (player1 as ICameraParticipant).cameraRect = new Rect(Vector2.zero, new Vector2(0.5f, 1));
             
-            // Cinemachine.CinemachineBrain b;
-
-            // Cinemachine.CinemachineVirtualCamera c;
-
-            // c.camera
-            // yield return null;
-
-            if(player1 is ICameraParticipant)
-                (player1 as ICameraParticipant).cameraRect = new Rect(Vector2.zero, new Vector2(0.5f, 1));
-            
-            if(player2 is ICameraParticipant)
-                (player2 as ICameraParticipant).cameraRect = new Rect(Vector2.right * 0.5f, new Vector2(0.5f, 1));
+            // if(player2 is ICameraParticipant)
+            //     (player2 as ICameraParticipant).cameraRect = new Rect(Vector2.right * 0.5f, new Vector2(0.5f, 1));
 
             yield return new WaitForSeconds(2);
 
-            versusManager.Initialize(_VersusData.settings, versusUI, player1, player2);
+            versusManager.Initialize(_VersusData.settings, versusUI, participants);
         }
     }
 }
