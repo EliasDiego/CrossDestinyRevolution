@@ -186,9 +186,9 @@ namespace CDR.InputSystem
             Debug.Log($"[Movement Input] {_MovementInput}");
         }
 
-        public override void SetupInput(InputActionMap inputActionMap, params InputDevice[] devices)
+        public override void AssociateActionMap(InputActionMap inputActionMap)
         {
-            base.SetupInput(inputActionMap, devices);
+            base.AssociateActionMap(inputActionMap);
 
             inputActions["Movement"].performed += OnMovement;
             inputActions["Movement"].canceled += OnMovement;
