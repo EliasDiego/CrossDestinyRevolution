@@ -227,7 +227,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 52856851}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Gunpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -659,7 +659,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d484c63baf9570745851beba29ffaff2, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d484c63baf9570745851beba29ffaff2, type: 3}
@@ -674,7 +674,7 @@ GameObject:
   - component: {fileID: 305201883}
   - component: {fileID: 305201885}
   - component: {fileID: 305201884}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: HurtBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -827,7 +827,7 @@ GameObject:
   - component: {fileID: 442285988}
   - component: {fileID: 442285991}
   - component: {fileID: 442285990}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Camera.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -924,6 +924,100 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1001 &489408468
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1389555324}
+    m_Modifications:
+    - target: {fileID: 6548558590547492288, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548558590547492288, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548558590547492288, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548558590547492288, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548558590547492288, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548558590547492288, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548558590547492288, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548558590547492288, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548558590547492288, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548558590547492288, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548558590547492288, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548558590547492289, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: _coolDown
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548558590547492289, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: _attackCoolDown
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548558590547492289, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: activeCharacter
+      value: 
+      objectReference: {fileID: 1389555321}
+    - target: {fileID: 6548558590547492291, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: m_Name
+      value: MeleeAttack
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548558590547492291, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548558590547492350, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6548558590547492350, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: _Controller
+      value: 
+      objectReference: {fileID: 1389555318}
+    - target: {fileID: 6548558590547492350, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: _ActiveCharacter
+      value: 
+      objectReference: {fileID: 1389555321}
+    - target: {fileID: 6548558590547492350, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: _Bounds.m_Center.z
+      value: 0.93
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+--- !u!4 &489408469 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6548558590547492288, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+  m_PrefabInstance: {fileID: 489408468}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &497866378 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: d484c63baf9570745851beba29ffaff2, type: 3}
@@ -1310,6 +1404,17 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 628102866}
   m_Mesh: {fileID: 4711208715938537054, guid: a34f940dbe1954546ae23c21f3821cbb, type: 3}
+--- !u!114 &674353315 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6548558590547492289, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+  m_PrefabInstance: {fileID: 489408468}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6846b467345036e429da695f58046ab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &706323104
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1367,7 +1472,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: d484c63baf9570745851beba29ffaff2, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d484c63baf9570745851beba29ffaff2, type: 3}
@@ -1770,7 +1875,7 @@ GameObject:
   - component: {fileID: 928325177}
   - component: {fileID: 928325172}
   - component: {fileID: 928325171}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: PlayerMech2
   m_TagString: Mech
   m_Icon: {fileID: 0}
@@ -1856,6 +1961,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4589758654f2ea54a97d0b7cb01bb079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Rigidbody: {fileID: 928325172}
   _flightPlane: {fileID: 2136042041}
 --- !u!114 &928325176
 MonoBehaviour:
@@ -1903,12 +2009,17 @@ MonoBehaviour:
   _health:
     currentValue: 100
     maxValue: 100
-  _hurtBoxes: []
+  _hurtShape:
+  - {fileID: 1928507491}
   _controller: {fileID: 928325175}
   _targetHandler: {fileID: 928325177}
   _movement: {fileID: 928325173}
   _boost: {fileID: 928325174}
+  _meleeAttack: {fileID: 0}
   _rangeAttack: {fileID: 928325176}
+  _specialAttack1: {fileID: 0}
+  _specialAttack2: {fileID: 0}
+  _specialAttack3: {fileID: 0}
 --- !u!95 &928325179
 Animator:
   serializedVersion: 3
@@ -2979,7 +3090,7 @@ GameObject:
   - component: {fileID: 1389555316}
   - component: {fileID: 1389555315}
   - component: {fileID: 1389555314}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: PlayerMech1
   m_TagString: Mech
   m_Icon: {fileID: 0}
@@ -3065,6 +3176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4589758654f2ea54a97d0b7cb01bb079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Rigidbody: {fileID: 1389555315}
   _flightPlane: {fileID: 2136042041}
 --- !u!114 &1389555319
 MonoBehaviour:
@@ -3108,16 +3220,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68f88f0aef8b94d44aa460f80cf81417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 0}
+  _animator: {fileID: 1389555322}
   _health:
     currentValue: 100
     maxValue: 100
-  _hurtBoxes: []
+  _hurtShape:
+  - {fileID: 305201884}
   _controller: {fileID: 1389555318}
   _targetHandler: {fileID: 1389555320}
   _movement: {fileID: 1389555316}
   _boost: {fileID: 1389555317}
+  _meleeAttack: {fileID: 674353315}
   _rangeAttack: {fileID: 1389555319}
+  _specialAttack1: {fileID: 0}
+  _specialAttack2: {fileID: 0}
+  _specialAttack3: {fileID: 0}
 --- !u!95 &1389555322
 Animator:
   serializedVersion: 3
@@ -3248,7 +3365,7 @@ Transform:
   - {fileID: 2126800892}
   - {fileID: 497866378}
   - {fileID: 305201883}
-  - {fileID: 1752113630}
+  - {fileID: 489408469}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3646,7 +3763,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1627451511}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Gunpoint2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3762,74 +3879,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1629485473}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1752113629
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1752113630}
-  - component: {fileID: 1752113632}
-  - component: {fileID: 1752113631}
-  m_Layer: 9
-  m_Name: MeleeAttack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1752113630
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1752113629}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1389555324}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1752113631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1752113629}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6846b467345036e429da695f58046ab3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  activeCharacter: {fileID: 1389555321}
-  _hitBox: {fileID: 1752113632}
-  _speed: 10
-  _meleeDamage: 10
-  _knockbackPrefab: {fileID: 2446635574957657619, guid: 3ccd0001887974a42bf3f975b836c3bc, type: 3}
---- !u!114 &1752113632
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1752113629}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d22f6e84518c3439a335c03299bb63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _ActiveCharacter: {fileID: 0}
-  _HitLayer:
-    serializedVersion: 2
-    m_Bits: 512
-  _Bounds:
-    m_Center: {x: 0, y: 0, z: 0.81}
-    m_Extent: {x: 1.47, y: 0.93, z: 0.77}
 --- !u!1 &1822052315
 GameObject:
   m_ObjectHideFlags: 0
@@ -4283,7 +4332,7 @@ GameObject:
   - component: {fileID: 1928507490}
   - component: {fileID: 1928507492}
   - component: {fileID: 1928507491}
-  m_Layer: 9
+  m_Layer: 7
   m_Name: HurtBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4570,7 +4619,7 @@ GameObject:
   - component: {fileID: 2126800892}
   - component: {fileID: 2126800895}
   - component: {fileID: 2126800894}
-  m_Layer: 8
+  m_Layer: 0
   m_Name: Camera.004
   m_TagString: Untagged
   m_Icon: {fileID: 0}
