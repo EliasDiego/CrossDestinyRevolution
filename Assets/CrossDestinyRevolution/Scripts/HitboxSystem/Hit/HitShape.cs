@@ -24,22 +24,16 @@ namespace CDR.AttackSystem
         public override event Action<IHitEnterData> onHitEnter;
         public override event Action<IHitExitData> onHitExit;
 
-        protected struct HitData
-        {
-            public IHurtShape hurtShape  { get; set; }
-            public RaycastHit hit { get; set; }
-        }
-
         private void FixedUpdate() 
         {
             Vector3 velocity = _Controller?.velocity ?? _MinimumVelocity;
 
-            HitData[] hitDatas = GetHitData(velocity);
+            HitEnterData[] hitDatas = GetHitData(velocity);
 
-            IEnumerable<HitData> sortedHitDatas = GetHitData(velocity).Where(h => h.hurtShape.character == null && character == null || h.hurtShape.character != character);
+            IEnumerable<HitEnterData> sortedHitDatas = GetHitData(velocity).Where(h => h.hurtShape.character == null && character == null || h.hurtShape.character != character);
 
             IHurtShape[] exitedHurtShapes = _EnteredHurtShapes?.Except(sortedHitDatas?.Select(h => h.hurtShape))?.ToArray();
-            HitData[] enteredHitData = sortedHitDatas?.Where(h => !_EnteredHurtShapes.Contains(h.hurtShape)).ToArray();//?.Except(_EnteredHurtShapes)?.ToArray();
+            HitEnterData[] enteredHitData = sortedHitDatas?.Where(h => !_EnteredHurtShapes.Contains(h.hurtShape)).ToArray();
 
             foreach(IHurtShape h in exitedHurtShapes)
             {
@@ -52,13 +46,11 @@ namespace CDR.AttackSystem
                 _EnteredHurtShapes.Remove(h);
             }
 
-            foreach(HitData h in enteredHitData)
+            foreach(HitEnterData h in enteredHitData)
             {
-                HitEnterData data = new HitEnterData(this, h.hurtShape, h.hit);
+                h.hurtShape.HitEnter(h);
 
-                h.hurtShape.HitEnter(data);
-
-                onHitEnter?.Invoke(data);
+                onHitEnter?.Invoke(h);
 
                 _EnteredHurtShapes.Add(h.hurtShape);
             }
@@ -73,7 +65,7 @@ namespace CDR.AttackSystem
         }
         #endif  
 
-        protected abstract HitData[] GetHitData(Vector3 velocity);
+        protected abstract HitEnterData[] GetHitData(Vector3 velocity);
         
     }
 }
