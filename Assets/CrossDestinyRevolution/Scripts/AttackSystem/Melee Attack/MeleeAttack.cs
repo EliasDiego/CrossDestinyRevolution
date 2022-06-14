@@ -4,6 +4,7 @@ using UnityEngine;
 using CDR.ActionSystem;
 using CDR.StateSystem;
 using CDR.MechSystem;
+using CDR.ObjectPoolingSystem;
 
 namespace CDR.AttackSystem
 {
@@ -13,9 +14,15 @@ namespace CDR.AttackSystem
 		[SerializeField] float _speed;
 		[SerializeField] float _attackCoolDown;
 		[SerializeField] float _meleeDamage;
+
+		// Timer
 		[SerializeField] float _meleeAttackTime;
 		[SerializeField] float _timer;
-		[SerializeField] GameObject _knockbackPrefab;
+
+		// Object Pool
+		[SerializeField] ObjectPooling _pool;
+
+		// State
 		IMech sender;
 		IMech receiver;
 
@@ -23,6 +30,14 @@ namespace CDR.AttackSystem
 
         public IHitShape hitbox => _hitBox;
         public float speed => _speed;
+
+		protected override void Awake()
+		{
+			base.Awake();
+
+			if(_pool != null)
+				_pool.Initialize();
+		}
 
 		private void Start()
 		{
@@ -40,8 +55,6 @@ namespace CDR.AttackSystem
 			Character.input.DisableInput();
 			Character.movement.End();
 			//Character.shield.End();
-
-			Debug.Log("Melee atk use");
 		}
 
 		public override void End()
@@ -55,8 +68,6 @@ namespace CDR.AttackSystem
 			Character.input.EnableInput();
 			Character.movement.Use();
 			//Character.shield.Use();
-
-			Debug.Log("Melee atk end");
 		}
 
 		void HitEnter(IHitEnterData hitData)
@@ -69,8 +80,10 @@ namespace CDR.AttackSystem
 		
 			sender = (IMech)Character;
 			receiver = (IMech)hitData.hurtShape.character;
-
-			GameObject kb = Instantiate(_knockbackPrefab, ((ActiveCharacter)receiver).transform);
+			
+			GameObject kb = _pool.GetPoolable();
+			kb.transform.SetParent(((ActiveCharacter)receiver).transform);
+			kb.SetActive(true);
 
 			receiver.currentState = kb.GetComponent<IState>();
 			receiver.currentState.sender = sender;

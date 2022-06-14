@@ -715,6 +715,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6548558590547492289, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: _pool
+      value: 
+      objectReference: {fileID: 11400000, guid: eaf2c441e12af9a41b84951af90733ea, type: 2}
+    - target: {fileID: 6548558590547492289, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
       propertyPath: _speed
       value: 1
       objectReference: {fileID: 0}
@@ -1977,8 +1981,7 @@ MonoBehaviour:
   _health:
     currentValue: 100
     maxValue: 100
-  _hurtShape:
-  - {fileID: 1928507491}
+  _hurtShape: []
   _controller: {fileID: 928325175}
   _targetHandler: {fileID: 928325177}
   _movement: {fileID: 928325173}
@@ -3287,8 +3290,7 @@ MonoBehaviour:
   _health:
     currentValue: 100
     maxValue: 100
-  _hurtShape:
-  - {fileID: 305201884}
+  _hurtShape: []
   _controller: {fileID: 1389555318}
   _targetHandler: {fileID: 1389555320}
   _movement: {fileID: 1389555316}

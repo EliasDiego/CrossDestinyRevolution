@@ -71,5 +71,6 @@ MonoBehaviour:
   _meleeDamage: 10
   _meleeAttackTime: 2
   _timer: 0
+  _pool: {fileID: 11400000, guid: eaf2c441e12af9a41b84951af90733ea, type: 2}
   _knockbackPrefab: {fileID: 2446635574957657619, guid: 3ccd0001887974a42bf3f975b836c3bc, type: 3}
   isHoming: 0
