@@ -4,9 +4,9 @@ using UnityEngine;
 
 namespace CDR.AttackSystem
 {
-	public class Bullet : Projectile
-	{
-		[SerializeField] public float BulletSpeed;
+    public class BBBProjectile : Projectile
+    {
+		[SerializeField] public float bulletSpeed = 15f;
 
 		public Quaternion generalDirection;
 
@@ -22,15 +22,16 @@ namespace CDR.AttackSystem
 			transform.rotation = generalDirection;
 		}
 
-		private void FixedUpdate()
-		{
-			MoveBullet();
+		public virtual void FixedUpdate()
+		{			
+			MoveProjectile();
 		}
 
-		void MoveBullet()
+		public virtual void MoveProjectile()
 		{
-			SetVelocity(transform.forward * BulletSpeed);
+			SetVelocity(transform.forward * bulletSpeed);
 		}
 	}
 }
+
 
