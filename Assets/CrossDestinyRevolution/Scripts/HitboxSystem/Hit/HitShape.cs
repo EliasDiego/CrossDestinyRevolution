@@ -33,7 +33,7 @@ namespace CDR.AttackSystem
             IEnumerable<HitEnterData> sortedHitDatas = GetHitData(velocity).Where(h => h.hurtShape.character == null && character == null || h.hurtShape.character != character);
 
             IHurtShape[] exitedHurtShapes = _EnteredHurtShapes?.Except(sortedHitDatas?.Select(h => h.hurtShape))?.ToArray();
-            HitEnterData[] enteredHitData = sortedHitDatas?.Where(h => !_EnteredHurtShapes.Contains(h.hurtShape)).ToArray();//?.Except(_EnteredHurtShapes)?.ToArray();
+            HitEnterData[] enteredHitData = sortedHitDatas?.Where(h => !_EnteredHurtShapes.Contains(h.hurtShape)).ToArray();
 
             foreach(IHurtShape h in exitedHurtShapes)
             {

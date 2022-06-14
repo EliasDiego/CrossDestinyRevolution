@@ -24,7 +24,7 @@ namespace CDR.AttackSystem
 
         protected override HitEnterData[] GetHitData(Vector3 velocity)
         {
-            return Physics.SphereCastAll(position, _Radius, velocity.normalized, velocity.magnitude, hitLayer)?.
+            return Physics.SphereCastAll(position, _Radius, velocity.normalized, velocity.magnitude * Time.fixedDeltaTime, hitLayer)?.
                 Select(r => new HitEnterData(this, r.collider.GetComponent<IHurtShape>(), r))?.Where(h => h.hurtShape != null)?.ToArray();
         }
     }
