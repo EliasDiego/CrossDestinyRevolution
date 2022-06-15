@@ -17,7 +17,7 @@ namespace CDR.AttackSystem
 
 		public float projectileDamage;
 
-		[SerializeField] bool hasLifeTime = true;
+		public bool hasLifeTime = true;
 		float projectileLifetime;
 		public float projectileMaxLifetime;
 

@@ -18,8 +18,6 @@ namespace CDR.AttackSystem
         {
             if(_pool[0] != null)
                 _pool[0].Initialize();
-            if(_pool[1] != null)
-                _pool[1].Initialize();
         }
 
         public override void Use()
@@ -44,6 +42,7 @@ namespace CDR.AttackSystem
 
             FirstPhaseBullet.GetComponent<BBBProjectile>().generalDirection = Quaternion.LookRotation(targetDir);
             FirstPhaseBullet.GetComponent<BBBProjectile>().transform.position = bulletSpawnPoint[0].transform.position;
+            FirstPhaseBullet.GetComponent<BBBProjectile>().hasLifeTime = false;
 
             FirstPhaseBullet.SetActive(true);
 
@@ -74,6 +73,8 @@ namespace CDR.AttackSystem
                     SecondPhaseBulletSub.GetComponent<BBBProjectile>().generalDirection = 
                         FirstPhaseBullet.GetComponent<BBBProjectile>().generalDirection;
 
+                    SecondPhaseBulletSub.GetComponent<BBBProjectile>().hasLifeTime = false;
+
                     SecondPhaseBulletSub.SetActive(true);
 
                     SecondPhaseBullets.Add(SecondPhaseBulletSub);
@@ -97,16 +98,19 @@ namespace CDR.AttackSystem
 				{
                     for (int i = 1; i <= amountOfSplitBullet; i++)
                     {
-                        var ThirdPhaseBulletSub = _pool[1].GetPoolable();
+                        var ThirdPhaseBulletSub = _pool[0].GetPoolable();
 
-                        ThirdPhaseBulletSub.GetComponent<Bullet>().transform.rotation =
+                        ThirdPhaseBulletSub.GetComponent<BBBProjectile>().transform.rotation =
                             secondPhaseBullet.GetComponent<BBBProjectile>().transform.rotation;
 
-                        ThirdPhaseBulletSub.GetComponent<Bullet>().transform.position =
+                        ThirdPhaseBulletSub.GetComponent<BBBProjectile>().transform.position =
                             CalculateSplitPosition(i, distanceFromSecondSplit, SecondPhaseBulletsPos, targetDir);
 
-                        ThirdPhaseBulletSub.GetComponent<Bullet>().generalDirection = 
+                        ThirdPhaseBulletSub.GetComponent<BBBProjectile>().generalDirection = 
                             secondPhaseBullet.GetComponent<BBBProjectile>().generalDirection;
+
+                        ThirdPhaseBulletSub.GetComponent<BBBProjectile>().hasLifeTime = true;
+
 
                         ThirdPhaseBulletSub.SetActive(true);
                     }

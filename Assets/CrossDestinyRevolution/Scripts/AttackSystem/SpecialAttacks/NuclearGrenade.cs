@@ -60,6 +60,8 @@ namespace CDR.AttackSystem
 
                 firstPhaseBullets.GetComponent<NGProjectile>().transform.position = bulletSpawnPoint[0].transform.position;
 
+                firstPhaseBullets.GetComponent<NGProjectile>().hasLifeTime = false;
+
                 firstPhaseBullets.SetActive(true);
             }
 
