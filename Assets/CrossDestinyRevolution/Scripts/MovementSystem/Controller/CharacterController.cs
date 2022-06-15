@@ -15,6 +15,15 @@ namespace CDR.MovementSystem
             get => _flightPlane; 
             set => _flightPlane = (FlightPlane)value; 
         }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            if(collision.gameObject.CompareTag("Player"))
+            {
+                RigidBody.isKinematic = true;
+            }
+            RigidBody.isKinematic = false;
+        }
     }
 }
 

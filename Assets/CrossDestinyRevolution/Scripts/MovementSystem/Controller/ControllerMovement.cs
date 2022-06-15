@@ -56,7 +56,9 @@ namespace CDR.MovementSystem
         Vector3 CentripetalForce()
         {
             float cForce = Mathf.Pow(Character.controller.velocity.magnitude, 2) / distanceToTarget;
-            return currentTarget.direction * -cForce;
+            var force = currentTarget.direction * -cForce;
+            force.y = 0f;
+            return force;
         }
 
         private Vector3 MoveDirection()
@@ -75,6 +77,7 @@ namespace CDR.MovementSystem
 
 
             var current = (Character.rotation * currentDir).normalized;
+            current.y = 0f;
             return current;           
         }
 
@@ -86,7 +89,7 @@ namespace CDR.MovementSystem
             quat.x = 0f;
             quat.z = 0f;
 
-            Character.controller.Rotate(Quaternion.RotateTowards(Character.rotation, quat, 50f));
+            Character.controller.Rotate(Quaternion.RotateTowards(Character.rotation, quat.normalized, 50f));
         }
 
         #region INTERFACE_Methods

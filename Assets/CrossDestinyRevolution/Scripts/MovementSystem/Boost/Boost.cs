@@ -62,7 +62,7 @@ namespace CDR.MovementSystem
             quat.x = 0f;
             quat.z = 0f;
 
-            Character.controller.Rotate(Quaternion.RotateTowards(Character.rotation, quat, 50f));
+            Character.controller.Rotate(Quaternion.RotateTowards(Character.rotation, quat.normalized, 50f));
         }
      
         public void HorizontalBoost(Vector2 direction)

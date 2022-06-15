@@ -34,7 +34,6 @@ namespace CDR.CameraSystem
                 vcam.SetFollowTarget(player.GetComponentInChildren<CameraPivot>().transform);
                 vcam.SetLookTarget(targetGroup.transform);
                 targetGroup.AddMember(player, 1f, 0f);
-                playerCams[index].SetActive(true);
             }
         }
 
