@@ -11,13 +11,9 @@ namespace CDR.InputSystem
         float _MovementInputThreshold;
         [SerializeField]
         MinMaxRange _BoostUpRange;
-        [SerializeField]
-        float _BoostDownMinHeight;
 
         public float movementInputThreshold => _MovementInputThreshold;
 
         public IMinMaxRange boostUpHeightRange => _BoostUpRange;
-
-        public float boostDownMinHeight => _BoostDownMinHeight;
     }
 }

@@ -7,29 +7,37 @@ namespace CDR.MovementSystem
 {
     public class Gravity : MonoBehaviour
     {
+        [Tooltip("Minimum y distance from flight plane before applying gravity")]
         [SerializeField]
-        private float pullOnDistance;
+        private float minDistToPull;
         [SerializeField]
-        private Rigidbody rb;
+        private CharacterController controller;
         [SerializeField]
         private float pullSpeed = 12f;
         [SerializeField]
         private bool enableGravity = true;
 
+        private float defaultY;
+
         private void Start()
         {
+            defaultY = transform.position.y;
             StartCoroutine(GravityOnRigidbody());
         }
 
+        public void SetEnableGravity(bool isEnabled)
+        {
+            enableGravity = isEnabled;
+        }
 
         // Enable gravity on object relative to flight plane.
         private IEnumerator GravityOnRigidbody()
         {
             while (true)
             {
-                if (enableGravity && GetDistance() > pullOnDistance)
+                if (enableGravity && GetDistance() > minDistToPull)
                 {
-                    rb.AddForce(-rb.transform.up * pullSpeed, ForceMode.Acceleration);
+                    controller.AddRbForce(-transform.up * pullSpeed, ForceMode.Acceleration);
                 }
                 yield return null;
             }
@@ -37,7 +45,7 @@ namespace CDR.MovementSystem
 
         private float GetDistance()
         {
-            return Vector3.Distance(rb.transform.position, transform.position);
+            return transform.position.y - defaultY;
         }
     }
 }
