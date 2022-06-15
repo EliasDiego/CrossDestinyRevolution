@@ -11,6 +11,8 @@ namespace CDR.AttackSystem
 
         public Vector3 originPoint;
 
+        public float playerAttackRange;
+
         protected bool isHoming = true;
 
         float originDistanceFromProjectile; //From origin point to the current position of the projectile

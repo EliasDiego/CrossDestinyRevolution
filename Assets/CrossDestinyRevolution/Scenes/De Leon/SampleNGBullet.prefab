@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ActiveCharacter: {fileID: 0}
-  _Controller: {fileID: 6230128931090889574}
+  _Controller: {fileID: 0}
   _HitLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -120,11 +120,12 @@ MonoBehaviour:
   projectileHitBox: {fileID: 5831834160720572854}
   projectileDamage: 5
   hasLifeTime: 0
-  projectileMaxLifetime: 0
-  playerAttackRange: 0
-  bulletSpeed: 15
+  projectileMaxLifetime: 5
+  bulletSpeed: 30
   targetPoint: {x: 0, y: 0, z: 0}
+  targetPlayerPos: {x: 0, y: 0, z: 0, w: 0}
   isInPosition: 0
+  secondPhaseStart: 0
   staticTargetPoint: {x: 0, y: 0, z: 0}
 --- !u!54 &6949673405960922833
 Rigidbody:

@@ -1672,6 +1672,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1389555321}
     - target: {fileID: 1340859940084886449, guid: 1d5472dfbea0b9946922a5c567f51f2f, type: 3}
+      propertyPath: _pool.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340859940084886449, guid: 1d5472dfbea0b9946922a5c567f51f2f, type: 3}
       propertyPath: minDistanceFromTarget
       value: 5.28
       objectReference: {fileID: 0}

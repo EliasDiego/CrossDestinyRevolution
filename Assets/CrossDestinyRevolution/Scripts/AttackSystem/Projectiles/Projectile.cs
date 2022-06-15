@@ -23,8 +23,6 @@ namespace CDR.AttackSystem
 
 		IProjectileController projectileController;
 		public IActiveCharacter target { get; set; }
-
-		public float playerAttackRange;
 		protected float distanceFromTarget;
 
 		//Increments
@@ -80,7 +78,15 @@ namespace CDR.AttackSystem
 		}
 
 		protected virtual void OnHitEnter(IHitEnterData hitData) //Hitbox Response
-		{ }
+		{
+			hitData.hurtShape.character.health.TakeDamage(projectileDamage);
+
+			ResetObject();
+
+			projectileHitBox.onHitEnter -= OnHitEnter;
+
+			Return();
+		}
 
 		public virtual void ResetObject() //Parameters reset
 		{
@@ -89,6 +95,8 @@ namespace CDR.AttackSystem
 			transform.rotation = Quaternion.identity;
 			distanceFromTarget = 0f;
 			transform.parent = null;
+
+			SetVelocity(Vector3.zero);
 			Rotate(Quaternion.identity);
 		}
 

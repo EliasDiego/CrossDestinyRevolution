@@ -46,43 +46,10 @@ MonoBehaviour:
   activeCharacter: {fileID: 0}
   _pool:
   - {fileID: 11400000, guid: 804bf247edd7fe7459215e75a5dbb8b8, type: 2}
-  - {fileID: 11400000, guid: 1b330dc9ef22766419273df5adaf764f, type: 2}
   bulletSpawnPoint:
   - {fileID: 5816485605749745736}
   SpecialAbilityCooldown: 5
   amountOfBullets: 10
-  staticPositions:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 0}
-  FirstPhaseBullets:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  SecondPhaseBullets:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  testTarget: {fileID: 0}
   minDistanceFromTarget: 5
   maxDistanceFromTarget: 20

@@ -8,8 +8,6 @@ namespace CDR.AttackSystem
     {
         [SerializeField] int amountOfBullets;
 
-        [SerializeField] GameObject testTarget; // to test the range
-
         [SerializeField] float minDistanceFromTarget = 5f;
         [SerializeField] float maxDistanceFromTarget = 25f;
 
@@ -18,8 +16,6 @@ namespace CDR.AttackSystem
         {
             if (_pool[0] != null)
                 _pool[0].Initialize();
-            if (_pool[1] != null)
-                _pool[1].Initialize();
         }
 
         public override void Use()
@@ -69,20 +65,20 @@ namespace CDR.AttackSystem
 
             //2ND PHASE
 
-            foreach(GameObject firstPhaseBullets in FirstPhaseBullets)
+            
+
+            foreach (GameObject firstPhaseBullets in FirstPhaseBullets)
 			{
+                var targetDir = Character.targetHandler.GetCurrentTarget().activeCharacter.position - firstPhaseBullets.transform.position;
+
                 if (firstPhaseBullets.activeInHierarchy)
 				{
-                    var SecondPhaseBullets = _pool[1].GetPoolable(); //Pool of Homing Bullets
+                    firstPhaseBullets.GetComponent<NGProjectile>().targetPlayerDir = Quaternion.LookRotation(targetDir);
+                    firstPhaseBullets.GetComponent<NGProjectile>().secondPhaseStart = true;
+                    firstPhaseBullets.GetComponent<NGProjectile>().hasLifeTime = true;
 
-                    SecondPhaseBullets.GetComponent<HomingBullet>().target = target.activeCharacter;
-                    SecondPhaseBullets.GetComponent<HomingBullet>().transform.position = firstPhaseBullets.transform.position;
-                    SecondPhaseBullets.GetComponent<HomingBullet>().originPoint = firstPhaseBullets.transform.position;
-
-                    SecondPhaseBullets.SetActive(true);
-
-                    firstPhaseBullets.GetComponent<NGProjectile>().ResetObject();
-                    firstPhaseBullets.GetComponent<NGProjectile>().Return();
+                    //firstPhaseBullets.GetComponent<NGProjectile>().ResetObject();
+                    //firstPhaseBullets.GetComponent<NGProjectile>().Return();
                 }
             }
 
@@ -100,18 +96,6 @@ namespace CDR.AttackSystem
             }
 
             return true;
-        }
-
-		private void OnDrawGizmos()
-		{
-            if(testTarget != null)
-			{
-                Gizmos.color = Color.red;
-                Gizmos.DrawWireSphere(testTarget.transform.position, minDistanceFromTarget);
-
-                Gizmos.color = Color.red;
-                Gizmos.DrawWireSphere(testTarget.transform.position, maxDistanceFromTarget);
-            }
         }
 	}
 }
