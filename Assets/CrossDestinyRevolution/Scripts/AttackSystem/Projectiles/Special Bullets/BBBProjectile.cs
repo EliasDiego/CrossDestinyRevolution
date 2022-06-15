@@ -10,6 +10,10 @@ namespace CDR.AttackSystem
 
 		public Quaternion generalDirection;
 
+		public Vector3 towardsSplitPoint;
+
+		public bool isInSplitPoint;
+
 		public override void Start()
 		{
 			base.Start();
@@ -23,7 +27,9 @@ namespace CDR.AttackSystem
 		}
 
 		public virtual void FixedUpdate()
-		{			
+		{
+			transform.rotation = generalDirection;
+
 			MoveProjectile();
 		}
 

@@ -96,6 +96,7 @@ namespace CDR.AttackSystem
 			transform.position = Vector3.zero;
 			transform.rotation = Quaternion.identity;
 			distanceFromTarget = 0f;
+			transform.parent = null;
 			Rotate(Quaternion.identity);
 		}
 

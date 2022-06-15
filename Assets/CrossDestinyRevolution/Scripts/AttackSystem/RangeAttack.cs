@@ -45,7 +45,6 @@ namespace CDR.AttackSystem
 
 			bullet.GetComponent<HomingBullet>().target = target.activeCharacter;
 			bullet.GetComponent<HomingBullet>().playerAttackRange = attackRange;
-
 			bullet.GetComponent<HomingBullet>().transform.position = GunPoint.transform.position;
 			bullet.GetComponent<HomingBullet>().originPoint = GunPoint.transform.position;
 
