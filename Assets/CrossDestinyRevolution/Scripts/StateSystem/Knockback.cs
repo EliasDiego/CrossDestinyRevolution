@@ -53,6 +53,7 @@ namespace CDR.StateSystem
 
         public void Return()
         {
+            transform.parent = null;
             pool.ReturnObject(this);
         }
     }
