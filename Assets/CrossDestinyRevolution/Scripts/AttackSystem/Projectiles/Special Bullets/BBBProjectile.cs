@@ -8,11 +8,15 @@ namespace CDR.AttackSystem
     {
 		[SerializeField] public float bulletSpeed = 15f;
 
+		[SerializeField] float bulletSplitSpeed = 2f;
+
 		public Quaternion generalDirection;
 
 		public Vector3 towardsSplitPoint;
 
 		public bool isInSplitPoint;
+
+		public float magnitude;
 
 		public override void Start()
 		{
@@ -26,16 +30,79 @@ namespace CDR.AttackSystem
 			transform.rotation = generalDirection;
 		}
 
+
 		public virtual void FixedUpdate()
 		{
-			transform.rotation = generalDirection;
-
 			MoveProjectile();
+
+			isInSplitPoint = CheckIfInSplitPos();
 		}
 
 		public virtual void MoveProjectile()
 		{
-			SetVelocity(transform.forward * bulletSpeed);
+			if(isInSplitPoint)
+			{
+				towardsSplitPoint = transform.position;
+				SetVelocity(transform.forward * bulletSpeed);
+			}
+
+			if (!isInSplitPoint)
+			{
+				transform.position = Vector3.MoveTowards(transform.position, towardsSplitPoint, bulletSpeed * Time.deltaTime);
+			}
+		}
+
+		protected override void ProcessLifetime()
+		{
+			if (hasLifeTime)
+			{
+				float deltaTime = Time.deltaTime;
+
+				if (LifetimeCountDown(deltaTime))
+				{
+					ResetObject();
+
+					projectileHitBox.onHitEnter -= OnHitEnter;
+
+					Return();
+				}
+			}
+		}
+
+		protected override void OnHitEnter(IHitEnterData hitData)
+		{
+			base.OnHitEnter(hitData);
+
+			hitData.hurtShape.character.health.TakeDamage(projectileDamage);
+
+			ResetObject();
+
+			projectileHitBox.onHitEnter -= OnHitEnter;
+
+			Return();
+		}
+
+
+		bool CheckIfInSplitPos()
+		{
+			magnitude = (towardsSplitPoint - transform.position).magnitude;
+
+			if (magnitude < 2.5f)
+			{
+				transform.position = towardsSplitPoint;
+				return true;
+			}
+			return false;
+		}
+
+		public override void ResetObject() //Parameters reset
+		{
+			base.ResetObject();
+
+			hasLifeTime = true;
+			towardsSplitPoint = Vector3.zero;
+			isInSplitPoint = false;
+			generalDirection = Quaternion.identity;
 		}
 	}
 }

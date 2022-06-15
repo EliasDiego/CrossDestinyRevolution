@@ -31,6 +31,19 @@ namespace CDR.AttackSystem
 		{
 			SetVelocity(transform.forward * BulletSpeed);
 		}
+
+		protected override void OnHitEnter(IHitEnterData hitData)
+		{
+			base.OnHitEnter(hitData);
+
+			hitData.hurtShape.character.health.TakeDamage(projectileDamage);
+
+			ResetObject();
+
+			projectileHitBox.onHitEnter -= OnHitEnter;
+
+			Return();
+		}
 	}
 }
 

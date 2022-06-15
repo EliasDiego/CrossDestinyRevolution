@@ -50,8 +50,7 @@ MonoBehaviour:
   bulletSpawnPoint:
   - {fileID: 2111228784368867426}
   SpecialAbilityCooldown: 5
-  BaseObject: {fileID: 6567028391258459947, guid: f35cfa5058a48b74cab7c1d6b96826ec, type: 3}
   secondsBeforeSplit: 2
-  distanceFromFirstSplit: 7
+  distanceFromFirstSplit: 6
   distanceFromSecondSplit: 4
   amountOfSplitBullet: 4

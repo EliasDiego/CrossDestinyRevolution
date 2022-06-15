@@ -57,9 +57,7 @@ namespace CDR.AttackSystem
                 FirstPhaseBullets.Add(firstPhaseBullets);  //Pool of NG Bullets
 
                 firstPhaseBullets.GetComponent<NGProjectile>().targetPoint = staticPositions;
-
                 firstPhaseBullets.GetComponent<NGProjectile>().transform.position = bulletSpawnPoint[0].transform.position;
-
                 firstPhaseBullets.GetComponent<NGProjectile>().hasLifeTime = false;
 
                 firstPhaseBullets.SetActive(true);
@@ -85,7 +83,6 @@ namespace CDR.AttackSystem
 
                     firstPhaseBullets.GetComponent<NGProjectile>().ResetObject();
                     firstPhaseBullets.GetComponent<NGProjectile>().Return();
-                    firstPhaseBullets.GetComponent<NGProjectile>().isInPosition = false;
                 }
             }
 

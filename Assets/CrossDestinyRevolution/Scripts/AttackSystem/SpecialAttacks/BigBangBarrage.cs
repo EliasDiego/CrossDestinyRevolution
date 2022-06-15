@@ -43,6 +43,7 @@ namespace CDR.AttackSystem
             FirstPhaseBullet.GetComponent<BBBProjectile>().generalDirection = Quaternion.LookRotation(targetDir);
             FirstPhaseBullet.GetComponent<BBBProjectile>().transform.position = bulletSpawnPoint[0].transform.position;
             FirstPhaseBullet.GetComponent<BBBProjectile>().hasLifeTime = false;
+            FirstPhaseBullet.GetComponent<BBBProjectile>().towardsSplitPoint = transform.position;
 
             FirstPhaseBullet.SetActive(true);
 
@@ -62,13 +63,10 @@ namespace CDR.AttackSystem
                 {
                     var SecondPhaseBulletSub = _pool[0].GetPoolable();
 
-                    SecondPhaseBulletSub.transform.rotation = FirstPhaseBullet.transform.rotation;
-
-                    SecondPhaseBulletSub.transform.position = 
-                        CalculateSplitPosition(i, distanceFromFirstSplit, FirstPhaseBulletPos, targetDir);
+                    SecondPhaseBulletSub.transform.SetPositionAndRotation(FirstPhaseBulletPos.position, FirstPhaseBullet.transform.rotation);
 
                     SecondPhaseBulletSub.GetComponent<BBBProjectile>().towardsSplitPoint = 
-                        CalculateSplitPosition(i, distanceFromFirstSplit, FirstPhaseBulletPos, targetDir);
+                        CalculateSplitPosition(i, distanceFromFirstSplit, FirstPhaseBulletPos);
 
                     SecondPhaseBulletSub.GetComponent<BBBProjectile>().generalDirection = 
                         FirstPhaseBullet.GetComponent<BBBProjectile>().generalDirection;
@@ -99,18 +97,16 @@ namespace CDR.AttackSystem
                     for (int i = 1; i <= amountOfSplitBullet; i++)
                     {
                         var ThirdPhaseBulletSub = _pool[0].GetPoolable();
+                        
+                        ThirdPhaseBulletSub.transform.SetPositionAndRotation(SecondPhaseBulletsPos.position, secondPhaseBullet.transform.rotation);
 
-                        ThirdPhaseBulletSub.GetComponent<BBBProjectile>().transform.rotation =
-                            secondPhaseBullet.GetComponent<BBBProjectile>().transform.rotation;
-
-                        ThirdPhaseBulletSub.GetComponent<BBBProjectile>().transform.position =
-                            CalculateSplitPosition(i, distanceFromSecondSplit, SecondPhaseBulletsPos, targetDir);
+                        ThirdPhaseBulletSub.GetComponent<BBBProjectile>().towardsSplitPoint =
+                            CalculateSplitPosition(i, distanceFromSecondSplit, SecondPhaseBulletsPos);
 
                         ThirdPhaseBulletSub.GetComponent<BBBProjectile>().generalDirection = 
                             secondPhaseBullet.GetComponent<BBBProjectile>().generalDirection;
 
                         ThirdPhaseBulletSub.GetComponent<BBBProjectile>().hasLifeTime = true;
-
 
                         ThirdPhaseBulletSub.SetActive(true);
                     }
@@ -124,7 +120,7 @@ namespace CDR.AttackSystem
             yield break;
         }
 
-        Vector3 CalculateSplitPosition(int NumberofTimes, float distanceFromOriginal, Transform originalPos, Vector3 targetDir)
+        Vector3 CalculateSplitPosition(int NumberofTimes, float distanceFromOriginal, Transform originalPos)
         {
             /*float theta = NumberofTimes * 2 * Mathf.PI / amountOfSplitBullet;
 

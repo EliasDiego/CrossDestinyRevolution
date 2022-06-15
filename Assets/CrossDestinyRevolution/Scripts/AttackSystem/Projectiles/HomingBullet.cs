@@ -65,22 +65,26 @@ namespace CDR.AttackSystem
         public void MoveProjectile()
         {
             SetVelocity(transform.forward * bulletSpeed);
-            //_rigidBody.velocity = transform.forward * bulletSpeed;
-        }
+		}
 
-        public void RotateProjectile()
-        {
-            var heading = target.position - transform.position;
-            var rotation = Quaternion.LookRotation(heading);
-            Rotate(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
-        }
-
-		private void OnDrawGizmos()
+		public void RotateProjectile()
 		{
-            //Gizmos.color = Color.red;
-            //Gizmos.DrawLine(transform.position, _standardPrediction);
-            //Gizmos.color = Color.green;
-            //Gizmos.DrawLine(_standardPrediction, _deviatedPrediction);
+			var heading = target.position - transform.position;
+			var rotation = Quaternion.LookRotation(heading);
+			Rotate(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
+		}
+
+        protected override void OnHitEnter(IHitEnterData hitData)
+        {
+            base.OnHitEnter(hitData);
+
+            hitData.hurtShape.character.health.TakeDamage(projectileDamage);
+
+            ResetObject();
+
+            projectileHitBox.onHitEnter -= OnHitEnter;
+
+            Return();
         }
     }
 }

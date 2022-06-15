@@ -98,14 +98,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _Rigidbody: {fileID: 569756686445565418}
   projectileHitBox: {fileID: 1479930735945854181}
-  projectileDamage: 0
+  projectileDamage: 5
   hasLifeTime: 0
   projectileMaxLifetime: 5
   playerAttackRange: 0
   bulletSpeed: 15
+  bulletSplitSpeed: 5
   generalDirection: {x: 0, y: 0, z: 0, w: 0}
   towardsSplitPoint: {x: 0, y: 0, z: 0}
   isInSplitPoint: 0
+  magnitude: 0
 --- !u!114 &1479930735945854181
 MonoBehaviour:
   m_ObjectHideFlags: 0
