@@ -53,7 +53,43 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4178487251840145941, guid: c6e350c76e89b3240903c23c1917970f, type: 3}
       propertyPath: m_Name
-      value: FinalANimation (2)
+      value: BladeWing
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6e350c76e89b3240903c23c1917970f, type: 3}
+--- !u!1 &1258651849109276291 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4178487251840145941, guid: c6e350c76e89b3240903c23c1917970f, type: 3}
+  m_PrefabInstance: {fileID: 2921526865072102550}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4636165569860595540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1258651849109276291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 693123c42694c7b45aecb81d325794eb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &3112414652496183105
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1258651849109276291}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9a8a05bde256a0642b689cc4f0d9fc3e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

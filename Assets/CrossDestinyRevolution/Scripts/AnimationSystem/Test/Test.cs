@@ -5,18 +5,13 @@ using UnityEngine;
 
 namespace CDR.AnimationSystem
 {
-    public class Test : MonoBehaviour, IAnimationEventCaller
+    public class Test : MonoBehaviour
     {
-        List<Action> _AnimationEvents = new List<Action>();
-
-        public Action[] animationEvents => _AnimationEvents.ToArray();
-
-        // Start is called before the first frame update
+        AnimationEventsHolder _Holder;
         void Start()
         {
-            _AnimationEvents.Add(Test1);
-            _AnimationEvents.Add(Test2);
-            _AnimationEvents.Add(Test3);
+            _Holder = GetComponent<AnimationEventsHolder>();
+            _Holder.AddAnimationEvent(typeof(MovementSystem.IMovement), new AnimationEvent(0.2f, true, Test1), new AnimationEvent(1f, false, Test2), new AnimationEvent(0.3f, true, Test3));
         }
         
         void Test1()
