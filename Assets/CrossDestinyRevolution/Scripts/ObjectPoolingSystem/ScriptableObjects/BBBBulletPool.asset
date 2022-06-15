@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54cb1595d1718ef4381a868af2d7ba0a, type: 3}
   m_Name: BBBBulletPool
   m_EditorClassIdentifier: 
-  itemToPool: {fileID: 4174762269179538066, guid: cc6c1b15d39c2c14288374a15998e765, type: 3}
+  itemToPool: {fileID: 8401655100643566970, guid: db55bebf8f7b2674599f8abca81e6fd1, type: 3}
   pooledObjects:
   - {fileID: 0}
   - {fileID: 0}
@@ -29,5 +29,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  amountToPool: 15
+  - {fileID: 0}
+  - {fileID: 0}
+  amountToPool: 17
   shouldExpand: 1

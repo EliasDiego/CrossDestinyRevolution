@@ -50,8 +50,7 @@ MonoBehaviour:
   bulletSpawnPoint:
   - {fileID: 2111228784368867426}
   SpecialAbilityCooldown: 5
-  testTarget: {fileID: 0}
   secondsBeforeSplit: 2
-  distanceFromFirstSplit: 7
+  distanceFromFirstSplit: 6
   distanceFromSecondSplit: 4
   amountOfSplitBullet: 4

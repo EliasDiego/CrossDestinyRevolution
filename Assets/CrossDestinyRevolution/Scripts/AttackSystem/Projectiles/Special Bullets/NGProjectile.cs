@@ -51,6 +51,26 @@ namespace CDR.AttackSystem
 			transform.position = Vector3.MoveTowards(transform.position, targetPoint, step);
 		}
 
+		protected override void OnHitEnter(IHitEnterData hitData)
+		{
+			base.OnHitEnter(hitData);
+
+			hitData.hurtShape.character.health.TakeDamage(projectileDamage);
+
+			ResetObject();
+
+			projectileHitBox.onHitEnter -= OnHitEnter;
+
+			Return();
+		}
+
+		public override void ResetObject() //Parameters reset
+		{
+			base.ResetObject();
+
+			isInPosition = false;
+		}
+
 		bool CheckIfInPosition()
 		{
 			if ((targetPoint - transform.position).magnitude < 1)

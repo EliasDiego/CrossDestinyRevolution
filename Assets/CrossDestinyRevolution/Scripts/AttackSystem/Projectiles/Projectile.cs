@@ -17,8 +17,8 @@ namespace CDR.AttackSystem
 
 		public float projectileDamage;
 
-		[SerializeField] bool hasLifeTime = true;
-		float projectileLifetime;
+		public bool hasLifeTime = true;
+		protected float projectileLifetime;
 		public float projectileMaxLifetime;
 
 		IProjectileController projectileController;
@@ -56,7 +56,7 @@ namespace CDR.AttackSystem
 			ProcessLifetime();
 		}
 
-		void ProcessLifetime()
+		protected virtual void ProcessLifetime()
 		{
 			if(hasLifeTime)
 			{
@@ -73,29 +73,22 @@ namespace CDR.AttackSystem
 			}
 		}
 
-		bool LifetimeCountDown(float deltaTime)
+		protected bool LifetimeCountDown(float deltaTime)
 		{
 			projectileLifetime = Mathf.Max(projectileLifetime - deltaTime, 0f);
 			return projectileLifetime <= 0f;
 		}
 
-		public void OnHitEnter(IHitEnterData hitData) //Hitbox Response
-		{ 
-			hitData.hurtShape.character.health.TakeDamage(projectileDamage);
+		protected virtual void OnHitEnter(IHitEnterData hitData) //Hitbox Response
+		{ }
 
-			ResetObject();
-
-			projectileHitBox.onHitEnter -= OnHitEnter;
-
-			Return();
-		}
-
-		public void ResetObject() //Parameters reset
+		public virtual void ResetObject() //Parameters reset
 		{
 			projectileLifetime = projectileMaxLifetime;
 			transform.position = Vector3.zero;
 			transform.rotation = Quaternion.identity;
 			distanceFromTarget = 0f;
+			transform.parent = null;
 			Rotate(Quaternion.identity);
 		}
 

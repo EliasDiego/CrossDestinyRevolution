@@ -4084,12 +4084,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1389555321}
     - target: {fileID: 2111228784368867427, guid: cc4bb43d2d5e894499d5ca1e7ec6602a, type: 3}
+      propertyPath: _pool.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2111228784368867427, guid: cc4bb43d2d5e894499d5ca1e7ec6602a, type: 3}
+      propertyPath: _pool.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: c7d4ee354fe59b244bd5ad7d31ab865d, type: 2}
+    - target: {fileID: 2111228784368867427, guid: cc4bb43d2d5e894499d5ca1e7ec6602a, type: 3}
+      propertyPath: _pool.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: b4740db1324b57846b00509573952e59, type: 2}
+    - target: {fileID: 2111228784368867427, guid: cc4bb43d2d5e894499d5ca1e7ec6602a, type: 3}
       propertyPath: distanceFromFirstSplit
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2111228784368867427, guid: cc4bb43d2d5e894499d5ca1e7ec6602a, type: 3}
       propertyPath: distanceFromSecondSplit
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc4bb43d2d5e894499d5ca1e7ec6602a, type: 3}
