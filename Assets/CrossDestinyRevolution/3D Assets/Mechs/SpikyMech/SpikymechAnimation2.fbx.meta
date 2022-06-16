@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: bef6a2e690fca454fb037884ab6d9fbd
+guid: 1336d0316fa45f146b6e624991360a0f
 ModelImporter:
   serializedVersion: 20200
   internalIDToNameTable:
@@ -9,6 +9,9 @@ ModelImporter:
   - first:
       74: 1156683307138686266
     second: Armature|Death Stinger
+  - first:
+      74: -644134229007111938
+    second: Armature|gobackidea
   - first:
       74: 7318126053661235560
     second: Armature|ideal
@@ -24,6 +27,9 @@ ModelImporter:
   - first:
       74: -7751958092768812534
     second: Armature|LeanSideRight
+  - first:
+      74: 1259702122883550862
+    second: Armature|startdeathstinger
   externalObjects: {}
   materials:
     materialImportMode: 2
@@ -44,7 +50,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 3
+    animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -109,7 +115,7 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 1
+    hasExtraRoot: 0
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
