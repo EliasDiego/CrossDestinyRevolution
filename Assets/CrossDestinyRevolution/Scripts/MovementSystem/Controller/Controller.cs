@@ -4,55 +4,48 @@ using UnityEngine;
 
 namespace CDR.MovementSystem
 {
-    public class Controller : MonoBehaviour , ICharacterController
+    public class Controller : MonoBehaviour, IController
     {
         [SerializeField]
-        private FlightPlane _flightPlane;
-        [SerializeField]
-        private Rigidbody rb;
+        Rigidbody _Rigidbody;
 
-        public Vector3 velocity => rb.velocity;
-
-        public IFlightPlane flightPlane 
-        { 
-            get => _flightPlane; 
-            set => _flightPlane = (FlightPlane)value; 
-        }
-
-        public void SetVelocity(Vector3 value)
+        public Rigidbody RigidBody
         {
-            rb.velocity = value;
+            get => _Rigidbody;
+            set => _Rigidbody = value;
         }
 
-        public void ClampVelocity(float magnitude)
+        public Vector3 velocity => _Rigidbody.velocity;
+
+        public virtual void SetVelocity(Vector3 value)
         {
-            rb.velocity = Vector3.ClampMagnitude(rb.velocity, magnitude);
+            _Rigidbody.velocity = value;
         }
 
-        public void AddRbForce(Vector3 force, ForceMode mode = ForceMode.VelocityChange)
+        public virtual void ClampVelocity(float magnitude)
         {
-            rb.AddForce(force, mode);
+            _Rigidbody.velocity = Vector3.ClampMagnitude(_Rigidbody.velocity, magnitude);
         }
 
-        public void Translate(Vector3 direction, float magnitude)
+        public virtual void AddRbForce(Vector3 force, ForceMode mode = ForceMode.VelocityChange)
         {
-            transform.position = direction * magnitude;
+            _Rigidbody.AddForce(force, mode);
         }
 
-        public void Rotate(Quaternion rotation)
+        public virtual void AddRelativeForce(Vector3 force, ForceMode mode = ForceMode.VelocityChange)
         {
-            rb.rotation = rotation;
+            _Rigidbody.AddRelativeForce(force, mode);
         }
 
-        private void OnCollisionEnter(Collision collision)
+        public virtual void Translate(Vector3 direction, float magnitude)
         {
-            if(collision.gameObject.CompareTag("Player"))
-            {
-                rb.isKinematic = true;
-            }
-            rb.isKinematic = false;
+            _Rigidbody.MovePosition(_Rigidbody.position + direction * magnitude);
         }
 
+        public virtual void Rotate(Quaternion rotation)
+        {
+            _Rigidbody.MoveRotation(rotation);
+        }
     }
 }
 

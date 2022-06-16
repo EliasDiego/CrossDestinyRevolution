@@ -7,10 +7,6 @@ namespace CDR.AttackSystem
     public class NuclearGrenade : SpecialAttack
     {
         [SerializeField] int amountOfBullets;
-        [SerializeField] Vector3[] staticPositions;
-
-        [SerializeField] GameObject[] FirstPhaseBullets;
-        [SerializeField] GameObject[] SecondPhaseBullets;
 
         [SerializeField] float minDistanceFromTarget = 5f;
         [SerializeField] float maxDistanceFromTarget = 25f;
@@ -20,8 +16,6 @@ namespace CDR.AttackSystem
         {
             if (_pool[0] != null)
                 _pool[0].Initialize();
-            if (_pool[1] != null)
-                _pool[1].Initialize();
         }
 
         public override void Use()
@@ -42,61 +36,68 @@ namespace CDR.AttackSystem
 
             var target = Character.targetHandler.GetCurrentTarget();
 
-            
-            for (int i = 0; i < amountOfBullets; i++) //Set Random positions based on target's position
+            var FirstPhaseBullets = new List<GameObject>();
+
+			for (int i = 0; i < amountOfBullets; i++) //Set Random positions based on target's position
 			{
-                staticPositions[i] = new Vector3(
-                    Random.Range(target.activeCharacter.position.x, target.activeCharacter.position.x + maxDistanceFromTarget), 
-                    Random.Range(target.activeCharacter.position.y, target.activeCharacter.position.y + maxDistanceFromTarget), 
-                    Random.Range(target.activeCharacter.position.z, target.activeCharacter.position.z + maxDistanceFromTarget));
+                var randomPosMax = target.activeCharacter.position + Random.onUnitSphere * maxDistanceFromTarget;
+                var randomPosMin = target.activeCharacter.position + Random.onUnitSphere * minDistanceFromTarget;
 
-                FirstPhaseBullets[i] = _pool[0].GetPoolable(); //Pool of NG Bullets
+                Vector3 staticPositions = new Vector3(
+                    Random.Range(randomPosMin.x, randomPosMax.x),
+                    Random.Range(randomPosMin.y, randomPosMax.y),
+                    Random.Range(randomPosMin.z, randomPosMax.z));
 
-                FirstPhaseBullets[i].GetComponent<NGProjectile>().targetPoint = staticPositions[i];
+                var firstPhaseBullets = _pool[0].GetPoolable();
 
-                FirstPhaseBullets[i].GetComponent<NGProjectile>().originPoint = bulletSpawnPoint[0].transform.position;
-                
-                FirstPhaseBullets[i].SetActive(true);
+                FirstPhaseBullets.Add(firstPhaseBullets);  //Pool of NG Bullets
+
+                firstPhaseBullets.GetComponent<NGProjectile>().targetPoint = staticPositions;
+                firstPhaseBullets.GetComponent<NGProjectile>().transform.position = bulletSpawnPoint[0].transform.position;
+                firstPhaseBullets.GetComponent<NGProjectile>().hasLifeTime = false;
+
+                firstPhaseBullets.SetActive(true);
             }
 
             End();
 
-            yield return new WaitUntil(() => CheckBulletPosition());
+            yield return new WaitUntil(() => CheckBulletPosition(FirstPhaseBullets));
 
             //2ND PHASE
 
-            for (int i = 0; i < amountOfBullets; i++) //Instantiate/GetFromPool bullets
-            {
+            
 
+            foreach (GameObject firstPhaseBullets in FirstPhaseBullets)
+			{
+                var targetDir = Character.targetHandler.GetCurrentTarget().activeCharacter.position - firstPhaseBullets.transform.position;
 
-                SecondPhaseBullets[i] = _pool[1].GetPoolable(); //Pool of Homing Bullets
+                if (firstPhaseBullets.activeInHierarchy)
+				{
+                    firstPhaseBullets.GetComponent<NGProjectile>().targetPlayerDir = Quaternion.LookRotation(targetDir);
+                    firstPhaseBullets.GetComponent<NGProjectile>().secondPhaseStart = true;
+                    firstPhaseBullets.GetComponent<NGProjectile>().hasLifeTime = true;
 
-                SecondPhaseBullets[i].GetComponent<HomingBullet>().target = target.activeCharacter;
-                SecondPhaseBullets[i].GetComponent<HomingBullet>().originPoint = FirstPhaseBullets[i].transform.position;
-
-                SecondPhaseBullets[i].SetActive(true);
-
-                FirstPhaseBullets[i].GetComponent<NGProjectile>().ResetObject();
-                FirstPhaseBullets[i].GetComponent<NGProjectile>().Return();
+                    //firstPhaseBullets.GetComponent<NGProjectile>().ResetObject();
+                    //firstPhaseBullets.GetComponent<NGProjectile>().Return();
+                }
             }
 
             yield break;
         }
 
-        bool CheckBulletPosition()
+        bool CheckBulletPosition(List<GameObject> FirstPhaseBullets)
 		{
-            for(int i = 0; i < amountOfBullets; i++)
+            foreach(GameObject firstPhaseBullets in FirstPhaseBullets)
 			{
-                if (FirstPhaseBullets[i].GetComponent<NGProjectile>().isInPosition == false)
-				{
+                if (firstPhaseBullets.GetComponent<NGProjectile>().isInPosition == false && firstPhaseBullets.activeInHierarchy)
+                {
                     return false;
-				}    
-			}
+                }
+            }
+
             return true;
         }
-
-
-    }
+	}
 }
 
 

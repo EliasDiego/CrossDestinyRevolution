@@ -571,7 +571,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &300366404
 Transform:
   m_ObjectHideFlags: 0
@@ -604,10 +604,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ad494f88c25c6341b7c5bcd8382678b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeCharacter: {fileID: 0}
+  _pool: {fileID: 0}
   FireRate: 0.2
   GunPoint: {fileID: 1823313739}
-  TargetPoint: {fileID: 300366404}
-  BulletProjectile: {fileID: 2203737843774928167, guid: 00f601e421fef4849a6e8c908f27a304, type: 3}
+  attackRange: 0
 --- !u!114 &300366406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -620,6 +621,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb8647a94e83711448b60fc91cabcb14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeCharacter: {fileID: 300366407}
 --- !u!114 &300366407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -632,9 +634,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68f88f0aef8b94d44aa460f80cf81417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 300366408}
   _health:
     currentValue: 0
     maxValue: 0
+  _hitShape: []
+  _controller: {fileID: 300366412}
+  _targetHandler: {fileID: 300366406}
+  _movement: {fileID: 300366410}
+  _boost: {fileID: 300366411}
+  _meleeAttack: {fileID: 0}
+  _rangeAttack: {fileID: 300366405}
+  _specialAttack1: {fileID: 0}
+  _specialAttack2: {fileID: 0}
+  _specialAttack3: {fileID: 0}
 --- !u!95 &300366408
 Animator:
   serializedVersion: 3
@@ -762,6 +775,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25ea01c051b983940bccf9cdfc1c2b6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeCharacter: {fileID: 0}
   _speed: 8
   _gravity: 0
   clampSpeed: 1
@@ -778,6 +792,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 891a8a7539489eb4792bf35aebe8eeec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeCharacter: {fileID: 0}
   regenDelaySeconds: 0
   _boostValue:
     currentValue: 0
@@ -799,6 +814,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _flightPlane: {fileID: 1332145393}
+  rb: {fileID: 0}
 --- !u!54 &300366413
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -854,8 +870,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 337311291}
-  m_LocalRotation: {x: 0.16880776, y: -0, z: 0.0000000074505797, w: 0.985649}
-  m_LocalPosition: {x: -0.0000009536745, y: 3.1100001, z: -5.0900016}
+  m_LocalRotation: {x: -0.000000007450581, y: -0.9843137, z: 0.1764273, w: -0.00000008940697}
+  m_LocalPosition: {x: -0.000002384186, y: 2.8100004, z: 11.310017}
   m_LocalScale: {x: 100.000084, y: 100.00003, z: 100.00006}
   m_Children: []
   m_Father: {fileID: 721704765}
@@ -1665,9 +1681,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68f88f0aef8b94d44aa460f80cf81417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 0}
   _health:
     currentValue: 0
     maxValue: 0
+  _hitShape: []
+  _controller: {fileID: 0}
+  _targetHandler: {fileID: 0}
+  _movement: {fileID: 0}
+  _boost: {fileID: 0}
+  _meleeAttack: {fileID: 0}
+  _rangeAttack: {fileID: 0}
+  _specialAttack1: {fileID: 0}
+  _specialAttack2: {fileID: 0}
+  _specialAttack3: {fileID: 0}
 --- !u!95 &632652937
 Animator:
   serializedVersion: 3
@@ -1812,6 +1839,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _flightPlane: {fileID: 0}
+  rb: {fileID: 0}
 --- !u!1 &688626686
 GameObject:
   m_ObjectHideFlags: 0
@@ -2056,7 +2084,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &721704760
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2069,10 +2097,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ad494f88c25c6341b7c5bcd8382678b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeCharacter: {fileID: 0}
+  _pool: {fileID: 0}
   FireRate: 0.2
   GunPoint: {fileID: 393956070}
-  TargetPoint: {fileID: 721704765}
-  BulletProjectile: {fileID: 2203737843774928167, guid: 00f601e421fef4849a6e8c908f27a304, type: 3}
+  attackRange: 0
 --- !u!114 &721704761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2085,6 +2114,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb8647a94e83711448b60fc91cabcb14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeCharacter: {fileID: 0}
 --- !u!114 &721704762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2097,9 +2127,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68f88f0aef8b94d44aa460f80cf81417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _animator: {fileID: 0}
   _health:
     currentValue: 0
     maxValue: 0
+  _hitShape: []
+  _controller: {fileID: 0}
+  _targetHandler: {fileID: 0}
+  _movement: {fileID: 0}
+  _boost: {fileID: 0}
+  _meleeAttack: {fileID: 0}
+  _rangeAttack: {fileID: 0}
+  _specialAttack1: {fileID: 0}
+  _specialAttack2: {fileID: 0}
+  _specialAttack3: {fileID: 0}
 --- !u!95 &721704763
 Animator:
   serializedVersion: 3
@@ -2246,6 +2287,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25ea01c051b983940bccf9cdfc1c2b6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeCharacter: {fileID: 0}
   _speed: 8
   _gravity: 10
   clampSpeed: 1
@@ -2262,6 +2304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 891a8a7539489eb4792bf35aebe8eeec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  activeCharacter: {fileID: 0}
   regenDelaySeconds: 0
   _boostValue:
     currentValue: 0
@@ -2283,6 +2326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _flightPlane: {fileID: 1332145393}
+  rb: {fileID: 0}
 --- !u!54 &721704769
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5908,6 +5952,14 @@ PrefabInstance:
     - target: {fileID: 2037532614956944338, guid: 4f55b9156dc93a24c9132b588ff1fb9f, type: 3}
       propertyPath: m_Name
       value: CameraManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 2037532615446023360, guid: 4f55b9156dc93a24c9132b588ff1fb9f, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2037532615449923091, guid: 4f55b9156dc93a24c9132b588ff1fb9f, type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f55b9156dc93a24c9132b588ff1fb9f, type: 3}

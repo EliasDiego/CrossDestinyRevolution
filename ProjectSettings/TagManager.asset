@@ -3,9 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Mech
-  - Bullet
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -13,9 +11,7 @@ TagManager:
   - 
   - Water
   - UI
-  - Bullet
   - FlightPlane
-  - Mech
   - Collision
   - 
   - 
@@ -26,8 +22,11 @@ TagManager:
   - 
   - 
   - 
-  - Player1Cam
-  - Player2Cam
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 

@@ -4,8 +4,17 @@ using UnityEngine;
 
 namespace CDR.AttackSystem
 {
-    public class HomingBullet : HomingProjectile
+    public class HomingBullet : Projectile
     {
+        [SerializeField] public float bulletSpeed = 15f;
+        [SerializeField] public float rotateSpeed = 5f;
+
+        public Vector3 originPoint;
+
+        public float playerAttackRange;
+
+        protected bool isHoming = true;
+
         float originDistanceFromProjectile; //From origin point to the current position of the projectile
         float originDistanceFromTarget; // From origin point to the current position of the target
 
@@ -13,7 +22,9 @@ namespace CDR.AttackSystem
 		{
             base.OnEnable();
 
-            if(playerAttackRange < originDistanceFromTarget)
+            isHoming = true;
+
+            if (playerAttackRange < originDistanceFromTarget)
 			{
                 isHoming = false;
 			}
@@ -24,9 +35,12 @@ namespace CDR.AttackSystem
             }
         }
 
-        public override void FixedUpdate()
+        public void FixedUpdate()
         {
-            base.FixedUpdate();
+            if (target != null)
+                distanceFromTarget = Vector3.Distance(transform.position, target.position);
+
+            MoveProjectile();
 
             if (target != null)
             {
@@ -50,21 +64,29 @@ namespace CDR.AttackSystem
             base.Start();
         }
 
-		public override void RotateProjectile()
+        public void MoveProjectile()
         {
-            var heading = target.position - transform.position;
-            //var heading = _deviatedPrediction - transform.position;
-            var rotation = Quaternion.LookRotation(heading);
-            _rigidBody.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
-            //_rigidBody.MoveRotation(rotation);
-        }
+            SetVelocity(transform.forward * bulletSpeed);
+		}
 
-		private void OnDrawGizmos()
+		public void RotateProjectile()
 		{
-            //Gizmos.color = Color.red;
-            //Gizmos.DrawLine(transform.position, _standardPrediction);
-            //Gizmos.color = Color.green;
-            //Gizmos.DrawLine(_standardPrediction, _deviatedPrediction);
+			var heading = target.position - transform.position;
+			var rotation = Quaternion.LookRotation(heading);
+			Rotate(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
+		}
+
+        protected override void OnHitEnter(IHitEnterData hitData)
+        {
+            base.OnHitEnter(hitData);
+
+            hitData.hurtShape.character.health.TakeDamage(projectileDamage);
+
+            ResetObject();
+
+            projectileHitBox.onHitEnter -= OnHitEnter;
+
+            Return();
         }
     }
 }
