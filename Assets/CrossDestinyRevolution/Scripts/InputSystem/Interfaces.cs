@@ -21,13 +21,14 @@ namespace CDR.InputSystem
 
     public interface IPlayerInput : IInput
     {
-        // bool isPaired { get; }
+        bool isAssignedInput { get; }
         InputDevice[] pairedDevices { get; }
 
-        // event Action onDeviceDisconnect;
-
         void PairDevice(params InputDevice[] devices);
-        void SetupInput(InputActionMap inputActionMap, params InputDevice[] devices);
+        void UnpairDevice(params InputDevice[] devices);
+        void AssociateActionMap(InputActionMap inputActionMap);
+        void AssignInput(InputActionMap inputActionMap, params InputDevice[] devices);
+        void UnassignInput();
     }
 
     public interface IAIInput : IInput

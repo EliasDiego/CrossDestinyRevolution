@@ -8,4 +8,9 @@ namespace CDR.InputSystem
     {
         void OnCancel();
     }
+
+    public interface IMenuSubmitHandler
+    {
+        void OnSubmit();
+    }
 }
