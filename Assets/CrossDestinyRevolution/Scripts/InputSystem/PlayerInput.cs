@@ -14,6 +14,8 @@ namespace CDR.InputSystem
         private InputActionMap _ActionMap;
         private Gamepad[] _Gamepads;
 
+        private bool _IsAssignedInput = false;
+
         private bool _IsEnabled = false;
 
         private Dictionary<string, InputAction> _InputActions = new Dictionary<string, InputAction>();
@@ -27,10 +29,11 @@ namespace CDR.InputSystem
         
         public bool isEnabled => _IsEnabled;
 
+        public bool isAssignedInput => _IsAssignedInput;
+
         protected virtual void OnDestroy()
         {
-            if(_User != null && _User.valid)
-                _User.UnpairDevicesAndRemoveUser();
+            UnassignInput();
         }
 
         private bool IsUserNotNull(InputUser user)
@@ -112,8 +115,11 @@ namespace CDR.InputSystem
             _User.AssociateActionsWithUser(_ActionMap);
         }
 
-        public void SetupInput(InputActionMap inputActionMap, params InputDevice[] devices)
+        public void AssignInput(InputActionMap inputActionMap, params InputDevice[] devices)
         {
+            if(isAssignedInput)
+                UnassignInput();
+
             _User = default(InputUser);
 
             devices = devices?.Where(d => d != null)?.ToArray();
@@ -123,6 +129,16 @@ namespace CDR.InputSystem
             Debug.Assert(_User.valid, "[Input System Error] Input User is not valid!");
 
             AssociateActionMap(inputActionMap);
+
+            _IsAssignedInput = true;
+        }
+
+        public void UnassignInput()
+        {
+            if(_User != null && _User.valid)
+                _User.UnpairDevicesAndRemoveUser();
+
+            _IsAssignedInput = true;
         }
 
         public virtual void EnableInput()
