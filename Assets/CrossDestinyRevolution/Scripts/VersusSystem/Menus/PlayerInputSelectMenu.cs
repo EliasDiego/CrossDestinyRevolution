@@ -11,6 +11,7 @@ using UnityEngine.InputSystem.LowLevel;
 
 using CDR.UISystem;
 using CDR.InputSystem;
+using CDR.ObjectPoolingSystem;
 
 namespace CDR.VersusSystem
 {
@@ -19,8 +20,6 @@ namespace CDR.VersusSystem
         [Header("UI Input")]
         [SerializeField]
         GameObject _CameraPrefab;
-        [SerializeField]
-        PlayerUIInput _PlayerSelectInput;
         [SerializeField]
         InputActionAsset _ActionAsset;
         [SerializeField]
@@ -32,10 +31,18 @@ namespace CDR.VersusSystem
         [Header("UI Input")]
         [SerializeField]
         VersusSettingsMenu _VersusSettingsMenu;
+        [SerializeField]
+        ObjectPooling _Pool;
 
-        List<InputDevice>[] _PlayerDevices = new List<InputDevice>[2];
-        
+        List<InputDevice> _DevicesInScreen = new List<InputDevice>();
+        List<PlayerUIInput> _ActivePlayerInputs = new List<PlayerUIInput>();
+
         private IDisposable _Disposable;
+
+        private void Awake() 
+        {
+            _Pool?.Initialize();
+        }
 
         private void OnDestroy() 
         {
@@ -65,20 +72,22 @@ namespace CDR.VersusSystem
         {
             base.Show();
 
+            InputActionMap gameActionMap = _ActionAsset.FindActionMap("Game", true);
+
             _Disposable = UnityEngine.InputSystem.InputSystem.onEvent.Subscribe(this);
 
-            versusData.participantDataList.Clear();
-
-            Debug.Log(versusData.participantDatas.Length);
-
-            for(int i = 0 ; i < _PlayerDevices.Length; i++)
+            foreach(InputDevice device in UnityEngine.InputSystem.InputSystem.devices.Where(i => gameActionMap.IsUsableWithDevice(i)))
             {
-                if(_PlayerDevices[i] == null)
-                    _PlayerDevices[i] = new List<InputDevice>();
+                PlayerDeviceInput deviceInput = _Pool.GetPoolable().GetComponent<PlayerDeviceInput>();
 
-                else
-                    _PlayerDevices[i]?.Clear();
+                deviceInput.gameObject.SetActive(true);
+                deviceInput.transform.SetParent(transform, false);
+                deviceInput.transform.localPosition = Vector3.zero;
+                deviceInput.AssignInput(gameActionMap, device);
+                deviceInput.EnableInput();
             }
+
+            versusData.participantDataList.Clear();
         }
 
         public override void Hide()
@@ -110,40 +119,31 @@ namespace CDR.VersusSystem
 
             if(device == null)
                 return;
-
-            if(_PlayerSelectInput.pairedDevices != null && _PlayerSelectInput.pairedDevices.Contains(device))
-                return;
-
-            if(_ActionAsset.FindActionMap("Game").IsUsableWithDevice(device))
-            {
-                _PlayerSelectInput.SetupInput(_ActionAsset.FindActionMap("UI"), device);
-                _PlayerSelectInput.EnableInput();
-            }
         }
 
         public void SetPlayerDevice(int playerIndex, params InputDevice[] devices)
         {
-            if(_PlayerDevices.Length < playerIndex + 1)
-            {
-                Debug.LogError("index is less than what is in capacity");
-            }
+            // if(_PlayerDevices.Length < playerIndex + 1)
+            // {
+            //     Debug.LogError("index is less than what is in capacity");
+            // }
 
-            _PlayerDevices[playerIndex].AddRange(devices.Except(_PlayerDevices[playerIndex]));
+            // _PlayerDevices[playerIndex].AddRange(devices.Except(_PlayerDevices[playerIndex]));
 
-            if(_PlayerDevices.Any(l => l.Count <= 0))
-                return;
+            // if(_PlayerDevices.Any(l => l.Count <= 0))
+            //     return;
 
-            for(int i = 0; i < _PlayerDevices.Length; i++)
-            {
-                versusData.participantDataList.Add(SetPlayerData(_ActionAsset, _PlayerDevices[i].ToArray()));
+            // for(int i = 0; i < _PlayerDevices.Length; i++)
+            // {
+            //     versusData.participantDataList.Add(SetPlayerData(_ActionAsset, _PlayerDevices[i].ToArray()));
 
-                playerInputs[i].SetupInput(_ActionAsset.FindActionMap("UI"), _PlayerDevices[i].ToArray());
-                playerInputs[i].DisableInput();
-            }
+            //     playerInputs[i].AssignInput(_ActionAsset.FindActionMap("UI"), _PlayerDevices[i].ToArray());
+            //     playerInputs[i].DisableInput();
+            // }
 
-            Debug.Log(versusData.participantDatas.Length);
+            // Debug.Log(versusData.participantDatas.Length);
 
-            SwitchTo(_VersusSettingsMenu);
+            // SwitchTo(_VersusSettingsMenu);
         }
     }
 }
