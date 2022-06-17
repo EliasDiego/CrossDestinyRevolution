@@ -13,9 +13,9 @@ TagManager:
   - UI
   - Bullet
   - FlightPlane
-  - 
-  - 
-  - 
+  - Collision
+  - Player1Cam
+  - Player2Cam
   - 
   - 
   - 
