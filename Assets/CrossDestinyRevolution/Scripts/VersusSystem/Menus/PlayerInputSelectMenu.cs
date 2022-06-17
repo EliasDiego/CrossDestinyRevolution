@@ -14,7 +14,7 @@ using CDR.InputSystem;
 
 namespace CDR.VersusSystem
 {
-    public class PlayerInputSelectMenu : MultipleUsersVersusMenu, IMenuCancelHandler, IObserver<InputEventPtr>
+    public class PlayerInputSelectMenu : MultipleUsersVersusMenu, IObserver<InputEventPtr>
     {
         [Header("Versus Stuff")]
         [SerializeField]
@@ -36,8 +36,12 @@ namespace CDR.VersusSystem
         [SerializeField]
         private PlayerIndexImageHandler[] _PlayerIndexImageHandlers;
 
+        [SerializeField]
+        LayerMask _Layermask;
+
         private int _CurrentPlayerIndex = 0;
         private InputDevice _CurrentDevice;
+        private InputActionAsset _CurrentInputActionAsset;
         private List<InputDevice> _PlayerDevices = new List<InputDevice>();
 
         private IDisposable _Disposable;
@@ -80,7 +84,7 @@ namespace CDR.VersusSystem
 
         private void OnStart(InputAction.CallbackContext context)
         {
-            versusData.participantDataList.Add(SetPlayerData(_ActionAsset, _CurrentDevice));
+            versusData.participantDataList.Add(SetPlayerData(_CurrentInputActionAsset, _CurrentDevice));
 
             if(versusData.participantDataList.Count >= 2)
                 SwitchTo(_VersusSettingsMenu);
@@ -88,9 +92,13 @@ namespace CDR.VersusSystem
                 _CurrentPlayerIndex++;
             
             UpdateImageHandlers(_CurrentPlayerIndex);
+
+            _PlayerDevices.Add(_CurrentDevice);
+
+            _PlayerSelectInput.UnassignInput();
         }
 
-        public void OnCancel()
+        private void OnCancel(InputAction.CallbackContext context)
         {
             if(previousMenu != null)
                 Back();
@@ -146,14 +154,22 @@ namespace CDR.VersusSystem
 
             InputActionMap gameActionMap = _ActionAsset.FindActionMap("Game", true);
 
-            if(_CurrentDevice == device || !gameActionMap.IsUsableWithDevice(device) || _PlayerDevices.Contains(device))
+            if(!gameActionMap.IsUsableWithDevice(device))
                 return;
 
+            if(device is Keyboard)
+                _CurrentInputActionAsset = _PlayerDevices.Any(d => d is Keyboard) ? _SplitKeyboardActionAsset : _ActionAsset;
+
+            else if(_PlayerDevices.Contains(device))
+                return;
+
+            _PlayerSelectInput.AssignInput(_CurrentInputActionAsset.FindActionMap("UI", true), device);
+
             _CurrentDevice = device;
-                
-            _PlayerSelectInput.AssignInput(_ActionAsset.FindActionMap("UI", true), device);
+            
             _PlayerSelectInput.EnableInput();
             _PlayerSelectInput.onStart += OnStart;
+            _PlayerSelectInput.onCancel += OnCancel;
         }
     }
 }
