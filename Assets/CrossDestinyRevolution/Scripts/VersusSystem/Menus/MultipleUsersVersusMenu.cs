@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -28,7 +29,7 @@ namespace CDR.VersusSystem
         {
             base.Hide();
 
-            foreach(PlayerUIInput playerInput in playerInputs)
+            foreach(PlayerUIInput playerInput in playerInputs.Where(p => p.isAssignedInput))
                 playerInput.DisableInput();
 
             _EventSystemObject?.SetActive(true);

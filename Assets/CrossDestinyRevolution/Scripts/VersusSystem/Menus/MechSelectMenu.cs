@@ -58,11 +58,7 @@ namespace CDR.VersusSystem
                 versusData.participantDatas[i].mechData = null;
 
             foreach(PlayerUIInput playerInput in playerInputs)
-            {
-                playerInput.currentSelectable = null;
-
                 playerInput.EnableInput();
-            }
         }
     }
 }

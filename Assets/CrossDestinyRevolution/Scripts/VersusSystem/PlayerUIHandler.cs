@@ -12,6 +12,7 @@ namespace CDR.VersusSystem
     {
         RectTransform _RectTransform;
         PlayerUIInput _PlayerInput;
+        SelectableEventHandler _SelectableEventHandler;
         Image _Image;
 
         void Awake()
@@ -22,7 +23,9 @@ namespace CDR.VersusSystem
 
             _PlayerInput = GetComponent<PlayerUIInput>();
 
-            _PlayerInput.onCurrentSelectableChange += OnCurrentSelectableChange;
+            _SelectableEventHandler = GetComponent<SelectableEventHandler>();
+
+            _SelectableEventHandler.onCurrentSelectableChange += OnCurrentSelectableChange;
             _PlayerInput.onEnableInput += OnEnableInput;
             _PlayerInput.onDisableInput += OnDisableInput;
         }
