@@ -190,20 +190,39 @@ namespace CDR.InputSystem
         {
             base.AssociateActionMap(inputActionMap);
 
-            inputActions["Movement"].performed += OnMovement;
-            inputActions["Movement"].canceled += OnMovement;
 
-            inputActions["Boost"].canceled += OnBoost;
-            inputActions["Boost"].performed += OnBoostDown;
+            if (GetInputAction("Movement", out InputAction inputAction))
+            {
+                inputAction.performed += OnMovement;
+                inputAction.canceled += OnMovement;
+            }
 
-            inputActions["ChangeTarget"].started += OnChangeTarget;
-            inputActions["MeleeAttack"].started += OnMeleeAttack;
-            inputActions["Shield"].started += OnShield;
-            inputActions["SpecialAttack1"].started += OnSpecialAttack1;
-            inputActions["SpecialAttack2"].started += OnSpecialAttack2;
-            inputActions["SpecialAttack3"].started += OnSpecialAttack3;
+            if (GetInputAction("Boost", out inputAction))
+            {
+                inputAction.performed += OnBoostDown;
+                inputAction.canceled += OnBoost;
+            }
 
-            _InputActionUpdates.Add("RangeAttack", new InputActionUpdate(inputActions["RangeAttack"], OnRangeAttack));
+            if (GetInputAction("ChangeTarget", out inputAction))
+                inputAction.started += OnChangeTarget;
+                
+            if (GetInputAction("MeleeAttack", out inputAction))
+                inputAction.started += OnMeleeAttack;
+
+            if (GetInputAction("Shield", out inputAction))
+                inputAction.started += OnShield;
+
+            if (GetInputAction("SpecialAttack1", out inputAction))
+                inputAction.started += OnSpecialAttack1;
+                
+            if (GetInputAction("SpecialAttack2", out inputAction))
+                inputAction.started += OnSpecialAttack2;
+                
+            if (GetInputAction("SpecialAttack3", out inputAction))
+                inputAction.started += OnSpecialAttack3;
+
+            if (GetInputAction("RangeAttack", out inputAction))
+                _InputActionUpdates.Add("RangeAttack", new InputActionUpdate(inputAction, OnRangeAttack));
         }
     }
 }

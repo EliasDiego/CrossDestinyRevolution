@@ -706,7 +706,18 @@
                 {
                     "name": "",
                     "id": "2e14cc0e-4b2e-4b90-b2b4-608e4c57cb57",
-                    "path": "*/{Submit}",
+                    "path": "<Keyboard>/enter",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Submit",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "36beb165-bb40-49e7-b0dd-62444315a182",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -717,7 +728,18 @@
                 {
                     "name": "",
                     "id": "492bc5eb-2d03-4421-947b-e3f804b31e54",
-                    "path": "*/{Cancel}",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "df61b95d-68d2-4724-b2ed-0954e5965b0d",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
