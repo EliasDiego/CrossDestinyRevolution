@@ -8,22 +8,40 @@ namespace CDR.AttackSystem
     public class CosmicBulletCluster : Projectile
     {
         [SerializeField]
-        private CosmicProjectile[] projectiles;
+        private GameObject[] projectiles;
+        [SerializeField]
+        private Transform rotator;
         [SerializeField]
         private float radius = 1f;
         [SerializeField]
         private float rotateSpeed = 5f;
+        [SerializeField]
+        private float flightSpeed = 4f;
 
         public override void OnEnable()
         {
             base.OnEnable();
-            SetPosition();
+            transform.parent = null;
+            SetPosition();          
         }
 
         public override void Update()
         {
             base.Update();
             Rotate();
+            transform.Translate(transform.forward * Time.deltaTime * flightSpeed);
+        }
+
+        protected override void OnHitEnter(IHitEnterData hitData)
+        {
+            Debug.Log("HIT");
+        }
+
+        public void Init(Vector3 spawnPos = default, Vector3 dir = default)
+        {
+            transform.position = spawnPos;
+            transform.forward = dir;
+            gameObject.SetActive(true);
         }
 
         private void SetPosition()
@@ -34,10 +52,15 @@ namespace CDR.AttackSystem
             projectiles[3].transform.localPosition = transform.position + -transform.right * radius;
         }
 
-
         private void Rotate()
         {
-            transform.RotateAround(transform.position, transform.up, rotateSpeed);         
+            rotator.Rotate(Vector3.up, rotateSpeed);
+        }
+
+        public override void ResetObject()
+        {
+            base.ResetObject();
+            SetVelocity(Vector3.zero);
         }
     }
 }

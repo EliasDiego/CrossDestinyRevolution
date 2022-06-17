@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 54cb1595d1718ef4381a868af2d7ba0a, type: 3}
-  m_Name: CosmicBullet
+  m_Name: CosmicBulletCluster
   m_EditorClassIdentifier: 
-  itemToPool: {fileID: 5406523757920823132, guid: 5c9200da07210704e990b242736754e8, type: 3}
-  pooledObjects: []
+  itemToPool: {fileID: 6844578796853949878, guid: 7ad48d6527169104e81a9fc41719eace, type: 3}
+  pooledObjects:
+  - {fileID: 0}
   amountToPool: 10
   shouldExpand: 1
