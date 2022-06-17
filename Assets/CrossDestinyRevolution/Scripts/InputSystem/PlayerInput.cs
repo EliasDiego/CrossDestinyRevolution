@@ -23,7 +23,6 @@ namespace CDR.InputSystem
         private bool _isGamepad = false;
 
         protected InputActionMap actionMap => _ActionMap;
-        protected Dictionary<string, InputAction> inputActions => _InputActions;
         
         public InputDevice[] pairedDevices => _User.valid ? _User.pairedDevices.ToArray() : null;
         
@@ -58,6 +57,22 @@ namespace CDR.InputSystem
             }
 
             return true;
+        }
+
+        protected bool GetInputAction(string name, out InputAction inputAction)
+        {
+            if(_InputActions.ContainsKey(name))
+            {
+                inputAction = _InputActions[name];
+
+                return true;
+            }
+
+            Debug.LogAssertion("[Input Error] Input Action doesn't exist!");
+
+            inputAction = null;
+
+            return false;
         }
 
         protected void StartHaptic(float lowFrequency, float highFrequency)
