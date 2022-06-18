@@ -125,5 +125,15 @@ namespace CDR.MovementSystem
                     Character.position)
                 );
         }
+
+        public override void ForceEnd()
+        {
+            base.ForceEnd();
+            if(_FixedCoroutine != null)
+            {
+                StopCoroutine(_FixedCoroutine);
+            }
+            Character.controller.SetVelocity(Vector3.zero);
+        }
     }
 }

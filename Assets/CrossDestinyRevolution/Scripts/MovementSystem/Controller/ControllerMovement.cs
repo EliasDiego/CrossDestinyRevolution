@@ -116,6 +116,13 @@ namespace CDR.MovementSystem
             base.End();
         }
 
+        public override void ForceEnd()
+        {
+            base.ForceEnd();
+            currentDir = Vector3.zero;
+            Character.controller.SetVelocity(Vector3.zero);
+        }
+
         public void SetSpeedClamp(bool isClamped)
         {
             clampSpeed = isClamped;
