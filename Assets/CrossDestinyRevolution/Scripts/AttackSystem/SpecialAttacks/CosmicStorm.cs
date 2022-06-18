@@ -18,23 +18,12 @@ namespace CDR.AttackSystem
         public override void Use()
         {
             base.Use();
-            //Fire();
-            StartCoroutine(Test());
+            Fire();
         }
 
         public override void End()
         {
             base.End();
-        }
-
-        IEnumerator Test()
-        {
-            var cluster = _pool[0].GetPoolable();
-            cluster.GetComponent<CosmicBulletCluster>().transform.position = bulletSpawnPoint[0].transform.position;
-            //cluster.transform.position = bulletSpawnPoint[0].transform.position;
-            cluster.SetActive(true);
-            End();
-            yield break;
         }
 
         private void Fire()
@@ -43,9 +32,7 @@ namespace CDR.AttackSystem
             var cluster = _pool[0].GetPoolable();
             if(cluster != null)
             {
-                //cluster.GetComponent<CosmicBulletCluster>().Init(spawn.position, targetDir);
-                //cluster.transform.position = spawn.position;
-                cluster.SetActive(true);
+                cluster.GetComponent<CosmicBulletCluster>().Init(bulletSpawnPoint[0].transform.position, targetDir);
             }
             End();
         }

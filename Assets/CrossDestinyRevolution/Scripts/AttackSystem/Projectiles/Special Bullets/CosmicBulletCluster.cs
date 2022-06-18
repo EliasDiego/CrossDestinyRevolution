@@ -8,7 +8,7 @@ namespace CDR.AttackSystem
     public class CosmicBulletCluster : Projectile
     {
         [SerializeField]
-        private GameObject[] projectiles;
+        private HitBox[] projectiles;
         [SerializeField]
         private Transform rotator;
         [SerializeField]
@@ -18,49 +18,124 @@ namespace CDR.AttackSystem
         [SerializeField]
         private float flightSpeed = 4f;
 
+        private Vector3 flightDir;
+
+        private void Awake()
+        {
+            SetPosition();
+            SubscribeEvents();
+        }
+
         public override void OnEnable()
         {
-            base.OnEnable();
-            transform.parent = null;
-            SetPosition();          
+            base.OnEnable();           
+        }
+
+        private void OnDestroy()
+        {
+            UnsubscribeEvents();   
         }
 
         public override void Update()
         {
             base.Update();
             Rotate();
-            transform.Translate(transform.forward * Time.deltaTime * flightSpeed);
+            transform.Translate(flightDir * Time.deltaTime * flightSpeed);
         }
 
-        protected override void OnHitEnter(IHitEnterData hitData)
+        private void FixedUpdate()
         {
-            Debug.Log("HIT");
+            AddRbForce(Vector3.forward);
+            ClampVelocity(0.01f);
         }
 
         public void Init(Vector3 spawnPos = default, Vector3 dir = default)
         {
             transform.position = spawnPos;
-            transform.forward = dir;
+            flightDir = dir;
             gameObject.SetActive(true);
         }
 
         private void SetPosition()
         {
-            projectiles[0].transform.localPosition = transform.position + transform.forward * radius;
-            projectiles[1].transform.localPosition = transform.position + transform.right * radius;
-            projectiles[2].transform.localPosition = transform.position + -transform.forward * radius;
-            projectiles[3].transform.localPosition = transform.position + -transform.right * radius;
+            projectiles[0].transform.localPosition = transform.localPosition + transform.up * radius;
+            projectiles[1].transform.localPosition = transform.localPosition + transform.forward * radius;
+            projectiles[2].transform.localPosition = transform.localPosition + -transform.up * radius;
+            projectiles[3].transform.localPosition = transform.localPosition + -transform.forward * radius;
         }
 
         private void Rotate()
         {
-            rotator.Rotate(Vector3.up, rotateSpeed);
+            rotator.Rotate(Vector3.right, rotateSpeed);
         }
 
         public override void ResetObject()
         {
+            gameObject.SetActive(false);
             base.ResetObject();
             SetVelocity(Vector3.zero);
+        }
+
+        private void SubscribeEvents()
+        {
+            projectiles[0].onHitEnter += OnHit1;
+            projectiles[1].onHitEnter += OnHit2;
+            projectiles[2].onHitEnter += OnHit3;
+            projectiles[3].onHitEnter += OnHit4;
+        }
+
+        private void UnsubscribeEvents()
+        {
+            projectiles[0].onHitEnter -= OnHit1;
+            projectiles[1].onHitEnter -= OnHit2;
+            projectiles[2].onHitEnter -= OnHit3;
+            projectiles[3].onHitEnter -= OnHit4;
+        }
+
+        private void OnHit1(IHitEnterData data)
+        {
+            projectiles[0].gameObject.SetActive(false);
+            HitDamage((MechSystem.Health)data.hurtShape.character.health);
+        }
+
+        private void OnHit2(IHitEnterData data)
+        {
+            projectiles[1].gameObject.SetActive(false);
+            HitDamage((MechSystem.Health)data.hurtShape.character.health);
+        }
+
+        private void OnHit3(IHitEnterData data)
+        {
+            projectiles[2].gameObject.SetActive(false);
+            HitDamage((MechSystem.Health)data.hurtShape.character.health);
+        }
+
+        private void OnHit4(IHitEnterData data)
+        {
+            projectiles[3].gameObject.SetActive(false);
+            HitDamage((MechSystem.Health)data.hurtShape.character.health);
+        }
+
+        private void HitDamage(MechSystem.Health hp)
+        {
+            hp.TakeDamage(projectileDamage);
+            if(ActiveProjectiles() == 0)
+            {
+                ResetObject();
+            }
+        }
+
+        private int ActiveProjectiles()
+        {
+            var count = 4;
+            for(int i = 0; i < projectiles.Length; i++)
+            {
+                if(!projectiles[i].gameObject.activeInHierarchy)
+                {
+                    count--;
+                }
+            }
+            return count;
         }
     }
 }
