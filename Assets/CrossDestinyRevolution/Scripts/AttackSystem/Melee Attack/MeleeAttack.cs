@@ -12,11 +12,13 @@ namespace CDR.AttackSystem
     {
 		[SerializeField] HitBox _hitBox;
 		[SerializeField] float _speed;
-		[SerializeField] float _attackCoolDown;
 		[SerializeField] float _meleeDamage;
 
+		// Cooldown
+		[SerializeField] float _meleeAttackCoolDown;
+
 		// Timer
-		[SerializeField] float _meleeAttackTime;
+		[SerializeField] float _meleeAttackDuration;
 		[SerializeField] float _timer;
 
 		// Object Pool
@@ -41,7 +43,8 @@ namespace CDR.AttackSystem
 
 		private void Start()
 		{
-			_timer = _meleeAttackTime;
+			_cooldownDuration = _meleeAttackCoolDown;
+			_timer = _meleeAttackDuration;
 		}
 
 		public override void Use()
@@ -49,7 +52,7 @@ namespace CDR.AttackSystem
 			base.Use();
 			
 			isHoming = true;
-			_hitBox.enabled = true;
+			//_hitBox.enabled = true;
 			_hitBox.onHitEnter += HitEnter;
 
 			Character.input.DisableInput();
@@ -61,8 +64,8 @@ namespace CDR.AttackSystem
 		{
 			base.End();
 
-			_timer = _meleeAttackTime;
-			_hitBox.enabled = false;
+			_timer = _meleeAttackDuration;
+			//_hitBox.enabled = false;
 			_hitBox.onHitEnter -= HitEnter;
 
 			Character.input.EnableInput();
@@ -74,7 +77,7 @@ namespace CDR.AttackSystem
 		{
 			isHoming = false;
 			Character.controller.SetVelocity(Vector3.zero);
-			Debug.Log("Hit!!! " + hitData.hurtShape.character);
+			Debug.LogWarning("Hit!!! " + hitData.hurtShape.character);
 
 			hitData.hurtShape.character.health.TakeDamage(_meleeDamage);
 		
