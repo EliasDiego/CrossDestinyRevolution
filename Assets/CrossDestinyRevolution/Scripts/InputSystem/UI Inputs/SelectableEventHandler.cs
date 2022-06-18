@@ -24,11 +24,27 @@ namespace CDR.InputSystem
         {
             _PlayerUIInput = GetComponent<PlayerUIInput>();
 
+            _PlayerUIInput.onEnableInput += OnEnableInput;
+            _PlayerUIInput.onDisableInput += OnDisableInput;
+        }
+
+        private void OnEnableInput()
+        {
             _PlayerUIInput.onSubmit += OnSubmit;
             _PlayerUIInput.onCancel += OnCancel;
             _PlayerUIInput.onMove += OnMove;
             _PlayerUIInput.onPoint += OnPoint;
             _PlayerUIInput.onClick += OnClick;
+
+        }
+
+        private void OnDisableInput()
+        {
+            _PlayerUIInput.onSubmit -= OnSubmit;
+            _PlayerUIInput.onCancel -= OnCancel;
+            _PlayerUIInput.onMove -= OnMove;
+            _PlayerUIInput.onPoint -= OnPoint;
+            _PlayerUIInput.onClick -= OnClick;
         }
 
         private void SetCurrentSelectable(Selectable selectable)
