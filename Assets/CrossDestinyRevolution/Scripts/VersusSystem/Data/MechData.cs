@@ -8,9 +8,11 @@ namespace CDR.VersusSystem
     public class MechData : ScriptableObject, IMechData
     {
         [SerializeField]
-        string _MechName;
+        private string _MechName;
         [SerializeField]
-        GameObject _MechPrefab;
+        private GameObject _MechPrefab;
+        [SerializeField]
+        private Sprite _MechProfile;
 
         public string mechName => _MechName;
         public GameObject mechPrefab => _MechPrefab;

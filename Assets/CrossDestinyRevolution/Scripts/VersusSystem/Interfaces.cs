@@ -16,7 +16,7 @@ namespace CDR.VersusSystem
 {
     public interface ICameraParticipant : IParticipant
     {
-        Rect cameraRect { set; }
+        Camera camera { get; }
     }
 
     public interface IParticipant

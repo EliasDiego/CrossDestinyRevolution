@@ -115,6 +115,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7281039689900866123, guid: 2237663e76e413147adcc9d26f704f18, type: 3}
+      propertyPath: _Rigidbody
+      value: 
+      objectReference: {fileID: 2727559465120076952}
     - target: {fileID: 8684808194649894693, guid: 2237663e76e413147adcc9d26f704f18, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -168,5 +172,10 @@ PrefabInstance:
 --- !u!4 &2727559465120076950 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8684808194649894693, guid: 2237663e76e413147adcc9d26f704f18, type: 3}
+  m_PrefabInstance: {fileID: 6727427762815941555}
+  m_PrefabAsset: {fileID: 0}
+--- !u!54 &2727559465120076952 stripped
+Rigidbody:
+  m_CorrespondingSourceObject: {fileID: 8684808194649894699, guid: 2237663e76e413147adcc9d26f704f18, type: 3}
   m_PrefabInstance: {fileID: 6727427762815941555}
   m_PrefabAsset: {fileID: 0}

@@ -12,8 +12,8 @@ namespace CDR.VersusSystem
     {
         IPlayerMechBattleUI _BattleUI;
         Camera _Camera;
-
-        public Rect cameraRect { set { if(_Camera) _Camera.rect = value; } }
+        
+        public Camera camera => _Camera;
 
         public PlayerParticipant(IMech mech, IPlayerMechBattleUI battleUI, Camera camera, Vector3 startPosition, Quaternion startRotation) : base(mech, startPosition, startRotation)
         {
@@ -23,7 +23,8 @@ namespace CDR.VersusSystem
 
         public override void Start()
         {
-            Reset();
+            mech.health.ModifyValue(mech.health.MaxValue);
+            mech.boost?.boostValue.ModifyValue(mech.boost.boostValue.MaxValue);
 
             base.Start();
 
