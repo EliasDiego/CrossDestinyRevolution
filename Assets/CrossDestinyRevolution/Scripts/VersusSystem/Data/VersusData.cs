@@ -13,6 +13,8 @@ namespace CDR.VersusSystem
         GameObject _VersusMap;
         [SerializeField]
         GameObject _VersusUI;
+        [SerializeField]
+        GameObject _CameraManager;
 
         public List<IParticipantData> participantDataList { get; set; } = new List<IParticipantData>();
         
@@ -23,5 +25,7 @@ namespace CDR.VersusSystem
         public GameObject versusUIPrefab => _VersusUI;
 
         public IParticipantData[] participantDatas => participantDataList.ToArray();
+
+        public GameObject cameraManagerPrefab => _CameraManager;
     }
 }

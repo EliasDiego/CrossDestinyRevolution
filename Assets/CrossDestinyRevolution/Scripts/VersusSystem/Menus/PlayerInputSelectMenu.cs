@@ -36,9 +36,6 @@ namespace CDR.VersusSystem
         [SerializeField]
         private PlayerIndexImageHandler[] _PlayerIndexImageHandlers;
 
-        [SerializeField]
-        LayerMask _Layermask;
-
         private int _CurrentPlayerIndex = 0;
         private PlayerInputData _CurrentPlayerInputData;
         private List<PlayerInputData> _PlayerInputDatas = new List<PlayerInputData>();

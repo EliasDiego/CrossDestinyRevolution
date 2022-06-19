@@ -35,15 +35,17 @@ namespace CDR.VersusSystem
 
         private IEnumerator RoundSequence(float roundTime)
         {
-            Debug.Log("Round Start!");
-            
             _VersusUI.roundUIHandler.Show();
 
             yield return new WaitForSeconds(3);
+
+            Debug.Log("Round Start!");
+
             _VersusUI.roundUIHandler.Hide();
 
             foreach(IParticipant p in _Participants)
                 p.Start();
+
 
             _VersusUI.roundTimeUIHandler.Show();
 

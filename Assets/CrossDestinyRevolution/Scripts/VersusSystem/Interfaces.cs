@@ -42,6 +42,7 @@ namespace CDR.VersusSystem
         GameObject versusMapPrefab { get; }
         GameObject versusManagerPrefab { get; }
         GameObject versusUIPrefab { get; }
+        GameObject cameraManagerPrefab { get; }
     }
 
     public interface IMechData

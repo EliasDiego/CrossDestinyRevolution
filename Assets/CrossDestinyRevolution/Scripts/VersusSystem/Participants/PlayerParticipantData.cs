@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 
+using Cinemachine;
+
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.InputSystem;
@@ -28,9 +30,14 @@ namespace CDR.VersusSystem
 
             IPlayerMechBattleUI battleUI = battleUIObject.GetComponentInChildren<IPlayerMechBattleUI>();
             
+            GameObject cameraObject = new GameObject("Camera");
+
+            Camera cam = cameraObject.AddComponent<Camera>();
+
+            cameraObject.AddComponent<CinemachineBrain>();
             
             // Debug
-            Camera cam = (participant.mech as Mech).GetComponentInChildren<Camera>();
+            // Camera cam = (participant.mech as Mech).GetComponentInChildren<Camera>();
             // // GameObject.Instantiate(camera, (participant.mech as Mech).transform, true);
             // // Debug
 

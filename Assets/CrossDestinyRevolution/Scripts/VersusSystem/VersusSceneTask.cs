@@ -10,6 +10,7 @@ using UnityEngine.Rendering.Universal;
 using CDR.UISystem;
 using CDR.MechSystem;
 using CDR.InputSystem;
+using CDR.CameraSystem;
 using CDR.MovementSystem;
 using CDR.SceneManagementSystem;
 
@@ -55,18 +56,21 @@ namespace CDR.VersusSystem
             IParticipant[] participants = _VersusData.participantDatas.Select((p, i) => p.GetParticipant(versusMap.participantPositions[i], 
                 Quaternion.LookRotation(versusMap.flightPlane.position.xz() - versusMap.participantPositions[i].xz(), Vector3.up), versusMap.flightPlane)).ToArray();
 
-            // IParticipant player1 = _VersusData.player1Data.GetParticipant(versusMap.player1Position, Quaternion.LookRotation(versusMap.flightPlane.position - versusMap.player1Position, Vector3.up), versusMap.flightPlane);
-            // IParticipant player2 = _VersusData.player2Data.GetParticipant(versusMap.player2Position, Quaternion.LookRotation(versusMap.flightPlane.position - versusMap.player2Position, Vector3.up), versusMap.flightPlane);
-
             versusUI.Hide();
 
             ICameraParticipant[] cameraParticipants = participants.Where(p => p is ICameraParticipant).Cast<ICameraParticipant>().ToArray();
 
-            for(int i = 0; i < cameraParticipants.Length; i++)
-            {
-                cameraParticipants[i].cameraRect = GetRect(cameraParticipants.Length, i + 1);
 
-            }
+            cameraParticipants[0].camera.cullingMask ^= LayerMask.GetMask("Player2Cam");
+            cameraParticipants[0].camera.rect = new Rect(Vector2.zero, new Vector2(0.5f, 1));
+
+            cameraParticipants[1].camera.cullingMask ^= LayerMask.GetMask("Player1Cam");
+            cameraParticipants[1].camera.rect = new Rect(Vector2.right * 0.5f, new Vector2(0.5f, 1));
+
+            CameraManager cameraManager = GameObject.Instantiate(_VersusData.cameraManagerPrefab).GetComponent<CameraManager>();
+
+            for(int i = 0; i < cameraParticipants.Length; i++)
+                cameraManager.SetPlayerCam((cameraParticipants[i].mech as Mech).transform, i);
 
             // if(player1 is ICameraParticipant)
             //     (player1 as ICameraParticipant).cameraRect = new Rect(Vector2.zero, new Vector2(0.5f, 1));
