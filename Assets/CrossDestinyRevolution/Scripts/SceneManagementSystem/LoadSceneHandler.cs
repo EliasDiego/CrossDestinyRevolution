@@ -12,6 +12,8 @@ namespace CDR.SceneManagementSystem
         [SerializeField]
         SceneLoader _SceneLoader;
         [SerializeField]
+        LoadingScreen _LoadingScreen;
+        [SerializeField]
         Camera _Camera;
         
         private void Start() 
@@ -22,6 +24,13 @@ namespace CDR.SceneManagementSystem
         private IEnumerator Sequence()
         {
             _Camera.gameObject.SetActive(false);
+
+            _LoadingScreen.Show();
+
+            while(!_LoadingScreen.isShown)
+                yield return null;
+
+            _Camera.gameObject.SetActive(true);
 
             // Unload Previous Scene
             yield return UnloadScene(SceneManager.GetActiveScene());
@@ -34,6 +43,13 @@ namespace CDR.SceneManagementSystem
             yield return _SceneLoader.sceneTask.Process();
 
             yield return new WaitForSeconds(1);
+
+            _Camera.gameObject.SetActive(false);
+
+            _LoadingScreen.Hide();
+
+            while(_LoadingScreen.isShown)
+                yield return null;
 
             // // Unload Loading Screen
             yield return UnloadScene(SceneManager.GetSceneByBuildIndex(_SceneLoader.loadingScreenSceneIndex));
