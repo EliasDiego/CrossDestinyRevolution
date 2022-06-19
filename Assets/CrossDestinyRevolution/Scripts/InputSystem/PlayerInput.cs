@@ -68,7 +68,7 @@ namespace CDR.InputSystem
                 return true;
             }
 
-            Debug.LogAssertion("[Input Error] Input Action doesn't exist!");
+            Debug.LogWarning($"[Input Error] {name} Input Action doesn't exist!");
 
             inputAction = null;
 
