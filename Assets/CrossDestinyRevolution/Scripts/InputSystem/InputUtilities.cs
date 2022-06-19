@@ -41,15 +41,14 @@ namespace CDR.InputSystem
             return GetAllUnpairedInputDevices()?.Except(excludedDevices)?.ToArray();
         }
 
-        public static TInput AssignPlayerInput<TInput, TSettings>(GameObject gameObject, TSettings playerInputSettings, InputActionAsset inputActionAsset, params InputDevice[] devices) 
-            where TInput : MonoBehaviour, IPlayerInput<TSettings>
-            where TSettings : IPlayerInputSettings
+        public static TInput AssignPlayerInput<TInput>(GameObject gameObject, InputActionMap inputActionMap, params InputDevice[] devices) 
+            where TInput : MonoBehaviour, IPlayerInput
         {
-            Debug.Assert(inputActionAsset, $"[Input System Error] {inputActionAsset} is not valid!");
+            Debug.Assert(inputActionMap != null, $"[Input System Error] Input Action Map is not valid!");
 
             TInput playerInput = gameObject.AddComponent<TInput>();
 
-            playerInput.SetupInput(playerInputSettings, inputActionAsset, devices);
+            playerInput.AssignInput(inputActionMap, devices);
 
             return playerInput;
         }

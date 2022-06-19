@@ -1,13 +1,18 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 
 using CDR.MechSystem;
+using System;
 
 namespace CDR.InputSystem
 {
-    public abstract class CharacterInput<T> : MonoBehaviour, IInput where T : IActiveCharacter
+    public abstract class PlayerCharacterInput<T> : PlayerInput 
+        where T : IActiveCharacter
     {
         private T _Character;
 
@@ -20,8 +25,5 @@ namespace CDR.InputSystem
             if(_Character != null)
                 _Character.input = this;
         }
-
-        public abstract void EnableInput();
-        public abstract void DisableInput();
     }
 }
