@@ -28,7 +28,8 @@ namespace CDR.AttackSystem
 
         public override void OnEnable()
         {
-            base.OnEnable();           
+            base.OnEnable();
+            RotateToSelf();
         }
 
         private void OnDestroy()
@@ -69,11 +70,21 @@ namespace CDR.AttackSystem
             rotator.Rotate(Vector3.right, rotateSpeed);
         }
 
+        private void RotateToSelf()
+        {
+            rotator.right = flightDir;
+        }
+
         public override void ResetObject()
         {
             gameObject.SetActive(false);
             base.ResetObject();
             SetVelocity(Vector3.zero);
+            for(int i = 0; i < projectiles.Length; i++)
+            {
+                projectiles[i].gameObject.SetActive(true);
+                SetPosition();
+            }
         }
 
         private void SubscribeEvents()
