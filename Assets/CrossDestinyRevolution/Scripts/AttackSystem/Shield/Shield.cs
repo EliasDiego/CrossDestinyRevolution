@@ -13,6 +13,7 @@ namespace CDR.AttackSystem
     {
         [SerializeField] HurtSphere _hurtSphere;
         [SerializeField] SphereCollider _sphereCollider;
+        [SerializeField] MeshRenderer _sphereRenderer;
         [SerializeField] float _radius;
 
         // Object Pool
@@ -46,9 +47,11 @@ namespace CDR.AttackSystem
             base.Use();
 
             _sphereCollider.enabled = true;
+            _sphereRenderer.enabled = true;
             _hurtSphere.onHitEnter += HitEnter;
 
             Character.input.DisableInput();
+            Character.input.EnableInput("Shield");
             Character.movement.End();
         }
 
@@ -57,6 +60,7 @@ namespace CDR.AttackSystem
             base.End();
 
             _sphereCollider.enabled = false;
+            _sphereRenderer.enabled = false;
             _hurtSphere.onHitEnter -= HitEnter;
 
             Character.input.EnableInput();
