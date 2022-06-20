@@ -52,7 +52,7 @@
                 },
                 {
                     "name": "Shield",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "c2218489-4d61-4a21-828a-35f52a52a8e8",
                     "expectedControlType": "Button",
                     "processors": "",
