@@ -41,8 +41,6 @@ namespace CDR.VersusSystem
         public void ReturnToMainMenu()
         {
             returnToMainMenuEvent?.Invoke();
-
-            Time.timeScale = 1;
         }
     }
 }
