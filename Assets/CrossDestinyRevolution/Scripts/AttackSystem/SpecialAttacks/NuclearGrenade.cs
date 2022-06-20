@@ -23,12 +23,23 @@ namespace CDR.AttackSystem
             base.Use();
 
             StartCoroutine(NGSequence());
+
+            End();
         }
 
         public override void End()
         {
             base.End();
+
+            //ForceEnd();
         }
+
+		public override void ForceEnd()
+		{
+			base.ForceEnd();
+
+            StopAllCoroutines();
+		}
 
 		IEnumerator NGSequence()
 		{
@@ -59,13 +70,9 @@ namespace CDR.AttackSystem
                 firstPhaseBullets.SetActive(true);
             }
 
-            End();
-
             yield return new WaitUntil(() => CheckBulletPosition(FirstPhaseBullets));
 
             //2ND PHASE
-
-            
 
             foreach (GameObject firstPhaseBullets in FirstPhaseBullets)
 			{

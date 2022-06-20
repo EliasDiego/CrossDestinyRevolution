@@ -58,6 +58,11 @@ namespace CDR.AttackSystem
 			base.End();
 		}
 
+		public override void ForceEnd()
+		{
+			base.ForceEnd();
+		}
+
 		private void OnDrawGizmos()
 		{
 			//Gizmos.color = Color.red;
