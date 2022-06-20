@@ -52,7 +52,7 @@
                 },
                 {
                     "name": "Shield",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "438e5153-0527-4893-b725-aeb9cf287b58",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -627,31 +627,9 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "up",
-                    "id": "faa40d9e-0320-4f4a-8f20-6193d033891a",
-                    "path": "<Keyboard>/upArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "down",
                     "id": "d9ae4673-7972-4f7a-abfa-cad2bec9260d",
                     "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "cdda2b1c-0463-449a-b869-74493192c329",
-                    "path": "<Keyboard>/downArrow",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -671,17 +649,6 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "left",
-                    "id": "f0fd4a33-12dd-4d81-beb7-b18fc38bd3b6",
-                    "path": "<Keyboard>/leftArrow",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "right",
                     "id": "bc22eefe-ed41-4753-9583-685344fe769f",
                     "path": "<Keyboard>/d",
@@ -693,20 +660,20 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "right",
-                    "id": "ab8926e3-de30-4ed8-8ad9-6b6e1b5a6c9a",
-                    "path": "<Keyboard>/rightArrow",
+                    "name": "",
+                    "id": "2e14cc0e-4b2e-4b90-b2b4-608e4c57cb57",
+                    "path": "<Keyboard>/enter",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Move",
+                    "action": "Submit",
                     "isComposite": false,
-                    "isPartOfComposite": true
+                    "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "2e14cc0e-4b2e-4b90-b2b4-608e4c57cb57",
-                    "path": "*/{Submit}",
+                    "id": "36beb165-bb40-49e7-b0dd-62444315a182",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -717,7 +684,18 @@
                 {
                     "name": "",
                     "id": "492bc5eb-2d03-4421-947b-e3f804b31e54",
-                    "path": "*/{Cancel}",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cancel",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "df61b95d-68d2-4724-b2ed-0954e5965b0d",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
