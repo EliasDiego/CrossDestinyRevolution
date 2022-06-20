@@ -14,21 +14,6 @@ using CDR.SceneManagementSystem;
 
 namespace CDR.VersusSystem
 {
-    public interface ICameraParticipant : IParticipant
-    {
-        Camera camera { get; }
-    }
-
-    public interface IParticipant
-    {
-        int score { get; set; }
-        
-        IMech mech { get; }
-
-        void Start();
-        void Reset();
-    }
-
     public interface IVersusMap : IMap
     {
         Vector3[] participantPositions { get; }
@@ -62,31 +47,12 @@ namespace CDR.VersusSystem
         public int roundTime { get; }
     }
 
-    public interface IParticipantData
-    { 
-        IMechData mechData { get; set; }
-        IParticipant GetParticipant(Vector3 startPosition, Quaternion startRotation, IFlightPlane flightPlane);
-    }
-
-    public interface IMechSelectMenu : IMenu
-    {
-        void PickMech(IPlayerInput playerInput, IMechData mechData);
-    }
-
-    public interface IMapSelectMenu : IMenu
-    {
-        void PickMap(IMapData mapData);
-    }
-
-    public interface IVersusSettingsMenu : IMenu
-    {
-        void SetSettings();
-    }
-
-    public interface IVersusUI : IUIElement
+    public interface IVersusUI
     {
         IRoundUIHandler roundUIHandler { get; }
         IRoundTimeUIHandler roundTimeUIHandler { get; }
+        IVersusResultsMenu versusResultsMenu { get; }
+        PauseMenu pauseMenu { get; }
     }
 
     public interface IRoundUIHandler : IUIElement

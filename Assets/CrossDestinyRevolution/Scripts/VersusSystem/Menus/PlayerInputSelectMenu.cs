@@ -14,7 +14,7 @@ using CDR.InputSystem;
 
 namespace CDR.VersusSystem
 {
-    public class PlayerInputSelectMenu : MultipleUsersVersusMenu, IObserver<InputEventPtr>
+    public class PlayerInputSelectMenu : MultipleUsersVersusMenu, IPlayerInputSelectMenu
     {
         [Header("Versus Stuff")]
         [SerializeField]
@@ -61,10 +61,11 @@ namespace CDR.VersusSystem
             _PlayerSelectInput = GetComponent<PlayerUIInput>();
         }
         
-        private IParticipantData SetPlayerData(InputActionAsset actionAsset, params InputDevice[] devices)
+        private IParticipantData SetPlayerData(string name, InputActionAsset actionAsset, params InputDevice[] devices)
         {
             return new PlayerParticipantData() 
             { 
+                name = name,
                 settings = _Settings,
                 cameraPrefab = _CameraPrefab,
                 actionAsset = actionAsset, 
@@ -96,7 +97,7 @@ namespace CDR.VersusSystem
 
         private void OnStart(InputAction.CallbackContext context)
         {
-            versusData.participantDataList.Add(SetPlayerData(_CurrentPlayerInputData.actionAsset, _CurrentPlayerInputData.device));
+            versusData.participantDataList.Add(SetPlayerData($"Player {_CurrentPlayerIndex + 1}", _CurrentPlayerInputData.actionAsset, _CurrentPlayerInputData.device));
 
             if(_CurrentPlayerIndex < _PlayerInputDatas.Count)
                 _PlayerInputDatas[_CurrentPlayerIndex] = _CurrentPlayerInputData;

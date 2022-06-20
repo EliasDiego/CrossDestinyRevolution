@@ -2,6 +2,8 @@ using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
+using Cinemachine;
+
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -56,10 +58,7 @@ namespace CDR.VersusSystem
             IParticipant[] participants = _VersusData.participantDatas.Select((p, i) => p.GetParticipant(versusMap.participantPositions[i], 
                 Quaternion.LookRotation(versusMap.flightPlane.position.xz() - versusMap.participantPositions[i].xz(), Vector3.up), versusMap.flightPlane)).ToArray();
 
-            versusUI.Hide();
-
             ICameraParticipant[] cameraParticipants = participants.Where(p => p is ICameraParticipant).Cast<ICameraParticipant>().ToArray();
-
 
             cameraParticipants[0].camera.cullingMask ^= LayerMask.GetMask("Player2Cam");
             cameraParticipants[0].camera.rect = new Rect(Vector2.zero, new Vector2(0.5f, 1));
@@ -69,14 +68,14 @@ namespace CDR.VersusSystem
 
             CameraManager cameraManager = GameObject.Instantiate(_VersusData.cameraManagerPrefab).GetComponent<CameraManager>();
 
+            cameraManager.gameObject.SetActive(false);
+
+            yield return null;
+
+            cameraManager.gameObject.SetActive(true);
+
             for(int i = 0; i < cameraParticipants.Length; i++)
                 cameraManager.SetPlayerCam((cameraParticipants[i].mech as Mech).transform, i);
-
-            // if(player1 is ICameraParticipant)
-            //     (player1 as ICameraParticipant).cameraRect = new Rect(Vector2.zero, new Vector2(0.5f, 1));
-            
-            // if(player2 is ICameraParticipant)
-            //     (player2 as ICameraParticipant).cameraRect = new Rect(Vector2.right * 0.5f, new Vector2(0.5f, 1));
 
             yield return new WaitForSeconds(2);
 

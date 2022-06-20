@@ -30,22 +30,13 @@ namespace CDR.VersusSystem
 
             IPlayerMechBattleUI battleUI = battleUIObject.GetComponentInChildren<IPlayerMechBattleUI>();
             
-            GameObject cameraObject = new GameObject("Camera");
+            GameObject cameraObject = GameObject.Instantiate(cameraPrefab);
 
-            Camera cam = cameraObject.AddComponent<Camera>();
-
-            cameraObject.AddComponent<CinemachineBrain>();
-            
-            // Debug
-            // Camera cam = (participant.mech as Mech).GetComponentInChildren<Camera>();
-            // // GameObject.Instantiate(camera, (participant.mech as Mech).transform, true);
-            // // Debug
+            Camera cam = cameraObject.GetComponent<Camera>();
 
             UniversalAdditionalCameraData cameraData = cam.GetUniversalAdditionalCameraData();
 
             cameraData.cameraStack.Add(battleUIObject.GetComponentInChildren<Camera>());
-
-            // Input
             
             PlayerMechInput playerInput = InputUtilities.AssignPlayerInput<PlayerMechInput>((participant.mech as Mech).gameObject, actionAsset.FindActionMap("Game", true), devices);
 
@@ -53,7 +44,7 @@ namespace CDR.VersusSystem
             
             participant.mech.input = playerInput;
 
-            return new PlayerParticipant(participant.mech, battleUI, cam, startPosition, startRotation);
+            return new PlayerParticipant(participant.name, participant.mech, battleUI, cam, startPosition, startRotation);
         }
     }
 }

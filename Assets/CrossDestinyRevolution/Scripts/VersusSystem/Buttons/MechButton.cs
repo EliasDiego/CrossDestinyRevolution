@@ -16,7 +16,6 @@ namespace CDR.VersusSystem
 
         public void OnPlayerSubmit(IPlayerInput playerInput)
         {
-            Debug.Log("Blah");
             _MechSelectMenu.PickMech(playerInput, _MechData);
         }
     }

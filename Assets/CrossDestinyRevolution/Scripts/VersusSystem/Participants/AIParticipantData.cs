@@ -11,7 +11,7 @@ namespace CDR.VersusSystem
         {
             IParticipant participant = base.GetParticipant(startPosition, startRotation, flightPlane);
 
-            return new AIParticipant(participant.mech, startPosition, startRotation);
+            return new AIParticipant(participant.name, participant.mech, startPosition, startRotation);
         }
     }
 }

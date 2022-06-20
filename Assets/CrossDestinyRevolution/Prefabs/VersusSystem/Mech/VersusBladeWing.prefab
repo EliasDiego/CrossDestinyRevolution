@@ -76,10 +76,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 7281039689900866123, guid: 2237663e76e413147adcc9d26f704f18, type: 3}
-      propertyPath: _Rigidbody
-      value: 
-      objectReference: {fileID: 2727559465120076952}
+    - target: {fileID: 194782433543582800, guid: 2237663e76e413147adcc9d26f704f18, type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 194782433543582800, guid: 2237663e76e413147adcc9d26f704f18, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 1627606980378502830, guid: 2237663e76e413147adcc9d26f704f18, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 4331741563611855805, guid: 2237663e76e413147adcc9d26f704f18, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4331741563611855805, guid: 2237663e76e413147adcc9d26f704f18, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.22
+      objectReference: {fileID: 0}
     - target: {fileID: 8684808194649894693, guid: 2237663e76e413147adcc9d26f704f18, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -128,6 +144,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: VersusMech
       objectReference: {fileID: 0}
+    - target: {fileID: 8741225425411061813, guid: 2237663e76e413147adcc9d26f704f18, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 9105724036547590400, guid: 2237663e76e413147adcc9d26f704f18, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2237663e76e413147adcc9d26f704f18, type: 3}
 --- !u!4 &2727559465120076950 stripped
@@ -146,8 +170,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68f88f0aef8b94d44aa460f80cf81417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!54 &2727559465120076952 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 8684808194649894699, guid: 2237663e76e413147adcc9d26f704f18, type: 3}
-  m_PrefabInstance: {fileID: 6727427762815941555}
-  m_PrefabAsset: {fileID: 0}

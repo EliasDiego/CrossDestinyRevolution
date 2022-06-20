@@ -7,7 +7,7 @@ namespace CDR.VersusSystem
 {
     public class AIParticipant : Participant
     {
-        public AIParticipant(IMech mech, Vector3 startPosition, Quaternion startRotation) : base(mech, startPosition, startRotation)
+        public AIParticipant(string name, IMech mech, Vector3 startPosition, Quaternion startRotation) : base(name, mech, startPosition, startRotation)
         {
             
         }

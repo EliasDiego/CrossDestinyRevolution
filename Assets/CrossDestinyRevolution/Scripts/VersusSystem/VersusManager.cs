@@ -33,6 +33,13 @@ namespace CDR.VersusSystem
         public int currentRound => _CurrentRound;
         public bool isRoundOnPlay => _IsRoundOnPlay;
 
+        private IEnumerator TempDelayStart()
+        {
+            yield return new WaitForSeconds(5);
+            
+            StartRound();
+        }
+
         private IEnumerator RoundSequence(float roundTime)
         {
             _VersusUI.roundUIHandler.Show();
@@ -45,7 +52,6 @@ namespace CDR.VersusSystem
 
             foreach(IParticipant p in _Participants)
                 p.Start();
-
 
             _VersusUI.roundTimeUIHandler.Show();
 
@@ -82,6 +88,20 @@ namespace CDR.VersusSystem
                 StartRound();
         }
 
+        private void OnParticipantDeath()
+        {
+            int aliveParticipants = _Participants.Count(p => p.mech.health.CurrentValue > 0);
+
+            if(aliveParticipants <= 1)
+            {
+                IParticipant aliveParticipant = _Participants.FirstOrDefault(p => p.mech.health.CurrentValue > 0);
+
+                aliveParticipant.score += 1;
+
+                EndRound();
+            }
+        }
+
         public void Initialize(IVersusSettings versusSettings, IVersusUI versusUI, params IParticipant[] participants)
         {
             _VersusSettings = versusSettings;
@@ -90,15 +110,16 @@ namespace CDR.VersusSystem
 
             _VersusUI = versusUI;
 
-            _VersusUI.Hide();
-
-            StartRound();
+            StartCoroutine(TempDelayStart());
         }
 
         public void StartRound()
         {
             if(_RoundCoroutine != null)
                 StopCoroutine(_RoundCoroutine);
+
+            foreach(IParticipant p in _Participants)
+                p.mech.health.OnDeath += OnParticipantDeath;
 
             _IsRoundOnPlay = true;
 
@@ -109,6 +130,9 @@ namespace CDR.VersusSystem
         {
             if(_EndRoundCoroutine != null)
                 StopCoroutine(_EndRoundCoroutine);
+
+            foreach(IParticipant p in _Participants)
+                p.mech.health.OnDeath -= OnParticipantDeath;
 
             Debug.Log("End Round");
 
@@ -121,14 +145,27 @@ namespace CDR.VersusSystem
 
         public void ShowResults()
         {
-            Debug.Log("Show Results!");
+            _VersusUI.versusResultsMenu.rematchEvent += Rematch;
+            _VersusUI.versusResultsMenu.returnToMainMenuEvent += ExitVersus;
+            _VersusUI.versusResultsMenu.Show();
 
-            StopVersus();
+            // ExitVersus();
         }
 
-        public void StopVersus()
+        public void Rematch()
         {
-            Debug.Log("Stop Versus");
+            _VersusUI.versusResultsMenu.Hide();
+            _VersusUI.versusResultsMenu.rematchEvent -= Rematch;
+            _VersusUI.versusResultsMenu.returnToMainMenuEvent -= ExitVersus;
+
+            _CurrentRound = 0;
+
+            StartRound();
+        }
+
+        public void ExitVersus()
+        {
+            Debug.Log("Exit Versus");
 
             _SceneLoader.LoadSceneAsync(_AfterVersusSceneTask);
         }

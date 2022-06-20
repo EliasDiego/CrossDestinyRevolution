@@ -10,15 +10,18 @@ namespace CDR.VersusSystem
 {
     public class Participant : IParticipant
     {
-        IMech _Mech;
-        Vector3 _StartPosition;
-        Quaternion _StartRotation;
+        private IMech _Mech;
+        private Vector3 _StartPosition;
+        private Quaternion _StartRotation;
+        private string _Name;
 
         public int score { get; set; }
         public IMech mech => _Mech;
+        public string name => _Name;
 
-        public Participant(IMech mech, Vector3 startPosition, Quaternion startRotation)
+        public Participant(string name, IMech mech, Vector3 startPosition, Quaternion startRotation)
         {
+            _Name = name;
             _Mech = mech;
             _StartPosition = startPosition;
             _StartRotation = startRotation;
@@ -42,25 +45,25 @@ namespace CDR.VersusSystem
                 mech.targetHandler?.End();
 
             if(CheckBoolean(mech.specialAttack1?.isActive))
-            mech.specialAttack1?.End();
+            mech.specialAttack1?.ForceEnd();
 
             if(CheckBoolean(mech.specialAttack2?.isActive))
-            mech.specialAttack2?.End();
+            mech.specialAttack2?.ForceEnd();
 
             if(CheckBoolean(mech.specialAttack3?.isActive))
-            mech.specialAttack3?.End();
+            mech.specialAttack3?.ForceEnd();
 
             if(CheckBoolean(mech.meleeAttack?.isActive))
-            mech.meleeAttack?.End();
+            mech.meleeAttack?.ForceEnd();
 
             if(CheckBoolean(mech.rangeAttack?.isActive))
-            mech.rangeAttack?.End();
+            mech.rangeAttack?.ForceEnd();
 
             if(CheckBoolean(mech.boost?.isActive))
-                mech.boost?.End();
+                mech.boost?.ForceEnd();
             
             if(CheckBoolean(mech.movement?.isActive))
-                mech.movement?.End();
+                mech.movement?.ForceEnd();
 
             mech.controller?.SetVelocity(Vector3.zero);
             

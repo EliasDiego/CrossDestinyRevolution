@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+using CDR.UISystem;
+
 namespace CDR.VersusSystem
 {
     public class VersusUI : MonoBehaviour, IVersusUI
@@ -12,29 +14,14 @@ namespace CDR.VersusSystem
         RoundUIHandler _RoundUIHandler;
         [SerializeField]
         RoundTimeUIHandler _RoundTimeUIHandler;
-
-        private bool _IsShown = false;
+        [SerializeField]
+        VersusResultsMenu _VersusResultsMenu;
+        [SerializeField]
+        PauseMenu _PauseMenu;
 
         public IRoundUIHandler roundUIHandler => _RoundUIHandler;
-
         public IRoundTimeUIHandler roundTimeUIHandler => _RoundTimeUIHandler;
-
-        public bool isShown => _IsShown;
-
-        public void Show()
-        {
-            _IsShown = true;
-
-            roundUIHandler.Show();
-            roundTimeUIHandler.Show();
-        }
-
-        public void Hide()
-        {
-            _IsShown = false;
-
-            roundUIHandler.Hide();
-            roundTimeUIHandler.Hide();
-        }
+        public IVersusResultsMenu versusResultsMenu => _VersusResultsMenu;
+        public PauseMenu pauseMenu => _PauseMenu;
     }
 }
