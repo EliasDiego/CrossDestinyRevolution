@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class TestVelocity : MonoBehaviour
 {
-	float speed;
+	[SerializeField] float speed;
 	[SerializeField] Vector3 velocity;
-	Rigidbody _rigidbody;
+	public Rigidbody _rigidbody;
 
 	private void Start()
 	{
 		_rigidbody = GetComponent<Rigidbody>();
 	}
 
-	private void Update()
+	private void FixedUpdate()
 	{
-		_rigidbody.velocity += velocity * speed;
+		_rigidbody.velocity = velocity.normalized * speed;
 	}
 }
