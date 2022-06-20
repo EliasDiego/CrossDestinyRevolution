@@ -13,7 +13,6 @@ namespace CDR.AttackSystem
     {
         [SerializeField]
         Bounds _Bounds;
-
         public override Vector3 position => transform.position + _Bounds.center;
 
         protected override void OnDrawGizmos()
@@ -23,9 +22,10 @@ namespace CDR.AttackSystem
             Gizmos.DrawCube(_Bounds.center, _Bounds.extents);
         }
 
-        protected override Collider[] GetColliders()
+        protected override HitEnterData[] GetHitData(Vector3 velocity)
         {
-            return Physics.OverlapBox(position, _Bounds.extents / 2, transform.rotation, hitLayer);
+            return Physics.BoxCastAll(position, _Bounds.extents / 2, velocity.normalized, transform.rotation, velocity.magnitude * Time.fixedDeltaTime, hitLayer)?.
+                Select(r => new HitEnterData(this, r.collider.GetComponent<IHurtShape>(), r))?.Where(h => h.hurtShape != null)?.ToArray();
         }
     }
 }
