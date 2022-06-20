@@ -33,7 +33,7 @@ namespace CDR.AttackSystem
 
         private void OnDestroy()
         {
-            UnsubscribeEvents();   
+            UnsubscribeEvents();
         }
 
         public override void Update()
@@ -78,53 +78,30 @@ namespace CDR.AttackSystem
 
         private void SubscribeEvents()
         {
-            projectiles[0].onHitEnter += OnHit1;
-            projectiles[1].onHitEnter += OnHit2;
-            projectiles[2].onHitEnter += OnHit3;
-            projectiles[3].onHitEnter += OnHit4;
+            for(int i = 0; i < projectiles.Length; i++)
+            {
+                projectiles[i].onHitEnter += OnHitEnter;
+            }
         }
 
         private void UnsubscribeEvents()
         {
-            projectiles[0].onHitEnter -= OnHit1;
-            projectiles[1].onHitEnter -= OnHit2;
-            projectiles[2].onHitEnter -= OnHit3;
-            projectiles[3].onHitEnter -= OnHit4;
+            for (int i = 0; i < projectiles.Length; i++)
+            {
+                projectiles[i].onHitEnter -= OnHitEnter;
+            }
         }
 
-        private void OnHit1(IHitEnterData data)
+        protected override void OnHitEnter(IHitEnterData hitData)
         {
-            projectiles[0].gameObject.SetActive(false);
-            HitDamage((MechSystem.Health)data.hurtShape.character.health);
-        }
-
-        private void OnHit2(IHitEnterData data)
-        {
-            projectiles[1].gameObject.SetActive(false);
-            HitDamage((MechSystem.Health)data.hurtShape.character.health);
-        }
-
-        private void OnHit3(IHitEnterData data)
-        {
-            projectiles[2].gameObject.SetActive(false);
-            HitDamage((MechSystem.Health)data.hurtShape.character.health);
-        }
-
-        private void OnHit4(IHitEnterData data)
-        {
-            projectiles[3].gameObject.SetActive(false);
-            HitDamage((MechSystem.Health)data.hurtShape.character.health);
-        }
-
-        private void HitDamage(MechSystem.Health hp)
-        {
-            hp.TakeDamage(projectileDamage);
-            if(ActiveProjectiles() == 0)
+            (hitData.hitShape as HitShape).gameObject.SetActive(false);
+            hitData.hurtShape.character.health.TakeDamage(projectileDamage);
+            if (ActiveProjectiles() == 0)
             {
                 ResetObject();
             }
         }
-
+       
         private int ActiveProjectiles()
         {
             var count = 4;

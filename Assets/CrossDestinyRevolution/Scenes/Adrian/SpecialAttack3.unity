@@ -236,6 +236,10 @@ PrefabInstance:
       propertyPath: _specialAttack1
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 8684808194649894696, guid: 2237663e76e413147adcc9d26f704f18, type: 3}
+      propertyPath: _health.currentValue
+      value: 99999
+      objectReference: {fileID: 0}
     - target: {fileID: 8684808194649894701, guid: 2237663e76e413147adcc9d26f704f18, type: 3}
       propertyPath: m_Name
       value: Mech (1)
