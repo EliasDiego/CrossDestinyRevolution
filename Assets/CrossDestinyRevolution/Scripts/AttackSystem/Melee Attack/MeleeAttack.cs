@@ -73,25 +73,36 @@ namespace CDR.AttackSystem
 			//Character.shield.Use();
 		}
 
+		public override void ForceEnd()
+		{
+			base.ForceEnd();
+
+			_hitBox.onHitEnter -= HitEnter;
+		}
+
 		void HitEnter(IHitEnterData hitData)
 		{
 			isHoming = false;
 			Character.controller.SetVelocity(Vector3.zero);
 			Debug.LogWarning("Hit!!! " + hitData.hurtShape.character);
 
-			hitData.hurtShape.character.health.TakeDamage(_meleeDamage);
 		
 			sender = (IMech)Character;
 			receiver = (IMech)hitData.hurtShape.character;
-			
-			GameObject kb = _pool.GetPoolable();
-			kb.transform.SetParent(((ActiveCharacter)receiver).transform);
-			kb.SetActive(true);
 
-			receiver.currentState = kb.GetComponent<IState>();
-			receiver.currentState.sender = sender;
-			receiver.currentState.receiver = receiver;
-			receiver.currentState.StartState();
+			if(!receiver.shield.isActive)
+			{
+				receiver.health.TakeDamage(_meleeDamage);
+
+				GameObject kb = _pool.GetPoolable();
+				kb.transform.SetParent(((ActiveCharacter)receiver).transform);
+				kb.SetActive(true);
+
+				receiver.currentState = kb.GetComponent<IState>();
+				receiver.currentState.sender = sender;
+				receiver.currentState.receiver = receiver;
+				receiver.currentState.StartState();
+			}
 
 			End();
 		}

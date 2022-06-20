@@ -15,10 +15,6 @@ namespace CDR.AttackSystem
         [SerializeField] SphereCollider _sphereCollider;
         [SerializeField] float _radius;
 
-        // Timer
-        [SerializeField] float _shieldDuration;
-        [SerializeField] float _timer;
-
         // Object Pool
         [SerializeField] ObjectPooling _pool;
 
@@ -26,7 +22,6 @@ namespace CDR.AttackSystem
         IMech sender;
         IMech receiver;
 
-        [SerializeField] bool _useOnStart;
         [SerializeField] bool _isShieldActive;
 
         public float radius => _radius;
@@ -43,39 +38,37 @@ namespace CDR.AttackSystem
 
         private void Start()
         {
-            _timer = _shieldDuration;
             _sphereCollider.radius = radius;
-
-            if(_useOnStart)
-                Use();
         }
 
         public override void Use()
         {
             base.Use();
 
-            _isShieldActive = true;
-            //_hurtSphere.enabled = true;
             _sphereCollider.enabled = true;
             _hurtSphere.onHitEnter += HitEnter;
 
             Character.input.DisableInput();
             Character.movement.End();
-            Debug.Log("shield use");
         }
 
         public override void End()
         {
             base.End();
 
-            _timer = _shieldDuration;
-            //_hurtSphere.enabled = false;
             _sphereCollider.enabled = false;
             _hurtSphere.onHitEnter -= HitEnter;
 
             Character.input.EnableInput();
             Character.movement.Use();
-            Debug.Log("shield end");
+        }
+
+        public override void ForceEnd()
+        {
+            base.ForceEnd();
+
+            _sphereCollider.enabled = false;
+            _hurtSphere.onHitEnter -= HitEnter;
         }
 
         void HitEnter(IHitEnterData hitData)
@@ -94,25 +87,6 @@ namespace CDR.AttackSystem
 			receiver.currentState.receiver = receiver;
 
 			receiver.currentState.StartState();
-        }
-
-        private void Update()
-        {
-            if(_isShieldActive)
-            {
-                CheckShieldTimer();
-            }
-        }
-
-        void CheckShieldTimer()
-        {
-            _timer -= Time.deltaTime;
-
-            if(_timer < 0)
-            {
-                _isShieldActive = false;
-                End();
-            }
         }
     }
 }
