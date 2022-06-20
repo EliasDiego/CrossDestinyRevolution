@@ -27,7 +27,9 @@ namespace CDR.CameraSystem
         private void Update()
         {
             if(activeCharacter.targetHandler.isActive)
+            {
                 SetPos();
+            }
         }
 
         private void SetPos()
