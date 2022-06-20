@@ -27,6 +27,7 @@ namespace CDR.MovementSystem
         void Rotate(Quaternion rotation);
         void SetVelocity(Vector3 velocity);
         void AddRbForce(Vector3 force, ForceMode mode = ForceMode.VelocityChange);
+        void ClampVelocity(float magnitude);
     }
 
     public interface ICharacterController : IController

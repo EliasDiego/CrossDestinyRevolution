@@ -16,7 +16,6 @@ namespace CDR.MovementSystem
         [SerializeField]
         private bool clampSpeed = false;
 
-        private Controller controller;
         private Vector3 currentDir = Vector3.zero;
         private ITargetData currentTarget;
         private float distanceToTarget;
@@ -29,7 +28,6 @@ namespace CDR.MovementSystem
         protected override void Awake()
         {
             base.Awake();
-            controller = GetComponent<Controller>();
         }
 
         private void Update()
@@ -40,7 +38,7 @@ namespace CDR.MovementSystem
             }
             if (clampSpeed)
             {
-                controller.ClampVelocity(speed);
+                Character.controller.ClampVelocity(speed);
             }
             RotateObject();
         }
@@ -51,14 +49,16 @@ namespace CDR.MovementSystem
             {
                 return;
             }
-            controller.AddRbForce(MoveDirection());
-            controller.AddRbForce(CentripetalForce(), ForceMode.Acceleration);
+            Character.controller.AddRbForce(MoveDirection());
+            Character.controller.AddRbForce(CentripetalForce(), ForceMode.Acceleration);
         }       
 
         Vector3 CentripetalForce()
         {
-            float cForce = Mathf.Pow(controller.velocity.magnitude, 2) / distanceToTarget;
-            return currentTarget.direction * -cForce;
+            float cForce = Mathf.Pow(Character.controller.velocity.magnitude, 2) / distanceToTarget;
+            var force = currentTarget.direction * -cForce;
+            force.y = 0f;
+            return force;
         }
 
         private Vector3 MoveDirection()
@@ -70,13 +70,14 @@ namespace CDR.MovementSystem
 
             if(currentDir.z != 0f)
             {
-                var distance = Vector3.Distance(transform.position, currentTarget.activeCharacter.position);
+                var distance = Vector3.Distance(Character.position, currentTarget.activeCharacter.position);
                 SetDistanceToTarget(distance);
                 currentTarget?.activeCharacter?.movement?.SetDistanceToTarget(distance);
             }
 
 
-            var current = (transform.rotation * currentDir).normalized;
+            var current = (Character.rotation * currentDir).normalized;
+            current.y = 0f;
             return current;           
         }
 
@@ -84,11 +85,11 @@ namespace CDR.MovementSystem
         {
             currentTarget = Character.targetHandler.GetCurrentTarget();
             var look = Quaternion.LookRotation(-currentTarget.direction);
-            var quat = Quaternion.RotateTowards(transform.rotation, look, 50f);
+            var quat = Quaternion.RotateTowards(Character.rotation, look, 50f);
             quat.x = 0f;
             quat.z = 0f;
 
-            controller.Rotate(Quaternion.RotateTowards(transform.rotation, quat, 50f));
+            Character.controller.Rotate(Quaternion.RotateTowards(Character.rotation, quat.normalized, 50f));
         }
 
         #region INTERFACE_Methods
@@ -107,12 +108,19 @@ namespace CDR.MovementSystem
         {
             base.Use();
             currentTarget = Character.targetHandler.GetCurrentTarget();
-            distanceToTarget = Vector3.Distance(transform.position, currentTarget.activeCharacter.position);
+            distanceToTarget = Vector3.Distance(Character.position, currentTarget.activeCharacter.position);
         }
 
         public override void End()
         {
             base.End();
+        }
+
+        public override void ForceEnd()
+        {
+            base.ForceEnd();
+            currentDir = Vector3.zero;
+            Character.controller.SetVelocity(Vector3.zero);
         }
 
         public void SetSpeedClamp(bool isClamped)

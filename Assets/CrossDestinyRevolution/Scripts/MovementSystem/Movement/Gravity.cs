@@ -11,7 +11,7 @@ namespace CDR.MovementSystem
         [SerializeField]
         private float minDistToPull;
         [SerializeField]
-        private Controller controller;
+        private CharacterController controller;
         [SerializeField]
         private float pullSpeed = 12f;
         [SerializeField]
@@ -32,7 +32,7 @@ namespace CDR.MovementSystem
         {
             while (true)
             {
-                if (enableGravity && GetDistance() > minDistToPull)
+                if (enableGravity && IsFarFromPlane())
                 {
                     controller.AddRbForce(-transform.up * pullSpeed, ForceMode.Acceleration);
                 }
@@ -40,9 +40,9 @@ namespace CDR.MovementSystem
             }
         }
 
-        private float GetDistance()
+        private bool IsFarFromPlane()
         {
-            return transform.position.y - controller.flightPlane.position.y;
+            return transform.position.y - controller.flightPlane.position.y > minDistToPull;
         }
     }
 }
