@@ -32,7 +32,14 @@ namespace CDR.AttackSystem
             base.End();
         }
 
-        IEnumerator BBBSequence()
+		public override void ForceEnd()
+		{
+			base.ForceEnd();
+
+            StopAllCoroutines();
+		}
+
+		IEnumerator BBBSequence()
         {
             //1ST PHASE
 

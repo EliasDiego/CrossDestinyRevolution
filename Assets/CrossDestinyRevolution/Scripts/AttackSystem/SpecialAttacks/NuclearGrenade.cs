@@ -30,6 +30,13 @@ namespace CDR.AttackSystem
             base.End();
         }
 
+		public override void ForceEnd()
+		{
+			base.ForceEnd();
+
+            StopAllCoroutines();
+		}
+
 		IEnumerator NGSequence()
 		{
             //1ST PHASE

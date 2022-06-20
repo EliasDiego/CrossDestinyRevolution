@@ -34,6 +34,11 @@ namespace CDR.AttackSystem
 		{
 			base.End();
 		}
+
+		public override void ForceEnd()
+		{
+			base.ForceEnd();
+		}
 	}
 }
 
