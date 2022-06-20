@@ -19,7 +19,6 @@ namespace CDR.VersusSystem
 
         private void OnPause(InputAction.CallbackContext context)
         {
-            Debug.Log("Blah");
             if(isPaused)
                 Deactivate();
 
@@ -42,6 +41,8 @@ namespace CDR.VersusSystem
         public void ReturnToMainMenu()
         {
             returnToMainMenuEvent?.Invoke();
+
+            Time.timeScale = 1;
         }
     }
 }

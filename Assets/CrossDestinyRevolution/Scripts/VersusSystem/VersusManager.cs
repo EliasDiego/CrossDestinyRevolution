@@ -46,6 +46,7 @@ namespace CDR.VersusSystem
 
             yield return new WaitForSeconds(3);
 
+            _VersusUI.pauseMenu.returnToMainMenuEvent += ExitVersus;
             _VersusUI.pauseMenu.EnablePauseInput();
 
             Debug.Log("Round Start!");
@@ -77,8 +78,6 @@ namespace CDR.VersusSystem
         private IEnumerator EndRoundSequence()
         {
             yield return null;
-
-            _VersusUI.pauseMenu.DisablePauseInput();
 
             foreach(IParticipant p in _Participants)
                 p.Reset();
@@ -140,6 +139,9 @@ namespace CDR.VersusSystem
 
             foreach(IParticipant p in _Participants)
                 p.mech.health.OnDeath -= OnParticipantDeath;
+
+            _VersusUI.pauseMenu.returnToMainMenuEvent -= ExitVersus;
+            _VersusUI.pauseMenu.DisablePauseInput();
 
             Debug.Log("End Round");
 
