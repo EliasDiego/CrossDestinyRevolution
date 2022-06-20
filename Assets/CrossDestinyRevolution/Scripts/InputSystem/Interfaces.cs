@@ -27,6 +27,8 @@ namespace CDR.InputSystem
         // event Action onDeviceDisconnect;
 
         void PairDevice(params InputDevice[] devices);
+        void UnpairDevice(params InputDevice[] devices);
+        void AssociateActionMap(InputActionMap inputActionMap);
         void SetupInput(InputActionMap inputActionMap, params InputDevice[] devices);
     }
 

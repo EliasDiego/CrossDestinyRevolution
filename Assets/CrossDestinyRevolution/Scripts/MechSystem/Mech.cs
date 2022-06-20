@@ -11,7 +11,7 @@ namespace CDR.MechSystem
         [SerializeField] Boost _boost;
         [SerializeField] MeleeAttack _meleeAttack;
         [SerializeField] RangeAttack _rangeAttack;
-        [SerializeField] IShield _shield;
+        [SerializeField] Shield _shield;
         [SerializeField] SpecialAttack _specialAttack1;
         [SerializeField] SpecialAttack _specialAttack2;
         [SerializeField] SpecialAttack _specialAttack3;
@@ -33,8 +33,6 @@ namespace CDR.MechSystem
         protected override void Awake()
         {
             base.Awake();
-
-            _shield = GetComponent<IShield>();
         }
     }
 }
