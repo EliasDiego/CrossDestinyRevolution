@@ -35,6 +35,8 @@ namespace CDR.SceneManagementSystem
             // Unload Previous Scene
             yield return UnloadScene(SceneManager.GetActiveScene());
 
+            Time.timeScale = 1;
+
             _Camera.gameObject.SetActive(true);
 
             yield return new WaitForSeconds(1);

@@ -47,7 +47,7 @@ namespace CDR.SceneManagementSystem
             if(_HideCoroutine != null)
                 StopCoroutine(_HideCoroutine);
 
-            _HideCoroutine = StartCoroutine(VFXUtilities.LinearEaseOut(OnFadeEvent, _FadeOutTime, OnAfterFadeOut));
+            _HideCoroutine = StartCoroutine(VFXUtilities.LinearEaseOut(OnFadeEvent, () => Time.unscaledDeltaTime, _FadeOutTime, OnAfterFadeOut));
         }
 
         public void Show()
@@ -55,7 +55,7 @@ namespace CDR.SceneManagementSystem
             if(_ShowCoroutine != null)
                 StopCoroutine(_ShowCoroutine);
 
-            _ShowCoroutine = StartCoroutine(VFXUtilities.LinearEaseIn(OnFadeEvent, _FadeInTime, OnAfterFadeIn));
+            _ShowCoroutine = StartCoroutine(VFXUtilities.LinearEaseIn(OnFadeEvent, () => Time.unscaledDeltaTime, _FadeInTime, OnAfterFadeIn));
         }
     }
 }
