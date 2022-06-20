@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace CDR.InputSystem
 
         private bool _IsEnabled = false;
 
+        private Dictionary<string, InputActionUpdate> _InputActionUpdates = new Dictionary<string, InputActionUpdate>();
         private Dictionary<string, InputAction> _InputActions = new Dictionary<string, InputAction>();
 
         private bool _isGamepad = false;
@@ -29,6 +31,35 @@ namespace CDR.InputSystem
         public bool isEnabled => _IsEnabled;
 
         public bool isAssignedInput => _IsAssignedInput;
+        
+        private class InputActionUpdate
+        {
+            private bool _IsUpdate;
+            private Action _Action;
+
+            public bool isUpdate => _IsUpdate;
+            public Action action => _Action;
+
+            public InputActionUpdate(InputAction inputAction, Action action)
+            {
+                _IsUpdate = false;
+                _Action = action;
+                inputAction.started += c => _IsUpdate = true;
+                inputAction.canceled += c => _IsUpdate = false;
+            }
+        }
+
+        private void Update()
+        {
+            if(!isEnabled)
+                return;
+
+            foreach(InputActionUpdate actionUpdate in _InputActionUpdates.Values)
+            {
+                if(actionUpdate.isUpdate)
+                    actionUpdate.action?.Invoke();
+            }
+        }
 
         protected virtual void OnDestroy()
         {
@@ -57,6 +88,34 @@ namespace CDR.InputSystem
             }
 
             return true;
+        }
+
+        protected bool CheckBoolean(bool? boolean)
+        {
+            return boolean.HasValue && boolean.Value;
+        }
+
+        protected void AddInputActionToUpdate(string name, Action action)
+        {
+            if(GetInputAction(name, out InputAction inputAction))
+                AddInputActionToUpdate(name, inputAction, action);
+        }
+
+        protected void AddInputActionToUpdate(string name, InputAction inputAction, Action action)
+        {
+            InputActionUpdate inputActionUpdate = new InputActionUpdate(inputAction, action);
+
+            if(_InputActionUpdates.ContainsKey(name))
+                _InputActionUpdates[name] = inputActionUpdate;
+
+            else
+                _InputActionUpdates.Add(name, inputActionUpdate);
+        }
+
+        protected void RemoveInputActionFromUpdate(string name)
+        {
+            if(_InputActionUpdates.ContainsKey(name))
+                _InputActionUpdates.Remove(name);
         }
 
         protected bool GetInputAction(string name, out InputAction inputAction)
