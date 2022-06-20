@@ -8,21 +8,24 @@ namespace CDR.AttackSystem
 {
 	public class RangeAttack : CooldownAction , IRangeAttack
 	{
+		[SerializeField] ObjectPooling _pool;
+
 		[SerializeField] float FireRate;
 		[SerializeField] GameObject GunPoint;
 		[SerializeField] float attackRange;
 
 		public float range => attackRange;
 
+		protected override void Awake()
+		{
+			if(_pool != null)
+				_pool.Initialize();
+		}
+
 		public override void Update()
 		{
 			base.Update();
 			_cooldownDuration = FireRate;
-		}
-
-		public void Start()
-		{
-
 		}
 
 		public override void Use()
@@ -37,29 +40,35 @@ namespace CDR.AttackSystem
 		void GetBulletFromObjectPool()
 		{
 			var target = Character.targetHandler.GetCurrentTarget();
-			var targetPos = target.activeCharacter.position;
-
-			var direction = targetPos - GunPoint.transform.position;
 			
-			var bullet = ObjectPooling.Instance.GetPoolable("HomingBullet");
+			var bullet = _pool.GetPoolable();
 
-			bullet.GetComponent<Projectile>().target = target.activeCharacter;
-			bullet.GetComponent<Projectile>().playerAttackRange = attackRange;
-			bullet.GetComponent<Projectile>().originPoint = GunPoint.transform.position;
+			bullet.GetComponent<HomingBullet>().target = target.activeCharacter;
+			bullet.GetComponent<HomingBullet>().playerAttackRange = attackRange;
+			bullet.GetComponent<HomingBullet>().transform.position = GunPoint.transform.position;
+			bullet.GetComponent<HomingBullet>().originPoint = GunPoint.transform.position;
+
 			bullet.SetActive(true);
 		}
+
+		
 
 		public override void End()
 		{
 			base.End();
 		}
 
+		public override void ForceEnd()
+		{
+			base.ForceEnd();
+		}
+
 		private void OnDrawGizmos()
 		{
 			//Gizmos.color = Color.red;
-			//Gizmos.DrawLine(transform.position, Target.transform.position);
-			Gizmos.color = Color.green;
-			Gizmos.DrawWireSphere(transform.position, attackRange);
+			//Gizmos.DrawLine(transform.position, Character.targetHandler.GetCurrentTarget().activeCharacter.position);
+			//Gizmos.color = Color.green;
+			//Gizmos.DrawWireSphere(transform.position, attackRange);
 		}
 	}
 }

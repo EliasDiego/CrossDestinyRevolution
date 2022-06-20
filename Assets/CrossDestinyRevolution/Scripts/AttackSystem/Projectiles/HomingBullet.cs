@@ -4,39 +4,56 @@ using UnityEngine;
 
 namespace CDR.AttackSystem
 {
-    public class HomingBullet : HomingProjectile
+    public class HomingBullet : Projectile
     {
-        float projectileDistanceFromOrigin; //From origin point to the current position of the projectile
-        float originPointDistanceFromTarget;
+        [SerializeField] public float bulletSpeed = 15f;
+        [SerializeField] public float rotateSpeed = 5f;
 
-        public void Awake()
+        public Vector3 originPoint;
+
+        public float playerAttackRange;
+
+        protected bool isHoming = true;
+
+        float originDistanceFromProjectile; //From origin point to the current position of the projectile
+        float originDistanceFromTarget; // From origin point to the current position of the target
+
+        public override void OnEnable()
 		{
-            if(playerAttackRange < originPointDistanceFromTarget)
+            base.OnEnable();
+
+            isHoming = true;
+
+            if (playerAttackRange < originDistanceFromTarget)
 			{
                 isHoming = false;
 			}
-        }
-
-        public override void FixedUpdate()
-        {
-            base.FixedUpdate();
-
-            var leadTimePercentage = Mathf.InverseLerp(_minDistancePredict, _maxDistancePredict, distanceFromTarget);
 
             if (target != null)
             {
-                projectileDistanceFromOrigin = Vector3.Distance(transform.position, originPoint);
-                originPointDistanceFromTarget = Vector3.Distance(target.position, originPoint);
+                transform.LookAt(target.position);
+            }
+        }
+
+        public void FixedUpdate()
+        {
+            if (target != null)
+                distanceFromTarget = Vector3.Distance(transform.position, target.position);
+
+            MoveProjectile();
+
+            if (target != null)
+            {
+                originDistanceFromProjectile = Vector3.Distance(transform.position, originPoint);
+                originDistanceFromTarget = Vector3.Distance(target.position, originPoint);
             }
 
             if (isHoming)
             {
-                PredictMovement(leadTimePercentage);
-                AddDeviation(leadTimePercentage);
-
                 RotateProjectile();
             }
-            if (projectileDistanceFromOrigin > originPointDistanceFromTarget)
+
+            if (originDistanceFromProjectile > originDistanceFromTarget || originDistanceFromTarget > playerAttackRange)
             {
                 isHoming = false;
             }
@@ -47,13 +64,30 @@ namespace CDR.AttackSystem
             base.Start();
         }
 
-        public override void RotateProjectile()
+        public void MoveProjectile()
         {
-            var heading = _deviatedPrediction - transform.position;
-            var rotation = Quaternion.LookRotation(heading);
-            _rigidBody.MoveRotation(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
-            //_rigidBody.MoveRotation(rotation);
+            SetVelocity(transform.forward * bulletSpeed);
+		}
+
+		public void RotateProjectile()
+		{
+			var heading = target.position - transform.position;
+			var rotation = Quaternion.LookRotation(heading);
+			Rotate(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
+		}
+
+        protected override void OnHitEnter(IHitEnterData hitData)
+        {
+            base.OnHitEnter(hitData);
+
+            hitData.hurtShape.character.health.TakeDamage(projectileDamage);
+
+            ResetObject();
+
+            projectileHitBox.onHitEnter -= OnHitEnter;
+
+            Return();
         }
-	}
+    }
 }
 

@@ -9,7 +9,6 @@ using CDR.StateSystem;
 using CDR.ActionSystem;
 using CDR.MovementSystem;
 using CDR.ObjectPoolingSystem;
-using CDR.HitboxSystem;
 
 namespace CDR.AttackSystem
 {

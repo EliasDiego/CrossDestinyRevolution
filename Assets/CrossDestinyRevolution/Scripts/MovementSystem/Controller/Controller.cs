@@ -4,62 +4,47 @@ using UnityEngine;
 
 namespace CDR.MovementSystem
 {
-    public class Controller : MonoBehaviour , ICharacterController
+    public class Controller : MonoBehaviour, IController
     {
         [SerializeField]
-        private FlightPlane _flightPlane;
+        Rigidbody _Rigidbody;
 
-        private Rigidbody rb;
-
-        public Vector3 velocity => rb.velocity;
-
-        public IFlightPlane flightPlane 
-        { 
-            get => _flightPlane; 
-            set => _flightPlane = (FlightPlane)value; 
+        public Rigidbody RigidBody
+        {
+            get => _Rigidbody;
+            set => _Rigidbody = value;
         }
 
-        private void Awake()
+        public Vector3 velocity => _Rigidbody.velocity;
+
+        public virtual void SetVelocity(Vector3 value)
         {
-            rb = GetComponent<Rigidbody>();
+            _Rigidbody.velocity = value;
         }
 
-        public void SetVelocity(Vector3 value)
+        public virtual void ClampVelocity(float magnitude)
         {
-            rb.velocity = value;
+            _Rigidbody.velocity = Vector3.ClampMagnitude(_Rigidbody.velocity, magnitude);
         }
 
-        public void ClampVelocity(float magnitude)
+        public virtual void AddRbForce(Vector3 force, ForceMode mode = ForceMode.VelocityChange)
         {
-            rb.velocity = Vector3.ClampMagnitude(rb.velocity, magnitude);
+            _Rigidbody.AddForce(force, mode);
         }
 
-        public void AddRbForce(Vector3 force, ForceMode mode = ForceMode.VelocityChange)
+        public virtual void AddRelativeForce(Vector3 force, ForceMode mode = ForceMode.VelocityChange)
         {
-            rb.AddForce(force, mode);
+            _Rigidbody.AddRelativeForce(force, mode);
         }
 
-        public void AddRelativeForce(Vector3 force, ForceMode mode = ForceMode.VelocityChange)
+        public virtual void Translate(Vector3 direction, float magnitude)
         {
-            rb.AddRelativeForce(force, mode);
+            _Rigidbody.MovePosition(_Rigidbody.position + direction * magnitude);
         }
 
-        public void Translate(Vector3 direction, float magnitude)
+        public virtual void Rotate(Quaternion rotation)
         {
-            transform.position = direction * magnitude;
-        }
-
-        public void Rotate(Quaternion rotation)
-        {
-            transform.rotation = rotation;           
-        }
-
-        private void OnCollisionEnter(Collision collision)
-        {
-            if(collision.gameObject.CompareTag("Player"))
-            {
-                SetVelocity(Vector3.zero);
-            }
+            _Rigidbody.MoveRotation(rotation);
         }
     }
 }

@@ -6,47 +6,37 @@ using CDR.MechSystem;
 
 namespace CDR.ObjectPoolingSystem
 {
-    public class ObjectPooling : Singleton<ObjectPooling>, IPool
+    [CreateAssetMenu(fileName = "ObjectPool", menuName = "ObjectPooling/ObjectPoolingScriptableObject", order = 1)]
+    public class ObjectPooling : ScriptableObject, IPool
     {
-        public List<ObjectPoolingScriptableObject> itemsToPool;
+        [SerializeField] GameObject itemToPool;
 
         [SerializeField]
         private List<GameObject> pooledObjects;
 
-        public IActiveCharacter targetCharacter => GetComponent<ActiveCharacter>();
-
-        public virtual void Start()
-        {
-            Initialize();
-        }
+        public int amountToPool;
+        public bool shouldExpand;
 
         public void Initialize()
         {
             pooledObjects = new List<GameObject>();
 
-            foreach (ObjectPoolingScriptableObject item in itemsToPool)
+            //instantiate the object's prefab based on the inital amount to pool
+            for (int i = 0; i < amountToPool; i++)
             {
-                //instantiate the object's prefab based on the inital amounttopool
-                for (int i = 0; i < item.amountToPool; i++)
-                {
-                    //Set Object Owner
-
-                    //Instantiate the prefab
-                    GameObject obj = Instantiate(item.objectToPool, item.parent);
-                    obj.GetComponent<IPoolable>().ID = item._id;
-                    obj.SetActive(false);
-                    pooledObjects.Add(obj);
-                }
+                GameObject obj = Instantiate(itemToPool);
+                obj.GetComponent<IPoolable>().pool = this;
+                obj.SetActive(false);
+                pooledObjects.Add(obj);
             }
         }
 
-        public GameObject GetPoolable(string _id)
+        public GameObject GetPoolable()
         {
             for (int i = 0; i < pooledObjects.Count; i++)
             {
                 //we need to make sure that the object is not active
-                if (!pooledObjects[i].activeInHierarchy &&
-                    pooledObjects[i].GetComponent<IPoolable>().ID == _id)
+                if (!pooledObjects[i].activeInHierarchy)
                 {
                     return pooledObjects[i];
                 }
@@ -54,16 +44,14 @@ namespace CDR.ObjectPoolingSystem
 
             //if all objects are currently in use
             //check if the object can expand and then instantiate a new object and add it to the pool
-            foreach (ObjectPoolingScriptableObject item in itemsToPool)
+
+            if (shouldExpand)
             {
-                if (item.shouldExpand)
-                {
-                    GameObject obj = Instantiate(item.objectToPool, item.parent);
-                    obj.GetComponent<IPoolable>().ID = item._id;
-                    obj.SetActive(false);
-                    pooledObjects.Add(obj);
-                    return obj;
-                }
+                GameObject obj = Instantiate(itemToPool);
+                obj.GetComponent<IPoolable>().pool = this;
+                obj.SetActive(false);
+                pooledObjects.Add(obj);
+                return obj;
             }
             return null;
         }
@@ -73,11 +61,24 @@ namespace CDR.ObjectPoolingSystem
 
         }
 
+        public void ReturnObject(IPoolable poolable)
+		{
+            for (int i = 0; i < pooledObjects.Count; i++)
+            { 
+                if (pooledObjects[i].activeInHierarchy)
+                {
+                    if(pooledObjects[i].GetComponent<IPoolable>() == poolable)
+					{
+                        pooledObjects[i].SetActive(false);
+                    }
+                }
+            }
+        }
+
         public void ReturnAll()
         {
             for (int i = 0; i < pooledObjects.Count; i++)
             {
-                //we need to make sure that the object is not active
                 if (pooledObjects[i].activeInHierarchy)
                 {
                     pooledObjects[i].SetActive(false);

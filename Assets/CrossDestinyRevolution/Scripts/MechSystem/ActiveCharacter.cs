@@ -7,15 +7,14 @@ using CDR.MovementSystem;
 using CDR.InputSystem;
 using CDR.StateSystem;
 using CDR.TargetingSystem;
-using CDR.HitboxSystem;
 
 namespace CDR.MechSystem
 {
     public class ActiveCharacter : Character, IActiveCharacter
     {
         [SerializeField] Health _health;
-        [SerializeField] HurtBox[] _hurtBoxes;
-        [SerializeField] Controller _controller;
+        [SerializeField] HurtShape[] _hurtShape;
+        [SerializeField] CDR.MovementSystem.CharacterController _controller;
 
         IInput _input;
 
@@ -26,21 +25,17 @@ namespace CDR.MechSystem
 
 
         public Vector3 position => transform.position;
-
+        public Quaternion rotation => transform.rotation;
         public IHealth health => _health;
-
-        public HitboxSystem.IHurtBox[] hurtBoxes => _hurtBoxes;
-
+        public IHurtShape[] hurtBoxes => _hurtShape;
         public ICharacterController controller => _controller;
-
         public IInput input { get => _input; set => _input = value; }
         public IState currentState { get => _currentState; set => _currentState = value; }
-
         public ITargetHandler targetHandler => _targetHandler;
-
         public IMovement movement => _movement;
 
         public static ActiveCharacter[] activeCharacters => characterList.ToArray();
+
         private static List<ActiveCharacter> characterList = new List<ActiveCharacter>();
 
         protected override void Awake()

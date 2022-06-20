@@ -5,104 +5,104 @@ using UnityEngine;
 using CDR.MovementSystem;
 using CDR.ObjectPoolingSystem;
 using CDR.MechSystem;
-using CDR.HitboxSystem;
 
 
 namespace CDR.AttackSystem
 {
-	public class Projectile : MonoBehaviour, IProjectile, IHitResponder
+	public class Projectile : ProjectileController, IProjectile
 	{
-		string _id;
-		[SerializeField] HitBox projectileHitbox;
+		IPool _pool;
+
+		[SerializeField] public HitBox projectileHitBox;
+
 		public float projectileDamage;
-		
-		float projectileLifetime;
+
+		public bool hasLifeTime = true;
+		protected float projectileLifetime;
 		public float projectileMaxLifetime;
 
 		IProjectileController projectileController;
 		public IActiveCharacter target { get; set; }
-
-		public float playerAttackRange;
 		protected float distanceFromTarget;
 
-		public Vector3 originPoint;
-
 		//Increments
-		public HitBox HitBox => projectileHitbox;
+		public HitBox HitBox => projectileHitBox;
 		public float Lifetime => projectileMaxLifetime;
 		float IProjectile.Damage => projectileDamage;
 		public IController controller => projectileController;
-		float IHitResponder.Damage => projectileDamage;
 
-		public string ID { get => _id; set => _id = value; }
+		public IPool pool { get => _pool; set => _pool = value; }
 
 		public virtual void Start()
 		{
 			projectileController = GetComponent<ProjectileController>();
-			projectileHitbox.HitResponder = this;
 			projectileLifetime = projectileMaxLifetime;
 		}
 
 		public virtual void OnEnable()
 		{
-			transform.position = originPoint;
 			projectileLifetime = projectileMaxLifetime;
 
-			if(target != null)
+			if (projectileHitBox != null)
 			{
-				transform.rotation = Quaternion.LookRotation(target.position);
+				projectileHitBox.onHitEnter += OnHitEnter;
 			}
-			
 		}
 
 		public virtual void Update()
 		{
 			ProcessLifetime();
-			projectileHitbox.CheckHit();
 		}
 
-		void ProcessLifetime()
+		protected virtual void ProcessLifetime()
 		{
-			float deltaTime = Time.deltaTime;
-
-			if (LifetimeCountDown(deltaTime))
+			if(hasLifeTime)
 			{
-				//wait for animation before destroy, or just disable for object pooling
-				//Destroy(gameObject);
-				gameObject.SetActive(false);
+				float deltaTime = Time.deltaTime;
+
+				if (LifetimeCountDown(deltaTime))
+				{
+					ResetObject();
+
+					projectileHitBox.onHitEnter -= OnHitEnter;
+
+					Return();
+				}
 			}
 		}
 
-		bool LifetimeCountDown(float deltaTime)
+		protected bool LifetimeCountDown(float deltaTime)
 		{
 			projectileLifetime = Mathf.Max(projectileLifetime - deltaTime, 0f);
 			return projectileLifetime <= 0f;
 		}
 
-		//public void ResetObject() { }
-		//public void Return() { }
-
-		//Hitbox CheckHit and Response
-		public bool CheckHit(HitData data)
+		protected virtual void OnHitEnter(IHitEnterData hitData) //Hitbox Response
 		{
-			return true;
+			hitData.hurtShape.character.health.TakeDamage(projectileDamage);
+
+			ResetObject();
+
+			projectileHitBox.onHitEnter -= OnHitEnter;
+
+			Return();
 		}
 
-		public void Response(HitData data)
+		public virtual void ResetObject() //Parameters reset
 		{
-			gameObject.SetActive(false);
-			//Destroy(gameObject); //To Change in Object pooling
-			//throw new System.NotImplementedException();
+			projectileLifetime = projectileMaxLifetime;
+			transform.position = Vector3.zero;
+			transform.rotation = Quaternion.identity;
+			distanceFromTarget = 0f;
+			transform.parent = null;
+
+			SetVelocity(Vector3.zero);
+			Rotate(Quaternion.identity);
 		}
 
-		public void ResetObject()
+		public void Return() //Return to Object Pool
 		{
-			
-		}
-
-		public void Return()
-		{
-			
+			pool.ReturnObject(this);
 		}
 	}
 
