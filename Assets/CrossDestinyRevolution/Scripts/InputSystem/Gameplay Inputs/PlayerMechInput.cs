@@ -16,6 +16,7 @@ namespace CDR.InputSystem
     public class PlayerMechInput : PlayerActiveCharacterInput<IMech>
     {
         private Vector2 _MovementInput;
+        private bool _IsShieldUp = false;
 
         public PlayerMechInputSettings settings { get; set; }
 
@@ -51,13 +52,21 @@ namespace CDR.InputSystem
 
         private void OnShield(InputAction.CallbackContext context)
         {
-            if(context.started)
+            _IsShieldUp = !_IsShieldUp;
+            
+            if(_IsShieldUp)
+            {
                 character?.shield?.Use();
 
-            else if(context.canceled)
+                Debug.Log($"[Shield Input] Started Using Shield!");
+            }
+
+            else
+            {
                 character?.shield?.End();
                 
-            Debug.Log($"[Shield Input] Used Shield!");
+                Debug.Log($"[Shield Input] Ended Shield!");
+            }
         }
 
         private void OnRangeAttack()
@@ -146,10 +155,7 @@ namespace CDR.InputSystem
                 inputAction.started += OnMeleeAttack;
 
             if (GetInputAction("Shield", out inputAction))
-            {
-                inputAction.started += OnShield;
-                inputAction.canceled += OnShield;
-            }
+                inputAction.performed += OnShield;
 
             if (GetInputAction("SpecialAttack1", out inputAction))
                 inputAction.started += OnSpecialAttack1;
