@@ -17,11 +17,8 @@ namespace CDR.MovementSystem
         [SerializeField]
         private bool enableGravity = true;
 
-        private float defaultY;
-
         private void Start()
         {
-            defaultY = transform.position.y;
             StartCoroutine(GravityOnRigidbody());
         }
 
@@ -35,7 +32,7 @@ namespace CDR.MovementSystem
         {
             while (true)
             {
-                if (enableGravity && GetDistance() > minDistToPull)
+                if (enableGravity && IsFarFromPlane())
                 {
                     controller.AddRbForce(-transform.up * pullSpeed, ForceMode.Acceleration);
                 }
@@ -43,9 +40,9 @@ namespace CDR.MovementSystem
             }
         }
 
-        private float GetDistance()
+        private bool IsFarFromPlane()
         {
-            return transform.position.y - defaultY;
+            return transform.position.y - controller.flightPlane.position.y > minDistToPull;
         }
     }
 }
