@@ -13,47 +13,11 @@ using CDR.TargetingSystem;
 
 namespace CDR.InputSystem
 {
-    public class PlayerMechInput : PlayerCharacterInput<IMech>
+    public class PlayerMechInput : PlayerActiveCharacterInput<IMech>
     {
         private Vector2 _MovementInput;
 
-        private Dictionary<string, InputActionUpdate> _InputActionUpdates = new Dictionary<string, InputActionUpdate>();
-
         public PlayerMechInputSettings settings { get; set; }
-
-        private class InputActionUpdate
-        {
-            private bool _IsUpdate;
-            private Action _Action;
-
-            public bool isUpdate => _IsUpdate;
-            public Action action => _Action;
-
-            public InputActionUpdate(InputAction inputAction, Action action)
-            {
-                _IsUpdate = false;
-                _Action = action;
-                inputAction.started += c => _IsUpdate = true;
-                inputAction.canceled += c => _IsUpdate = false;
-            }
-        }
-
-        private void Update()
-        {
-            if(!isEnabled)
-                return;
-
-            foreach(InputActionUpdate actionUpdate in _InputActionUpdates.Values)
-            {
-                if(actionUpdate.isUpdate)
-                    actionUpdate.action?.Invoke();
-            }
-        }
-
-        private bool CheckBoolean(bool? boolean)
-        {
-            return boolean.HasValue && boolean.Value;
-        }
 
         private void OnSpecialAttack3(InputAction.CallbackContext context)
         {
@@ -87,10 +51,11 @@ namespace CDR.InputSystem
 
         private void OnShield(InputAction.CallbackContext context)
         {
-            if(CheckBoolean(character?.shield?.isActive))
-                return;
+            if(context.started)
+                character?.shield?.Use();
 
-            character?.shield?.Use();
+            else if(context.canceled)
+                character?.shield?.End();
                 
             Debug.Log($"[Shield Input] Used Shield!");
         }
@@ -113,13 +78,6 @@ namespace CDR.InputSystem
             character?.meleeAttack?.Use();
                 
             Debug.Log($"[Melee Attack Input] Used Melee Attack!");
-        }
-
-        private void OnChangeTarget(InputAction.CallbackContext context)
-        {
-            character?.targetHandler?.GetNextTarget();
-                
-            Debug.Log($"[Change Target Input] Changed Target");
         }
 
         private void OnBoostDown(InputAction.CallbackContext context)
@@ -174,43 +132,24 @@ namespace CDR.InputSystem
             }
         }
 
-        private void OnMovement(InputAction.CallbackContext context)
-        {
-            _MovementInput = context.ReadValue<Vector2>();
-
-            if(!CheckBoolean(character?.movement?.isActive))
-                return;
-                
-            character?.movement?.Move(_MovementInput);
-
-            Debug.Log($"[Movement Input] {_MovementInput}");
-        }
-
         public override void AssociateActionMap(InputActionMap inputActionMap)
         {
             base.AssociateActionMap(inputActionMap);
 
-
-            if (GetInputAction("Movement", out InputAction inputAction))
-            {
-                inputAction.performed += OnMovement;
-                inputAction.canceled += OnMovement;
-            }
-
-            if (GetInputAction("Boost", out inputAction))
+            if (GetInputAction("Boost", out InputAction inputAction))
             {
                 inputAction.performed += OnBoostDown;
                 inputAction.canceled += OnBoost;
             }
-
-            if (GetInputAction("ChangeTarget", out inputAction))
-                inputAction.started += OnChangeTarget;
                 
             if (GetInputAction("MeleeAttack", out inputAction))
                 inputAction.started += OnMeleeAttack;
 
             if (GetInputAction("Shield", out inputAction))
+            {
                 inputAction.started += OnShield;
+                inputAction.canceled += OnShield;
+            }
 
             if (GetInputAction("SpecialAttack1", out inputAction))
                 inputAction.started += OnSpecialAttack1;
@@ -221,8 +160,7 @@ namespace CDR.InputSystem
             if (GetInputAction("SpecialAttack3", out inputAction))
                 inputAction.started += OnSpecialAttack3;
 
-            if (GetInputAction("RangeAttack", out inputAction))
-                _InputActionUpdates.Add("RangeAttack", new InputActionUpdate(inputAction, OnRangeAttack));
+            AddInputActionToUpdate("RangeAttack", OnRangeAttack);
         }
     }
 }
