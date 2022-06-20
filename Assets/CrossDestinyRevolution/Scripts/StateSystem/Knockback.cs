@@ -1,21 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CDR.ObjectPoolingSystem;
 
 namespace CDR.StateSystem
 {
-    public class Knockback : State, IKnockback
+    public class Knockback : State, IKnockback, IPoolable
     {
+        IPool _pool;
         [SerializeField] float _distance;
         [SerializeField] float _duration;
 
         public float distance => _distance;
         public float duration => _duration;
 
+        public IPool pool { get => _pool; set => _pool = value; }
+
         public override void StartState()
         {
             base.StartState();
-            Debug.Log("Start Knockback");
 
             StartCoroutine(KnockbackCoroutine(duration));
         }
@@ -24,7 +27,7 @@ namespace CDR.StateSystem
         {
             base.EndState();
             receiver.controller.SetVelocity(Vector3.zero);
-            Debug.Log("End Knockback");
+            Return();
         }
 
         IEnumerator KnockbackCoroutine(float time)
@@ -44,6 +47,14 @@ namespace CDR.StateSystem
             }
 
             EndState();
+        }
+
+        public void ResetObject(){}
+
+        public void Return()
+        {
+            transform.parent = null;
+            pool.ReturnObject(this);
         }
     }
 }
