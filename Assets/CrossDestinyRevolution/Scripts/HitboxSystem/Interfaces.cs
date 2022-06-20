@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using CDR.MechSystem;
+using CDR.MovementSystem;
 
 namespace CDR.AttackSystem
 {
@@ -20,6 +21,7 @@ namespace CDR.AttackSystem
     public interface IHitShape : ICollisionShape
     {
         LayerMask hitLayer { get; set; }
+        IController controller { get; set; }
     }
 
     public interface IHurtShape : ICollisionShape

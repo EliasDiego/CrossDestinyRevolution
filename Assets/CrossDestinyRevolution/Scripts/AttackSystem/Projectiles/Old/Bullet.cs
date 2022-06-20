@@ -8,25 +8,41 @@ namespace CDR.AttackSystem
 	{
 		[SerializeField] public float BulletSpeed;
 
+		public Quaternion generalDirection;
+
 		public override void Start()
 		{
 			base.Start();
 		}
 
+		public override void OnEnable()
+		{
+			base.OnEnable();
+
+			transform.rotation = generalDirection;
+		}
+
 		private void FixedUpdate()
 		{
 			MoveBullet();
-			RotateBullet();
 		}
 
 		void MoveBullet()
 		{
-			_rigidBody.velocity = transform.forward * BulletSpeed;
+			SetVelocity(transform.forward * BulletSpeed);
 		}
 
-		void RotateBullet()
+		protected override void OnHitEnter(IHitEnterData hitData)
 		{
-			_rigidBody.MoveRotation(Quaternion.LookRotation(target.position));
+			base.OnHitEnter(hitData);
+
+			hitData.hurtShape.character.health.TakeDamage(projectileDamage);
+
+			ResetObject();
+
+			projectileHitBox.onHitEnter -= OnHitEnter;
+
+			Return();
 		}
 	}
 }
