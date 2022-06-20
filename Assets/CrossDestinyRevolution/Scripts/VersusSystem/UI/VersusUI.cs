@@ -17,11 +17,11 @@ namespace CDR.VersusSystem
         [SerializeField]
         VersusResultsMenu _VersusResultsMenu;
         [SerializeField]
-        PauseMenu _PauseMenu;
+        VersusPauseMenu _PauseMenu;
 
         public IRoundUIHandler roundUIHandler => _RoundUIHandler;
         public IRoundTimeUIHandler roundTimeUIHandler => _RoundTimeUIHandler;
-        public IVersusResultsMenu versusResultsMenu => _VersusResultsMenu;
-        public PauseMenu pauseMenu => _PauseMenu;
+        public IVersusResultsMenu resultsMenu => _VersusResultsMenu;
+        public IVersusPauseMenu pauseMenu => _PauseMenu;
     }
 }

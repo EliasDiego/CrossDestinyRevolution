@@ -46,6 +46,8 @@ namespace CDR.VersusSystem
 
             yield return new WaitForSeconds(3);
 
+            _VersusUI.pauseMenu.EnablePauseInput();
+
             Debug.Log("Round Start!");
 
             _VersusUI.roundUIHandler.Hide();
@@ -75,6 +77,8 @@ namespace CDR.VersusSystem
         private IEnumerator EndRoundSequence()
         {
             yield return null;
+
+            _VersusUI.pauseMenu.DisablePauseInput();
 
             foreach(IParticipant p in _Participants)
                 p.Reset();
@@ -109,6 +113,9 @@ namespace CDR.VersusSystem
             _Participants = participants;
 
             _VersusUI = versusUI;
+
+            _VersusUI.roundTimeUIHandler.Hide();
+            _VersusUI.roundUIHandler.Hide();
 
             StartCoroutine(TempDelayStart());
         }
@@ -145,18 +152,18 @@ namespace CDR.VersusSystem
 
         public void ShowResults()
         {
-            _VersusUI.versusResultsMenu.rematchEvent += Rematch;
-            _VersusUI.versusResultsMenu.returnToMainMenuEvent += ExitVersus;
-            _VersusUI.versusResultsMenu.Show();
+            _VersusUI.resultsMenu.rematchEvent += Rematch;
+            _VersusUI.resultsMenu.returnToMainMenuEvent += ExitVersus;
+            _VersusUI.resultsMenu.Show();
 
             // ExitVersus();
         }
 
         public void Rematch()
         {
-            _VersusUI.versusResultsMenu.Hide();
-            _VersusUI.versusResultsMenu.rematchEvent -= Rematch;
-            _VersusUI.versusResultsMenu.returnToMainMenuEvent -= ExitVersus;
+            _VersusUI.resultsMenu.Hide();
+            _VersusUI.resultsMenu.rematchEvent -= Rematch;
+            _VersusUI.resultsMenu.returnToMainMenuEvent -= ExitVersus;
 
             _CurrentRound = 0;
 

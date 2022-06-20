@@ -51,8 +51,8 @@ namespace CDR.VersusSystem
     {
         IRoundUIHandler roundUIHandler { get; }
         IRoundTimeUIHandler roundTimeUIHandler { get; }
-        IVersusResultsMenu versusResultsMenu { get; }
-        PauseMenu pauseMenu { get; }
+        IVersusResultsMenu resultsMenu { get; }
+        IVersusPauseMenu pauseMenu { get; }
     }
 
     public interface IRoundUIHandler : IUIElement

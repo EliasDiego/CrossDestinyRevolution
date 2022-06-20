@@ -36,4 +36,13 @@ namespace CDR.VersusSystem
         event Action rematchEvent;
         event Action returnToMainMenuEvent; 
     }
+
+    public interface IVersusPauseMenu : IMenu
+    {
+        bool isPaused { get; }
+        event Action returnToMainMenuEvent; 
+
+        void EnablePauseInput();
+        void DisablePauseInput();
+    }
 }
