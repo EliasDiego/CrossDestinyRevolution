@@ -30,12 +30,12 @@ namespace CDR.AnimationSystem
                 StartCoroutine(MeleeAttack());
         }
 
-        // private void Update() 
-        // {
-        //     _Animator.SetBool("IsMove", _IsMove);
-        //     _Animator.SetFloat("MoveX", _MoveX);
-        //     _Animator.SetFloat("MoveY", _MoveY);    
-        // }
+        private void Update() 
+        {
+            _Animator.SetBool("IsMove", _IsMove);
+            _Animator.SetFloat("MoveX", _MoveX);
+            _Animator.SetFloat("MoveY", _MoveY);    
+        }
 
         private IEnumerator MeleeAttack()
         {
