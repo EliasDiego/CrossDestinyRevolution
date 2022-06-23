@@ -15,6 +15,8 @@ namespace CDR.AttackSystem
         Bounds _Bounds;
         public override Vector3 position => transform.position + _Bounds.center;
 
+        public Bounds bounds => _Bounds;
+
         protected override void OnDrawGizmos()
         {
             base.OnDrawGizmos();

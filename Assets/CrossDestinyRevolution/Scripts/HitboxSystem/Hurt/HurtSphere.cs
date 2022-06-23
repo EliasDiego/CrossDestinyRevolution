@@ -11,6 +11,8 @@ namespace CDR.AttackSystem
 
         public override Vector3 position => transform.position + _SphereCollider.center;
 
+        public float radius { get => _SphereCollider.radius; set => _SphereCollider.radius = value; }
+
         private void Awake() 
         {
             _SphereCollider = GetComponent<SphereCollider>();    
