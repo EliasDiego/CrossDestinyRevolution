@@ -28,6 +28,7 @@ namespace CDR.MovementSystem
         protected override void Awake()
         {
             base.Awake();
+
         }
 
         private void Update()
