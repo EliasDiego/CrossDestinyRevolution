@@ -25,6 +25,8 @@ namespace CDR.AttackSystem
             base.Use();
 
             StartCoroutine(BBBSequence());
+
+            End();
         }
 
         public override void End()
@@ -32,7 +34,14 @@ namespace CDR.AttackSystem
             base.End();
         }
 
-        IEnumerator BBBSequence()
+		public override void ForceEnd()
+		{
+			base.ForceEnd();
+
+            StopAllCoroutines();
+		}
+
+		IEnumerator BBBSequence()
         {
             //1ST PHASE
 
@@ -46,8 +55,6 @@ namespace CDR.AttackSystem
             FirstPhaseBullet.GetComponent<BBBProjectile>().towardsSplitPoint = transform.position;
 
             FirstPhaseBullet.SetActive(true);
-
-            End();
 
             yield return new WaitForSeconds(secondsBeforeSplit);
 

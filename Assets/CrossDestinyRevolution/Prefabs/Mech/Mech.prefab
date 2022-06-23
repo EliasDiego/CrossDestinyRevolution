@@ -146,11 +146,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68f88f0aef8b94d44aa460f80cf81417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 0}
+  _animator: {fileID: 7514168742925502589}
   _health:
     currentValue: 0
-    maxValue: 0
-  _hitShape: []
+    maxValue: 100
+  _hurtShape: []
   _controller: {fileID: 7281039689900866123}
   _targetHandler: {fileID: 8684808194649894697}
   _movement: {fileID: 2771863353043080619}

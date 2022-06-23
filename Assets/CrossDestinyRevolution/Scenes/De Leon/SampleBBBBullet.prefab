@@ -101,7 +101,6 @@ MonoBehaviour:
   projectileDamage: 5
   hasLifeTime: 0
   projectileMaxLifetime: 5
-  playerAttackRange: 0
   bulletSpeed: 15
   bulletSplitSpeed: 5
   generalDirection: {x: 0, y: 0, z: 0, w: 0}
@@ -121,7 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ActiveCharacter: {fileID: 0}
-  _Controller: {fileID: 0}
+  _Controller: {fileID: 7203902977355289296}
   _HitLayer:
     serializedVersion: 2
     m_Bits: 128

@@ -40,15 +40,16 @@ namespace CDR.AttackSystem
 
 		public virtual void MoveProjectile()
 		{
-			if(isInSplitPoint)
+			SetVelocity(transform.forward * bulletSpeed);
+
+			if (isInSplitPoint)
 			{
-				towardsSplitPoint = transform.position;
-				SetVelocity(transform.forward * bulletSpeed);
+				towardsSplitPoint = transform.position;	
 			}
 
 			if (!isInSplitPoint)
 			{
-				transform.position = Vector3.MoveTowards(transform.position, towardsSplitPoint, bulletSpeed * Time.deltaTime);
+				transform.position = Vector3.MoveTowards(transform.position, towardsSplitPoint, bulletSplitSpeed * Time.deltaTime);
 			}
 		}
 
@@ -72,14 +73,6 @@ namespace CDR.AttackSystem
 		protected override void OnHitEnter(IHitEnterData hitData)
 		{
 			base.OnHitEnter(hitData);
-
-			hitData.hurtShape.character.health.TakeDamage(projectileDamage);
-
-			ResetObject();
-
-			projectileHitBox.onHitEnter -= OnHitEnter;
-
-			Return();
 		}
 
 

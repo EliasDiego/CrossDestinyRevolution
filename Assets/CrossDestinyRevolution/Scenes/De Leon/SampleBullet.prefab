@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ActiveCharacter: {fileID: 0}
-  _Controller: {fileID: 0}
+  _Controller: {fileID: 8293644638419498477}
   _HitLayer:
     serializedVersion: 2
     m_Bits: 128
@@ -122,8 +122,6 @@ MonoBehaviour:
   hasLifeTime: 1
   projectileMaxLifetime: 5
   playerAttackRange: 0
-  originPoint: {x: 0, y: 0, z: 0}
-  staticTargetPoint: {x: 0, y: 0, z: 0}
   BulletSpeed: 15
   generalDirection: {x: 0, y: 0, z: 0, w: 0}
 --- !u!54 &5328174087131921152

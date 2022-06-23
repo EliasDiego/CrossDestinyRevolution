@@ -120,9 +120,19 @@ namespace CDR.InputSystem
                 s.OnSubmit(null);
         }
 
-        public override void SetupInput(InputActionMap inputActionMap, params InputDevice[] devices)
+        private void OnStart(InputAction.CallbackContext context)
         {
-            base.SetupInput(inputActionMap, devices);
+            Debug.Log("Start");
+        }
+
+        private void OnPause(InputAction.CallbackContext context)
+        {
+            Debug.Log("Pause");
+        }
+
+        public override void AssociateActionMap(InputActionMap inputActionMap)
+        {
+            base.AssociateActionMap(inputActionMap);
 
             inputActions["Point"].performed += OnPoint;
             inputActions["Move"].started += OnMove;
@@ -136,14 +146,14 @@ namespace CDR.InputSystem
         {
             base.EnableInput();
 
-            // onEnableInput?.Invoke();
+            onEnableInput?.Invoke();
         }
 
         public override void DisableInput()
         {
             base.DisableInput();
 
-            // onDisableInput?.Invoke();
+            onDisableInput?.Invoke();
         }
     }
 }
