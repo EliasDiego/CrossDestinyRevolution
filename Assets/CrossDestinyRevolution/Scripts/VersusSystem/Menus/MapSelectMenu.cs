@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
-using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 using CDR.UISystem;
 using CDR.InputSystem;
@@ -14,6 +14,10 @@ namespace CDR.VersusSystem
     {
         [SerializeField]
         private SceneLoader _SceneLoader;
+        [SerializeField]
+        private GameObject _FirstSelect;
+        [SerializeField]
+        private EventSystem _EventSystem;
 
         public void OnCancel()
         {
@@ -25,6 +29,13 @@ namespace CDR.VersusSystem
             versusData.mapData = mapData;
 
             _SceneLoader.LoadSceneAsync(new VersusSceneTask(versusData));
+        }
+
+        public override void Show()
+        {
+            base.Show();
+
+            _EventSystem.SetSelectedGameObject(_FirstSelect);
         }
     }
 }

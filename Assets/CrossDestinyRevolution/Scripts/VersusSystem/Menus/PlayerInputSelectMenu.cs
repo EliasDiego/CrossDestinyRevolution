@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.UI;
 using UnityEngine.InputSystem.Users;
 using UnityEngine.InputSystem.LowLevel;
 
@@ -46,12 +47,12 @@ namespace CDR.VersusSystem
 
         private struct PlayerInputData
         {
-            public InputDevice device { get; set; }
+            public InputDevice[] devices { get; set; }
             public InputActionAsset actionAsset { get; set; }
 
-            public PlayerInputData(InputDevice inputDevice, InputActionAsset inputActionAsset)
+            public PlayerInputData(InputActionAsset inputActionAsset, params InputDevice[] inputDevices)
             {
-                device = inputDevice;
+                devices = inputDevices;
                 actionAsset = inputActionAsset;
             }
         }
@@ -97,7 +98,7 @@ namespace CDR.VersusSystem
 
         private void OnStart(InputAction.CallbackContext context)
         {
-            versusData.participantDataList.Add(SetPlayerData($"Player {_CurrentPlayerIndex + 1}", _CurrentPlayerInputData.actionAsset, _CurrentPlayerInputData.device));
+            versusData.participantDataList.Add(SetPlayerData($"Player {_CurrentPlayerIndex + 1}", _CurrentPlayerInputData.actionAsset, _CurrentPlayerInputData.devices));
 
             if(_CurrentPlayerIndex < _PlayerInputDatas.Count)
                 _PlayerInputDatas[_CurrentPlayerIndex] = _CurrentPlayerInputData;
@@ -147,8 +148,18 @@ namespace CDR.VersusSystem
                 if(i >= playerInputs.Length)
                     break;
 
-                playerInputs[i].AssignInput(_PlayerInputDatas[i].actionAsset.FindActionMap("UI", true), _PlayerInputDatas[i].device);
+                playerInputs[i].AssignInput(_PlayerInputDatas[i].actionAsset.FindActionMap("UI", true), _PlayerInputDatas[i].devices);
             }
+
+            InputActionAsset asset = Instantiate(_ActionAsset);
+
+            InputActionMap uiActionMap = asset.FindActionMap("UI", true);
+
+            asset.devices = _PlayerInputDatas[0].devices;
+
+            inputModule.actionsAsset = asset;
+            inputModule.move = InputActionReference.Create(uiActionMap.FindAction("Move", true));
+            inputModule.ActivateModule();
 
             SwitchTo(_VersusSettingsMenu);
         }
@@ -206,13 +217,13 @@ namespace CDR.VersusSystem
             if(!_ActionAsset.FindActionMap("Game", true).IsUsableWithDevice(device))
                 return;
 
-            if(device is Keyboard && _PlayerInputDatas.Any(p => p.device is Keyboard))
+            if(device is Keyboard && _PlayerInputDatas.Any(p => p.devices.Any(d => d is Keyboard)))
                 asset = _SplitKeyboardActionAsset;
 
-            else if(_PlayerInputDatas.Any(p => p.device == device))
+            else if(_PlayerInputDatas.Any(p => p.devices.Contains(device)))
                 return;
 
-            _CurrentPlayerInputData = new PlayerInputData(device, asset);
+            _CurrentPlayerInputData = new PlayerInputData(asset, device);
 
             _PlayerSelectInput.AssignInput(asset.FindActionMap("UI", true), device);
             _PlayerSelectInput.EnableInput();
