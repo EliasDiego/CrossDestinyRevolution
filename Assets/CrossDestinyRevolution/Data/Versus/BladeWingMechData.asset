@@ -10,7 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd70c3c08983ef24e97c7cd06dc233b8, type: 3}
-  m_Name: New Mech Data
+  m_Name: BladeWingMechData
   m_EditorClassIdentifier: 
   _MechName: Sample Mech
-  _MechPrefab: {fileID: 2727559465120076958, guid: ebd3c9172d7fd4544b14bf9a715728be, type: 3}
+  _MechPrefab: {fileID: 4102475430528319348, guid: 9caca10370e619f418541b61c1598e13, type: 3}
+  _MechProfile: {fileID: 0}
