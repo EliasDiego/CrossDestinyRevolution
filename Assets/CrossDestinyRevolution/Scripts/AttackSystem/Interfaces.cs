@@ -20,14 +20,14 @@ namespace CDR.AttackSystem
     public interface IMeleeAttack : ICooldownAction
     {
         IHitShape hitbox { get; }
-        
         float speed { get; }
     }
 
     public interface IShield : IAction
     {
         float radius { get; }
-        IStun stun { get; }
+        //IStun stun { get; }
+        IHurtShape hurtSphere{ get; }
     }
 
     public interface ISpecialAttack : ICooldownAction
