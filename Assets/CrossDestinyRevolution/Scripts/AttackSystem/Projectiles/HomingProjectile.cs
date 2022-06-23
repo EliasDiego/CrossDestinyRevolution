@@ -7,11 +7,9 @@ namespace CDR.AttackSystem
 {
     public class HomingProjectile : Projectile
     {
-        [SerializeField] public float bulletSpeed = 15f;
-		[SerializeField] public float rotateSpeed = 5f;
+        
 
-		protected bool isHoming = true;
-
+		
 		public override void Start()
 		{
 			base.Start();
@@ -20,27 +18,12 @@ namespace CDR.AttackSystem
 		public override void OnEnable()
 		{
 			base.OnEnable();
-			isHoming = true;
 
-			if (target != null)
-			{
-				transform.LookAt(target.position);
-			}
+			
 
 		}
 
-		public virtual void FixedUpdate()
-		{
-			if(target != null)
-				distanceFromTarget = Vector3.Distance(transform.position, target.position);
-
-			MoveProjectile();
-		}
-
-		public virtual void MoveProjectile()
-		{
-			_rigidBody.velocity = transform.forward * bulletSpeed;
-		}
+		
 
 		public virtual void RotateProjectile(){}
 

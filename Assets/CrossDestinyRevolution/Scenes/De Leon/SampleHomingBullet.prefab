@@ -112,15 +112,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 845fc62bef44c3f4eb1265fc6cd4db80, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Rigidbody: {fileID: 3874464055193689795}
   projectileHitBox: {fileID: 6103551261855339763}
   projectileDamage: 5
   hasLifeTime: 1
   projectileMaxLifetime: 5
   playerAttackRange: 0
-  originPoint: {x: 0, y: 0, z: 0}
-  staticTargetPoint: {x: 0, y: 0, z: 0}
   bulletSpeed: 40
   rotateSpeed: 50
+  originPoint: {x: 0, y: 0, z: 0}
 --- !u!114 &6103551261855339763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _ActiveCharacter: {fileID: 0}
+  _Controller: {fileID: 3401622447246041833}
   _HitLayer:
     serializedVersion: 2
     m_Bits: 128

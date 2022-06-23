@@ -9,7 +9,7 @@ using CDR.MechSystem;
 
 namespace CDR.AttackSystem
 {
-	public class Projectile : MonoBehaviour, IProjectile
+	public class Projectile : ProjectileController, IProjectile
 	{
 		IPool _pool;
 
@@ -17,21 +17,13 @@ namespace CDR.AttackSystem
 
 		public float projectileDamage;
 
-		[SerializeField] bool hasLifeTime = true;
-		float projectileLifetime;
+		public bool hasLifeTime = true;
+		protected float projectileLifetime;
 		public float projectileMaxLifetime;
-
-		protected Rigidbody _rigidBody;
 
 		IProjectileController projectileController;
 		public IActiveCharacter target { get; set; }
-
-		public float playerAttackRange;
 		protected float distanceFromTarget;
-
-		public Vector3 originPoint;
-
-		public Vector3 staticTargetPoint;
 
 		//Increments
 		public HitBox HitBox => projectileHitBox;
@@ -44,15 +36,11 @@ namespace CDR.AttackSystem
 		public virtual void Start()
 		{
 			projectileController = GetComponent<ProjectileController>();
-
-			_rigidBody = GetComponent<Rigidbody>();
-
 			projectileLifetime = projectileMaxLifetime;
 		}
 
 		public virtual void OnEnable()
 		{
-			transform.position = originPoint;
 			projectileLifetime = projectileMaxLifetime;
 
 			if (projectileHitBox != null)
@@ -66,7 +54,7 @@ namespace CDR.AttackSystem
 			ProcessLifetime();
 		}
 
-		void ProcessLifetime()
+		protected virtual void ProcessLifetime()
 		{
 			if(hasLifeTime)
 			{
@@ -83,14 +71,14 @@ namespace CDR.AttackSystem
 			}
 		}
 
-		bool LifetimeCountDown(float deltaTime)
+		protected bool LifetimeCountDown(float deltaTime)
 		{
 			projectileLifetime = Mathf.Max(projectileLifetime - deltaTime, 0f);
 			return projectileLifetime <= 0f;
 		}
 
-		public void OnHitEnter(IHitEnterData hitData) //Hitbox Response
-		{ 
+		protected virtual void OnHitEnter(IHitEnterData hitData) //Hitbox Response
+		{
 			hitData.hurtShape.character.health.TakeDamage(projectileDamage);
 
 			ResetObject();
@@ -100,13 +88,16 @@ namespace CDR.AttackSystem
 			Return();
 		}
 
-		public void ResetObject() //Parameters reset
+		public virtual void ResetObject() //Parameters reset
 		{
 			projectileLifetime = projectileMaxLifetime;
-			originPoint = Vector3.zero;
+			transform.position = Vector3.zero;
 			transform.rotation = Quaternion.identity;
 			distanceFromTarget = 0f;
-			_rigidBody.rotation = Quaternion.identity;
+			transform.parent = null;
+
+			SetVelocity(Vector3.zero);
+			Rotate(Quaternion.identity);
 		}
 
 		public void Return() //Return to Object Pool

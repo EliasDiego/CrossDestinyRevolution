@@ -62,7 +62,7 @@ namespace CDR.MovementSystem
             quat.x = 0f;
             quat.z = 0f;
 
-            Character.controller.Rotate(Quaternion.RotateTowards(Character.rotation, quat, 50f));
+            Character.controller.Rotate(Quaternion.RotateTowards(Character.rotation, quat.normalized, 50f));
         }
      
         public void HorizontalBoost(Vector2 direction)
@@ -113,6 +113,8 @@ namespace CDR.MovementSystem
             {
                 StopCoroutine(_FixedCoroutine);
             }
+
+            
             StartCoroutine(ResumeRegen());
             Character.movement.Use();
             Character.movement.Move(Vector2.zero);
@@ -124,6 +126,16 @@ namespace CDR.MovementSystem
                     Vector3.Distance(Character.targetHandler.GetCurrentTarget().activeCharacter.position,
                     Character.position)
                 );
+        }
+
+        public override void ForceEnd()
+        {
+            base.ForceEnd();
+            if(_FixedCoroutine != null)
+            {
+                StopCoroutine(_FixedCoroutine);
+            }
+            Character.controller.SetVelocity(Vector3.zero);
         }
     }
 }

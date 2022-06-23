@@ -43,11 +43,10 @@ namespace CDR.AttackSystem
 			
 			var bullet = _pool.GetPoolable();
 
-			//bullet.GetComponent<HitBox>()._ActiveCharacter = activeCharacter;
-			bullet.GetComponent<Projectile>().target = target.activeCharacter;
-			bullet.GetComponent<Projectile>().playerAttackRange = attackRange;
-			bullet.GetComponent<Projectile>().originPoint = GunPoint.transform.position;
-			//bullet.GetComponent<Transform>().LookAt(target.activeCharacter.position);
+			bullet.GetComponent<HomingBullet>().target = target.activeCharacter;
+			bullet.GetComponent<HomingBullet>().playerAttackRange = attackRange;
+			bullet.GetComponent<HomingBullet>().transform.position = GunPoint.transform.position;
+			bullet.GetComponent<HomingBullet>().originPoint = GunPoint.transform.position;
 
 			bullet.SetActive(true);
 		}
@@ -57,6 +56,13 @@ namespace CDR.AttackSystem
 		public override void End()
 		{
 			base.End();
+		}
+
+		public override void ForceEnd()
+		{
+			base.ForceEnd();
+
+			_pool.ReturnAll();
 		}
 
 		private void OnDrawGizmos()
