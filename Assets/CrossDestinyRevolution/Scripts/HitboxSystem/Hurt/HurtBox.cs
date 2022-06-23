@@ -13,6 +13,8 @@ namespace CDR.AttackSystem
 
         public override Vector3 position => transform.position + _BoxCollider.center;
 
+        public Bounds bounds => _BoxCollider.bounds;
+
         private void Awake() 
         {
             _BoxCollider = GetComponent<BoxCollider>();
