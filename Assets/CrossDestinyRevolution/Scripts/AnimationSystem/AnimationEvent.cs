@@ -26,8 +26,8 @@ namespace CDR.AnimationSystem
 
         public float timeValue => _TimeValue;
         public bool isNormalized => _IsNormalized;
-        public Action onEventTime { get; }
-        public Action onStateEnter { get; }
-        public Action onStateExit { get; }
+        public Action onEventTime { get; set;}
+        public Action onStateEnter { get; set; }
+        public Action onStateExit { get; set; }
     }
 }

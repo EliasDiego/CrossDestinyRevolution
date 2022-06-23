@@ -15,6 +15,8 @@ namespace CDR.AttackSystem
 
         public override Vector3 position => transform.position + _Center;
 
+        public float radius { get => _Radius; set => _Radius = value; }
+
         protected override void OnDrawGizmos()
         {
             base.OnDrawGizmos();
