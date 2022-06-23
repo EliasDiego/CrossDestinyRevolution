@@ -346,7 +346,7 @@ GameObject:
   - component: {fileID: 745670669}
   - component: {fileID: 745670671}
   - component: {fileID: 745670670}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GameObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -417,14 +417,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 761077524}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.3}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 806039793}
   m_Father: {fileID: 0}
   m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &761077526
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -441,10 +441,12 @@ MonoBehaviour:
   projectileHitBox: {fileID: 1944057520}
   projectileDamage: 4.77
   hasLifeTime: 0
-  projectileMaxLifetime: 0
-  pivot: {fileID: 806039793}
-  maxLength: 0
-  timeToScale: 0
+  projectileMaxLifetime: 3
+  pivot: {fileID: 806039792}
+  beam: {fileID: 1944057518}
+  maxLength: 50
+  timeToScale: 0.75
+  rotationSpeed: 100
 --- !u!1 &806039792
 GameObject:
   m_ObjectHideFlags: 0
@@ -469,7 +471,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 806039792}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 1.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1944057519}
@@ -875,7 +877,7 @@ Transform:
   m_GameObject: {fileID: 1944057518}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0.5}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 806039793}
   m_RootOrder: 0
@@ -896,7 +898,7 @@ MonoBehaviour:
   _Controller: {fileID: 761077526}
   _HitLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   _Bounds:
     m_Center: {x: 0, y: 0, z: 0}
     m_Extent: {x: 1, y: 1, z: 1}
@@ -920,7 +922,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1944057518}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -976,7 +978,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 6
   m_CollisionDetection: 0
 --- !u!1001 &767105826583762468
 PrefabInstance:
@@ -1003,7 +1005,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 767105826811944588, guid: 4da7ad14123db1444bceecd09199741d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.14
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 767105826811944588, guid: 4da7ad14123db1444bceecd09199741d, type: 3}
       propertyPath: m_LocalRotation.w
