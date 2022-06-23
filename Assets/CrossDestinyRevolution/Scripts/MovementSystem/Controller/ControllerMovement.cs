@@ -28,6 +28,7 @@ namespace CDR.MovementSystem
         protected override void Awake()
         {
             base.Awake();
+
         }
 
         private void Update()
@@ -56,7 +57,9 @@ namespace CDR.MovementSystem
         Vector3 CentripetalForce()
         {
             float cForce = Mathf.Pow(Character.controller.velocity.magnitude, 2) / distanceToTarget;
-            return currentTarget.direction * -cForce;
+            var force = currentTarget.direction * -cForce;
+            force.y = 0f;
+            return force;
         }
 
         private Vector3 MoveDirection()
@@ -75,6 +78,7 @@ namespace CDR.MovementSystem
 
 
             var current = (Character.rotation * currentDir).normalized;
+            current.y = 0f;
             return current;           
         }
 
@@ -86,7 +90,7 @@ namespace CDR.MovementSystem
             quat.x = 0f;
             quat.z = 0f;
 
-            Character.controller.Rotate(Quaternion.RotateTowards(Character.rotation, quat, 50f));
+            Character.controller.Rotate(Quaternion.RotateTowards(Character.rotation, quat.normalized, 50f));
         }
 
         #region INTERFACE_Methods
@@ -111,6 +115,13 @@ namespace CDR.MovementSystem
         public override void End()
         {
             base.End();
+        }
+
+        public override void ForceEnd()
+        {
+            base.ForceEnd();
+            currentDir = Vector3.zero;
+            Character.controller.SetVelocity(Vector3.zero);
         }
 
         public void SetSpeedClamp(bool isClamped)
