@@ -5,6 +5,7 @@ using CDR.ActionSystem;
 using CDR.StateSystem;
 using CDR.MechSystem;
 using CDR.ObjectPoolingSystem;
+using CDR.AnimationSystem;
 
 namespace CDR.AttackSystem
 {
@@ -13,6 +14,9 @@ namespace CDR.AttackSystem
 		[SerializeField] HitBox _hitBox;
 		[SerializeField] float _speed;
 		[SerializeField] float _meleeDamage;
+
+		// Animation Handler
+		[SerializeField] MeleeAttackAnimationHandler _animHandler;
 
 		// Cooldown
 		[SerializeField] float _meleeAttackCoolDown;
@@ -52,6 +56,7 @@ namespace CDR.AttackSystem
 			base.Use();
 			
 			isHoming = true;
+			_animHandler.PlayAttackAnim();
 			//_hitBox.enabled = true;
 			_hitBox.onHitEnter += HitEnter;
 
@@ -83,6 +88,7 @@ namespace CDR.AttackSystem
 		void HitEnter(IHitEnterData hitData)
 		{
 			isHoming = false;
+			_animHandler.EndAttackAnim();
 			Character.controller.SetVelocity(Vector3.zero);
 			Debug.LogWarning("Hit!!! " + hitData.hurtShape.character);
 
@@ -137,6 +143,7 @@ namespace CDR.AttackSystem
 			if(_timer < 0)
 			{
 				isHoming = false;
+				_animHandler.EndAttackAnim();
 				Character.controller.SetVelocity(Vector3.zero);
 				End();
 			}
