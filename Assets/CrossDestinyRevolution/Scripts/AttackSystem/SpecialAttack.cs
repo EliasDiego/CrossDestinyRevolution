@@ -38,6 +38,14 @@ namespace CDR.AttackSystem
 		public override void ForceEnd()
 		{
 			base.ForceEnd();
+
+			for(int i = 0; i < _pool.Length; i++)
+			{
+				if(_pool[i] != null)
+				{
+					_pool[i].ReturnAll();
+				}
+			}
 		}
 	}
 }

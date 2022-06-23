@@ -61,6 +61,8 @@ namespace CDR.AttackSystem
 		public override void ForceEnd()
 		{
 			base.ForceEnd();
+
+			_pool.ReturnAll();
 		}
 
 		private void OnDrawGizmos()
