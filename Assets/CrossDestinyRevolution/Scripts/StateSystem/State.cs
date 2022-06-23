@@ -27,7 +27,6 @@ namespace CDR.StateSystem
             if(_receiver != null)
             {
                 _receiver.input.DisableInput();
-                Debug.Log("Disable Input");
 
                 DisableActions();
             }
@@ -38,13 +37,22 @@ namespace CDR.StateSystem
             if(_receiver != null)
             {
                 _receiver.input.EnableInput();
-                Debug.Log("Enable Input");
 
                 _receiver.currentState = null;
                 EnableActions();
             }
         }
 
+        public virtual void ForceEndState()
+        {
+            if(_receiver != null)
+            {
+                _receiver.input.EnableInput();
+
+                _receiver.currentState = null;
+                EnableActions();
+            }
+        }
 
         void DisableActions()
         {
