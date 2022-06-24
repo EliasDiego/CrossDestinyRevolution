@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CDR.AnimationSystem;
 
 namespace CDR.AttackSystem
 {
@@ -12,8 +13,9 @@ namespace CDR.AttackSystem
         [SerializeField] float bulletTrailSpawnInterval; // Interval between spawning bullet trail
         [SerializeField] float bulletTrailDeSpawnInterval; // Interval between despawning bullet trail
 
-        //[SerializeField] List<Vector3> bulletTrailSpawn;
-        //[SerializeField] List<GameObject> bulletTrailBullets;
+        [SerializeField] CDR.AnimationSystem.AnimationEvent _animationEvent;
+
+        AnimationEventsManager _Manager;
 
         protected override void Awake()
         {
@@ -21,11 +23,19 @@ namespace CDR.AttackSystem
                 _pool[0].Initialize();
             if (_pool[1] != null)
                 _pool[1].Initialize();
+
+            _Manager = Character.animator.GetComponent<AnimationEventsManager>();
+
+            var a = new CDR.AnimationSystem.AnimationEvent(0.1f, true, null, null, null);
+
+            //_Manager.AddAnimationEvent("SpecialAttack01", a); //SpecialAttack01
         }
 
         public override void Use()
         {
             base.Use();
+
+            //Character.animator.SetBool("IsSAttack1", true);
 
             StartCoroutine(NSSequence());
 
