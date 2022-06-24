@@ -62,7 +62,6 @@ namespace CDR.VersusSystem
             _PlayerSelectInput = GetComponent<PlayerUIInput>();
         }
         
-        
         private IParticipantData SetPlayerData(string name, InputActionAsset actionAsset, params InputDevice[] devices)
         {
             return new PlayerParticipantData() 

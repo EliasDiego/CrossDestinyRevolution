@@ -30,7 +30,7 @@ namespace CDR.VersusSystem
             _PlayerInput.onDisableInput += OnDisableInput;
         }
 
-        private void OnEnableInput()
+        private void OnEnableInput(IInput input)
         {
             _Image.enabled = true;
             
@@ -38,7 +38,7 @@ namespace CDR.VersusSystem
             _RectTransform.sizeDelta = Vector2.zero;
         }
 
-        private void OnDisableInput()
+        private void OnDisableInput(IInput input)
         {
             _Image.enabled = false;
         }

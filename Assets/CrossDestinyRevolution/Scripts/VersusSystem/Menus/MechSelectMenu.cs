@@ -22,16 +22,18 @@ namespace CDR.VersusSystem
             if(index == -1)
                 return;
 
-            versusData.participantDatas[index].mechData = null;
-
-            playerInput.EnableInput();
-
             if(!versusData.participantDatas.Any(p => p.mechData != null))
             {
                 Debug.Log("Back");
 
                 Back();
+
+                return;
             }
+
+            versusData.participantDatas[index].mechData = null;
+
+            playerInput.EnableInput();
         }
 
         public void PickMech(IPlayerInput playerInput, IMechData mechData)
