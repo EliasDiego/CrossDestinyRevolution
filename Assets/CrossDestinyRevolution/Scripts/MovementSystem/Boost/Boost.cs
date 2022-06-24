@@ -11,39 +11,74 @@ namespace CDR.MovementSystem
         [SerializeField]
         private float regenDelaySeconds;
         [SerializeField]
+        private float stopMinDistance = 6f;
+        [SerializeField]
         private BoostValue _boostValue;
         [SerializeField]
         private VerticalBoostData _verticalBoostData;
         [SerializeField]
         private HorizontalBoostData _horizontalBoostData;
+        [SerializeField]
+        private AnimationCurve animationCurve;
 
         public IBoostValue boostValue => _boostValue;
         public IBoostData horizontalBoostData => _horizontalBoostData;
         public IBoostData verticalBoostData => _verticalBoostData;
 
         private Coroutine _FixedCoroutine;
+        private float offsetArea;
 
         private void Start()
         {
+            offsetArea = 1f - animationCurve.GetArea(0.001f);
             StartCoroutine(_boostValue.Regenerate());
         }
 
         private IEnumerator FixedCoroutine(Vector3 direction, float time, bool isHorizontal)
         {
             float currentTime = time;
-            while(currentTime > 0)
+            float maxTime = isHorizontal ? _horizontalBoostData.time : _verticalBoostData.time;
+
+            if(isHorizontal)
+            {
+                Character.animator.SetInteger("BoostState", 2);
+                Character.animator.SetFloat("HBoostX", 1f * Mathf.Sign(direction.x));
+                Character.animator.SetFloat("HBoostY", 1f * Mathf.Sign(direction.z));
+            }
+            else
+            {
+                Character.animator.SetInteger("BoostState", 1);
+                Character.animator.SetFloat("VBoost", 1f * Mathf.Sign(direction.y));
+            }
+
+            while (currentTime > 0)
             {
                 RotateObject();
 
-                Character.controller.AddRbForce(Character.rotation * direction);
+                var force = Character.rotation * direction *
+                    (offsetArea * animationCurve.Evaluate(currentTime / maxTime));
+                
+                Character.controller.AddRbForce(force);
 
                 if(isHorizontal)
+                {           
+                    if(Character.targetHandler.isActive && isActive)
+                    {
+                        if(Character.targetHandler.GetCurrentTarget().distance < stopMinDistance 
+                            && direction.z != 0f)
+                        {
+                            Character.controller.SetVelocity(Vector3.zero);
+                            End();
+                        }
+                    }
                     Character.controller.AddRbForce(CentripetalForce(), ForceMode.Acceleration);
+                }
 
                 currentTime -= Time.fixedDeltaTime;
 
                 yield return new WaitForFixedUpdate();
             }
+            
             End();
         }
 
@@ -95,6 +130,14 @@ namespace CDR.MovementSystem
             _boostValue.SetIsRegening(true);
         }
 
+        private void ResetAnimatorValues()
+        {
+            Character.animator.SetInteger("BoostState", 0);
+            Character.animator.SetFloat("HBoostX", 0f);
+            Character.animator.SetFloat("HBoostY", 0f);
+            Character.animator.SetFloat("VBoost" , 0f);
+        }
+
         public override void Use()
         {
             base.Use();
@@ -114,7 +157,7 @@ namespace CDR.MovementSystem
                 StopCoroutine(_FixedCoroutine);
             }
 
-            
+            ResetAnimatorValues();
             StartCoroutine(ResumeRegen());
             Character.movement.Use();
             Character.movement.Move(Vector2.zero);
@@ -136,6 +179,7 @@ namespace CDR.MovementSystem
                 StopCoroutine(_FixedCoroutine);
             }
             Character.controller.SetVelocity(Vector3.zero);
+            ResetAnimatorValues();
         }
     }
 }

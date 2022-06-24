@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CDR.AnimationSystem;
 
 namespace CDR.AttackSystem
 {
@@ -13,11 +14,21 @@ namespace CDR.AttackSystem
 
         [SerializeField] int amountOfSplitBullet;
 
+        [SerializeField] CDR.AnimationSystem.AnimationEvent _animationEvent;
+
+        AnimationEventsManager _Manager;
+
 
         protected override void Awake()
         {
             if(_pool[0] != null)
                 _pool[0].Initialize();
+
+            _Manager = Character.animator.GetComponent<AnimationEventsManager>();
+
+            var a = new CDR.AnimationSystem.AnimationEvent(0.1f, true, null, null, null);
+
+            //_Manager.AddAnimationEvent("Special Attack 02", a); //SpecialAttack02
         }
 
         public override void Use()

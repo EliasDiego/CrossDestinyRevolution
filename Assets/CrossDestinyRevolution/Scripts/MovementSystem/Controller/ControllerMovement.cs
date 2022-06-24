@@ -10,6 +10,8 @@ namespace CDR.MovementSystem
     public class ControllerMovement : ActionSystem.Action, IMovement
     {
         [SerializeField]
+        private float leanTime = 0.2f;
+        [SerializeField]
         private float _speed;
         [SerializeField]
         private float _gravity;
@@ -20,15 +22,14 @@ namespace CDR.MovementSystem
         private ITargetData currentTarget;
         private float distanceToTarget;
 
-        public float intensity = 1f;
-
         public float speed => _speed;
         public float gravity => _gravity;
 
         protected override void Awake()
         {
             base.Awake();
-
+            var a = new AnimationSystem.AnimationEvent(0.1f, true, null, null, null);
+            Character.animator.GetComponent<AnimationSystem.AnimationEventsManager>().AddAnimationEvent("Move", a);
         }
 
         private void Update()
@@ -54,7 +55,7 @@ namespace CDR.MovementSystem
             Character.controller.AddRbForce(CentripetalForce(), ForceMode.Acceleration);
         }       
 
-        Vector3 CentripetalForce()
+        private Vector3 CentripetalForce()
         {
             float cForce = Mathf.Pow(Character.controller.velocity.magnitude, 2) / distanceToTarget;
             var force = currentTarget.direction * -cForce;
@@ -76,7 +77,6 @@ namespace CDR.MovementSystem
                 currentTarget?.activeCharacter?.movement?.SetDistanceToTarget(distance);
             }
 
-
             var current = (Character.rotation * currentDir).normalized;
             current.y = 0f;
             return current;           
@@ -97,10 +97,22 @@ namespace CDR.MovementSystem
         public void Move(Vector2 direction)
         {
             var dir = new Vector3(direction.x, 0f, direction.y);
-            currentDir = dir;    
-            
-            if(direction.magnitude == 0f)
+            currentDir = dir;
+
+            Character.animator.SetBool("IsMove", true);
+
+            LeanTween.value(Character.animator.GetFloat("MoveX"), direction.x, leanTime).setOnUpdate((float f) =>
             {
+                Character.animator.SetFloat("MoveX", f);
+            });
+            LeanTween.value(Character.animator.GetFloat("MoveY"), direction.y, leanTime).setOnUpdate((float f) =>
+            {
+                Character.animator.SetFloat("MoveY", f);
+            });
+
+            if (direction.magnitude == 0f)
+            {
+                Character.animator.SetBool("IsMove", false);
                 currentDir = Vector3.zero;
             }
         }
@@ -122,6 +134,9 @@ namespace CDR.MovementSystem
             base.ForceEnd();
             currentDir = Vector3.zero;
             Character.controller.SetVelocity(Vector3.zero);
+            Character.animator.SetFloat("MoveX", 0f);
+            Character.animator.SetFloat("MoveY", 0f);
+            Character.animator.SetBool("IsMove", false);
         }
 
         public void SetSpeedClamp(bool isClamped)

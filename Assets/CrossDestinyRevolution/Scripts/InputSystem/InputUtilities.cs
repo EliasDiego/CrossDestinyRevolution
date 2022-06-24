@@ -48,7 +48,7 @@ namespace CDR.InputSystem
 
             TInput playerInput = gameObject.AddComponent<TInput>();
 
-            playerInput.SetupInput(inputActionMap, devices);
+            playerInput.AssignInput(inputActionMap, devices);
 
             return playerInput;
         }

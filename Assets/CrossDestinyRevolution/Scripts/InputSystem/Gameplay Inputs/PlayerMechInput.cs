@@ -13,47 +13,9 @@ using CDR.TargetingSystem;
 
 namespace CDR.InputSystem
 {
-    public class PlayerMechInput : PlayerCharacterInput<IMech>
+    public class PlayerMechInput : PlayerActiveCharacterInput<IMech>
     {
-        private Vector2 _MovementInput;
-
-        private Dictionary<string, InputActionUpdate> _InputActionUpdates = new Dictionary<string, InputActionUpdate>();
-
         public PlayerMechInputSettings settings { get; set; }
-
-        private class InputActionUpdate
-        {
-            private bool _IsUpdate;
-            private Action _Action;
-
-            public bool isUpdate => _IsUpdate;
-            public Action action => _Action;
-
-            public InputActionUpdate(InputAction inputAction, Action action)
-            {
-                _IsUpdate = false;
-                _Action = action;
-                inputAction.started += c => _IsUpdate = true;
-                inputAction.canceled += c => _IsUpdate = false;
-            }
-        }
-
-        private void Update()
-        {
-            if(!isEnabled)
-                return;
-
-            foreach(InputActionUpdate actionUpdate in _InputActionUpdates.Values)
-            {
-                if(actionUpdate.isUpdate)
-                    actionUpdate.action?.Invoke();
-            }
-        }
-
-        private bool CheckBoolean(bool? boolean)
-        {
-            return boolean.HasValue && boolean.Value;
-        }
 
         private void OnSpecialAttack3(InputAction.CallbackContext context)
         {
@@ -87,12 +49,19 @@ namespace CDR.InputSystem
 
         private void OnShield(InputAction.CallbackContext context)
         {
-            if(CheckBoolean(character?.shield?.isActive))
-                return;
+            if(!CheckBoolean(character?.shield?.isActive))
+            {
+                character?.shield?.Use();
 
-            character?.shield?.Use();
+                Debug.Log($"[Shield Input] Started Using Shield!");
+            }
+
+            else
+            {
+                character?.shield?.End();
                 
-            Debug.Log($"[Shield Input] Used Shield!");
+                Debug.Log($"[Shield Input] Ended Shield!");
+            }
         }
 
         private void OnRangeAttack()
@@ -107,19 +76,19 @@ namespace CDR.InputSystem
 
         private void OnMeleeAttack(InputAction.CallbackContext context)
         {
-            if(CheckBoolean(character?.meleeAttack?.isActive) || CheckBoolean(character?.meleeAttack?.isCoolingDown))
+            if(CheckBoolean(character?.meleeAttack?.isCoolingDown))
                 return;
 
-            character?.meleeAttack?.Use();
+            if(CheckBoolean(character?.meleeAttack?.isActive))
+            {
+                // if(!CheckBoolean(character?.meleeAttack?.isHit))
+                    character?.meleeAttack?.End();
+            }
+
+            else
+                character?.meleeAttack?.Use();
                 
             Debug.Log($"[Melee Attack Input] Used Melee Attack!");
-        }
-
-        private void OnChangeTarget(InputAction.CallbackContext context)
-        {
-            character?.targetHandler?.GetNextTarget();
-                
-            Debug.Log($"[Change Target Input] Changed Target");
         }
 
         private void OnBoostDown(InputAction.CallbackContext context)
@@ -159,7 +128,7 @@ namespace CDR.InputSystem
             if(CheckBoolean(character?.boost?.isActive))
                 return;
 
-            if(_MovementInput.magnitude < settings.boostInputSettings.movementInputThreshold)
+            if(movementInput.magnitude < settings.boostInputSettings.movementInputThreshold)
             {
                 character?.boost?.VerticalBoost(1);
 
@@ -168,42 +137,38 @@ namespace CDR.InputSystem
 
             else
             {
-                character?.boost?.HorizontalBoost(_MovementInput);
+                character?.boost?.HorizontalBoost(movementInput);
                 
                 Debug.Log($"[Boost Input] Horizontal Boost!");
             }
-        }
-
-        private void OnMovement(InputAction.CallbackContext context)
-        {
-            _MovementInput = context.ReadValue<Vector2>();
-
-            if(!CheckBoolean(character?.movement?.isActive))
-                return;
-                
-            character?.movement?.Move(_MovementInput);
-
-            Debug.Log($"[Movement Input] {_MovementInput}");
         }
 
         public override void AssociateActionMap(InputActionMap inputActionMap)
         {
             base.AssociateActionMap(inputActionMap);
 
-            inputActions["Movement"].performed += OnMovement;
-            inputActions["Movement"].canceled += OnMovement;
+            if (GetInputAction("Boost", out InputAction inputAction))
+            {
+                inputAction.performed += OnBoostDown;
+                inputAction.canceled += OnBoost;
+            }
+                
+            if (GetInputAction("MeleeAttack", out inputAction))
+                inputAction.performed += OnMeleeAttack;
 
-            inputActions["Boost"].canceled += OnBoost;
-            inputActions["Boost"].performed += OnBoostDown;
+            if (GetInputAction("Shield", out inputAction))
+                inputAction.performed += OnShield;
 
-            inputActions["ChangeTarget"].started += OnChangeTarget;
-            inputActions["MeleeAttack"].started += OnMeleeAttack;
-            inputActions["Shield"].started += OnShield;
-            inputActions["SpecialAttack1"].started += OnSpecialAttack1;
-            inputActions["SpecialAttack2"].started += OnSpecialAttack2;
-            inputActions["SpecialAttack3"].started += OnSpecialAttack3;
+            if (GetInputAction("SpecialAttack1", out inputAction))
+                inputAction.started += OnSpecialAttack1;
+                
+            if (GetInputAction("SpecialAttack2", out inputAction))
+                inputAction.started += OnSpecialAttack2;
+                
+            if (GetInputAction("SpecialAttack3", out inputAction))
+                inputAction.started += OnSpecialAttack3;
 
-            _InputActionUpdates.Add("RangeAttack", new InputActionUpdate(inputActions["RangeAttack"], OnRangeAttack));
+            AddInputActionToUpdate("RangeAttack", OnRangeAttack);
         }
     }
 }
