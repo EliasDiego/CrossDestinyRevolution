@@ -44,11 +44,11 @@ namespace CDR.VersusSystem
         private IDisposable _Disposable;
 
         private PlayerUIInput _PlayerSelectInput;
-
+        
         private struct PlayerInputData
         {
-            public InputDevice[] devices { get; set; }
-            public InputActionAsset actionAsset { get; set; }
+            public InputDevice[] devices { get; }
+            public InputActionAsset actionAsset { get; }
 
             public PlayerInputData(InputActionAsset inputActionAsset, params InputDevice[] inputDevices)
             {
@@ -61,6 +61,7 @@ namespace CDR.VersusSystem
         {
             _PlayerSelectInput = GetComponent<PlayerUIInput>();
         }
+        
         
         private IParticipantData SetPlayerData(string name, InputActionAsset actionAsset, params InputDevice[] devices)
         {
@@ -150,16 +151,6 @@ namespace CDR.VersusSystem
 
                 playerInputs[i].AssignInput(_PlayerInputDatas[i].actionAsset.FindActionMap("UI", true), _PlayerInputDatas[i].devices);
             }
-
-            InputActionAsset asset = Instantiate(_ActionAsset);
-
-            InputActionMap uiActionMap = asset.FindActionMap("UI", true);
-
-            asset.devices = _PlayerInputDatas[0].devices;
-
-            inputModule.actionsAsset = asset;
-            inputModule.move = InputActionReference.Create(uiActionMap.FindAction("Move", true));
-            inputModule.ActivateModule();
 
             SwitchTo(_VersusSettingsMenu);
         }

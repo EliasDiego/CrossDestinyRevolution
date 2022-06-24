@@ -14,15 +14,12 @@ namespace CDR.VersusSystem
     {
         [SerializeField]
         EventSystem _EventSystem;
-        [SerializeField]
-        InputSystemUIInputModule _InputModule;
         [Header("UI Input")]
         [SerializeField]
         PlayerUIInput[] _PlayerInputs;
 
         public PlayerUIInput[] playerInputs => _PlayerInputs;
         public EventSystem eventSystem => _EventSystem;
-        public InputSystemUIInputModule inputModule => _InputModule;
 
         public override void Show()
         {

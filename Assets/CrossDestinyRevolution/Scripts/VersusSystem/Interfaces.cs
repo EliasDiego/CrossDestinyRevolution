@@ -22,8 +22,8 @@ namespace CDR.VersusSystem
     public interface IVersusData
     {
         IParticipantData[] participantDatas { get; }
-        IMapData mapData { get; set; }
-        IVersusSettings settings { get; set; }
+        IMapData mapData { get; }
+        IVersusSettings settings { get; }
         GameObject versusMapPrefab { get; }
         GameObject versusManagerPrefab { get; }
         GameObject versusUIPrefab { get; }
