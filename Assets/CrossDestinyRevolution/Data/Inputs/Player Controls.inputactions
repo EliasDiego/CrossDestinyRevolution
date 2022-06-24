@@ -34,7 +34,7 @@
                 },
                 {
                     "name": "MeleeAttack",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "3ddc5e38-3612-4871-bd11-834c8dc56f31",
                     "expectedControlType": "Button",
                     "processors": "",
