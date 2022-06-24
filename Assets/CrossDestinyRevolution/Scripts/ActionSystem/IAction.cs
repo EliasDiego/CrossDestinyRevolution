@@ -12,6 +12,8 @@ namespace CDR.ActionSystem
         void Use();
         void End();
 
+        void ForceEnd();
+
         event System.Action onUse;
         event System.Action onEnd;
 

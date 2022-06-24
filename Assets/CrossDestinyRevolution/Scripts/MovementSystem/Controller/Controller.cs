@@ -4,46 +4,47 @@ using UnityEngine;
 
 namespace CDR.MovementSystem
 {
-    public class Controller : MonoBehaviour , IController
+    public class Controller : MonoBehaviour, IController
     {
         [SerializeField]
-        private FlightPlane _flightPlane;
+        Rigidbody _Rigidbody;
 
-        private Rigidbody rb;
-
-        public IFlightPlane flightPlane => _flightPlane;
-
-        public Vector3 velocity => rb.velocity;
-
-        private void Awake()
+        public Rigidbody RigidBody
         {
-            rb = GetComponent<Rigidbody>();
+            get => _Rigidbody;
+            set => _Rigidbody = value;
         }
 
-        public void SetVelocity(Vector3 value)
+        public Vector3 velocity => _Rigidbody.velocity;
+
+        public virtual void SetVelocity(Vector3 value)
         {
-            rb.velocity = value;
+            _Rigidbody.velocity = value;
         }
 
-        public void ClampVelocity(float magnitude)
+        public virtual void ClampVelocity(float magnitude)
         {
-            rb.velocity = Vector3.ClampMagnitude(rb.velocity, magnitude);
+            _Rigidbody.velocity = Vector3.ClampMagnitude(_Rigidbody.velocity, magnitude);
         }
 
-        public void MoveRb(Vector3 force)
+        public virtual void AddRbForce(Vector3 force, ForceMode mode = ForceMode.VelocityChange)
         {
-            rb.AddForce(force, ForceMode.VelocityChange);
+            _Rigidbody.AddForce(force, mode);
         }
 
-        public void Translate(Vector3 direction, float magnitude)
+        public virtual void AddRelativeForce(Vector3 force, ForceMode mode = ForceMode.VelocityChange)
         {
-            transform.Translate(direction * magnitude);
+            _Rigidbody.AddRelativeForce(force, mode);
         }
 
-        public void Rotate(Quaternion rotation)
+        public virtual void Translate(Vector3 direction, float magnitude)
         {
-            transform.rotation = rotation;
-            
+            _Rigidbody.MovePosition(_Rigidbody.position + direction * magnitude);
+        }
+
+        public virtual void Rotate(Quaternion rotation)
+        {
+            _Rigidbody.MoveRotation(rotation);
         }
     }
 }

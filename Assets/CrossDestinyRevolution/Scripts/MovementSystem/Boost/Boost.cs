@@ -1,7 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using CDR.MechSystem;
-using System;
 
 // This class is for the Boost system and its methods.
 
@@ -9,6 +7,9 @@ namespace CDR.MovementSystem
 {
     public class Boost : ActionSystem.Action, IBoost
     {
+        [Tooltip("Delay before resuming boost regen in seconds.")]
+        [SerializeField]
+        private float regenDelaySeconds;
         [SerializeField]
         private BoostValue _boostValue;
         [SerializeField]
@@ -17,70 +18,124 @@ namespace CDR.MovementSystem
         private HorizontalBoostData _horizontalBoostData;
 
         public IBoostValue boostValue => _boostValue;
-
         public IBoostData horizontalBoostData => _horizontalBoostData;
-
         public IBoostData verticalBoostData => _verticalBoostData;
 
+        private Coroutine _FixedCoroutine;
 
-
-        public override void End()
+        private void Start()
         {
-            base.End();
+            StartCoroutine(_boostValue.Regenerate());
         }
 
+        private IEnumerator FixedCoroutine(Vector3 direction, float time, bool isHorizontal)
+        {
+            float currentTime = time;
+            while(currentTime > 0)
+            {
+                RotateObject();
+
+                Character.controller.AddRbForce(Character.rotation * direction);
+
+                if(isHorizontal)
+                    Character.controller.AddRbForce(CentripetalForce(), ForceMode.Acceleration);
+
+                currentTime -= Time.fixedDeltaTime;
+
+                yield return new WaitForFixedUpdate();
+            }
+            End();
+        }
+
+        Vector3 CentripetalForce()
+        {
+            TargetingSystem.ITargetData currentTarget = Character.targetHandler.GetCurrentTarget();
+            float cForce = Mathf.Pow(Character.controller.velocity.magnitude, 2f) / currentTarget.distance;
+            return currentTarget.direction * (-cForce * 1.195f);
+        }
+
+        private void RotateObject()
+        {
+            TargetingSystem.ITargetData currentTarget = Character.targetHandler.GetCurrentTarget();
+            var look = Quaternion.LookRotation(-currentTarget.direction);
+            var quat = Quaternion.RotateTowards(Character.rotation, look, 50f);
+            quat.x = 0f;
+            quat.z = 0f;
+
+            Character.controller.Rotate(Quaternion.RotateTowards(Character.rotation, quat.normalized, 50f));
+        }
+     
         public void HorizontalBoost(Vector2 direction)
         {
-            if(_boostValue.CanUse())
+            if(_boostValue.CanUse() && !isActive)
             {
-                var direction1 = new Vector3(direction.x, 0f, direction.y);
-                direction1 = transform.rotation * direction1;
+                var dir = new Vector3(direction.x, 0f, direction.y);
 
-                var dir = transform.position + direction1 * _horizontalBoostData.distance;
-
-                Vector3 point = dir;
-
-                if(Physics.Raycast(transform.position, direction1, out RaycastHit hit, _horizontalBoostData.distance))
-                {
-                    point = hit.point;
-                }
-
-                _boostValue.Consume();
-                _boostValue.SetIsRegening(false);
-
-                LeanTween.move(gameObject, point, _horizontalBoostData.time).setEaseOutQuad()
-                    .setOnComplete(() =>
-                    {
-                        _boostValue.SetIsRegening(true);
-                    }); 
+                Use();
+                _FixedCoroutine = StartCoroutine(FixedCoroutine(new Vector3(direction.x, 0f, direction.y)
+                    * horizontalBoostData.distance / horizontalBoostData.time,
+                    horizontalBoostData.time, true));
             }
+        }
+    
+        public void VerticalBoost(float direction)
+        {
+            if (_boostValue.CanUse() && !isActive)
+            {
+                Use();
+                StartCoroutine(FixedCoroutine(new Vector3(0f, direction, 0f)
+                    * verticalBoostData.distance / verticalBoostData.time,
+                    verticalBoostData.time, false));              
+            }
+        }
+
+        private IEnumerator ResumeRegen()
+        {
+            yield return new WaitForSeconds(regenDelaySeconds);
+            _boostValue.SetIsRegening(true);
         }
 
         public override void Use()
         {
             base.Use();
+            _boostValue.Consume();
+            _boostValue.SetIsRegening(false);
+            Character.movement.SetSpeedClamp(false);
+
+            Character.movement.End();
+            Character.input.DisableInput("Movement");
         }
 
-        public void VerticalBoost(float direction)
+        public override void End()
         {
-            if(_boostValue.CanUse())
+            base.End();
+            if(_FixedCoroutine != null)
             {
-                _boostValue.Consume();
-                _boostValue.SetIsRegening(false);
-                var dir = direction * _verticalBoostData.distance;
-
-                LeanTween.moveY(gameObject, dir, _horizontalBoostData.time).setEaseOutExpo()
-                    .setOnComplete(() =>
-                    {
-                        _boostValue.SetIsRegening(true);
-                    });
+                StopCoroutine(_FixedCoroutine);
             }
+
+            
+            StartCoroutine(ResumeRegen());
+            Character.movement.Use();
+            Character.movement.Move(Vector2.zero);
+            Character.movement.SetSpeedClamp(true);
+            Character.input.EnableInput("Movement");
+
+            Character.movement.SetDistanceToTarget
+                (
+                    Vector3.Distance(Character.targetHandler.GetCurrentTarget().activeCharacter.position,
+                    Character.position)
+                );
         }
 
-        private void Start()
+        public override void ForceEnd()
         {
-            _boostValue.ModifyValueWithoutEvent(_boostValue.MaxValue);
-            StartCoroutine(_boostValue.Regenerate());
+            base.ForceEnd();
+            if(_FixedCoroutine != null)
+            {
+                StopCoroutine(_FixedCoroutine);
+            }
+            Character.controller.SetVelocity(Vector3.zero);
         }
     }
 }
