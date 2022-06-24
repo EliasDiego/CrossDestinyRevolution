@@ -65,8 +65,6 @@ namespace CDR.VersusSystem
 
                 _VersusUI.roundTimeUIHandler.roundTimeText = Mathf.RoundToInt(roundTime).ToString();
 
-                Debug.Log(roundTime);
-
                 yield return null;
             }
             
@@ -98,6 +96,8 @@ namespace CDR.VersusSystem
             if(aliveParticipants <= 1)
             {
                 IParticipant aliveParticipant = _Participants.FirstOrDefault(p => p.mech.health.CurrentValue > 0);
+
+                Debug.Log("Alive! " + aliveParticipant.name);
 
                 aliveParticipant.score += 1;
 
@@ -134,12 +134,16 @@ namespace CDR.VersusSystem
 
         public void EndRound()
         {
+            if(_RoundCoroutine != null)
+                StopCoroutine(_RoundCoroutine);
+
             if(_EndRoundCoroutine != null)
                 StopCoroutine(_EndRoundCoroutine);
 
             foreach(IParticipant p in _Participants)
                 p.mech.health.OnDeath -= OnParticipantDeath;
 
+            _VersusUI.roundTimeUIHandler.Hide();
             _VersusUI.pauseMenu.returnToMainMenuEvent -= ExitVersus;
             _VersusUI.pauseMenu.DisablePauseInput();
 
@@ -156,6 +160,7 @@ namespace CDR.VersusSystem
         {
             _VersusUI.resultsMenu.rematchEvent += Rematch;
             _VersusUI.resultsMenu.returnToMainMenuEvent += ExitVersus;
+            _VersusUI.resultsMenu.results = new VersusResults(_Participants.OrderByDescending(p => p.score).FirstOrDefault(), _Participants);
             _VersusUI.resultsMenu.Show();
 
             // ExitVersus();
@@ -166,6 +171,9 @@ namespace CDR.VersusSystem
             _VersusUI.resultsMenu.Hide();
             _VersusUI.resultsMenu.rematchEvent -= Rematch;
             _VersusUI.resultsMenu.returnToMainMenuEvent -= ExitVersus;
+            
+            foreach(IParticipant p in _Participants)
+                p.score = 0;
 
             _CurrentRound = 0;
 

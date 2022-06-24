@@ -33,6 +33,7 @@ namespace CDR.VersusSystem
 
     public interface IVersusResultsMenu : IMenu
     {
+        IVersusResults results { get; set; }
         event Action rematchEvent;
         event Action returnToMainMenuEvent; 
     }

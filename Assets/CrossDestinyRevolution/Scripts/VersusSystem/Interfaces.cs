@@ -47,6 +47,12 @@ namespace CDR.VersusSystem
         public int roundTime { get; }
     }
 
+    public interface IVersusResults
+    {
+        IParticipant winner { get; }
+        IParticipant[] participants { get; }
+    }
+
     public interface IVersusUI
     {
         IRoundUIHandler roundUIHandler { get; }
