@@ -47,8 +47,6 @@ namespace CDR.VersusSystem
         {
             yield return _VersusData.mapData.Process();
 
-            GameObject.CreatePrimitive(PrimitiveType.Sphere);
-
             VersusManager versusManager = GameObject.Instantiate(_VersusData.versusManagerPrefab).GetComponent<VersusManager>();
             
             IVersusMap versusMap = GameObject.Instantiate(_VersusData.versusMapPrefab, Vector3.zero, Quaternion.identity).GetComponent<IVersusMap>();

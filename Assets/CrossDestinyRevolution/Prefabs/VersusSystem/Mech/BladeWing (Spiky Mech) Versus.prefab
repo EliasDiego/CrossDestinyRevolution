@@ -55,6 +55,34 @@ PrefabInstance:
       propertyPath: m_Name
       value: BladeWing (Spiky Mech) Versus
       objectReference: {fileID: 0}
+    - target: {fileID: 852551265084442558, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
+      propertyPath: _health.maxValue
+      value: 350
+      objectReference: {fileID: 0}
+    - target: {fileID: 852551265084442558, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
+      propertyPath: _health.currentValue
+      value: 350
+      objectReference: {fileID: 0}
+    - target: {fileID: 1064248418828744190, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
+      propertyPath: pullSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5110033742944947837, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
+      propertyPath: FireRate
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5110033742944947837, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
+      propertyPath: attackRange
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135555098075954494, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
+      propertyPath: _boostValue.maxValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 6135555098075954494, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
+      propertyPath: _boostValue.regenRate
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
 --- !u!4 &4102475430528319356 stripped
@@ -82,7 +110,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3457706677278961448, guid: 1c63aa70de4e4e2449f07e5efc91fbfc, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3457706677278961448, guid: 1c63aa70de4e4e2449f07e5efc91fbfc, type: 3}
       propertyPath: m_LocalPosition.x
