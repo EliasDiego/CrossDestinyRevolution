@@ -17,6 +17,12 @@ namespace CDR.InputSystem
         private void Awake() 
         {
             _InputModule = GetComponent<InputSystemUIInputModule>();
+            
+            if(!_InputModule)
+                return;
+
+            _InputModule.cancel.action.started += OnCancel;
+            _InputModule.submit.action.started += OnSubmit;
         }
 
         private void OnEnable() 

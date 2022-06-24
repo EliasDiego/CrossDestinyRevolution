@@ -121,22 +121,5 @@ namespace CDR.InputSystem
                     inputAction.started += value;
             }
         }
-
-        public event Action onEnableInput;
-        public event Action onDisableInput;
-
-        public override void EnableInput()
-        {
-            base.EnableInput();
-
-            onEnableInput?.Invoke();
-        }
-
-        public override void DisableInput()
-        {
-            base.DisableInput();
-
-            onDisableInput?.Invoke();
-        }
     }
 }
