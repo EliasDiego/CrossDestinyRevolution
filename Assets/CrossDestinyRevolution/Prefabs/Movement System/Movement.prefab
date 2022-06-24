@@ -111,7 +111,6 @@ MonoBehaviour:
   _speed: 8
   _gravity: 10
   clampSpeed: 1
-  intensity: 1
 --- !u!114 &6489849201931218856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133,6 +132,30 @@ MonoBehaviour:
     consumeRate: 30
   _verticalBoostData: {fileID: 11400000, guid: 20aa12d4aab0d2f459a269ce7fbaf4ef, type: 2}
   _horizontalBoostData: {fileID: 11400000, guid: d78ae8f4009c71141803c539f2b212cf, type: 2}
+  animationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &1831913344042762315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,5 +168,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4589758654f2ea54a97d0b7cb01bb079, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _Rigidbody: {fileID: 0}
   _flightPlane: {fileID: 0}
-  rb: {fileID: 0}
