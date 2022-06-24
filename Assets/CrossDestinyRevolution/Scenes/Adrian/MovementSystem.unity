@@ -630,6 +630,10 @@ PrefabInstance:
       propertyPath: _boostValue.currentValue
       value: 9999
       objectReference: {fileID: 0}
+    - target: {fileID: 3574531371970391963, guid: 47a8aeec8ceabda4799e8ecddc7198bf, type: 3}
+      propertyPath: leanTime
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 7616411143403275057, guid: 47a8aeec8ceabda4799e8ecddc7198bf, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1709,6 +1713,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeCharacter: {fileID: 0}
+  leanTime: 0.2
   _speed: 15
   _gravity: 10
   clampSpeed: 1
