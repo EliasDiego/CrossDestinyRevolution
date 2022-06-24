@@ -15,9 +15,6 @@ namespace CDR.InputSystem
 {
     public class PlayerMechInput : PlayerActiveCharacterInput<IMech>
     {
-        private Vector2 _MovementInput;
-        private bool _IsShieldUp = false;
-
         public PlayerMechInputSettings settings { get; set; }
 
         private void OnSpecialAttack3(InputAction.CallbackContext context)
@@ -52,9 +49,7 @@ namespace CDR.InputSystem
 
         private void OnShield(InputAction.CallbackContext context)
         {
-            _IsShieldUp = !_IsShieldUp;
-            
-            if(_IsShieldUp)
+            if(!CheckBoolean(character?.shield?.isActive))
             {
                 character?.shield?.Use();
 
@@ -81,10 +76,17 @@ namespace CDR.InputSystem
 
         private void OnMeleeAttack(InputAction.CallbackContext context)
         {
-            if(CheckBoolean(character?.meleeAttack?.isActive) || CheckBoolean(character?.meleeAttack?.isCoolingDown))
+            if(CheckBoolean(character?.meleeAttack?.isCoolingDown))
                 return;
 
-            character?.meleeAttack?.Use();
+            if(CheckBoolean(character?.meleeAttack?.isActive))
+            {
+                // if(!CheckBoolean(character?.meleeAttack?.isHit))
+                    character?.meleeAttack?.End();
+            }
+
+            else
+                character?.meleeAttack?.Use();
                 
             Debug.Log($"[Melee Attack Input] Used Melee Attack!");
         }
@@ -126,7 +128,7 @@ namespace CDR.InputSystem
             if(CheckBoolean(character?.boost?.isActive))
                 return;
 
-            if(_MovementInput.magnitude < settings.boostInputSettings.movementInputThreshold)
+            if(movementInput.magnitude < settings.boostInputSettings.movementInputThreshold)
             {
                 character?.boost?.VerticalBoost(1);
 
@@ -135,7 +137,7 @@ namespace CDR.InputSystem
 
             else
             {
-                character?.boost?.HorizontalBoost(_MovementInput);
+                character?.boost?.HorizontalBoost(movementInput);
                 
                 Debug.Log($"[Boost Input] Horizontal Boost!");
             }
@@ -152,7 +154,7 @@ namespace CDR.InputSystem
             }
                 
             if (GetInputAction("MeleeAttack", out inputAction))
-                inputAction.started += OnMeleeAttack;
+                inputAction.performed += OnMeleeAttack;
 
             if (GetInputAction("Shield", out inputAction))
                 inputAction.performed += OnShield;

@@ -11,7 +11,6 @@ namespace CDR.InputSystem
 {
     public class SelectableEventHandler : MonoBehaviour
     {
-        private PlayerUIInput _PlayerUIInput;
         private Selectable _CurrentSelectable;
 
         private bool _IsClicked = false;
@@ -22,29 +21,32 @@ namespace CDR.InputSystem
 
         private void Awake()
         {
-            _PlayerUIInput = GetComponent<PlayerUIInput>();
+            PlayerUIInput playerInput = GetComponent<PlayerUIInput>();
 
-            _PlayerUIInput.onEnableInput += OnEnableInput;
-            _PlayerUIInput.onDisableInput += OnDisableInput;
+            playerInput.onEnableInput += OnEnableInput;
+            playerInput.onDisableInput += OnDisableInput;
         }
 
-        private void OnEnableInput()
+        private void OnEnableInput(IInput input)
         {
-            _PlayerUIInput.onSubmit += OnSubmit;
-            _PlayerUIInput.onCancel += OnCancel;
-            _PlayerUIInput.onMove += OnMove;
-            _PlayerUIInput.onPoint += OnPoint;
-            _PlayerUIInput.onClick += OnClick;
+            PlayerUIInput playerInput = input as PlayerUIInput;
 
+            playerInput.onSubmit += OnSubmit;
+            playerInput.onCancel += OnCancel;
+            playerInput.onMove += OnMove;
+            playerInput.onPoint += OnPoint;
+            playerInput.onClick += OnClick;
         }
 
-        private void OnDisableInput()
+        private void OnDisableInput(IInput input)
         {
-            _PlayerUIInput.onSubmit -= OnSubmit;
-            _PlayerUIInput.onCancel -= OnCancel;
-            _PlayerUIInput.onMove -= OnMove;
-            _PlayerUIInput.onPoint -= OnPoint;
-            _PlayerUIInput.onClick -= OnClick;
+            PlayerUIInput playerInput = input as PlayerUIInput;
+            
+            playerInput.onSubmit -= OnSubmit;
+            playerInput.onCancel -= OnCancel;
+            playerInput.onMove -= OnMove;
+            playerInput.onPoint -= OnPoint;
+            playerInput.onClick -= OnClick;
         }
 
         private void SetCurrentSelectable(Selectable selectable)
