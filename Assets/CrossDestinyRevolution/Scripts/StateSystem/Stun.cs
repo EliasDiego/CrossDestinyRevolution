@@ -27,6 +27,12 @@ namespace CDR.StateSystem
             Return();
         }
 
+        public override void ForceEndState()
+        {
+            base.ForceEndState();
+            Return();
+        }
+
         IEnumerator StunCoroutine(float duration)
         {
             yield return new WaitForSeconds(duration);

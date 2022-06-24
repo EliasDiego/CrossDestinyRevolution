@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using CDR.ActionSystem;
 using CDR.ObjectPoolingSystem;
+using CDR.AnimationSystem;
 
 namespace CDR.AttackSystem
 {
@@ -15,6 +16,17 @@ namespace CDR.AttackSystem
 		[SerializeField] float attackRange;
 
 		public float range => attackRange;
+
+		[SerializeField] CDR.AnimationSystem.AnimationEvent _animationEvent;
+
+		AnimationEventsManager _Manager;
+
+		void Start()
+		{
+			//var a = new CDR.AnimationSystem.AnimationEvent(0.1f, true, null, null, null);
+
+			//_Manager.AddAnimationEvent("RangeAttack", a);
+		}
 
 		protected override void Awake()
 		{
@@ -33,7 +45,7 @@ namespace CDR.AttackSystem
 			base.Use();
 
 			GetBulletFromObjectPool();
-			
+
 			End();
 		}
 
@@ -50,8 +62,6 @@ namespace CDR.AttackSystem
 
 			bullet.SetActive(true);
 		}
-
-		
 
 		public override void End()
 		{
