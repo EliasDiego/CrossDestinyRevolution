@@ -10,6 +10,8 @@ namespace CDR.MovementSystem
     public class ControllerMovement : ActionSystem.Action, IMovement
     {
         [SerializeField]
+        private float leanTime = 0.2f;
+        [SerializeField]
         private float _speed;
         [SerializeField]
         private float _gravity;
@@ -26,7 +28,7 @@ namespace CDR.MovementSystem
         protected override void Awake()
         {
             base.Awake();
-            var a = new AnimationSystem.AnimationEvent(0.1f, true, AnimateEvent, null, null);
+            var a = new AnimationSystem.AnimationEvent(0.1f, true, null, null, null);
             Character.animator.GetComponent<AnimationSystem.AnimationEventsManager>().AddAnimationEvent("Move", a);
         }
 
@@ -65,7 +67,6 @@ namespace CDR.MovementSystem
         {
             if(currentDir.magnitude == 0f)
             {
-                SetMoveAnimation(false);
                 return Vector3.zero;
             }
 
@@ -76,7 +77,6 @@ namespace CDR.MovementSystem
                 currentTarget?.activeCharacter?.movement?.SetDistanceToTarget(distance);
             }
 
-            SetMoveAnimation(true);
             var current = (Character.rotation * currentDir).normalized;
             current.y = 0f;
             return current;           
@@ -91,39 +91,28 @@ namespace CDR.MovementSystem
             quat.z = 0f;
 
             Character.controller.Rotate(Quaternion.RotateTowards(Character.rotation, quat.normalized, 50f));
-        } 
-
-        private void AnimateEvent()
-        {
-            //Debug.Log("Alknd");
-        }
-
-        private void SetMoveAnimation(bool isMoving)
-        {
-            switch (isMoving)
-            {
-                case true:
-                    Character.animator.SetBool("IsMove", true);
-                    Character.animator.SetFloat("MoveX", currentDir.x);
-                    Character.animator.SetFloat("MoveY", currentDir.z);
-                    break;
-                case false:
-                    Character.animator.SetBool("IsMove", false);
-                    Character.animator.SetFloat("MoveX", 0f);
-                    Character.animator.SetFloat("MoveY", 0f);
-                    break;
-            }
-
         }
 
         #region INTERFACE_Methods
         public void Move(Vector2 direction)
         {
             var dir = new Vector3(direction.x, 0f, direction.y);
-            currentDir = dir;    
-            
-            if(direction.magnitude == 0f)
+            currentDir = dir;
+
+            Character.animator.SetBool("IsMove", true);
+
+            LeanTween.value(Character.animator.GetFloat("MoveX"), direction.x, leanTime).setOnUpdate((float f) =>
             {
+                Character.animator.SetFloat("MoveX", f);
+            });
+            LeanTween.value(Character.animator.GetFloat("MoveY"), direction.y, leanTime).setOnUpdate((float f) =>
+            {
+                Character.animator.SetFloat("MoveY", f);
+            });
+
+            if (direction.magnitude == 0f)
+            {
+                Character.animator.SetBool("IsMove", false);
                 currentDir = Vector3.zero;
             }
         }
@@ -145,7 +134,9 @@ namespace CDR.MovementSystem
             base.ForceEnd();
             currentDir = Vector3.zero;
             Character.controller.SetVelocity(Vector3.zero);
-            SetMoveAnimation(false);
+            Character.animator.SetFloat("MoveX", 0f);
+            Character.animator.SetFloat("MoveY", 0f);
+            Character.animator.SetBool("IsMove", false);
         }
 
         public void SetSpeedClamp(bool isClamped)
