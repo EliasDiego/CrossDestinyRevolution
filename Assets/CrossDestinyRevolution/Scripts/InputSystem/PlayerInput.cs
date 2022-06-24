@@ -24,6 +24,11 @@ namespace CDR.InputSystem
 
         private bool _isGamepad = false;
 
+        public event Action<IInput> onEnableInput;
+        public event Action<IInput> onDisableInput;
+        public event Action<IPlayerInput> onAssignInput;
+        public event Action<IPlayerInput> onUnassignInput;
+
         protected InputActionMap actionMap => _ActionMap;
         
         public InputDevice[] pairedDevices => _User.valid ? _User.pairedDevices.ToArray() : null;
@@ -205,6 +210,8 @@ namespace CDR.InputSystem
             AssociateActionMap(inputActionMap);
 
             _IsAssignedInput = true;
+            
+            onAssignInput?.Invoke(this);
         }
 
         public void UnassignInput()
@@ -212,7 +219,9 @@ namespace CDR.InputSystem
             if(_User != null && _User.valid)
                 _User.UnpairDevicesAndRemoveUser();
 
-            _IsAssignedInput = true;
+            _IsAssignedInput = false;
+            
+            onUnassignInput?.Invoke(this);
         }
 
         public virtual void EnableInput()
@@ -220,6 +229,8 @@ namespace CDR.InputSystem
             actionMap.Enable();
 
             _IsEnabled = true;
+
+            onEnableInput?.Invoke(this);
         }
 
         public virtual void DisableInput()
@@ -227,6 +238,8 @@ namespace CDR.InputSystem
             actionMap.Disable();
             
             _IsEnabled = false;
+
+            onDisableInput?.Invoke(this);
         }
 
         public void EnableInput(string name)
@@ -238,6 +251,8 @@ namespace CDR.InputSystem
                 Debug.Log($"[Input Error] {name} does not exist!");
 
             _IsEnabled = _InputActions.Values.FirstOrDefault(i => i.enabled) != null;
+
+            onEnableInput?.Invoke(this);
         }
 
         public void DisableInput(string name)
@@ -249,6 +264,8 @@ namespace CDR.InputSystem
                 Debug.Log($"[Input Error] {name} does not exist!");
 
             _IsEnabled = _InputActions.Values.FirstOrDefault(i => i.enabled) != null;
+
+            onDisableInput?.Invoke(this);
         }
     }
 }

@@ -13,6 +13,9 @@ namespace CDR.InputSystem
     public interface IInput
     {
         bool isEnabled { get; }
+        event Action<IInput> onEnableInput;
+        event Action<IInput> onDisableInput;
+
         void EnableInput();
         void DisableInput();
         void EnableInput(string name);
@@ -23,6 +26,8 @@ namespace CDR.InputSystem
     {
         bool isAssignedInput { get; }
         InputDevice[] pairedDevices { get; }
+        event Action<IPlayerInput> onAssignInput;
+        event Action<IPlayerInput> onUnassignInput;
 
         void PairDevice(params InputDevice[] devices);
         void UnpairDevice(params InputDevice[] devices);
