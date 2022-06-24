@@ -47,6 +47,8 @@ namespace CDR.AttackSystem
 		{
 			base.ForceEnd();
 
+            Character.animator.SetBool("IsSAttack1", false);
+
             StopAllCoroutines();
 		}
 
