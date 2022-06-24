@@ -71,7 +71,7 @@ namespace CDR.AttackSystem
 
 		public void RotateProjectile()
 		{
-			var heading = target.position - transform.position;
+			var heading = target.position + target.controller.velocity * Time.fixedDeltaTime - transform.position;
 			var rotation = Quaternion.LookRotation(heading);
 			Rotate(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
 		}
