@@ -15,5 +15,4 @@ MonoBehaviour:
   _MovementInputThreshold: 0.3
   _BoostUpRange:
     _MinValue: 0
-    _MaxValue: 7
-  _BoostDownMinHeight: 10
+    _MaxValue: 8

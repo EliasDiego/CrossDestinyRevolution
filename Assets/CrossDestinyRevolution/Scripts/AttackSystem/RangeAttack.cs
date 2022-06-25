@@ -2,25 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CDR.ActionSystem;
+using CDR.ObjectPoolingSystem;
+using CDR.AnimationSystem;
 
 namespace CDR.AttackSystem
 {
 	public class RangeAttack : CooldownAction , IRangeAttack
 	{
+		[SerializeField] ObjectPooling _pool;
+
 		[SerializeField] float FireRate;
+		[SerializeField] GameObject GunPoint;
+		[SerializeField] float attackRange;
 
-		[SerializeField] GameObject GunPoint; 
-		[SerializeField] public GameObject Target; 
+		public float range => attackRange;
 
-		[SerializeField] GameObject BulletProjectile;
+		[SerializeField] CDR.AnimationSystem.AnimationEvent _animationEvent;
 
-		public IProjectile projectile => throw new System.NotImplementedException();
+		AnimationEventsManager _Manager;
 
-		public float range => throw new System.NotImplementedException();
-
-		private void Start()
+		void Start()
 		{
-			
+			//var a = new CDR.AnimationSystem.AnimationEvent(0.1f, true, null, null, null);
+
+			//_Manager.AddAnimationEvent("RangeAttack", a);
+		}
+
+		protected override void Awake()
+		{
+			if(_pool != null)
+				_pool.Initialize();
 		}
 
 		public override void Update()
@@ -33,14 +44,23 @@ namespace CDR.AttackSystem
 		{
 			base.Use();
 
-			//BulletProjectile.GetComponent<Projectile>().currentTarget = Character.targetHandler.GetCurrentTarget().activeCharacter.;
-			BulletProjectile.GetComponent<Projectile>().currentTarget = Target;
-
-			var direction = Target.transform.position - GunPoint.transform.position;
-			Instantiate(BulletProjectile, GunPoint.transform.position, Quaternion.LookRotation(direction));
-			//Instantiate(BulletProjectile, GunPoint.transform.position, Quaternion.LookRotation(Character.targetHandler.GetCurrentTarget().activeCharacter.position));
+			GetBulletFromObjectPool();
 
 			End();
+		}
+
+		void GetBulletFromObjectPool()
+		{
+			var target = Character.targetHandler.GetCurrentTarget();
+			
+			var bullet = _pool.GetPoolable();
+
+			bullet.GetComponent<HomingBullet>().target = target.activeCharacter;
+			bullet.GetComponent<HomingBullet>().playerAttackRange = attackRange;
+			bullet.GetComponent<HomingBullet>().transform.position = GunPoint.transform.position;
+			bullet.GetComponent<HomingBullet>().originPoint = GunPoint.transform.position;
+
+			bullet.SetActive(true);
 		}
 
 		public override void End()
@@ -48,17 +68,19 @@ namespace CDR.AttackSystem
 			base.End();
 		}
 
-		
-
-		void SetProjectile()
+		public override void ForceEnd()
 		{
-			//interchange between what projectile to fire
+			base.ForceEnd();
+
+			_pool.ReturnAll();
 		}
 
 		private void OnDrawGizmos()
 		{
-			Gizmos.color = Color.red;
-			Gizmos.DrawLine(transform.position, Target.transform.position);
+			//Gizmos.color = Color.red;
+			//Gizmos.DrawLine(transform.position, Character.targetHandler.GetCurrentTarget().activeCharacter.position);
+			//Gizmos.color = Color.green;
+			//Gizmos.DrawWireSphere(transform.position, attackRange);
 		}
 	}
 }
