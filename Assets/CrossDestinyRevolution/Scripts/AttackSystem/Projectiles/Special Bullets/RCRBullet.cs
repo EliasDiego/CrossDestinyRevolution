@@ -18,75 +18,120 @@ namespace CDR.AttackSystem
         [SerializeField]
         private float rotationSpeed;
 
+        private Vector3 beamPos;
         private bool enableRotation = false;
+        private float targetY;
+        private bool isHit = false;
+        private MechSystem.Health hpToDamage;
 
         private void Awake()
         {
-            HitBox.onHitEnter += OnHitEnter;        
-        }
+            HitBox.onHitEnter += OnHitEnter;
+            HitBox.onHitExit += OnHitExit;
 
-        public override void OnEnable()
-        {
-            base.OnEnable();
-            ScaleWithTime();
-            //Debugger();
-        }
-
-        private void Debugger()
-        {
-            enableRotation = true;
-            beam.transform.localScale = new Vector3(1f, 1f, maxLength);
+            beamPos = beam.transform.localPosition;
         }
 
         private void OnDestroy()
         {       
             HitBox.onHitEnter -= OnHitEnter;            
+            HitBox.onHitExit -= OnHitExit;
         }
 
         public override void Update()
         {
             base.Update();
             Rotate();
+            HitPlayer();
         }
-
-        //private void FixedUpdate()
-        //{
-        //    AddRbForce(new Vector3(0f, 0f, 0.01f));
-        //}
 
         protected override void OnHitEnter(IHitEnterData hitData)
         {
-            Debug.Log("ALSKNd");
+            if(!isHit)
+            {
+                isHit = true;
+                hpToDamage = (MechSystem.Health)hitData.hurtShape.character.health;
+            }
         }
+
+        private void OnHitExit(IHitExitData hitData)
+        {
+            if(isHit)
+            {
+                isHit = false;
+                hpToDamage = null;
+            }
+        }
+
+        public void Init(Vector3 pos = default)
+        {
+            transform.position = pos;
+            pivot.transform.localScale = Vector3.one;
+            beam.transform.localScale = Vector3.zero;
+            gameObject.SetActive(true);
+            ScaleWithTime();
+        }
+
+        private void HitPlayer()
+        {
+            if(isHit && hpToDamage != null)
+            {
+                hpToDamage.TakeDamage(projectileDamage);
+            }
+        }
+
         public override void ResetObject()
         {
+            base.ResetObject();
             enableRotation = false;
-            pivot.transform.localScale = Vector3.zero;
-            transform.localEulerAngles.Set(0f, 90f, 0f);
         }
 
         private void ScaleWithTime()
         {
-            LeanTween.scale(beam, Vector3.one, 0.45f).setOnComplete(()=>
+            targetY = transform.localEulerAngles.y - 180f;
+
+            LeanTween.scale(beam, Vector3.one, 0.45f)
+            .setOnComplete(()=>
             {
-                LeanTween.scaleZ(pivot, maxLength, timeToScale).setOnComplete(
-                () =>
+                LeanTween.scaleZ(pivot, maxLength, timeToScale)
+                .setOnComplete(() =>
                 {
                     enableRotation = true;
                 });
             });
-            
         }
 
         private void Rotate()
         {
-            if (Mathf.Floor(270f - transform.localEulerAngles.y) != 0 && enableRotation)
+            if (enableRotation)
             {
                 transform.RotateAround(transform.position, transform.up, -rotationSpeed * Time.deltaTime);
+                AddRbForce(new Vector3(0f, 0f, 0.001f), ForceMode.Acceleration);
             }
-
-            //Rotate(Quaternion.Euler(0f, transform.localEulerAngles.y - (rotationSpeed * Time.deltaTime), 0f));
+            if (Mathf.Floor(targetY - transform.localEulerAngles.y) == 0f)
+            {
+                gameObject.SetActive(false);
+                ResetObject();
+            }
         }
 
+        private IEnumerator Debugger()
+        {
+            var timer = 1f;
+            var currentTime = 0.001f;
+
+            while(currentTime <= timer)
+            {
+                beam.transform.localScale = Vector3.MoveTowards(beam.transform.localScale, Vector3.one,
+                    Mathf.Lerp(0f, 1f, timer / currentTime));
+
+                currentTime += Time.deltaTime;
+                yield return null;
+            }
+
+
+
+            yield return null;
+        }
     }
 }
