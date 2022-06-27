@@ -10,19 +10,20 @@ namespace CDR.UISystem
         [SerializeField] ProgressBar healthBar;
         [SerializeField] ProgressBar boostBar;
 
+        [SerializeField] CooldownActionUI specialAttack1;
+        [SerializeField] CooldownActionUI specialAttack2;
+        [SerializeField] CooldownActionUI specialAttack3;
+
         [SerializeField] TargetHandlerUI _targetHandlerUI;
 
-        ICooldownActionUI _specialAttack1AttackUI;
-        ICooldownActionUI _specialAttack2AttackUI;
-        ICooldownActionUI _specialAttack3AttackUI;
         bool _isShown;
 
         public IValueRangeUI healthUI => healthBar;
         public IValueRangeUI boostUI => boostBar;
         public ITargetHandlerUI targetHandlerUI => _targetHandlerUI;
-        public ICooldownActionUI specialAttack1AttackUI => _specialAttack1AttackUI;
-        public ICooldownActionUI specialAttack2AttackUI => _specialAttack2AttackUI;
-        public ICooldownActionUI specialAttack3AttackUI => _specialAttack3AttackUI;
+        public ICooldownActionUI specialAttack1AttackUI => specialAttack1;
+        public ICooldownActionUI specialAttack2AttackUI => specialAttack2;
+        public ICooldownActionUI specialAttack3AttackUI => specialAttack3;
         public bool isShown => _isShown;
 
         public void Hide()
