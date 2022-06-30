@@ -6,6 +6,7 @@ namespace CDR.MovementSystem
 {
     public class BoostData : ScriptableObject, IBoostData
     {
+        [Header("Don't change vertical time below .33")]
         [SerializeField]
         private float _time;
         [SerializeField]
