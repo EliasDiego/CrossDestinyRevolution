@@ -8,15 +8,15 @@ namespace CDR.AttackSystem
 {
     public abstract class HurtShape : CollisionShape, IHurtShape
     {
-        public override event Action<IHitEnterData> onHitEnter;
-        public override event Action<IHitExitData> onHitExit;
+        public override event Action<IHitData> onHitEnter;
+        public override event Action<IHitData> onHitExit;
 
-        public void HitEnter(IHitEnterData hitData)
+        public void HitEnter(IHitData hitData)
         {
             onHitEnter?.Invoke(hitData);
         }
 
-        public void HitExit(IHitExitData hitData)
+        public void HitExit(IHitData hitData)
         {
             onHitExit?.Invoke(hitData);
         }
