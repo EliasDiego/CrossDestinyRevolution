@@ -8,8 +8,11 @@ using UnityEngine.Animations;
 
 namespace CDR.AnimationSystem
 {
-    public abstract class AnimationEventsHandler : StateMachineBehaviour
+    public class AnimationEventsHandler : StateMachineBehaviour
     {
+        [SerializeField]
+        private string _Name;
+
         private IAnimationEvent[] _AnimationEvents;
         private float _CurrentTime;
 
@@ -39,13 +42,16 @@ namespace CDR.AnimationSystem
             }
         }
 
-        protected abstract IAnimationEvent[] GetAnimationEvents(Animator animator);
-        
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
+            
+            AnimationEventsManager manager = animator.GetComponent<AnimationEventsManager>();
 
-            _AnimationEvents = GetAnimationEvents(animator);
+            if(!manager)
+                return;
+
+            _AnimationEvents = manager.GetAnimationEvents(_Name);
 
             if(_AnimationEvents == null || _AnimationEvents.Length <= 0)
                 return;
