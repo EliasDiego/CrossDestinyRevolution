@@ -21,6 +21,11 @@ namespace CDR.AttackSystem
             collider.isTrigger = true;
         }
 
+        private void OnDisable() 
+        {
+            _IntersectedHurtShapes.Clear();    
+        }
+
         protected override void OnDrawGizmos() 
         {
             base.OnDrawGizmos();
