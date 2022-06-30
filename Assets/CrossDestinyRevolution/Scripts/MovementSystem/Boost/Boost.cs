@@ -11,6 +11,8 @@ namespace CDR.MovementSystem
         [SerializeField]
         private float regenDelaySeconds;
         [SerializeField]
+        private float stopMinDistance = 6f;
+        [SerializeField]
         private BoostValue _boostValue;
         [SerializeField]
         private VerticalBoostData _verticalBoostData;
@@ -55,12 +57,20 @@ namespace CDR.MovementSystem
 
                 var force = Character.rotation * direction *
                     (offsetArea * animationCurve.Evaluate(currentTime / maxTime));
-
                 
                 Character.controller.AddRbForce(force);
 
                 if(isHorizontal)
-                {                  
+                {           
+                    if(Character.targetHandler.isActive && isActive)
+                    {
+                        if(Character.targetHandler.GetCurrentTarget().distance < stopMinDistance 
+                            && direction.z != 0f)
+                        {
+                            Character.controller.SetVelocity(Vector3.zero);
+                            End();
+                        }
+                    }
                     Character.controller.AddRbForce(CentripetalForce(), ForceMode.Acceleration);
                 }
 
