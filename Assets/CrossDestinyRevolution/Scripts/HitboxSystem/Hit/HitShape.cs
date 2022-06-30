@@ -38,7 +38,7 @@ namespace CDR.AttackSystem
             if (!other.TryGetComponent(out IHurtShape hurtShape))
                 return;
                 
-            HitData hitData = new HitData(null, hurtShape);
+            HitData hitData = new HitData(this, hurtShape);
 
             if(!_IntersectedHurtShapes.Contains(hurtShape))
                 _IntersectedHurtShapes.Add(hurtShape);
@@ -53,7 +53,7 @@ namespace CDR.AttackSystem
             if (!other.TryGetComponent(out IHurtShape hurtShape))
                 return;
 
-            HitData hitData = new HitData(null, hurtShape);
+            HitData hitData = new HitData(this, hurtShape);
 
             if(_IntersectedHurtShapes.Contains(hurtShape))
                 _IntersectedHurtShapes.Remove(hurtShape);
