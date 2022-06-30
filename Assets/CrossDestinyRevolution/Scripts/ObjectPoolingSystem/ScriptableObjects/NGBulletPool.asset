@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemToPool: {fileID: 6420653630352239956, guid: 26b64cc8ead789b48bad4c494ac1d087, type: 3}
   pooledObjects: []
-  amountToPool: 10
+  amountToPool: 15
   shouldExpand: 1

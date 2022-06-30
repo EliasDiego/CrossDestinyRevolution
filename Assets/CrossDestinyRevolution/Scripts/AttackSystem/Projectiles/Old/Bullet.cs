@@ -32,7 +32,7 @@ namespace CDR.AttackSystem
 			SetVelocity(transform.forward * BulletSpeed);
 		}
 
-		protected override void OnHitEnter(IHitEnterData hitData)
+		protected override void OnHitEnter(IHitData hitData)
 		{
 			base.OnHitEnter(hitData);
 
