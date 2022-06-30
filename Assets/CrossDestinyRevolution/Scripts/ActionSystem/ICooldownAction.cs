@@ -12,6 +12,8 @@ namespace CDR.ActionSystem
         float currentCooldown { get; }
         bool isCoolingDown { get; }
 
+        event Action<ICooldownAction> onStartCoolDown;
+
         event Action<ICooldownAction> onCoolDown;
 
         void EndCoolDown();
