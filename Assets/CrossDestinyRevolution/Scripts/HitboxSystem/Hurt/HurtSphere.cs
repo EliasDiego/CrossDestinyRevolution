@@ -5,13 +5,14 @@ using UnityEngine;
 namespace CDR.AttackSystem
 {
     [RequireComponent(typeof(SphereCollider))]
-    public class HurtSphere : HurtShape
+    public class HurtSphere : HurtShape, ISphere
     {
         SphereCollider _SphereCollider;
-
-        public override Vector3 position => transform.position + _SphereCollider.center;
-
+        
+        public override Vector3 center { get => _SphereCollider.center; set => _SphereCollider.center = value; }
         public float radius { get => _SphereCollider.radius; set => _SphereCollider.radius = value; }
+
+        public override Collider collider => _SphereCollider;
 
         private void Awake() 
         {

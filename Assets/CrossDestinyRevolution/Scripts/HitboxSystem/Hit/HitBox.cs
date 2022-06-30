@@ -1,33 +1,35 @@
-using System;
-using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
 
-using CDR.MechSystem;
-
 namespace CDR.AttackSystem
 {
-    public class HitBox : HitShape
+    [RequireComponent(typeof(BoxCollider))]
+    public class HitBox : HitShape, IBox
     {
-        [SerializeField]
-        Bounds _Bounds;
-        public override Vector3 position => transform.position + _Bounds.center;
+        BoxCollider _BoxCollider;
+        
+        public override Vector3 center { get => _BoxCollider.center; set => _BoxCollider.center = value; }
+        public Vector3 size { get => _BoxCollider.size; set => _BoxCollider.size = value; }
 
-        public Bounds bounds => _Bounds;
+        public override Collider collider => _BoxCollider;
+
+        protected override void Awake()
+        {
+            _BoxCollider = GetComponent<BoxCollider>();
+            
+            base.Awake();
+        }
 
         protected override void OnDrawGizmos()
         {
             base.OnDrawGizmos();
+            
+            if(!_BoxCollider)
+                _BoxCollider = GetComponent<BoxCollider>();
 
-            Gizmos.DrawCube(_Bounds.center, _Bounds.extents);
-        }
-
-        protected override HitEnterData[] GetHitData(Vector3 velocity)
-        {
-            return Physics.BoxCastAll(position, _Bounds.extents / 2, velocity.normalized, transform.rotation, velocity.magnitude * Time.fixedDeltaTime, hitLayer)?.
-                Select(r => new HitEnterData(this, r.collider.GetComponent<IHurtShape>(), r))?.Where(h => h.hurtShape != null)?.ToArray();
+            Gizmos.DrawCube(_BoxCollider.center, _BoxCollider.size);
         }
     }
 }

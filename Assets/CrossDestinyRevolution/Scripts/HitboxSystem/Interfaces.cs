@@ -5,45 +5,47 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using CDR.MechSystem;
-using CDR.MovementSystem;
 
 namespace CDR.AttackSystem
 {
-    public interface ICollisionShape
+    public interface ICollisionShape : IShape
     {
-        Vector3 position { get; }
         IActiveCharacter character { get; set; }
+        Collider collider { get; }
         
-        event Action<IHitEnterData> onHitEnter;
-        event Action<IHitExitData> onHitExit;
+        event Action<IHitData> onHitEnter;
+        event Action<IHitData> onHitExit;
     }
 
     public interface IHitShape : ICollisionShape
     {
-        LayerMask hitLayer { get; set; }
-        IController controller { get; set; }
+        IHurtShape[] intersectedHurtShapes { get; }
     }
 
     public interface IHurtShape : ICollisionShape
     {
-        void HitEnter(IHitEnterData hitData);
-        void HitExit(IHitExitData hitData);
+        void HitEnter(IHitData hitData);
+        void HitExit(IHitData hitData);
     }
 
-    public interface ICollisionData
+    public interface IHitData
     {
         IHitShape hitShape  { get; }
         IHurtShape hurtShape { get; }
     }
 
-    public interface IHitEnterData : ICollisionData
+    public interface IShape
     {
-        Vector3 collisionPoint { get; }
-        Vector3 collisionNormal { get; }
+        Vector3 center { get; set;}
     }
 
-    public interface IHitExitData : ICollisionData
+    public interface IBox : IShape
     {
-        
+        Vector3 size { get; set; }
+    }
+
+    public interface ISphere : IShape
+    {
+        float radius { get; set; }
     }
 }
