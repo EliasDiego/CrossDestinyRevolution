@@ -17,6 +17,12 @@ namespace CDR.InputSystem
         private void Awake() 
         {
             _InputModule = GetComponent<InputSystemUIInputModule>();
+            
+            if(!_InputModule)
+                return;
+
+            _InputModule.cancel.action.started += OnCancel;
+            _InputModule.submit.action.started += OnSubmit;
         }
 
         private void OnEnable() 
@@ -25,6 +31,7 @@ namespace CDR.InputSystem
                 return;
 
             _InputModule.cancel.action.started += OnCancel;
+            _InputModule.submit.action.started += OnSubmit;
         }
 
         private void OnDestroy() 
@@ -33,6 +40,7 @@ namespace CDR.InputSystem
                 return;
 
             _InputModule.cancel.action.started -= OnCancel;
+            _InputModule.submit.action.started -= OnSubmit;
         }
 
         private void OnCancel(InputAction.CallbackContext context)
@@ -41,6 +49,14 @@ namespace CDR.InputSystem
 
             if(currentMenu is IMenuCancelHandler c)
                 c.OnCancel();
+        }
+
+        private void OnSubmit(InputAction.CallbackContext context)
+        {
+            Menu currentMenu = Menu.menus.FirstOrDefault(m => m.isShown);
+
+            if(currentMenu is IMenuSubmitHandler c)
+                c.OnSubmit();
         }
     }
 }

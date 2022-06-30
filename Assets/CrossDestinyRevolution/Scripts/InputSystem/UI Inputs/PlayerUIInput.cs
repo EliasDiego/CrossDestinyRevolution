@@ -18,142 +18,108 @@ namespace CDR.InputSystem
 
         private bool _IsClicked = false;
 
-        public event Action<Selectable> onSubmit;
-        public event Action<Selectable> onCancel;
-        public event Action<Selectable> onCurrentSelectableChange;
-        public event Action onEnableInput;
-        public event Action onDisableInput;
-
-        public Selectable currentSelectable { get => _CurrentSelectable; set => SetCurrentSelectable(value); }
-
-        private void SetCurrentSelectable(Selectable selectable)
+        public event Action<InputAction.CallbackContext> onSubmit
         {
-            if(!selectable)
-                return;
-
-            _CurrentSelectable = selectable;
-
-            onCurrentSelectableChange?.Invoke(_CurrentSelectable);
-        }
-
-        private bool IsInsideRect(RectTransform rectTransform, Vector2 point)
-        {
-            Rect rect = new Rect(rectTransform.position - (Vector3)rectTransform.sizeDelta / 2, rectTransform.sizeDelta);
-            
-            return rect.Contains(point);
-        }
-
-        private void OnMove(InputAction.CallbackContext context)
-        {
-            if(!currentSelectable)
+            remove
             {
-                currentSelectable = Selectable.allSelectablesArray.FirstOrDefault();
-
-                return;
+                if(GetInputAction("Submit", out InputAction inputAction))
+                    inputAction.started -= value;
             }
-
-            Selectable nextSelectable = currentSelectable.FindSelectable(context.ReadValue<Vector2>());
-
-            if(nextSelectable)
-                currentSelectable = nextSelectable;
-        }
-
-        private void OnSubmit(InputAction.CallbackContext context)
-        {
-            if(!currentSelectable)
-                return;
-
-            onSubmit?.Invoke(currentSelectable);
-
-            if(currentSelectable is ISubmitHandler s)
-                s.OnSubmit(null);
-        }
-
-        private void OnCancel(InputAction.CallbackContext context)
-        {
-            if(!currentSelectable)
-                return;
-
-            onCancel?.Invoke(currentSelectable);
-
-            if(currentSelectable is ICancelHandler c)
-                c.OnCancel(null);
-        }
-
-        private void OnPoint(InputAction.CallbackContext context)
-        {
-            _MousePosition = context.ReadValue<Vector2>();
-
-            Selectable selectable = Selectable.allSelectablesArray.FirstOrDefault(s => IsInsideRect(s.transform as RectTransform, _MousePosition));
-
-            // if(currentSelectable is IDragHandler d)
-            // {
-            //     PointerEventData data = new PointerEventData(null);
-
-            //     data.button = PointerEventData.InputButton.Left;
-            //     // data.
-            // }
-
-            if(currentSelectable && currentSelectable != selectable)
-                currentSelectable.OnPointerExit(null); 
-
-            if(selectable)
+            add 
             {
-                currentSelectable = selectable;
-                currentSelectable.OnPointerEnter(null);
+                if(GetInputAction("Submit", out InputAction inputAction))
+                    inputAction.started += value;
             }
         }
 
-        private void OnClick(InputAction.CallbackContext context)
+        public event Action<InputAction.CallbackContext> onCancel
         {
-            if(!currentSelectable)
-                return;
-
-            _IsClicked = !_IsClicked;
-
-            if(_IsClicked)
-                return;
-
-            onSubmit?.Invoke(currentSelectable);
-
-            if(currentSelectable is ISubmitHandler s)
-                s.OnSubmit(null);
+            remove
+            {
+                if(GetInputAction("Cancel", out InputAction inputAction))
+                    inputAction.started -= value;
+            }
+            add 
+            {
+                if(GetInputAction("Cancel", out InputAction inputAction))
+                    inputAction.started += value;
+            }
         }
 
-        private void OnStart(InputAction.CallbackContext context)
+        public event Action<InputAction.CallbackContext> onMove
         {
-            Debug.Log("Start");
+            remove
+            {
+                if(GetInputAction("Move", out InputAction inputAction))
+                {
+                    inputAction.started -= value;
+                    inputAction.performed -= value;
+                }
+            }
+            add 
+            {
+                if(GetInputAction("Move", out InputAction inputAction))
+                {
+                    inputAction.started += value;
+                    inputAction.performed += value;
+                }
+            }
         }
 
-        private void OnPause(InputAction.CallbackContext context)
+        public event Action<InputAction.CallbackContext> onPoint
         {
-            Debug.Log("Pause");
+            remove
+            {
+                if(GetInputAction("Point", out InputAction inputAction))
+                    inputAction.performed -= value;
+            }
+            add 
+            {
+                if(GetInputAction("Point", out InputAction inputAction))
+                    inputAction.performed += value;
+            }
         }
 
-        public override void AssociateActionMap(InputActionMap inputActionMap)
+        public event Action<InputAction.CallbackContext> onClick
         {
-            base.AssociateActionMap(inputActionMap);
-
-            inputActions["Point"].performed += OnPoint;
-            inputActions["Move"].started += OnMove;
-            inputActions["Move"].performed += OnMove;
-            inputActions["Submit"].started += OnSubmit;
-            inputActions["Cancel"].started += OnCancel;
-            inputActions["Click"].performed += OnClick;
+            remove
+            {
+                if(GetInputAction("Click", out InputAction inputAction))
+                    inputAction.performed -= value;
+            }
+            add 
+            {
+                if(GetInputAction("Click", out InputAction inputAction))
+                    inputAction.performed += value;
+            }
         }
 
-        public override void EnableInput()
+        public event Action<InputAction.CallbackContext> onStart
         {
-            base.EnableInput();
-
-            onEnableInput?.Invoke();
+            remove
+            {
+                if(GetInputAction("Start", out InputAction inputAction))
+                    inputAction.started -= value;
+            }
+            add 
+            {
+                if(GetInputAction("Start", out InputAction inputAction))
+                    inputAction.started += value;
+            }
         }
 
-        public override void DisableInput()
+        public event Action<InputAction.CallbackContext> onPause
         {
-            base.DisableInput();
-
-            onDisableInput?.Invoke();
+            remove
+            {
+                if(GetInputAction("Pause", out InputAction inputAction))
+                    inputAction.started -= value;
+            }
+            add 
+            {
+                if(GetInputAction("Pause", out InputAction inputAction))
+                    inputAction.started += value;
+            }
         }
     }
 }

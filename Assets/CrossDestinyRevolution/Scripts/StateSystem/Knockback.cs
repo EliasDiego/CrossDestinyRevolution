@@ -30,6 +30,13 @@ namespace CDR.StateSystem
             Return();
         }
 
+        public override void ForceEndState()
+        {
+            base.ForceEndState();
+            receiver.controller.SetVelocity(Vector3.zero);
+            Return();
+        }
+
         IEnumerator KnockbackCoroutine(float time)
         {
             Vector3 dir = (sender.position - receiver.position).normalized;

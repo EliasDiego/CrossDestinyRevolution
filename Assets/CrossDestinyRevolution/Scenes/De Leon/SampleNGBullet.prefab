@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 913767120149972310}
   - component: {fileID: 3971450612688874480}
   - component: {fileID: 1932345140810933651}
-  - component: {fileID: 5831834160720572854}
   - component: {fileID: 6230128931090889574}
   - component: {fileID: 6949673405960922833}
+  - component: {fileID: 2839269852917765591}
+  - component: {fileID: 2135973723029313655}
   m_Layer: 7
   m_Name: SampleNGBullet
   m_TagString: Bullet
@@ -84,26 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5831834160720572854
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6420653630352239956}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d22f6e84518c3439a335c03299bb63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _ActiveCharacter: {fileID: 0}
-  _Controller: {fileID: 6230128931090889574}
-  _HitLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  _Bounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 1, y: 1, z: 1}
 --- !u!114 &6230128931090889574
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Rigidbody: {fileID: 6949673405960922833}
-  projectileHitBox: {fileID: 5831834160720572854}
+  projectileHitBox: {fileID: 2135973723029313655}
   projectileDamage: 5
   hasLifeTime: 0
   projectileMaxLifetime: 5
@@ -142,3 +123,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &2839269852917765591
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6420653630352239956}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2135973723029313655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6420653630352239956}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c82b68b27b65aef40bb2ad52c207be39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ActiveCharacter: {fileID: 0}

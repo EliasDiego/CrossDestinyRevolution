@@ -10,8 +10,8 @@ namespace CDR.ActionSystem
 		float _currentCooldown;
 		protected bool _isCoolingDown;
 
-		public event System.Action<ICooldownAction> OnStartCooldown;
 		public event System.Action<ICooldownAction> onCoolDown;
+		public event System.Action<ICooldownAction> onStartCoolDown;
 
 		public float cooldownDuration => _cooldownDuration;
 		public float currentCooldown => _currentCooldown;
@@ -24,7 +24,7 @@ namespace CDR.ActionSystem
 		public override void End()
 		{
 			base.End();
-			OnStartCooldown?.Invoke(this);
+			onStartCoolDown?.Invoke(this);
 			_currentCooldown = _cooldownDuration;
 			_isCoolingDown = true;
 		}

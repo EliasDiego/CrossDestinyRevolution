@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CDR.AnimationSystem;
 
 namespace CDR.AttackSystem
 {
@@ -11,32 +12,42 @@ namespace CDR.AttackSystem
         [SerializeField] float minDistanceFromTarget = 5f;
         [SerializeField] float maxDistanceFromTarget = 25f;
 
+        AnimationEventsManager _Manager;
+
 
         protected override void Awake()
         {
             if (_pool[0] != null)
                 _pool[0].Initialize();
+
+            _Manager = Character.animator.GetComponent<AnimationEventsManager>();
+
+            var a = new CDR.AnimationSystem.AnimationEvent(0.09f, true, () => StartCoroutine(NGSequence()), null, null) ;
+            var b = new CDR.AnimationSystem.AnimationEvent(0.32f, true, () => End(), null, null);
+
+            _Manager.AddAnimationEvent("SAttack1", a, b); // SpecialAttack01
         }
 
         public override void Use()
         {
             base.Use();
 
-            StartCoroutine(NGSequence());
-
-            End();
+            Character.animator.SetBool("IsSAttack1", true);
         }
 
         public override void End()
         {
             base.End();
 
+            Character.animator.SetBool("IsSAttack1", false);
             //ForceEnd();
         }
 
 		public override void ForceEnd()
 		{
 			base.ForceEnd();
+
+            Character.animator.SetBool("IsSAttack1", false);
 
             StopAllCoroutines();
 		}

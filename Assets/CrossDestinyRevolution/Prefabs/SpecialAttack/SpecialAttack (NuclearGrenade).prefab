@@ -48,8 +48,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 804bf247edd7fe7459215e75a5dbb8b8, type: 2}
   bulletSpawnPoint:
   - {fileID: 5816485605749745736}
-  SpecialAbilityCooldown: 5
-  amountOfBullets: 10
-  testTarget: {fileID: 0}
+  SpecialAbilityCooldown: 2
+  amountOfBullets: 15
   minDistanceFromTarget: 5
   maxDistanceFromTarget: 20

@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 3401622447246041619}
   - component: {fileID: 3874464055193689795}
   - component: {fileID: 3401622447246041833}
-  - component: {fileID: 6103551261855339763}
+  - component: {fileID: 3661164337730531050}
+  - component: {fileID: 3399826398444269719}
   m_Layer: 7
   m_Name: SampleHomingBullet
   m_TagString: Bullet
@@ -113,15 +114,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Rigidbody: {fileID: 3874464055193689795}
-  projectileHitBox: {fileID: 6103551261855339763}
+  projectileHitBox: {fileID: 3399826398444269719}
   projectileDamage: 5
   hasLifeTime: 1
   projectileMaxLifetime: 5
-  playerAttackRange: 0
   bulletSpeed: 40
   rotateSpeed: 50
   originPoint: {x: 0, y: 0, z: 0}
---- !u!114 &6103551261855339763
+  playerAttackRange: 0
+--- !u!65 &3661164337730531050
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3401622447246041622}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3399826398444269719
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,14 +144,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3401622447246041622}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d22f6e84518c3439a335c03299bb63, type: 3}
+  m_Script: {fileID: 11500000, guid: c82b68b27b65aef40bb2ad52c207be39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _ActiveCharacter: {fileID: 0}
-  _Controller: {fileID: 3401622447246041833}
-  _HitLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  _Bounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 1.05, y: 1.05, z: 1.05}
