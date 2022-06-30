@@ -13,6 +13,9 @@ namespace CDR.AnimationSystem
         Vector2 _Move;
 
         [SerializeField]
+        bool _IsRangeAttack;
+
+        [SerializeField]
         bool _UseMeleeAttackTime = false;
         [SerializeField]
         bool _IsMeleeAttack = false;
@@ -27,9 +30,16 @@ namespace CDR.AnimationSystem
 
             AnimationEventsManager manager = GetComponent<AnimationEventsManager>();
 
-            manager.AddAnimationEvent("Shield", new AnimationEvent(0.5f, true, Test, TestEnter, TestExit));
+            _Animator.SetBool("IsMove", true);
+
+            // manager.AddAnimationEvent("Shield", new AnimationEvent(0.5f, true, Test, TestEnter, TestExit));
 
             // StartCoroutine(MeleeAttack());
+        }
+
+        private void Update()
+        {
+            _Animator.SetBool("IsRAttack", _IsRangeAttack);
         }
 
         private void Test()
