@@ -81,7 +81,7 @@ namespace CDR.AttackSystem
             _hurtSphere.onHitEnter -= HitEnter;
         }
 
-        void HitEnter(IHitEnterData hitData)
+        void HitEnter(IHitData hitData)
         {
             Debug.LogWarning("Hit Enter from: " + hitData.hitShape.character);
             
