@@ -45,16 +45,16 @@ namespace CDR.AttackSystem
             HitPlayer();
         }
 
-        protected override void OnHitEnter(IHitEnterData hitData)
+        private void OnHitEnter(IHitData data)
         {
             if(!isHit)
             {
                 isHit = true;
-                hpToDamage = (MechSystem.Health)hitData.hurtShape.character.health;
+                hpToDamage = (MechSystem.Health)data.hurtShape.character.health;
             }
         }
 
-        private void OnHitExit(IHitExitData hitData)
+        private void OnHitExit(IHitData data)
         {
             if(isHit)
             {
@@ -113,25 +113,6 @@ namespace CDR.AttackSystem
                 gameObject.SetActive(false);
                 ResetObject();
             }
-        }
-
-        private IEnumerator Debugger()
-        {
-            var timer = 1f;
-            var currentTime = 0.001f;
-
-            while(currentTime <= timer)
-            {
-                beam.transform.localScale = Vector3.MoveTowards(beam.transform.localScale, Vector3.one,
-                    Mathf.Lerp(0f, 1f, timer / currentTime));
-
-                currentTime += Time.deltaTime;
-                yield return null;
-            }
-
-
-
-            yield return null;
         }
     }
 }

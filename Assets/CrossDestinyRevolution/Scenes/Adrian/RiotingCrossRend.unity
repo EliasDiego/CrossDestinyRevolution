@@ -272,6 +272,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1538238516354305646, guid: 47a8aeec8ceabda4799e8ecddc7198bf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4976759656588088541, guid: 47a8aeec8ceabda4799e8ecddc7198bf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7616411143403275057, guid: 47a8aeec8ceabda4799e8ecddc7198bf, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -332,6 +340,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Castle (Military Mech)
       objectReference: {fileID: 0}
+    - target: {fileID: 8028309934427116829, guid: 47a8aeec8ceabda4799e8ecddc7198bf, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8279755034536247419, guid: 47a8aeec8ceabda4799e8ecddc7198bf, type: 3}
       propertyPath: _flightPlane
       value: 
@@ -341,6 +353,22 @@ PrefabInstance:
 --- !u!1 &973017326 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8028309934427116829, guid: 47a8aeec8ceabda4799e8ecddc7198bf, type: 3}
+  m_PrefabInstance: {fileID: 973017325}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &973017329 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8028309934427116824, guid: 47a8aeec8ceabda4799e8ecddc7198bf, type: 3}
+  m_PrefabInstance: {fileID: 973017325}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 973017326}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68f88f0aef8b94d44aa460f80cf81417, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &973017331 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8028309934427116821, guid: 47a8aeec8ceabda4799e8ecddc7198bf, type: 3}
   m_PrefabInstance: {fileID: 973017325}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &979322982
@@ -436,6 +464,64 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!1 &1334916963
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1334916964}
+  - component: {fileID: 1334916966}
+  - component: {fileID: 1334916965}
+  m_Layer: 7
+  m_Name: Hurtbox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1334916964
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334916963}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 3.1667895, y: 4.8911724, z: 2.6283205}
+  m_Children: []
+  m_Father: {fileID: 973017331}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1334916965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334916963}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6edc8fe739810f24a89a4b204df4c092, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ActiveCharacter: {fileID: 973017329}
+--- !u!65 &1334916966
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1334916963}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &1424539193
 PrefabInstance:
   m_ObjectHideFlags: 0
