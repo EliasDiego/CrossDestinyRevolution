@@ -8,7 +8,7 @@ namespace CDR.AttackSystem
     public class CosmicBulletCluster : Projectile
     {
         [SerializeField]
-        private HitBox[] projectiles;
+        private HitShape[] projectiles;
         [SerializeField]
         private Transform rotator;
         [SerializeField]
@@ -91,7 +91,7 @@ namespace CDR.AttackSystem
         {
             for(int i = 0; i < projectiles.Length; i++)
             {
-                projectiles[i].onHitEnter += OnHitEnter;
+                projectiles[i].onHitEnter += OnHitEvent;
             }
         }
 
@@ -99,14 +99,14 @@ namespace CDR.AttackSystem
         {
             for (int i = 0; i < projectiles.Length; i++)
             {
-                projectiles[i].onHitEnter -= OnHitEnter;
+                projectiles[i].onHitEnter -= OnHitEvent;
             }
         }
 
-        protected override void OnHitEnter(IHitEnterData hitData)
+        private void OnHitEvent(IHitData data)
         {
-            (hitData.hitShape as HitShape).gameObject.SetActive(false);
-            hitData.hurtShape.character.health.TakeDamage(projectileDamage);
+            data.hitShape.collider.gameObject.SetActive(false);
+            data.hurtShape.character.health.TakeDamage(projectileDamage);
             if (ActiveProjectiles() == 0)
             {
                 ResetObject();
