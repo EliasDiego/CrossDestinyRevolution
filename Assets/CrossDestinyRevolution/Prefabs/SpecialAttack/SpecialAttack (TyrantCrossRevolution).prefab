@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3697473259059643656
+--- !u!1 &3057023194584136091
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3697473259059643658}
-  - component: {fileID: 3697473259059643659}
+  - component: {fileID: 1102592531170142875}
+  - component: {fileID: 8580773993442605795}
   m_Layer: 0
-  m_Name: SpecialAttack (Nightmare Stalker)
+  m_Name: SpecialAttack (TyrantCrossRevolution)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3697473259059643658
+--- !u!4 &1102592531170142875
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3697473259059643656}
+  m_GameObject: {fileID: 3057023194584136091}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,29 +31,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3697473259059643659
+--- !u!114 &8580773993442605795
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3697473259059643656}
+  m_GameObject: {fileID: 3057023194584136091}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cc29cd43289d6dd42af06aeb438b9d4b, type: 3}
+  m_Script: {fileID: 11500000, guid: ad61ae054c327ca4b95be68f949c1c41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   activeCharacter: {fileID: 0}
   _pool:
-  - {fileID: 11400000, guid: 52783a2f13beb0e4fafa4e74ef33bf5c, type: 2}
-  - {fileID: 11400000, guid: 6d6b5760efdd0094ba295e48f971a0cb, type: 2}
+  - {fileID: 11400000, guid: bf1c37c11671c9843ae983058c12d667, type: 2}
   bulletSpawnPoint:
-  - {fileID: 3697473259059643656}
+  - {fileID: 3057023194584136091}
   SpecialAbilityCooldown: 2
-  attackRange: 100
-  checkDistanceInterval: 0.2
-  bulletTrailSpawnInterval: 0.1
-  bulletTrailDeSpawnInterval: 0.1
-  _animationEvent:
-    _TimeValue: 0
-    _IsNormalized: 0
+  amountOfLeftBullets: 5
+  amountOfRightBullets: 5
+  bulletSpawnSpacing: 5
+  bulletStaticPosSpacing: 5
