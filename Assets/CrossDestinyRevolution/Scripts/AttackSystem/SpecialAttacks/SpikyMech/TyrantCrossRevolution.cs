@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using CDR.AnimationSystem;
 
 namespace CDR.AttackSystem
 {
@@ -12,30 +13,47 @@ namespace CDR.AttackSystem
         [SerializeField] float bulletSpawnSpacing;
         [SerializeField] float bulletStaticPosSpacing;
 
+        [SerializeField] CDR.AnimationSystem.AnimationEvent _animationEvent;
+
+        AnimationEventsManager _Manager;
+
+        [SerializeField] SFXAnimationEvent[] sfxAnimationEvents;
+
         protected override void Awake()
         {
             if (_pool[0] != null)
                 _pool[0].Initialize();
+
+            _Manager = Character.animator.GetComponent<AnimationEventsManager>();
+
+            var a = new CDR.AnimationSystem.AnimationEvent(0.33f, true, () => StartCoroutine(TCRSequence()));
+            var b = new CDR.AnimationSystem.AnimationEvent(1f, true, () => End());
+
+            _Manager.AddAnimationEvent("SAttack3", a, b); //SpecialAttack01
+            _Manager.AddAnimationEvent("SAttack3", sfxAnimationEvents); //SpecialAttack01
         }
 
         public override void Use()
         {
             base.Use();
 
-            StartCoroutine(TCRSequence());
+            Character.animator.SetInteger("ActionType", (int)ActionType.SpecialAttack3);
 
-            End();
         }
 
         public override void End()
         {
             base.End();
             //ForceEnd();
+
+            Character.animator.SetInteger("ActionType", (int)ActionType.None);
         }
 
         public override void ForceEnd()
         {
             base.ForceEnd();
+
+            Character.animator.SetInteger("ActionType", (int)ActionType.None);
 
             StopAllCoroutines();
         }

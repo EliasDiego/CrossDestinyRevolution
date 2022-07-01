@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CDR.AnimationSystem;
-
 namespace CDR.AttackSystem
 {
     public class NightmareStalker : SpecialAttack
@@ -17,7 +16,9 @@ namespace CDR.AttackSystem
 
         [SerializeField] CDR.AnimationSystem.AnimationEvent _animationEvent;
 
-        AnimationEventsManager _Manager;
+		AnimationEventsManager _Manager;
+
+        [SerializeField] SFXAnimationEvent[] sfxAnimationEvents;
 
         protected override void Awake()
         {
@@ -28,32 +29,35 @@ namespace CDR.AttackSystem
 
             _Manager = Character.animator.GetComponent<AnimationEventsManager>();
 
-            var a = new CDR.AnimationSystem.AnimationEvent(0.1f, true, null, null, null);
+            var a = new CDR.AnimationSystem.AnimationEvent(0.33f, true, () => StartCoroutine(NSSequence()));
+            var b = new CDR.AnimationSystem.AnimationEvent(1f, true, () => End());
 
-            //_Manager.AddAnimationEvent("SpecialAttack01", a); //SpecialAttack01
+            _Manager.AddAnimationEvent("SAttack1", a,b); //SpecialAttack01
+            _Manager.AddAnimationEvent("SAttack1", sfxAnimationEvents);
         }
 
         public override void Use()
         {
             base.Use();
 
-            //Character.animator.SetBool("IsSAttack1", true);
+            Character.animator.SetInteger("ActionType", (int)ActionType.SpecialAttack1);
 
-            StartCoroutine(NSSequence());
-
-            End();
         }
 
         public override void End()
-        {
-            base.End();
+		{
+			base.End();
+
+            Character.animator.SetInteger("ActionType", (int)ActionType.None);
 
             //ForceEnd();
         }
 
-        public override void ForceEnd()
+		public override void ForceEnd()
         {
             base.ForceEnd();
+
+            Character.animator.SetInteger("ActionType", (int)ActionType.None);
 
             StopAllCoroutines();
         }
