@@ -45,8 +45,9 @@ GameObject:
   - component: {fileID: 7678058111023089877}
   - component: {fileID: 8316323885837892022}
   - component: {fileID: 7138510214047885789}
-  - component: {fileID: 3522131834259019498}
   - component: {fileID: 756256769357843844}
+  - component: {fileID: 1323774567928249206}
+  - component: {fileID: 7606214102304116666}
   m_Layer: 7
   m_Name: CosmicBulletProjectile
   m_TagString: Untagged
@@ -117,26 +118,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &3522131834259019498
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3522131834259019499}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d22f6e84518c3439a335c03299bb63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _ActiveCharacter: {fileID: 0}
-  _Controller: {fileID: 6844578796853949875}
-  _HitLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  _Bounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 1, y: 1, z: 1}
 --- !u!54 &756256769357843844
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -153,6 +134,32 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &1323774567928249206
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3522131834259019499}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7606214102304116666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3522131834259019499}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c82b68b27b65aef40bb2ad52c207be39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ActiveCharacter: {fileID: 0}
 --- !u!1 &6844578796618515367
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,8 +171,9 @@ GameObject:
   - component: {fileID: 6844578796618515366}
   - component: {fileID: 6844578796618515373}
   - component: {fileID: 6844578796618515362}
-  - component: {fileID: 6844578796618515363}
   - component: {fileID: 7751368204374662105}
+  - component: {fileID: 6913459730253013361}
+  - component: {fileID: 1836159890867123162}
   m_Layer: 7
   m_Name: CosmicBulletProjectile (3)
   m_TagString: Untagged
@@ -236,26 +244,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6844578796618515363
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6844578796618515367}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d22f6e84518c3439a335c03299bb63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _ActiveCharacter: {fileID: 0}
-  _Controller: {fileID: 6844578796853949875}
-  _HitLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  _Bounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 1, y: 1, z: 1}
 --- !u!54 &7751368204374662105
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -272,6 +260,32 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &6913459730253013361
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6844578796618515367}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1836159890867123162
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6844578796618515367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c82b68b27b65aef40bb2ad52c207be39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ActiveCharacter: {fileID: 0}
 --- !u!1 &6844578796853949878
 GameObject:
   m_ObjectHideFlags: 0
@@ -282,7 +296,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6844578796853949873}
   - component: {fileID: 6844578796853949875}
-  - component: {fileID: 6844578796853949872}
   - component: {fileID: 6844578796853949874}
   m_Layer: 0
   m_Name: CosmicBulletCluster
@@ -319,40 +332,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Rigidbody: {fileID: 6844578796853949874}
-  projectileHitBox: {fileID: 6844578796853949872}
+  projectileHitBox: {fileID: 0}
   projectileDamage: 10
   hasLifeTime: 1
   projectileMaxLifetime: 7
-  playerAttackRange: 8.62
   projectiles:
-  - {fileID: 3522131834259019498}
-  - {fileID: 6844578797110193169}
-  - {fileID: 6844578796945931267}
-  - {fileID: 6844578796618515363}
+  - {fileID: 7606214102304116666}
+  - {fileID: 7471614376487264854}
+  - {fileID: 8444356810695371332}
+  - {fileID: 1836159890867123162}
   rotator: {fileID: 1045361954576234609}
   radius: 1
   rotateSpeed: 2
   flightSpeed: 9.72
---- !u!114 &6844578796853949872
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6844578796853949878}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d22f6e84518c3439a335c03299bb63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _ActiveCharacter: {fileID: 0}
-  _Controller: {fileID: 6844578796853949875}
-  _HitLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  _Bounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 0, y: 0, z: 0}
 --- !u!54 &6844578796853949874
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -380,8 +372,9 @@ GameObject:
   - component: {fileID: 6844578796945931270}
   - component: {fileID: 6844578796945931277}
   - component: {fileID: 6844578796945931266}
-  - component: {fileID: 6844578796945931267}
   - component: {fileID: 4259333836290648132}
+  - component: {fileID: 3998377372135209683}
+  - component: {fileID: 8444356810695371332}
   m_Layer: 7
   m_Name: CosmicBulletProjectile (2)
   m_TagString: Untagged
@@ -452,26 +445,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6844578796945931267
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6844578796945931271}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d22f6e84518c3439a335c03299bb63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _ActiveCharacter: {fileID: 0}
-  _Controller: {fileID: 6844578796853949875}
-  _HitLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  _Bounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 1, y: 1, z: 1}
 --- !u!54 &4259333836290648132
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -488,6 +461,32 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &3998377372135209683
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6844578796945931271}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8444356810695371332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6844578796945931271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c82b68b27b65aef40bb2ad52c207be39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ActiveCharacter: {fileID: 0}
 --- !u!1 &6844578797110193173
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,8 +498,9 @@ GameObject:
   - component: {fileID: 6844578797110193172}
   - component: {fileID: 6844578797110193171}
   - component: {fileID: 6844578797110193168}
-  - component: {fileID: 6844578797110193169}
   - component: {fileID: 8275167834624141323}
+  - component: {fileID: 8127876395663971680}
+  - component: {fileID: 7471614376487264854}
   m_Layer: 7
   m_Name: CosmicBulletProjectile (1)
   m_TagString: Untagged
@@ -571,26 +571,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6844578797110193169
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6844578797110193173}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d22f6e84518c3439a335c03299bb63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _ActiveCharacter: {fileID: 0}
-  _Controller: {fileID: 6844578796853949875}
-  _HitLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  _Bounds:
-    m_Center: {x: 0, y: 0, z: 0}
-    m_Extent: {x: 1, y: 1, z: 1}
 --- !u!54 &8275167834624141323
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -607,3 +587,29 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!65 &8127876395663971680
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6844578797110193173}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &7471614376487264854
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6844578797110193173}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c82b68b27b65aef40bb2ad52c207be39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ActiveCharacter: {fileID: 0}

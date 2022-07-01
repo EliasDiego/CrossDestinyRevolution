@@ -85,7 +85,7 @@ namespace CDR.AttackSystem
 			_hitBox.onHitEnter -= HitEnter;
 		}
 
-		void HitEnter(IHitEnterData hitData)
+		void HitEnter(IHitData hitData)
 		{
 			isHoming = false;
 			_animHandler.EndAttackAnim();

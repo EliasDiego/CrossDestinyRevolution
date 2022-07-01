@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace CDR.AttackSystem
 {
-	public class NGProjectile : Projectile
-	{
+    public class TCRProjectile : Projectile
+    {
 		[SerializeField] public float bulletSpeed = 15f;
 
 		public Vector3 targetPoint;
@@ -19,8 +19,6 @@ namespace CDR.AttackSystem
 		public override void Start()
 		{
 			base.Start();
-
-			
 		}
 
 		public override void OnEnable()
@@ -39,18 +37,18 @@ namespace CDR.AttackSystem
 				distanceFromTarget = Vector3.Distance(transform.position, target.position);
 
 
-			if(!isInPosition)
+			if (!isInPosition)
 			{
 				isInPosition = CheckIfInPosition();
 			}
-			
+
 
 			if (!isInPosition)
 			{
 				MoveProjectile();
 			}
 
-			if(secondPhaseStart)
+			if (secondPhaseStart)
 			{
 				MoveToPlayer();
 			}
@@ -66,6 +64,7 @@ namespace CDR.AttackSystem
 		{
 			Rotate(targetPlayerDir);
 
+			float step = bulletSpeed * Time.deltaTime;
 			SetVelocity(transform.forward * bulletSpeed);
 		}
 
@@ -77,9 +76,6 @@ namespace CDR.AttackSystem
 		public override void ResetObject() //Parameters reset
 		{
 			base.ResetObject();
-
-
-			
 
 			isInPosition = false;
 			secondPhaseStart = false;
@@ -93,7 +89,6 @@ namespace CDR.AttackSystem
 			{
 				return true;
 			}
-				
 
 			return false;
 		}

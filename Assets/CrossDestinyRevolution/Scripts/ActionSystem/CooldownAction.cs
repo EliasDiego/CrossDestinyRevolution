@@ -12,6 +12,8 @@ namespace CDR.ActionSystem
 
 		public event System.Action<ICooldownAction> onCoolDown;
 		public event System.Action<ICooldownAction> onStartCoolDown;
+		public event System.Action<ICooldownAction> onEndCoolDown;
+
 
 		public float cooldownDuration => _cooldownDuration;
 		public float currentCooldown => _currentCooldown;
@@ -37,18 +39,23 @@ namespace CDR.ActionSystem
 
 		void ProcessCooldown()
 		{
-			onCoolDown?.Invoke(this);
-
 			float deltaTime = Time.deltaTime;
 
 			_currentCooldown = Mathf.Max(_currentCooldown - deltaTime, 0f);
 
 			_isCoolingDown = _currentCooldown > 0f;
+
+			onCoolDown?.Invoke(this);
+
+			if(!_isCoolingDown)
+			{
+				EndCoolDown();
+			}
 		}
 
 		public void EndCoolDown()
 		{
-			throw new System.NotImplementedException();
+			onEndCoolDown?.Invoke(this);
 		}
 	}
 }
