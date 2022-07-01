@@ -24,9 +24,9 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _MaxDistance: 200
+    - _MaxDistance: 40.37
     m_Colors:
-    - _OpaqueColor: {r: 1, g: 0, b: 0, a: 1}
+    - _OpaqueColor: {r: 1, g: 0, b: 0, a: 0}
     - _Test: {r: 0, g: 0, b: 0, a: 0}
-    - _TransparentColor: {r: 0, g: 0, b: 0, a: 0}
+    - _TransparentColor: {r: 0.5049736, g: 1, b: 0, a: 0}
   m_BuildTextureStacks: []
