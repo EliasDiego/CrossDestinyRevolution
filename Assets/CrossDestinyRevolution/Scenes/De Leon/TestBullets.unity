@@ -3665,6 +3665,18 @@ PrefabInstance:
       propertyPath: activeCharacter
       value: 
       objectReference: {fileID: 148263576}
+    - target: {fileID: 3697473259059643659, guid: b982cabe50657124ab0338a0791f7313, type: 3}
+      propertyPath: checkDistanceInterval
+      value: 0.05
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697473259059643659, guid: b982cabe50657124ab0338a0791f7313, type: 3}
+      propertyPath: bulletTrailSpawnInterval
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697473259059643659, guid: b982cabe50657124ab0338a0791f7313, type: 3}
+      propertyPath: bulletTrailDeSpawnInterval
+      value: 0.03
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b982cabe50657124ab0338a0791f7313, type: 3}
 --- !u!1 &2010655286

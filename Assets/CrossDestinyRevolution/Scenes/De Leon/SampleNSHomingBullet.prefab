@@ -117,7 +117,7 @@ MonoBehaviour:
   projectileHitBox: {fileID: 480313224508951527}
   projectileDamage: 5
   hasLifeTime: 1
-  projectileMaxLifetime: 2
+  projectileMaxLifetime: 5
   bulletSpeed: 30
   rotateSpeed: 50
   originPoint: {x: 0, y: 0, z: 0}
