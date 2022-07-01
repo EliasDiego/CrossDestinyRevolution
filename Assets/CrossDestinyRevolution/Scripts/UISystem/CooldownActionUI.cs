@@ -28,11 +28,17 @@ namespace CDR.UISystem
         public void SetCooldownAction(ICooldownAction cooldownAction)
         {
             cooldownAction.onCoolDown += OnCooldownChange;
+            cooldownAction.onEndCoolDown += OnEndCooldown;
         }
 
         void OnCooldownChange(ICooldownAction cooldownAction)
         {
             _fillImage.fillAmount = cooldownAction.currentCooldown / cooldownAction.cooldownDuration;
+        }
+
+        void OnEndCooldown(ICooldownAction cooldownAction)
+        {
+            _fillImage.fillAmount = cooldownAction.cooldownDuration / cooldownAction.cooldownDuration;
         }
     }
 }
