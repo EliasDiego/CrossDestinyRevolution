@@ -13,6 +13,8 @@ namespace CDR.AttackSystem
         [SerializeField] float bulletTrailSpawnInterval; // Interval between spawning bullet trail
         [SerializeField] float bulletTrailDeSpawnInterval; // Interval between despawning bullet trail
 
+        [SerializeField] float AfterDistanceCheckInterval; // Interval between despawning bullet trail
+
         [SerializeField] CDR.AnimationSystem.AnimationEvent _animationEvent;
 
         AnimationEventsManager _Manager;
@@ -81,19 +83,58 @@ namespace CDR.AttackSystem
 
             yield return new WaitForSecondsRealtime(checkDistanceInterval);
 
-            while (firstBullet.activeInHierarchy)
-            {
-                bulletTrailSpawn.Add(firstBullet.transform.position);
-                yield return new WaitForSecondsRealtime(checkDistanceInterval);
-            }
+            StartCoroutine(CheckDistanceSpawn(firstBullet, bulletTrailSpawn));
+
+            yield return new WaitWhile(() => !firstBullet.GetComponent<HomingBullet>().CheckDistanceFromTarget());
+
+            /*while (!firstBullet.GetComponent<HomingBullet>().CheckDistanceFromTarget())
+			{
+                yield return null;
+            }*/
+
+            yield return new WaitForSecondsRealtime(AfterDistanceCheckInterval);
+
+            firstBullet.GetComponent<HomingBullet>().ResetObject();
+            firstBullet.GetComponent<HomingBullet>().Return();
 
             yield return new WaitUntil(() => !firstBullet.activeInHierarchy);
 
+            
+
             //2nd PHASE
             
-            var bulletTrailBullets = new List<GameObject>(); 
+            var bulletTrailBullets = new List<GameObject>();
 
-            foreach (Vector3 bulletTrailSpawnPoint in bulletTrailSpawn)
+            var bulletTrailSpawnArray = bulletTrailSpawn.ToArray();
+
+            for(int i = 0; i < bulletTrailSpawnArray.Length; i++)
+			{
+                var bulletTrailBullet = _pool[1].GetPoolable();
+
+                bulletTrailBullet.transform.position = bulletTrailSpawnArray[i];
+
+                
+
+                bulletTrailBullet.SetActive(true);
+
+                if (i < bulletTrailSpawnArray.Length - 1)
+                {
+                    bulletTrailBullet.transform.LookAt(bulletTrailSpawnArray[i + 1]);
+                }
+
+                if(i == bulletTrailSpawnArray.Length - 1)
+				{
+                    bulletTrailBullet.transform.LookAt(bulletTrailSpawnArray[i - 1]);
+                }
+
+                bulletTrailBullets.Add(bulletTrailBullet);
+
+                
+
+                yield return new WaitForSecondsRealtime(bulletTrailSpawnInterval);
+            }
+
+            /*foreach (Vector3 bulletTrailSpawnPoint in bulletTrailSpawn)
 			{
                 var bulletTrailBullet = _pool[1].GetPoolable();
 
@@ -104,7 +145,7 @@ namespace CDR.AttackSystem
                 bulletTrailBullets.Add(bulletTrailBullet);
 
                 yield return new WaitForSecondsRealtime(bulletTrailSpawnInterval);
-            }
+            }*/
 
             yield return new WaitUntil(() => CheckIfAllActive(bulletTrailBullets));
 
@@ -120,6 +161,15 @@ namespace CDR.AttackSystem
 
             yield break;
 		}
+
+        IEnumerator CheckDistanceSpawn(GameObject firstBullet, List<Vector3> bulletTrailSpawn)
+		{
+            while (firstBullet.activeInHierarchy)
+            {
+                bulletTrailSpawn.Add(firstBullet.transform.position);
+                yield return new WaitForSecondsRealtime(checkDistanceInterval);
+            }
+        }
 
         bool CheckIfAllActive(List<GameObject> bulletTrail)
 		{

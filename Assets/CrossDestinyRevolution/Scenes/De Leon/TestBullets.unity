@@ -3550,7 +3550,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 852551265084442547, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 39.8
+      value: -12.5
       objectReference: {fileID: 0}
     - target: {fileID: 852551265084442547, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
       propertyPath: m_LocalPosition.y
@@ -3558,7 +3558,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 852551265084442547, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 51.2
       objectReference: {fileID: 0}
     - target: {fileID: 852551265084442547, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3672,6 +3672,10 @@ PrefabInstance:
     - target: {fileID: 3697473259059643659, guid: b982cabe50657124ab0338a0791f7313, type: 3}
       propertyPath: bulletTrailSpawnInterval
       value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697473259059643659, guid: b982cabe50657124ab0338a0791f7313, type: 3}
+      propertyPath: AfterDistanceCheckInterval
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3697473259059643659, guid: b982cabe50657124ab0338a0791f7313, type: 3}
       propertyPath: bulletTrailDeSpawnInterval

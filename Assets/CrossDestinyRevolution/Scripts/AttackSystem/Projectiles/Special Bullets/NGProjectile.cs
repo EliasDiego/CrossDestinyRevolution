@@ -78,9 +78,6 @@ namespace CDR.AttackSystem
 		{
 			base.ResetObject();
 
-
-			
-
 			isInPosition = false;
 			secondPhaseStart = false;
 			targetPlayerDir = Quaternion.identity;

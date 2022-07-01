@@ -88,6 +88,15 @@ namespace CDR.AttackSystem
 
             Return();
         }
+
+        public bool CheckDistanceFromTarget()
+		{
+            if(originDistanceFromProjectile > originDistanceFromTarget)
+			{
+                return true;
+			}
+            return false;
+		}
     }
 }
 
