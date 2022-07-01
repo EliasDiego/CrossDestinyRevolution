@@ -15,7 +15,11 @@ namespace CDR.AnimationSystem
 
         public void AddAnimationEvent<T>(string name, T[] animationEvents) where T : IAnimationEvent
         {
-            AddAnimationEvent(name, animationEvents);
+            if(_AnimationEvents.ContainsKey(name))
+                _AnimationEvents[name] = _AnimationEvents[name].Union(animationEvents?.Cast<IAnimationEvent>()).ToArray();
+
+            else
+                _AnimationEvents.Add(name, animationEvents?.Cast<IAnimationEvent>()?.ToArray());
         }
 
         public void AddAnimationEvent(string name, params IAnimationEvent[] animationEvents)
@@ -24,7 +28,7 @@ namespace CDR.AnimationSystem
                 _AnimationEvents[name] = _AnimationEvents[name].Union(animationEvents).ToArray();
 
             else
-                _AnimationEvents.Add(name, animationEvents?.Cast<IAnimationEvent>().ToArray());
+                _AnimationEvents.Add(name, animationEvents?.ToArray());
         }
 
         public void RemoveAnimationEvent<T>(string name, T[] animationEvents) where T : IAnimationEvent
