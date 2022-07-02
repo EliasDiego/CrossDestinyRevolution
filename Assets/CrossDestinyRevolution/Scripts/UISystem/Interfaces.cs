@@ -37,8 +37,10 @@ namespace CDR.UISystem
     public interface IPlayerMechBattleUI : IUIElement
     {
         IValueRangeUI healthUI { get; }
+        IValueRangeUI targetHealthUI { get; }
         IValueRangeUI boostUI { get; }
         ITargetHandlerUI targetHandlerUI { get; }
+        ITargetHandlerUI targetHealthHandlerUI { get; }
         ICooldownActionUI specialAttack1AttackUI { get; }
         ICooldownActionUI specialAttack2AttackUI { get; }
         ICooldownActionUI specialAttack3AttackUI { get; }
