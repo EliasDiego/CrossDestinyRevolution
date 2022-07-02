@@ -45,7 +45,7 @@ namespace CDR.AttackSystem
 
             onHitEnter?.Invoke(hitData);
 
-            hurtShape.HitEnter(null);
+            hurtShape.HitEnter(hitData);
         }
         
         private void OnTriggerExit(Collider other) 
@@ -60,7 +60,7 @@ namespace CDR.AttackSystem
 
             onHitExit?.Invoke(hitData);
 
-            hurtShape.HitExit(null);
+            hurtShape.HitExit(hitData);
         }
     }
 }

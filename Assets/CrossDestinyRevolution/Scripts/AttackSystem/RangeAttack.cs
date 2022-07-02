@@ -20,12 +20,17 @@ namespace CDR.AttackSystem
 		[SerializeField] CDR.AnimationSystem.AnimationEvent _animationEvent;
 
 		AnimationEventsManager _Manager;
+		[SerializeField] SFXAnimationEvent[] sfxAnimationEvents;
 
 		void Start()
 		{
-			//var a = new CDR.AnimationSystem.AnimationEvent(0.1f, true, null, null, null);
+			_Manager = Character.animator.GetComponent<AnimationEventsManager>();
 
-			//_Manager.AddAnimationEvent("RangeAttack", a);
+			var a = new CDR.AnimationSystem.AnimationEvent(0.29f, true, () => GetBulletFromObjectPool());
+			var b = new CDR.AnimationSystem.AnimationEvent(1f, true, () => End());
+
+			_Manager.AddAnimationEvent("RAttack", a,b);
+			_Manager.AddAnimationEvent("RAttack", sfxAnimationEvents);
 		}
 
 		protected override void Awake()
@@ -44,9 +49,9 @@ namespace CDR.AttackSystem
 		{
 			base.Use();
 
-			GetBulletFromObjectPool();
+			Character.animator.SetInteger("ActionType", (int)ActionType.RangeAttack);
 
-			End();
+			
 		}
 
 		void GetBulletFromObjectPool()
@@ -66,11 +71,15 @@ namespace CDR.AttackSystem
 		public override void End()
 		{
 			base.End();
+
+			Character.animator.SetInteger("ActionType", (int)ActionType.None);
 		}
 
 		public override void ForceEnd()
 		{
 			base.ForceEnd();
+
+			Character.animator.SetInteger("ActionType", (int)ActionType.None);
 
 			_pool.ReturnAll();
 		}

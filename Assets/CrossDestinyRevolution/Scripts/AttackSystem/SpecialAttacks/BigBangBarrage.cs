@@ -17,6 +17,7 @@ namespace CDR.AttackSystem
         [SerializeField] CDR.AnimationSystem.AnimationEvent _animationEvent;
 
         AnimationEventsManager _Manager;
+        [SerializeField] SFXAnimationEvent[] sfxAnimationEvents;
 
 
         protected override void Awake()
@@ -28,7 +29,10 @@ namespace CDR.AttackSystem
 
             var a = new CDR.AnimationSystem.AnimationEvent(0.1f, true, null, null, null);
 
-            //_Manager.AddAnimationEvent("Special Attack 02", a); //SpecialAttack02
+            //_animationEvent.onEventTime +=
+
+            _Manager.AddAnimationEvent("SAttack2", a); //SpecialAttack02
+            _Manager.AddAnimationEvent("SAttack2", sfxAnimationEvents); //SpecialAttack02
         }
 
         public override void Use()
@@ -37,17 +41,23 @@ namespace CDR.AttackSystem
 
             StartCoroutine(BBBSequence());
 
+            Character.animator.SetInteger("ActionType", (int)ActionType.SpecialAttack2);
+
             End();
         }
 
         public override void End()
         {
             base.End();
+
+            Character.animator.SetInteger("ActionType", (int)ActionType.None);
         }
 
 		public override void ForceEnd()
 		{
 			base.ForceEnd();
+
+            Character.animator.SetInteger("ActionType", (int)ActionType.None);
 
             StopAllCoroutines();
 		}
