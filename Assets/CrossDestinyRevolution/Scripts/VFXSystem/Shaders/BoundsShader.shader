@@ -9,7 +9,6 @@ Shader "Unlit/BoundsShader"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _Test ("Test", Vector) = (0, 0, 0, 0)
         _MaxDistance ("Max Distance", float) = 15
     }
     SubShader
@@ -59,7 +58,7 @@ Shader "Unlit/BoundsShader"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                float4 tex = float4(1,1,1,1);//tex2D(_MainTex, i.uv);
+                float4 tex = tex2D(_MainTex, i.uv);
                 float d = 0;
 
                 for(int x = 0; x < 2; x++)

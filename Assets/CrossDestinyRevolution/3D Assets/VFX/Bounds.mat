@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Bounds2
+  m_Name: Bounds
   m_Shader: {fileID: 4800000, guid: 2aba54731e295e04698765c071d3bcdf, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -20,11 +20,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
+        m_Texture: {fileID: 2800000, guid: 61d58548f9f90d14b805457a51cee8a7, type: 3}
+        m_Scale: {x: 10, y: 10}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - _MaxDistance: 40.37
+    - _MaxDistance: 15
     m_Colors:
     - _OpaqueColor: {r: 1, g: 0, b: 0, a: 0}
     - _Test: {r: 0, g: 0, b: 0, a: 0}

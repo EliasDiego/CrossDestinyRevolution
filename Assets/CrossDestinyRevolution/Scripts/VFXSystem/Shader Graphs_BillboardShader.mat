@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Lake
-  m_Shader: {fileID: -6465566751694194690, guid: 8cc7c37b709652e48b54f9a13d954b58, type: 3}
+  m_Name: Shader Graphs_BillboardShader
+  m_Shader: {fileID: -6465566751694194690, guid: 2ec38483e34925b448503b2d15d7b829, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -31,18 +31,7 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Floats:
-    - Vector1_918c591b050e48b1a5879e25cc57cef2: 1
-    - Vector1_c1aa4cfc0a9d474c83d18a03f02418a3: 1.88
-    - _FoamScale: 1
-    - _FoamSpeed: 0.01
-    - _RippleDensity: 4
-    - _RippleSlimness: 8
-    - _RippleSpeed: 2
-    - _WaveScale: 2.33
-    - _WaveSpeed: 0.01
+    m_Floats: []
     m_Colors:
-    - Color_e00daefc38bd41dab335345a9147f067: {r: 1.043137, g: 1.043137, b: 1.043137, a: 1}
-    - _BaseColor: {r: 0, g: 0.8512273, b: 1, a: 1}
-    - _RippleColor: {r: 0.1273585, g: 0.7839834, b: 1, a: 0}
+    - Color_a293d50ab5e144bb8fc96a1ddd16c00c: {r: 1, g: 1, b: 1, a: 0}
   m_BuildTextureStacks: []
