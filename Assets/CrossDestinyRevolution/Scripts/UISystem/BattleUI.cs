@@ -8,7 +8,6 @@ namespace CDR.UISystem
     public class BattleUI : MonoBehaviour, IPlayerMechBattleUI
     {
         [SerializeField] ProgressBar healthBar;
-        [SerializeField] ProgressBar targetHealthBar;
         [SerializeField] ProgressBar boostBar;
 
         [SerializeField] CooldownActionUI specialAttack1;
@@ -21,7 +20,6 @@ namespace CDR.UISystem
         bool _isShown;
 
         public IValueRangeUI healthUI => healthBar;
-        public IValueRangeUI targetHealthUI => targetHealthBar;
         public IValueRangeUI boostUI => boostBar;
         public ITargetHandlerUI targetHandlerUI => _targetHandlerUI;
         public ITargetHandlerUI targetHealthHandlerUI => _targetHealthUI;
@@ -43,7 +41,6 @@ namespace CDR.UISystem
         public void SetMech(IMech mech)
         {
             healthUI.SetValueRange(mech.health);
-            targetHealthUI.SetValueRange(mech.targetHandler.GetCurrentTarget().activeCharacter.health);
             boostUI.SetValueRange(mech.boost.boostValue);
             
             _targetHandlerUI.SetTarget(mech.targetHandler.GetCurrentTarget());

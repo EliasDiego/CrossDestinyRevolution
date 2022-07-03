@@ -281,7 +281,7 @@ PrefabInstance:
       objectReference: {fileID: 4425149}
     - target: {fileID: 8028309934427116821, guid: 47a8aeec8ceabda4799e8ecddc7198bf, type: 3}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8028309934427116821, guid: 47a8aeec8ceabda4799e8ecddc7198bf, type: 3}
       propertyPath: m_LocalPosition.x
@@ -331,6 +331,10 @@ PrefabInstance:
       propertyPath: _hurtShape.Array.data[0]
       value: 
       objectReference: {fileID: 848255347}
+    - target: {fileID: 8028309934427116825, guid: 47a8aeec8ceabda4799e8ecddc7198bf, type: 3}
+      propertyPath: targetHealthUI
+      value: 
+      objectReference: {fileID: 1436145066}
     - target: {fileID: 8028309934427116829, guid: 47a8aeec8ceabda4799e8ecddc7198bf, type: 3}
       propertyPath: m_Name
       value: Castle (Military Mech)
@@ -1060,7 +1064,7 @@ PrefabInstance:
       objectReference: {fileID: 1062350826}
     - target: {fileID: 852551265084442547, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 852551265084442547, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1114,6 +1118,10 @@ PrefabInstance:
       propertyPath: _hurtShape.Array.data[0]
       value: 
       objectReference: {fileID: 987587648}
+    - target: {fileID: 852551265084442559, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
+      propertyPath: targetHealthUI
+      value: 
+      objectReference: {fileID: 1502493909}
     - target: {fileID: 1610334659628405469, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
       propertyPath: _flightPlane
       value: 
@@ -1743,7 +1751,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979833713275267920, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 979833713275267920, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1840,6 +1848,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 979833713964439358, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
   m_PrefabInstance: {fileID: 1436145064}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1436145066 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9157441086189850598, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
+  m_PrefabInstance: {fileID: 1436145064}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1502493907
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1861,7 +1880,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 979833713275267920, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 979833713275267920, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
       propertyPath: m_AnchorMax.x
@@ -1958,6 +1977,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 979833713964439358, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
   m_PrefabInstance: {fileID: 1502493907}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1502493909 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9157441086189850598, guid: 6856c05ddd393e945bc602cc9cab29f9, type: 3}
+  m_PrefabInstance: {fileID: 1502493907}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1600566764
 GameObject:
   m_ObjectHideFlags: 0
