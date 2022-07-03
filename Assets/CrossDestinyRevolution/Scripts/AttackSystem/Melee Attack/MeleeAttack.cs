@@ -14,6 +14,7 @@ namespace CDR.AttackSystem
 		[SerializeField] HitBox _hitBox;
 		[SerializeField] float _speed;
 		[SerializeField] float _meleeDamage;
+		[SerializeField] float _distanceToTarget;
 
 		// Animation Handler
 		[SerializeField] MeleeAttackAnimationHandler _animHandler;
@@ -87,7 +88,6 @@ namespace CDR.AttackSystem
 
 		void HitEnter(IHitData hitData)
 		{
-			isHoming = false;
 			_animHandler.EndAttackAnim();
 			Character.controller.SetVelocity(Vector3.zero);
 			Debug.LogWarning("Hit!!! " + hitData.hurtShape.character);
@@ -120,6 +120,7 @@ namespace CDR.AttackSystem
 			if(isHoming)
 			{
 				CheckAttackTimer();
+				CheckDistanceToTarget();
 			}
 		}
 
@@ -146,6 +147,16 @@ namespace CDR.AttackSystem
 				_animHandler.EndAttackAnim();
 				Character.controller.SetVelocity(Vector3.zero);
 				End();
+			}
+		}
+
+		void CheckDistanceToTarget()
+		{
+			float distance = Vector3.Distance(Character.position, Character.targetHandler.GetCurrentTarget().activeCharacter.position);
+
+			if(distance <= _distanceToTarget)
+			{
+				isHoming = false;
 			}
 		}
 	}
