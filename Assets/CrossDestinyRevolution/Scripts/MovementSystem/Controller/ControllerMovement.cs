@@ -18,6 +18,8 @@ namespace CDR.MovementSystem
         private float _gravity;
         [SerializeField]
         private bool clampSpeed = false;
+        [SerializeField]
+        private SFXAnimationEvent[] sfx;
 
         private Vector3 currentDir = Vector3.zero;
         private ITargetData currentTarget;
@@ -29,7 +31,8 @@ namespace CDR.MovementSystem
         protected override void Awake()
         {
             base.Awake();
-            Character.animator.GetComponent<AnimationSystem.AnimationEventsManager>().AddAnimationEvent("Move");
+            Character.animator.GetComponent<AnimationEventsManager>().AddAnimationEvent("Move");
+            Character.animator.GetComponent<AnimationEventsManager>().AddAnimationEvent("Move", sfx);
         }
 
         private void Update()

@@ -24,6 +24,8 @@ namespace CDR.MovementSystem
         private AnimationCurve animationCurve;
         [SerializeField]
         private BoostVFXHandler[] vfxHandler;
+        [SerializeField]
+        private SFXAnimationEvent[] sfx;
 
         public IBoostValue boostValue => _boostValue;
         public IBoostData horizontalBoostData => _horizontalBoostData;
@@ -34,6 +36,7 @@ namespace CDR.MovementSystem
 
         private void Start()
         {
+            Character.animator.GetComponent<AnimationEventsManager>().AddAnimationEvent("Boost", sfx);
             offsetArea = 1f - animationCurve.GetArea(0.001f);
             StartCoroutine(_boostValue.Regenerate());
         }
