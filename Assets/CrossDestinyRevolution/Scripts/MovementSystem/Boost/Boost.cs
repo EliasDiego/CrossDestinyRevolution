@@ -1,5 +1,7 @@
 using System.Collections;
 using UnityEngine;
+using CDR.AnimationSystem;
+using CDR.VFXSystem;
 
 // This class is for the Boost system and its methods.
 
@@ -20,6 +22,8 @@ namespace CDR.MovementSystem
         private HorizontalBoostData _horizontalBoostData;
         [SerializeField]
         private AnimationCurve animationCurve;
+        [SerializeField]
+        private BoostVFXHandler[] vfxHandler;
 
         public IBoostValue boostValue => _boostValue;
         public IBoostData horizontalBoostData => _horizontalBoostData;
@@ -41,14 +45,15 @@ namespace CDR.MovementSystem
 
             if(isHorizontal)
             {
-                Character.animator.SetInteger("BoostState", 2);
-                Character.animator.SetFloat("HBoostX", 1f * Mathf.Sign(direction.x));
-                Character.animator.SetFloat("HBoostY", 1f * Mathf.Sign(direction.z));
+                Debug.Log(direction.normalized.x);
+                Character.animator.SetInteger("MoveType", (int)MoveType.HorizontalBoost);
+                Character.animator.SetFloat("MoveX", direction.normalized.x);
+                Character.animator.SetFloat("MoveY", direction.normalized.z);
             }
             else
             {
-                Character.animator.SetInteger("BoostState", 1);
-                Character.animator.SetFloat("VBoost", 1f * Mathf.Sign(direction.y));
+                Character.animator.SetInteger("MoveType", (int)MoveType.VerticalBoost);
+                Character.animator.SetFloat("MoveY", direction.normalized.y);
             }
 
             while (currentTime > 0)
@@ -73,12 +78,9 @@ namespace CDR.MovementSystem
                     }
                     Character.controller.AddRbForce(CentripetalForce(), ForceMode.Acceleration);
                 }
-
                 currentTime -= Time.fixedDeltaTime;
-
                 yield return new WaitForFixedUpdate();
-            }
-            
+            }          
             End();
         }
 
@@ -107,7 +109,7 @@ namespace CDR.MovementSystem
                 var dir = new Vector3(direction.x, 0f, direction.y);
 
                 Use();
-                _FixedCoroutine = StartCoroutine(FixedCoroutine(new Vector3(direction.x, 0f, direction.y)
+                _FixedCoroutine = StartCoroutine(FixedCoroutine(dir
                     * horizontalBoostData.distance / horizontalBoostData.time,
                     horizontalBoostData.time, true));
             }
@@ -132,10 +134,9 @@ namespace CDR.MovementSystem
 
         private void ResetAnimatorValues()
         {
-            Character.animator.SetInteger("BoostState", 0);
-            Character.animator.SetFloat("HBoostX", 0f);
-            Character.animator.SetFloat("HBoostY", 0f);
-            Character.animator.SetFloat("VBoost" , 0f);
+            Character.animator.SetInteger("MoveType", (int)MoveType.None); 
+            Character.animator.SetFloat("MoveX", 0f);
+            Character.animator.SetFloat("MoveY", 0f);
         }
 
         public override void Use()
@@ -144,6 +145,11 @@ namespace CDR.MovementSystem
             _boostValue.Consume();
             _boostValue.SetIsRegening(false);
             Character.movement.SetSpeedClamp(false);
+
+            for(int i = 0; i < vfxHandler.Length; i++)
+            {
+                vfxHandler[i].Activate();
+            }
 
             Character.movement.End();
             Character.input.DisableInput("Movement");
@@ -155,6 +161,11 @@ namespace CDR.MovementSystem
             if(_FixedCoroutine != null)
             {
                 StopCoroutine(_FixedCoroutine);
+            }
+
+            for (int i = 0; i < vfxHandler.Length; i++)
+            {
+                vfxHandler[i].Deactivate();
             }
 
             ResetAnimatorValues();
@@ -178,6 +189,12 @@ namespace CDR.MovementSystem
             {
                 StopCoroutine(_FixedCoroutine);
             }
+
+            for (int i = 0; i < vfxHandler.Length; i++)
+            {
+                vfxHandler[i].Deactivate();
+            }
+
             Character.controller.SetVelocity(Vector3.zero);
             ResetAnimatorValues();
         }
