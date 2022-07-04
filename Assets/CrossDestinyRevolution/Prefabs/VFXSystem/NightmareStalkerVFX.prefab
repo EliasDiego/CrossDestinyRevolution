@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6851614165374264233}
   - component: {fileID: 6851614165374264236}
   - component: {fileID: 6851614165374264238}
-  - component: {fileID: 6558342135143624382}
+  - component: {fileID: -2915509780935843290}
   m_Layer: 0
-  m_Name: NightStalkerVFX
+  m_Name: NightmareStalkerVFX
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -142,7 +142,7 @@ VFXRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &6558342135143624382
+--- !u!114 &-2915509780935843290
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -151,6 +151,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 6851614165374264237}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 187b92dcd198f7945a037fef26a5df29, type: 3}
+  m_Script: {fileID: 11500000, guid: 138adf5a6dde2be42b079cca1b610778, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

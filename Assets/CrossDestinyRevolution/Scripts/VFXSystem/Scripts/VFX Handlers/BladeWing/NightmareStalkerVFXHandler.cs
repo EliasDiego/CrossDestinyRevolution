@@ -6,7 +6,7 @@ using UnityEngine.VFX;
 
 namespace CDR.VFXSystem
 {
-    public class NightStalkerVFXHandler : MonoBehaviour, IVFXHandler
+    public class NightmareStalkerVFXHandler : MonoBehaviour, IVFXHandler
     {
         private VisualEffect _MuzzleFlashEffect;
         
