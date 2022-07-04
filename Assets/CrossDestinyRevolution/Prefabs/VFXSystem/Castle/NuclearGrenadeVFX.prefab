@@ -53,8 +53,20 @@ VisualEffect:
       - m_Value: -5
         m_Name: Max Size
         m_Overridden: 1
-      - m_Value: -0.8
+      - m_Value: -4
         m_Name: Min Size
+        m_Overridden: 1
+      - m_Value: 0.3
+        m_Name: Main Min Lifetime
+        m_Overridden: 1
+      - m_Value: 0.7
+        m_Name: Main Max Lifetime
+        m_Overridden: 1
+      - m_Value: 0.3
+        m_Name: Side Min Lifetime
+        m_Overridden: 1
+      - m_Value: 0.5
+        m_Name: Side Max Lifetime
         m_Overridden: 1
     m_Vector2f:
       m_Array: []
@@ -69,14 +81,14 @@ VisualEffect:
       - m_Value: {x: 1, y: 1, z: 1}
         m_Name: Main Scale
         m_Overridden: 1
-      - m_Value: {x: 1, y: 1, z: 1}
+      - m_Value: {x: 1, y: 1, z: 2}
         m_Name: Side Scale
         m_Overridden: 1
     m_Vector4f:
       m_Array:
-      - m_Value: {x: 118.035385, y: 0, z: 0, w: 1}
+      - m_Value: {x: 3.9533494, y: 3.9533494, z: 3.9533494, w: 1}
         m_Name: Color
-        m_Overridden: 0
+        m_Overridden: 1
     m_Uint:
       m_Array: []
     m_Int:
@@ -95,10 +107,10 @@ VisualEffect:
       - m_Value: {fileID: 2800000, guid: 61d58548f9f90d14b805457a51cee8a7, type: 3}
         m_Name: Main Muzzle Flash
         m_Overridden: 1
-      - m_Value: {fileID: 2800000, guid: 61d58548f9f90d14b805457a51cee8a7, type: 3}
+      - m_Value: {fileID: 2800000, guid: c01c6b4729524fc439cf7106093eb06a, type: 3}
         m_Name: Main Texture
         m_Overridden: 1
-      - m_Value: {fileID: 2800000, guid: 61d58548f9f90d14b805457a51cee8a7, type: 3}
+      - m_Value: {fileID: 2800000, guid: 6a34ad544268e1647bf7a51a432c6670, type: 3}
         m_Name: Side Texture
         m_Overridden: 1
     m_Bool:

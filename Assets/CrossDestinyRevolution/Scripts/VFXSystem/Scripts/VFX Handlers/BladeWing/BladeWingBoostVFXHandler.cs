@@ -4,18 +4,18 @@ using UnityEngine;
 
 namespace CDR.VFXSystem
 {
-    public class BladeWingBoostVFXHandler : MonoBehaviour, IVFXHandler
+    public class BladeWingBoostVFXHandler : BoostVFXHandler
     {
         private bool _IsActive = false;
 
-        public bool isActive => _IsActive;
+        public override bool isActive => _IsActive;
 
-        public void Activate()
+        public override void Activate()
         {
             _IsActive = true;
         }
 
-        public void Deactivate()
+        public override void Deactivate()
         {
             _IsActive = false;
         }

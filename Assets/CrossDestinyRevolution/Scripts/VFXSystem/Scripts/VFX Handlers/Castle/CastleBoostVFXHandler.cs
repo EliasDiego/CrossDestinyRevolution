@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CDR.VFXSystem
 {
-    public class CastleBoostVFXHandler : MonoBehaviour, IVFXHandler
+    public class CastleBoostVFXHandler : BoostVFXHandler
     {
         [SerializeField]
         private AnimationCurve _HeightCurve;
@@ -18,7 +18,7 @@ namespace CDR.VFXSystem
         private bool _IsActive = false;
         private float _HeightCurveOffset = 0;
 
-        public bool isActive => _IsActive;
+        public override bool isActive => _IsActive;
 
         private void Awake() 
         {
@@ -34,7 +34,7 @@ namespace CDR.VFXSystem
             transform.localScale = scale;
         }
 
-        public void Activate()
+        public override void Activate()
         {
             if(_Coroutine != null)
                 StopCoroutine(_Coroutine);
@@ -44,7 +44,7 @@ namespace CDR.VFXSystem
             _IsActive = true;
         }
 
-        public void Deactivate()
+        public override void Deactivate()
         {
             if(_Coroutine != null)
                 StopCoroutine(_Coroutine);
