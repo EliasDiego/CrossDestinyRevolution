@@ -6,6 +6,7 @@ using CDR.StateSystem;
 using CDR.MechSystem;
 using CDR.ObjectPoolingSystem;
 using CDR.AnimationSystem;
+using CDR.VFXSystem;
 
 namespace CDR.AttackSystem
 {
@@ -15,6 +16,7 @@ namespace CDR.AttackSystem
 		[SerializeField] float _speed;
 		[SerializeField] float _meleeDamage;
 		[SerializeField] float _distanceToTarget;
+		[SerializeField] MeleeAttackVFXHandler _vfx;
 
 		// Animation Handler
 		[SerializeField] MeleeAttackAnimationHandler _animHandler;
@@ -57,6 +59,7 @@ namespace CDR.AttackSystem
 			base.Use();
 			
 			isHoming = true;
+			_vfx.Activate();
 			_animHandler.PlayAttackAnim();
 			//_hitBox.enabled = true;
 			_hitBox.onHitEnter += HitEnter;
@@ -71,6 +74,7 @@ namespace CDR.AttackSystem
 			base.End();
 
 			_timer = _meleeAttackDuration;
+			_vfx.Deactivate();
 			//_hitBox.enabled = false;
 			_hitBox.onHitEnter -= HitEnter;
 
@@ -83,6 +87,7 @@ namespace CDR.AttackSystem
 		{
 			base.ForceEnd();
 
+			_vfx.Deactivate();
 			_hitBox.onHitEnter -= HitEnter;
 		}
 
@@ -159,6 +164,7 @@ namespace CDR.AttackSystem
 				isHoming = false;
 				_hitBox.enabled = true;
 				_animHandler.ResumeAnimation();
+				_vfx.Deactivate();
 			}
 		}
 	}
