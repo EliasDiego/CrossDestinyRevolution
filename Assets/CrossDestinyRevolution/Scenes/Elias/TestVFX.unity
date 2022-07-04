@@ -6813,7 +6813,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6851614165374264237, guid: ce9ed4fd8c2651e4dad086f00d19c2b9, type: 3}
       propertyPath: m_Name
-      value: NightStalkerVFX
+      value: NightmareStalkerVFX
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce9ed4fd8c2651e4dad086f00d19c2b9, type: 3}

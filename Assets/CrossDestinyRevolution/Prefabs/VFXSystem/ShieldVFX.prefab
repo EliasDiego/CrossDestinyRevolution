@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3935729841422277737}
   - component: {fileID: 3865988134672697602}
   - component: {fileID: 1688458758091745380}
-  - component: {fileID: 1070053791}
   m_Layer: 0
   m_Name: ShieldVFX
   m_TagString: Untagged
@@ -95,7 +94,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0d830bb1ccbe86448a6b4f04832b93e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ShieldRenderer: {fileID: 0}
   _ShieldGradient:
     serializedVersion: 2
     key0: {r: 1, g: 1, b: 1, a: 0}
@@ -161,16 +159,3 @@ MonoBehaviour:
   _Radius: 2
   _ActivateTime: 0.2
   _DeactivateTime: 0.2
---- !u!114 &1070053791
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1688458758091745381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: abea0f2b60dae654a8176b4b15a491c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _IsActive: 0
