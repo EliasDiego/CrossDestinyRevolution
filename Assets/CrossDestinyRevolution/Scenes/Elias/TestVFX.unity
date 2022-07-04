@@ -6646,6 +6646,63 @@ PrefabInstance:
       objectReference: {fileID: 36015437}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82d948d8c41043a41a6aa2b0cea56c10, type: 3}
+--- !u!1001 &7078915674505704557
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6725884482660817560, guid: 55f261e58e8aec84c8b8a930ed164da2, type: 3}
+      propertyPath: m_RootOrder
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 6725884482660817560, guid: 55f261e58e8aec84c8b8a930ed164da2, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6725884482660817560, guid: 55f261e58e8aec84c8b8a930ed164da2, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6725884482660817560, guid: 55f261e58e8aec84c8b8a930ed164da2, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6725884482660817560, guid: 55f261e58e8aec84c8b8a930ed164da2, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6725884482660817560, guid: 55f261e58e8aec84c8b8a930ed164da2, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6725884482660817560, guid: 55f261e58e8aec84c8b8a930ed164da2, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6725884482660817560, guid: 55f261e58e8aec84c8b8a930ed164da2, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6725884482660817560, guid: 55f261e58e8aec84c8b8a930ed164da2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6725884482660817560, guid: 55f261e58e8aec84c8b8a930ed164da2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6725884482660817560, guid: 55f261e58e8aec84c8b8a930ed164da2, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6725884482660817564, guid: 55f261e58e8aec84c8b8a930ed164da2, type: 3}
+      propertyPath: m_Name
+      value: TyrantCrossRevolutionVFX
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 55f261e58e8aec84c8b8a930ed164da2, type: 3}
 --- !u!1001 &7131205915122609136
 PrefabInstance:
   m_ObjectHideFlags: 0
