@@ -2,10 +2,9 @@ using System;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.Animations;
-
-using CDR.ActionSystem;
 
 namespace CDR.AnimationSystem
 {
@@ -19,10 +18,14 @@ namespace CDR.AnimationSystem
 
         private bool _IsStateFinished = false;
 
-        private void TryInvokeEvent(System.Action animationEvent, float eventTime, float deltaTime)
+        private Animator _Animator;
+        private AnimatorStateInfo _CurrentStateInfo;
+        private int _CurrentLayerIndex;
+
+        private void TryInvokeEvent(IAnimationEvent animationEvent, float eventTime, float deltaTime)
         {
             if(eventTime >= 0 && eventTime <= deltaTime)
-                animationEvent?.Invoke();
+                animationEvent?.OnEventTime(_Animator, _CurrentStateInfo, _CurrentLayerIndex);
         }
 
         private void InvokeAnimationEvents(IAnimationEvent[] animationEvents, float length, float currentTime, float deltaTime)
@@ -35,14 +38,14 @@ namespace CDR.AnimationSystem
 
                 float eventTime = timeStamp - currentTime;
 
-                TryInvokeEvent(animationEvents[i].onEventTime, sign * eventTime, deltaTime);
+                TryInvokeEvent(animationEvents[i], sign * eventTime, deltaTime);
             }
         }
-        
+
         public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
             base.OnStateEnter(animator, stateInfo, layerIndex);
-
+            
             AnimationEventsManager manager = animator.GetComponent<AnimationEventsManager>();
 
             if(!manager)
@@ -58,7 +61,7 @@ namespace CDR.AnimationSystem
             _IsStateFinished = false;
 
             for(int i = 0; i < _AnimationEvents.Length; i++)
-                _AnimationEvents[i].onStateEnter?.Invoke();
+                _AnimationEvents[i].OnStateEnter(animator, stateInfo, layerIndex);
         }
 
         public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) 
@@ -69,7 +72,7 @@ namespace CDR.AnimationSystem
                 return;
 
             for(int i = 0; i < _AnimationEvents.Length; i++)
-                _AnimationEvents[i].onStateExit?.Invoke();
+                _AnimationEvents[i].OnStateExit(animator, stateInfo, layerIndex);
         }
 
         public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -80,6 +83,10 @@ namespace CDR.AnimationSystem
                 return;
 
             float deltaTime = stateInfo.speed * stateInfo.speedMultiplier * Time.deltaTime;
+
+            _Animator = animator;
+            _CurrentStateInfo = stateInfo;
+            _CurrentLayerIndex = layerIndex;
 
             InvokeAnimationEvents(_AnimationEvents, stateInfo.length, _CurrentTime, deltaTime);
 
