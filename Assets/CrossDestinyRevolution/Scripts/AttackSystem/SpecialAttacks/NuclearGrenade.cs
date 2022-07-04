@@ -53,6 +53,7 @@ namespace CDR.AttackSystem
 			base.ForceEnd();
 
             Character.animator.SetInteger("ActionType", (int)ActionType.None);
+            nuclearGrenadeVFXHandler.Deactivate();
 
             StopAllCoroutines();
 		}

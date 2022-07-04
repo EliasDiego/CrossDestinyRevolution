@@ -22,7 +22,7 @@ namespace CDR.AttackSystem
 
         [SerializeField] SFXAnimationEvent[] sfxAnimationEvents;
 
-        [SerializeField] NightStalkerVFXHandler nightStalkerVFXHandler;
+        [SerializeField] NightmareStalkerVFXHandler nightmareStalkerVFXHandler;
 
         protected override void Awake()
         {
@@ -63,6 +63,8 @@ namespace CDR.AttackSystem
 
             Character.animator.SetInteger("ActionType", (int)ActionType.None);
 
+            nightmareStalkerVFXHandler.Deactivate();
+
             StopAllCoroutines();
         }
 
@@ -89,7 +91,7 @@ namespace CDR.AttackSystem
             firstBullet.GetComponent<HomingBullet>().originPoint = bulletSpawnPoint[0].transform.position;
 			firstBullet.SetActive(true);
 
-            nightStalkerVFXHandler.Activate();
+            nightmareStalkerVFXHandler.Activate();
 
             yield return new WaitForSecondsRealtime(checkDistanceInterval);
 

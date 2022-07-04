@@ -58,6 +58,8 @@ namespace CDR.AttackSystem
 
             Character.animator.SetInteger("ActionType", (int)ActionType.None);
 
+            tyrantCrossRevolutionVFXHandler.Deactivate();
+
             StopAllCoroutines();
         }
 
