@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CDR.AnimationSystem;
+using CDR.VFXSystem;
+
 namespace CDR.AttackSystem
 {
     public class NightmareStalker : SpecialAttack
@@ -19,6 +21,8 @@ namespace CDR.AttackSystem
 		AnimationEventsManager _Manager;
 
         [SerializeField] SFXAnimationEvent[] sfxAnimationEvents;
+
+        [SerializeField] NightStalkerVFXHandler nightStalkerVFXHandler;
 
         protected override void Awake()
         {
@@ -85,6 +89,8 @@ namespace CDR.AttackSystem
             firstBullet.GetComponent<HomingBullet>().originPoint = bulletSpawnPoint[0].transform.position;
 			firstBullet.SetActive(true);
 
+            nightStalkerVFXHandler.Activate();
+
             yield return new WaitForSecondsRealtime(checkDistanceInterval);
 
             StartCoroutine(CheckDistanceSpawn(firstBullet, bulletTrailSpawn));
@@ -102,9 +108,6 @@ namespace CDR.AttackSystem
             firstBullet.GetComponent<HomingBullet>().Return();
 
             yield return new WaitUntil(() => !firstBullet.activeInHierarchy);
-
-            
-
             //2nd PHASE
             
             var bulletTrailBullets = new List<GameObject>();

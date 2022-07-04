@@ -4,6 +4,7 @@ using UnityEngine;
 using CDR.ActionSystem;
 using CDR.ObjectPoolingSystem;
 using CDR.AnimationSystem;
+using CDR.VFXSystem;
 
 namespace CDR.AttackSystem
 {
@@ -14,6 +15,8 @@ namespace CDR.AttackSystem
 		[SerializeField] float FireRate;
 		[SerializeField] GameObject GunPoint;
 		[SerializeField] float attackRange;
+
+		[SerializeField] RangeAttackVFXHandler rangeAttackVFXHandler;
 
 		public float range => attackRange;
 
@@ -50,8 +53,6 @@ namespace CDR.AttackSystem
 			base.Use();
 
 			Character.animator.SetInteger("ActionType", (int)ActionType.RangeAttack);
-
-			
 		}
 
 		void GetBulletFromObjectPool()
@@ -66,6 +67,8 @@ namespace CDR.AttackSystem
 			bullet.GetComponent<HomingBullet>().originPoint = GunPoint.transform.position;
 
 			bullet.SetActive(true);
+
+			rangeAttackVFXHandler.Activate();
 		}
 
 		public override void End()

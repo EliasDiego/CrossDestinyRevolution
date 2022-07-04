@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CDR.AnimationSystem;
+using CDR.VFXSystem;
 
 namespace CDR.AttackSystem
 {
@@ -18,6 +19,8 @@ namespace CDR.AttackSystem
 
         AnimationEventsManager _Manager;
         [SerializeField] SFXAnimationEvent[] sfxAnimationEvents;
+
+        [SerializeField] BigBangBarrageVFXHandler bigBangBarrageVFXHandler;
 
 
         protected override void Awake()
@@ -76,6 +79,8 @@ namespace CDR.AttackSystem
             FirstPhaseBullet.GetComponent<BBBProjectile>().towardsSplitPoint = transform.position;
 
             FirstPhaseBullet.SetActive(true);
+
+            bigBangBarrageVFXHandler.Activate();
 
             yield return new WaitForSeconds(secondsBeforeSplit);
 

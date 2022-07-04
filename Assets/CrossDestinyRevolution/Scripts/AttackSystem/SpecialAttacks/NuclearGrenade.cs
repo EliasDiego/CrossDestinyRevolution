@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CDR.AnimationSystem;
+using CDR.VFXSystem;
 
 namespace CDR.AttackSystem
 {
@@ -15,6 +16,8 @@ namespace CDR.AttackSystem
         AnimationEventsManager _Manager;
 
         [SerializeField] SFXAnimationEvent[] sfxAnimationEvents;
+
+        [SerializeField] NuclearGrenadeVFXHandler nuclearGrenadeVFXHandler;
 
         protected override void Awake()
         {
@@ -82,6 +85,8 @@ namespace CDR.AttackSystem
 
                 firstPhaseBullets.SetActive(true);
             }
+
+            nuclearGrenadeVFXHandler.Activate();
 
             yield return new WaitUntil(() => CheckBulletPosition(FirstPhaseBullets));
 
