@@ -5985,6 +5985,58 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5572397706563333170, guid: 6a9bbb38c1f8d164e84c1f551236169c, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5572397706563333170, guid: 6a9bbb38c1f8d164e84c1f551236169c, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Name
+      value: Side Min Lifetime
+      objectReference: {fileID: 0}
+    - target: {fileID: 5572397706563333170, guid: 6a9bbb38c1f8d164e84c1f551236169c, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[3].m_Name
+      value: Side Max Lifetime
+      objectReference: {fileID: 0}
+    - target: {fileID: 5572397706563333170, guid: 6a9bbb38c1f8d164e84c1f551236169c, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[4].m_Name
+      value: Main Min Lifetime
+      objectReference: {fileID: 0}
+    - target: {fileID: 5572397706563333170, guid: 6a9bbb38c1f8d164e84c1f551236169c, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[5].m_Name
+      value: Main Max Lifetime
+      objectReference: {fileID: 0}
+    - target: {fileID: 5572397706563333170, guid: 6a9bbb38c1f8d164e84c1f551236169c, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Value
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5572397706563333170, guid: 6a9bbb38c1f8d164e84c1f551236169c, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[3].m_Value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5572397706563333170, guid: 6a9bbb38c1f8d164e84c1f551236169c, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[4].m_Value
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5572397706563333170, guid: 6a9bbb38c1f8d164e84c1f551236169c, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[5].m_Value
+      value: 0.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 5572397706563333170, guid: 6a9bbb38c1f8d164e84c1f551236169c, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[2].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5572397706563333170, guid: 6a9bbb38c1f8d164e84c1f551236169c, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[3].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5572397706563333170, guid: 6a9bbb38c1f8d164e84c1f551236169c, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[4].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5572397706563333170, guid: 6a9bbb38c1f8d164e84c1f551236169c, type: 3}
+      propertyPath: m_PropertySheet.m_Float.m_Array.Array.data[5].m_Overridden
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5572397706563333171, guid: 6a9bbb38c1f8d164e84c1f551236169c, type: 3}
       propertyPath: m_Name
       value: CosmicStormVFX

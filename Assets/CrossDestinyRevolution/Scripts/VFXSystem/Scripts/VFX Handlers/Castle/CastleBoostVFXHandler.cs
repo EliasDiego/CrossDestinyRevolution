@@ -1,14 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-
-
 using UnityEngine;
-
-using CDR;
 
 namespace CDR.VFXSystem
 {
-    public class BoostVFXHandler : MonoBehaviour, IVFXHandler
+    public class CastleBoostVFXHandler : MonoBehaviour, IVFXHandler
     {
         [SerializeField]
         private AnimationCurve _HeightCurve;
