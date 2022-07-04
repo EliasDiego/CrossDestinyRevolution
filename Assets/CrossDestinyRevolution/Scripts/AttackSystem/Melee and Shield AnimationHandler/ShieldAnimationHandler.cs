@@ -32,27 +32,14 @@ namespace CDR.AnimationSystem
 
         public void PauseAnimation()
         {
+            Debug.Log("shield pause");
             _activeCharacter.animator.SetFloat("ActionSMultiplier", 0);
         }
 
         public void ResumeAnimation()
         {
+            Debug.Log("shield resume");
             _activeCharacter.animator.SetFloat("ActionSMultiplier", 1);
         }
-
-        void EventTime()
-        {
-            Debug.Log("Shield Event Time");
-        }
-
-        void StateEnter()
-        {
-            Debug.Log("Shield State Enter");
-        }
-
-        void StateExit()
-        {
-            Debug.Log("Shield State Exit");
-        }
-}
+    }
 }

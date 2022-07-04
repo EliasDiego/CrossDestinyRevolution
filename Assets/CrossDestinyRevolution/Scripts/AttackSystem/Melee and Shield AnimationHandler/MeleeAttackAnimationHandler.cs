@@ -15,9 +15,8 @@ namespace CDR.AnimationSystem
 
         private void Awake()
         {
-            var a = new AnimationEvent(.2f, true, () => PauseAnimation());
-
-            _manager.AddAnimationEvent("MAttack", a);
+            _animationEvent.onEventTime += PauseAnimation;
+            _manager.AddAnimationEvent("MAttack", _animationEvent);
             _manager.AddAnimationEvent("MAttack", _sfx);
         }
 
@@ -41,21 +40,6 @@ namespace CDR.AnimationSystem
         {
             Debug.Log("melee resumed");
             _activeCharacter.animator.SetFloat("ActionSMultiplier", 1);
-        }
-
-        void EventTime()
-        {
-            Debug.Log("MAttack Event Time");
-        }
-
-        void StateEnter()
-        {
-            Debug.Log("MAttack State Enter");
-        }
-
-        void StateExit()
-        {
-            Debug.Log("MAttack State Exit");
         }
     }
 }

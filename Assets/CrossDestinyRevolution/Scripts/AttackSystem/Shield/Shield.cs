@@ -66,8 +66,10 @@ namespace CDR.AttackSystem
             base.End();
 
             _sphereCollider.enabled = false;
+
             _vfx.Deactivate();
             _animHandler.EndShieldAnim();
+            _animHandler.ResumeAnimation();
             _hurtSphere.onHitEnter -= HitEnter;
 
             Character.input.EnableInput();
