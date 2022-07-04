@@ -6,25 +6,23 @@ using UnityEngine.VFX;
 
 namespace CDR.VFXSystem
 {
-    public class DamageVFXHandler : MonoBehaviour, IVFXHandler
+    public class HitVFXHandler : MonoBehaviour, IVFXHandler
     {
-        VisualEffect _DamageEffect;
+        [SerializeField]
+        VisualEffect[] _VisualEffects;
 
         public bool isActive => false;
 
-        private void Awake()
-        {
-            _DamageEffect = GetComponent<VisualEffect>();
-        }
-
         public void Activate()
         {
-            _DamageEffect.Play();
+            foreach(VisualEffect v in _VisualEffects)
+                v.Play();
         }
 
         public void Deactivate()
         {
-            _DamageEffect.Stop();
+            foreach(VisualEffect v in _VisualEffects)
+                v.Stop();
         }
     }
 }

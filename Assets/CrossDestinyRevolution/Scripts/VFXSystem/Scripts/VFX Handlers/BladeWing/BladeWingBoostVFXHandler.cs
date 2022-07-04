@@ -6,18 +6,23 @@ namespace CDR.VFXSystem
 {
     public class BladeWingBoostVFXHandler : BoostVFXHandler
     {
-        private bool _IsActive = false;
+        private ParticleSystem _ParticleSystem;
 
-        public override bool isActive => _IsActive;
+        public override bool isActive => _ParticleSystem.isPlaying;
+
+        private void Awake() 
+        {
+            _ParticleSystem = GetComponent<ParticleSystem>();    
+        }
 
         public override void Activate()
         {
-            _IsActive = true;
+            _ParticleSystem.Play();
         }
 
         public override void Deactivate()
         {
-            _IsActive = false;
+            _ParticleSystem.Stop();
         }
     }
 }

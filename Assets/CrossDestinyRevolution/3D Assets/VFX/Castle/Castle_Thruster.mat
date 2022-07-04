@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Thruster
+  m_Name: Castle_Thruster
   m_Shader: {fileID: -6465566751694194690, guid: 4fa071198184a4a478eaae0f7f3d644b, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
@@ -44,8 +44,10 @@ Material:
     - Vector1_d9f87c1f793249f287df69fffed907e2: 0
     - Vector1_f5daca507bef4ca191c694c5953a29b6: 1
     - Vector1_f9aaff02d66d4033b2b027f68e1131e5: 65.2
+    - _EmissionIntensity: 2
     m_Colors:
     - Color_3afdd44bd81b473d9b1abe9bb037851f: {r: 1, g: 1, b: 1, a: 0}
     - Vector3_95001022b13f4a87bd8dbc9f64932229: {r: 1, g: 1, b: 1, a: 0}
     - Vector3_a72942edfdeb48aeb8e34d386ee3d392: {r: 0, g: 1, b: 0, a: 0}
+    - _EmissionColor: {r: 2, g: 2, b: 2, a: 0}
   m_BuildTextureStacks: []
