@@ -157,8 +157,9 @@ namespace CDR.AttackSystem
 			if(distance <= _distanceToTarget)
 			{
 				isHoming = false;
+				_hitBox.enabled = true;
+				_animHandler.ResumeAnimation();
 			}
 		}
 	}
 }
-
