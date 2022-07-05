@@ -64,7 +64,10 @@ namespace CDR.AttackSystem
 				{
 					ResetObject();
 
-					//projectileHitBox.onHitEnter -= OnHitEnter;
+					if (projectileHitBox != null)
+					{
+						projectileHitBox.onHitEnter -= OnHitEnter;
+					}
 
 					Return();
 				}

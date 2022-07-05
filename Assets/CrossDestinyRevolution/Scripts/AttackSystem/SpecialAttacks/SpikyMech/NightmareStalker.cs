@@ -16,8 +16,6 @@ namespace CDR.AttackSystem
 
         [SerializeField] float AfterDistanceCheckInterval; // Interval between despawning bullet trail
 
-        [SerializeField] CDR.AnimationSystem.AnimationEvent _animationEvent;
-
 		AnimationEventsManager _Manager;
 
         [SerializeField] SFXAnimationEvent[] sfxAnimationEvents;
@@ -77,6 +75,8 @@ namespace CDR.AttackSystem
 		{
             //1ST PHASE
 
+            Debug.Log("Nightmare Stalker Started");
+
             var target = Character.targetHandler.GetCurrentTarget();
 
             GameObject firstBullet; //bullet that homes and leaves a trail after despawn
@@ -98,11 +98,6 @@ namespace CDR.AttackSystem
             StartCoroutine(CheckDistanceSpawn(firstBullet, bulletTrailSpawn));
 
             yield return new WaitWhile(() => !firstBullet.GetComponent<HomingBullet>().CheckDistanceFromTarget());
-
-            /*while (!firstBullet.GetComponent<HomingBullet>().CheckDistanceFromTarget())
-			{
-                yield return null;
-            }*/
 
             yield return new WaitForSecondsRealtime(AfterDistanceCheckInterval);
 
