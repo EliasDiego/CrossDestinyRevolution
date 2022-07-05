@@ -7,7 +7,7 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: BladeWingOverrideController
-  m_Controller: {fileID: 9100000, guid: 318c6a3dfed2a974dbf8df7b1128bfc5, type: 2}
+  m_Controller: {fileID: 9100000, guid: d2086b4b229b38f4b8493036c448b63a, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: 810cd50c4deeb5f43beac5b73af91d13, type: 2}
     m_OverrideClip: {fileID: -8661240550091303498, guid: a21377ccf511a3d45bb90c3ec1ef45f9, type: 3}
@@ -51,5 +51,3 @@ AnimatorOverrideController:
     m_OverrideClip: {fileID: -6807022898211481156, guid: a21377ccf511a3d45bb90c3ec1ef45f9, type: 3}
   - m_OriginalClip: {fileID: 7400000, guid: 4ba87ddccc1c0bf4b91bfa4bf36c8650, type: 2}
     m_OverrideClip: {fileID: 2950741872940625530, guid: a21377ccf511a3d45bb90c3ec1ef45f9, type: 3}
-  - m_OriginalClip: {fileID: 7400000, guid: 19065b21255d88640a0cc8e0b09dd9ca, type: 2}
-    m_OverrideClip: {fileID: 7318126053661235560, guid: b488b86f22a680f47b6b7442605d3601, type: 3}
