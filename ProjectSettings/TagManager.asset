@@ -3,20 +3,21 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Bullet
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Mech
   - Water
   - UI
   - FlightPlane
   - Collision
-  - 
-  - 
-  - 
-  - 
+  - Player1Cam
+  - Player2Cam
+  - Environment
+  - Props
   - 
   - 
   - 
