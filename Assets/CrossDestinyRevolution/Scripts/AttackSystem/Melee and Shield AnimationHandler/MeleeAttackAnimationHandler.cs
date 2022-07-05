@@ -11,7 +11,7 @@ namespace CDR.AnimationSystem
         [SerializeField] ActiveCharacter _activeCharacter;
         [SerializeField] AnimationEventsManager _manager;
         [SerializeField] AnimationEvent _pauseEvent;
-        [SerializeField] SFXAnimationEvent _sfx;
+        [SerializeField] SFXAnimationEvent[] _sfx;
 
         private void Awake()
         {
