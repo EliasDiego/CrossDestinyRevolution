@@ -20,7 +20,7 @@
                     "id": "0a9956e8-30b6-430f-ab05-1fbaf7ab5c39",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "MultiTap(tapTime=0.15,tapDelay=0.15)",
                     "initialStateCheck": true
                 },
                 {
@@ -34,7 +34,7 @@
                 },
                 {
                     "name": "MeleeAttack",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "d05a2475-5599-4814-be42-2b048ff6e24e",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -151,17 +151,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "Boost",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "2d69e0f5-2fd6-44db-bacb-e311373eed63",
-                    "path": "<Keyboard>/numpad4",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ChangeTarget",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
