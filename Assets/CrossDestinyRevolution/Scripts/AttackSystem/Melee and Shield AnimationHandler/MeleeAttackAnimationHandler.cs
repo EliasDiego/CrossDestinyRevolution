@@ -10,35 +10,36 @@ namespace CDR.AnimationSystem
     {
         [SerializeField] ActiveCharacter _activeCharacter;
         [SerializeField] AnimationEventsManager _manager;
+        [SerializeField] AnimationEvent _animationEvent;
+        [SerializeField] SFXAnimationEvent _sfx;
 
         private void Awake()
         {
-            _manager.AddAnimationEvent("MAttack", new AnimationEvent(1.0f, true, EventTime, StateEnter, StateExit));
+            _animationEvent.onEventTime += PauseAnimation;
+            _manager.AddAnimationEvent("MAttack", _animationEvent);
+            _manager.AddAnimationEvent("MAttack", _sfx);
         }
 
         public void PlayAttackAnim()
         {
-            _activeCharacter.animator.SetBool("IsMAttack", true);
+            _activeCharacter.animator.SetInteger("ActionType", (int)ActionType.MeleeAttack);
         }
 
         public void EndAttackAnim()
         {
-            _activeCharacter.animator.SetBool("IsMAttack", false);
+            _activeCharacter.animator.SetInteger("ActionType", (int)ActionType.None);
         }
 
-        void EventTime()
+        public void PauseAnimation()
         {
-            Debug.Log("MAttack Event Time");
+            Debug.Log("melee paused");
+            _activeCharacter.animator.SetFloat("ActionSMultiplier", 0);
         }
 
-        void StateEnter()
+        public void ResumeAnimation()
         {
-            Debug.Log("MAttack State Enter");
-        }
-
-        void StateExit()
-        {
-            Debug.Log("MAttack State Exit");
+            Debug.Log("melee resumed");
+            _activeCharacter.animator.SetFloat("ActionSMultiplier", 1);
         }
     }
 }

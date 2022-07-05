@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CDR.AnimationSystem;
+using CDR.VFXSystem;
 
 namespace CDR.AttackSystem
 {
@@ -17,6 +18,9 @@ namespace CDR.AttackSystem
         [SerializeField] CDR.AnimationSystem.AnimationEvent _animationEvent;
 
         AnimationEventsManager _Manager;
+        [SerializeField] SFXAnimationEvent[] sfxAnimationEvents;
+
+        [SerializeField] BigBangBarrageVFXHandler bigBangBarrageVFXHandler;
 
 
         protected override void Awake()
@@ -26,16 +30,20 @@ namespace CDR.AttackSystem
 
             _Manager = Character.animator.GetComponent<AnimationEventsManager>();
 
-            var a = new CDR.AnimationSystem.AnimationEvent(0.1f, true, null, null, null);
+            var a = new CDR.AnimationSystem.AnimationEvent(0.09f, true, () => StartCoroutine(BBBSequence()), null, null);
+            var b = new CDR.AnimationSystem.AnimationEvent(0.32f, true, () => End(), null, null);
 
-            //_Manager.AddAnimationEvent("Special Attack 02", a); //SpecialAttack02
+            _Manager.AddAnimationEvent("SAttack2", a, b); //SpecialAttack02
+            _Manager.AddAnimationEvent("SAttack2", sfxAnimationEvents); //SpecialAttack02
         }
 
         public override void Use()
         {
             base.Use();
 
-            StartCoroutine(BBBSequence());
+            //StartCoroutine(BBBSequence());
+
+            Character.animator.SetInteger("ActionType", (int)ActionType.SpecialAttack2);
 
             End();
         }
@@ -43,11 +51,17 @@ namespace CDR.AttackSystem
         public override void End()
         {
             base.End();
+
+            Character.animator.SetInteger("ActionType", (int)ActionType.None);
         }
 
 		public override void ForceEnd()
 		{
 			base.ForceEnd();
+
+            Character.animator.SetInteger("ActionType", (int)ActionType.None);
+
+            bigBangBarrageVFXHandler.Deactivate();
 
             StopAllCoroutines();
 		}
@@ -66,6 +80,8 @@ namespace CDR.AttackSystem
             FirstPhaseBullet.GetComponent<BBBProjectile>().towardsSplitPoint = transform.position;
 
             FirstPhaseBullet.SetActive(true);
+
+            bigBangBarrageVFXHandler.Activate();
 
             yield return new WaitForSeconds(secondsBeforeSplit);
 

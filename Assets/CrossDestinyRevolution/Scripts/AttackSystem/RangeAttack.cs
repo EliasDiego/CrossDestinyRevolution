@@ -4,6 +4,7 @@ using UnityEngine;
 using CDR.ActionSystem;
 using CDR.ObjectPoolingSystem;
 using CDR.AnimationSystem;
+using CDR.VFXSystem;
 
 namespace CDR.AttackSystem
 {
@@ -15,17 +16,24 @@ namespace CDR.AttackSystem
 		[SerializeField] GameObject GunPoint;
 		[SerializeField] float attackRange;
 
+		[SerializeField] RangeAttackVFXHandler rangeAttackVFXHandler;
+
 		public float range => attackRange;
 
 		[SerializeField] CDR.AnimationSystem.AnimationEvent _animationEvent;
 
 		AnimationEventsManager _Manager;
+		[SerializeField] SFXAnimationEvent[] sfxAnimationEvents;
 
 		void Start()
 		{
-			//var a = new CDR.AnimationSystem.AnimationEvent(0.1f, true, null, null, null);
+			_Manager = Character.animator.GetComponent<AnimationEventsManager>();
 
-			//_Manager.AddAnimationEvent("RangeAttack", a);
+			var a = new CDR.AnimationSystem.AnimationEvent(0.29f, true, () => GetBulletFromObjectPool());
+			var b = new CDR.AnimationSystem.AnimationEvent(1f, true, () => End());
+
+			_Manager.AddAnimationEvent("RAttack", a,b);
+			_Manager.AddAnimationEvent("RAttack", sfxAnimationEvents);
 		}
 
 		protected override void Awake()
@@ -44,9 +52,7 @@ namespace CDR.AttackSystem
 		{
 			base.Use();
 
-			GetBulletFromObjectPool();
-
-			End();
+			Character.animator.SetInteger("ActionType", (int)ActionType.RangeAttack);
 		}
 
 		void GetBulletFromObjectPool()
@@ -61,16 +67,22 @@ namespace CDR.AttackSystem
 			bullet.GetComponent<HomingBullet>().originPoint = GunPoint.transform.position;
 
 			bullet.SetActive(true);
+
+			rangeAttackVFXHandler.Activate();
 		}
 
 		public override void End()
 		{
 			base.End();
+
+			Character.animator.SetInteger("ActionType", (int)ActionType.None);
 		}
 
 		public override void ForceEnd()
 		{
 			base.ForceEnd();
+
+			Character.animator.SetInteger("ActionType", (int)ActionType.None);
 
 			_pool.ReturnAll();
 		}
