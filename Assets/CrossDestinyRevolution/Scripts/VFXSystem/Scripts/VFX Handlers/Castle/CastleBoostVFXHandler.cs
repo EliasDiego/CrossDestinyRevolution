@@ -40,7 +40,7 @@ namespace CDR.VFXSystem
                 material.SetFloat("_EmissionIntensity", _EmissionIntensityCurve.Evaluate(0) * _EmissionIntensity);
             }
 
-            _StartScale = transform.lossyScale;
+            _StartScale = transform.localScale;
         }
 
         private void EaseEvent(float easeValue)
