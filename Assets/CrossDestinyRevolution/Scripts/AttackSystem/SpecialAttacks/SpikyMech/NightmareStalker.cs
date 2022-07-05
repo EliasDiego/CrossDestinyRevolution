@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CDR.AnimationSystem;
+using CDR.VFXSystem;
 
 namespace CDR.AttackSystem
 {
@@ -13,9 +14,15 @@ namespace CDR.AttackSystem
         [SerializeField] float bulletTrailSpawnInterval; // Interval between spawning bullet trail
         [SerializeField] float bulletTrailDeSpawnInterval; // Interval between despawning bullet trail
 
+        [SerializeField] float AfterDistanceCheckInterval; // Interval between despawning bullet trail
+
         [SerializeField] CDR.AnimationSystem.AnimationEvent _animationEvent;
 
-        AnimationEventsManager _Manager;
+		AnimationEventsManager _Manager;
+
+        [SerializeField] SFXAnimationEvent[] sfxAnimationEvents;
+
+        [SerializeField] NightmareStalkerVFXHandler nightmareStalkerVFXHandler;
 
         protected override void Awake()
         {
@@ -26,32 +33,37 @@ namespace CDR.AttackSystem
 
             _Manager = Character.animator.GetComponent<AnimationEventsManager>();
 
-            var a = new CDR.AnimationSystem.AnimationEvent(0.1f, true, null, null, null);
+            var a = new CDR.AnimationSystem.AnimationEvent(0.33f, true, () => StartCoroutine(NSSequence()));
+            var b = new CDR.AnimationSystem.AnimationEvent(1f, true, () => End());
 
-            //_Manager.AddAnimationEvent("SpecialAttack01", a); //SpecialAttack01
+            _Manager.AddAnimationEvent("SAttack1", a,b); //SpecialAttack01
+            _Manager.AddAnimationEvent("SAttack1", sfxAnimationEvents);
         }
 
         public override void Use()
         {
             base.Use();
 
-            //Character.animator.SetBool("IsSAttack1", true);
+            Character.animator.SetInteger("ActionType", (int)ActionType.SpecialAttack1);
 
-            StartCoroutine(NSSequence());
-
-            End();
         }
 
         public override void End()
-        {
-            base.End();
+		{
+			base.End();
+
+            Character.animator.SetInteger("ActionType", (int)ActionType.None);
 
             //ForceEnd();
         }
 
-        public override void ForceEnd()
+		public override void ForceEnd()
         {
             base.ForceEnd();
+
+            Character.animator.SetInteger("ActionType", (int)ActionType.None);
+
+            nightmareStalkerVFXHandler.Deactivate();
 
             StopAllCoroutines();
         }
@@ -79,21 +91,59 @@ namespace CDR.AttackSystem
             firstBullet.GetComponent<HomingBullet>().originPoint = bulletSpawnPoint[0].transform.position;
 			firstBullet.SetActive(true);
 
+            nightmareStalkerVFXHandler.Activate();
+
             yield return new WaitForSecondsRealtime(checkDistanceInterval);
 
-            while (firstBullet.activeInHierarchy)
-            {
-                bulletTrailSpawn.Add(firstBullet.transform.position);
-                yield return new WaitForSecondsRealtime(checkDistanceInterval);
-            }
+            StartCoroutine(CheckDistanceSpawn(firstBullet, bulletTrailSpawn));
+
+            yield return new WaitWhile(() => !firstBullet.GetComponent<HomingBullet>().CheckDistanceFromTarget());
+
+            /*while (!firstBullet.GetComponent<HomingBullet>().CheckDistanceFromTarget())
+			{
+                yield return null;
+            }*/
+
+            yield return new WaitForSecondsRealtime(AfterDistanceCheckInterval);
+
+            firstBullet.GetComponent<HomingBullet>().ResetObject();
+            firstBullet.GetComponent<HomingBullet>().Return();
 
             yield return new WaitUntil(() => !firstBullet.activeInHierarchy);
-
             //2nd PHASE
             
-            var bulletTrailBullets = new List<GameObject>(); 
+            var bulletTrailBullets = new List<GameObject>();
 
-            foreach (Vector3 bulletTrailSpawnPoint in bulletTrailSpawn)
+            var bulletTrailSpawnArray = bulletTrailSpawn.ToArray();
+
+            for(int i = 0; i < bulletTrailSpawnArray.Length; i++)
+			{
+                var bulletTrailBullet = _pool[1].GetPoolable();
+
+                bulletTrailBullet.transform.position = bulletTrailSpawnArray[i];
+
+                
+
+                bulletTrailBullet.SetActive(true);
+
+                if (i < bulletTrailSpawnArray.Length - 1)
+                {
+                    bulletTrailBullet.transform.LookAt(bulletTrailSpawnArray[i + 1]);
+                }
+
+                if(i == bulletTrailSpawnArray.Length - 1)
+				{
+                    bulletTrailBullet.transform.LookAt(bulletTrailSpawnArray[i - 1]);
+                }
+
+                bulletTrailBullets.Add(bulletTrailBullet);
+
+                
+
+                yield return new WaitForSecondsRealtime(bulletTrailSpawnInterval);
+            }
+
+            /*foreach (Vector3 bulletTrailSpawnPoint in bulletTrailSpawn)
 			{
                 var bulletTrailBullet = _pool[1].GetPoolable();
 
@@ -104,7 +154,7 @@ namespace CDR.AttackSystem
                 bulletTrailBullets.Add(bulletTrailBullet);
 
                 yield return new WaitForSecondsRealtime(bulletTrailSpawnInterval);
-            }
+            }*/
 
             yield return new WaitUntil(() => CheckIfAllActive(bulletTrailBullets));
 
@@ -120,6 +170,15 @@ namespace CDR.AttackSystem
 
             yield break;
 		}
+
+        IEnumerator CheckDistanceSpawn(GameObject firstBullet, List<Vector3> bulletTrailSpawn)
+		{
+            while (firstBullet.activeInHierarchy)
+            {
+                bulletTrailSpawn.Add(firstBullet.transform.position);
+                yield return new WaitForSecondsRealtime(checkDistanceInterval);
+            }
+        }
 
         bool CheckIfAllActive(List<GameObject> bulletTrail)
 		{

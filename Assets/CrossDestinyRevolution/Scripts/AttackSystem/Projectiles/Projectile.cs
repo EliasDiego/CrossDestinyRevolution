@@ -18,7 +18,7 @@ namespace CDR.AttackSystem
 		public float projectileDamage;
 
 		public bool hasLifeTime = true;
-		protected float projectileLifetime;
+		public float projectileLifetime;
 		public float projectileMaxLifetime;
 
 		IProjectileController projectileController;

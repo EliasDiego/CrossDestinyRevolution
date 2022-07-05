@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3697473259059643656}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 86.7, y: 4, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -51,6 +51,9 @@ MonoBehaviour:
   - {fileID: 3697473259059643656}
   SpecialAbilityCooldown: 2
   attackRange: 100
-  checkDistanceInterval: 0.2
-  bulletTrailSpawnInterval: 0.3
-  bulletTrailDeSpawnInterval: 0.3
+  checkDistanceInterval: 0.05
+  bulletTrailSpawnInterval: 0.03
+  bulletTrailDeSpawnInterval: 0.03
+  _animationEvent:
+    _TimeValue: 0
+    _IsNormalized: 0

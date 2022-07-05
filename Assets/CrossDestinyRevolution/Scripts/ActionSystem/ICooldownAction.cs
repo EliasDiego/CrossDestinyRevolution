@@ -16,6 +16,8 @@ namespace CDR.ActionSystem
 
         event Action<ICooldownAction> onCoolDown;
 
+        event Action<ICooldownAction> onEndCoolDown;
+
         void EndCoolDown();
     }
 }
