@@ -54,6 +54,6 @@ MonoBehaviour:
   checkDistanceInterval: 0.05
   bulletTrailSpawnInterval: 0.03
   bulletTrailDeSpawnInterval: 0.03
-  _animationEvent:
-    _TimeValue: 0
-    _IsNormalized: 0
+  AfterDistanceCheckInterval: 0.2
+  sfxAnimationEvents: []
+  nightmareStalkerVFXHandler: {fileID: 0}
