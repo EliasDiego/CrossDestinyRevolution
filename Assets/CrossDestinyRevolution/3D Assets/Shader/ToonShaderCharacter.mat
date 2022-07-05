@@ -118,7 +118,7 @@ Material:
     - _Surface: 0
     - _WorkflowMode: 1
     - _ZWrite: 1
-    - _outline: 1
+    - _outline: 2
     - _outlineface: 0
     - _toonshader: 0.987
     m_Colors:
