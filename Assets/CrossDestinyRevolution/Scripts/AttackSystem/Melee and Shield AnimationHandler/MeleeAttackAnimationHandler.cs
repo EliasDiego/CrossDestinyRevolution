@@ -10,16 +10,17 @@ namespace CDR.AnimationSystem
     {
         [SerializeField] ActiveCharacter _activeCharacter;
         [SerializeField] AnimationEventsManager _manager;
-        [SerializeField] AnimationEvent _animationEvent;
+        [SerializeField] AnimationEvent _pauseEvent;
         [SerializeField] SFXAnimationEvent _sfx;
 
         private void Awake()
         {
-            _animationEvent.onEventTime += PauseAnimation;
-            _manager.AddAnimationEvent("MAttack", _animationEvent);
+            _pauseEvent.onEventTime += PauseAnimation;
+            _manager.AddAnimationEvent("MAttack", _pauseEvent);
             _manager.AddAnimationEvent("MAttack", _sfx);
         }
 
+        // Change Action Type
         public void PlayAttackAnim()
         {
             _activeCharacter.animator.SetInteger("ActionType", (int)ActionType.MeleeAttack);
@@ -30,6 +31,7 @@ namespace CDR.AnimationSystem
             _activeCharacter.animator.SetInteger("ActionType", (int)ActionType.None);
         }
 
+        // Pause/Resume Animation
         public void PauseAnimation()
         {
             Debug.Log("melee paused");

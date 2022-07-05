@@ -16,7 +16,6 @@ namespace CDR.AttackSystem
         [SerializeField] HurtSphere _hurtSphere;
         [SerializeField] SphereCollider _sphereCollider;
         [SerializeField] float _radius;
-        [SerializeField] ShieldVFXHandler _vfx;
 
         // Animation Handler
         [SerializeField] ShieldAnimationHandler _animHandler;
@@ -52,7 +51,6 @@ namespace CDR.AttackSystem
             base.Use();
 
             _sphereCollider.enabled = true;
-            _vfx.Activate();
             _animHandler.PlayShieldAnim();
             _hurtSphere.onHitEnter += HitEnter;
 
@@ -67,9 +65,9 @@ namespace CDR.AttackSystem
 
             _sphereCollider.enabled = false;
 
-            _vfx.Deactivate();
             _animHandler.EndShieldAnim();
             _animHandler.ResumeAnimation();
+            _animHandler.DeactivateShield();
             _hurtSphere.onHitEnter -= HitEnter;
 
             Character.input.EnableInput();
@@ -81,7 +79,8 @@ namespace CDR.AttackSystem
             base.ForceEnd();
 
             _sphereCollider.enabled = false;
-            _vfx.Deactivate();
+            _animHandler.EndShieldAnim();
+            _animHandler.DeactivateShield();
             _hurtSphere.onHitEnter -= HitEnter;
         }
 
