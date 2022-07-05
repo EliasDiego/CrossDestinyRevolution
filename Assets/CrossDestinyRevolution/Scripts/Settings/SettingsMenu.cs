@@ -29,21 +29,25 @@ public class SettingsMenu : MonoBehaviour
 
 	public void SetMasterVolume(float volume)
 	{
-		audioMixer.SetFloat("MasterVolume", volume);
+		//audioMixer.SetFloat("MasterVolume", volume);
+		audioMixer.SetFloat("MasterVolume", Mathf.Log10(volume) * 20);
 	}
 	
 	public void SetBGMVolume(float volume)
 	{
-		audioMixer.SetFloat("BGMVolume", volume);
+		//audioMixer.SetFloat("BGMVolume", volume);
+		audioMixer.SetFloat("BGMVolume", Mathf.Log10(volume) * 20);
 	}
 	
 	public void SetGameSFXVolume(float volume)
 	{
-		audioMixer.SetFloat("GameSFXVolume", volume);
+		//audioMixer.SetFloat("GameSFXVolume", volume);
+		audioMixer.SetFloat("GameSFXVolume", Mathf.Log10(volume) * 20);
 	}
 	
 	public void SetUISFXVolume(float volume)
 	{
-		audioMixer.SetFloat("UISFXVolume", volume);
+		//audioMixer.SetFloat("UISFXVolume", volume);
+		audioMixer.SetFloat("UISFXVolume", Mathf.Log10(volume) * 20);
 	}
 }
