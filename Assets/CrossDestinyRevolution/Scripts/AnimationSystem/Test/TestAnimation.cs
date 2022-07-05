@@ -8,16 +8,7 @@ namespace CDR.AnimationSystem
     public class TestAnimation : MonoBehaviour
     {
         [SerializeField]
-        bool _IsMove;
-        [SerializeField]
-        Vector2 _Move;
-
-        [SerializeField]
-        bool _UseMeleeAttackTime = false;
-        [SerializeField]
-        bool _IsMeleeAttack = false;
-        [SerializeField]
-        float _MeleeAttackTime = 0;
+        AnimationEvent _AnimationEvent;
 
         Animator _Animator;
 
@@ -27,51 +18,15 @@ namespace CDR.AnimationSystem
 
             AnimationEventsManager manager = GetComponent<AnimationEventsManager>();
 
-            manager.AddAnimationEvent("Shield", new AnimationEvent(0.5f, true, Test, TestEnter, TestExit));
-
-            // StartCoroutine(MeleeAttack());
-        }
-
-        private void Test()
-        {
-            Debug.Log("Test");
-        }
-
-
-        private void TestEnter()
-        {
-            Debug.Log("TestEnter");
-        }
-
-
-        private void TestExit()
-        {
-            Debug.Log("Testexit");
-        }
-
-        // private IEnumerator MeleeAttack()
-        // {
-        //     float currentTime = 0;
+            _AnimationEvent.onEventTime += OnEventTime;
             
-        //     if(_UseMeleeAttackTime)
-        //         _Animator.SetFloat("MeleeAttackTime", 1 / _MeleeAttackTime);
-        //     else
-        //         _Animator.SetBool("IsMeleeAttack", true);
+            manager.AddAnimationEvent("MAttack", _AnimationEvent);
+        }
 
-        //     while(currentTime < _MeleeAttackTime)
-        //     {
-        //         currentTime += Time.deltaTime;
-
-        //         // _Animator.SetFloat("MeleeAttackTime", currentTime / _MeleeAttackTime);
-
-        //         yield return null;
-            
-        //     }
-
-        //     if(_UseMeleeAttackTime)
-        //         _Animator.SetFloat("MeleeAttackTime", 0);
-        //     else
-        //         _Animator.SetBool("IsMeleeAttack", false);
-        // }
+        void OnEventTime()
+        {
+            Debug.Log("Blah");
+            _Animator.SetFloat("MAttackSMultiplier", 0);
+        }
     }
 }
