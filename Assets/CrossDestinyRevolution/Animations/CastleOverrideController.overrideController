@@ -7,7 +7,7 @@ AnimatorOverrideController:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: CastleOverrideController
-  m_Controller: {fileID: 9100000, guid: 318c6a3dfed2a974dbf8df7b1128bfc5, type: 2}
+  m_Controller: {fileID: 9100000, guid: d2086b4b229b38f4b8493036c448b63a, type: 2}
   m_Clips:
   - m_OriginalClip: {fileID: 7400000, guid: 24356d2018b9e40468295d46454ded5a, type: 2}
     m_OverrideClip: {fileID: 5235281336167486517, guid: 9110cbd743c8b5445ac9fb003a06f63b, type: 3}
