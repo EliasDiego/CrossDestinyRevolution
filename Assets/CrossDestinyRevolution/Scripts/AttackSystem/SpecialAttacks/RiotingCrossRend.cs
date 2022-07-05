@@ -9,8 +9,8 @@ namespace CDR.AttackSystem
     {
         [SerializeField]
         private SFXAnimationEvent[] sfx;
-        [SerializeField]
-        private VFXSystem.RiotCrossRendVFXHandler vfxHandler;
+        //[SerializeField]
+        //private VFXSystem.RiotCrossRendVFXHandler vfxHandler;
         [Header("Unique properties")]
         [SerializeField]
         private Transform pivot;
@@ -36,7 +36,7 @@ namespace CDR.AttackSystem
         public override void Use()
         {
             base.Use();
-            vfxHandler.Activate();
+            //vfxHandler.Activate();
             Character.animator.SetInteger("ActionType", (int)ActionType.SpecialAttack3);
             Fire();
         }
@@ -44,14 +44,14 @@ namespace CDR.AttackSystem
         public override void End()
         {
             base.End();
-            vfxHandler.Deactivate();
+            //vfxHandler.Deactivate();
             Character.animator.SetInteger("ActionType", (int)ActionType.None);
         }
 
         public override void ForceEnd()
         {
             base.ForceEnd();
-            vfxHandler.Deactivate();
+            //vfxHandler.Deactivate();
             Character.animator.SetInteger("ActionType", (int)ActionType.None);
         }
 

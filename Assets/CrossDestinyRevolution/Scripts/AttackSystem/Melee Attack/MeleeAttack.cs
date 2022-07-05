@@ -150,6 +150,7 @@ namespace CDR.AttackSystem
 			{
 				isHoming = false;
 				_animHandler.EndAttackAnim();
+				_animHandler.ResumeAnimation();
 				Character.controller.SetVelocity(Vector3.zero);
 				End();
 			}
@@ -161,6 +162,7 @@ namespace CDR.AttackSystem
 
 			if(distance <= _distanceToTarget)
 			{
+				Debug.Log("distance reached");
 				isHoming = false;
 				_hitBox.enabled = true;
 				_animHandler.ResumeAnimation();
