@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CDR.AnimationSystem;
+using CDR.VFXSystem;
 
 namespace CDR.AttackSystem
 {
@@ -14,6 +15,9 @@ namespace CDR.AttackSystem
 
         AnimationEventsManager _Manager;
 
+        [SerializeField] SFXAnimationEvent[] sfxAnimationEvents;
+
+        [SerializeField] NuclearGrenadeVFXHandler nuclearGrenadeVFXHandler;
 
         protected override void Awake()
         {
@@ -26,26 +30,30 @@ namespace CDR.AttackSystem
             var b = new CDR.AnimationSystem.AnimationEvent(0.32f, true, () => End(), null, null);
 
             _Manager.AddAnimationEvent("SAttack1", a, b); // SpecialAttack01
+            _Manager.AddAnimationEvent("SAttack1", sfxAnimationEvents); // SpecialAttack01
         }
 
         public override void Use()
         {
             base.Use();
 
-            Character.animator.SetBool("IsSAttack1", true);
+            Character.animator.SetInteger("ActionType", (int)ActionType.SpecialAttack1);
         }
 
         public override void End()
         {
             base.End();
 
-            Character.animator.SetBool("IsSAttack1", false);
+            Character.animator.SetInteger("ActionType", (int)ActionType.None);
             //ForceEnd();
         }
 
 		public override void ForceEnd()
 		{
 			base.ForceEnd();
+
+            Character.animator.SetInteger("ActionType", (int)ActionType.None);
+            nuclearGrenadeVFXHandler.Deactivate();
 
             StopAllCoroutines();
 		}
@@ -78,6 +86,8 @@ namespace CDR.AttackSystem
 
                 firstPhaseBullets.SetActive(true);
             }
+
+            nuclearGrenadeVFXHandler.Activate();
 
             yield return new WaitUntil(() => CheckBulletPosition(FirstPhaseBullets));
 

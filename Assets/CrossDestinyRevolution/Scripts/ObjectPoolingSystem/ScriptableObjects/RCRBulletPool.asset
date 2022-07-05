@@ -12,7 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54cb1595d1718ef4381a868af2d7ba0a, type: 3}
   m_Name: RCRBulletPool
   m_EditorClassIdentifier: 
-  itemToPool: {fileID: 0}
-  pooledObjects: []
-  amountToPool: 0
-  shouldExpand: 0
+  itemToPool: {fileID: 5458651127989955189, guid: e353b7d9c89f3164fbf7bf8b49913d31, type: 3}
+  pooledObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  amountToPool: 5
+  shouldExpand: 1

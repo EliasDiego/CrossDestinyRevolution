@@ -66,11 +66,10 @@ namespace CDR.AttackSystem
 		{
 			Rotate(targetPlayerDir);
 
-			float step = bulletSpeed * Time.deltaTime;
 			SetVelocity(transform.forward * bulletSpeed);
 		}
 
-		protected override void OnHitEnter(IHitEnterData hitData)
+		protected override void OnHitEnter(IHitData hitData)
 		{
 			base.OnHitEnter(hitData);
 		}
@@ -78,9 +77,6 @@ namespace CDR.AttackSystem
 		public override void ResetObject() //Parameters reset
 		{
 			base.ResetObject();
-
-
-			
 
 			isInPosition = false;
 			secondPhaseStart = false;

@@ -18,7 +18,7 @@ namespace CDR.AttackSystem
 		public float projectileDamage;
 
 		public bool hasLifeTime = true;
-		protected float projectileLifetime;
+		public float projectileLifetime;
 		public float projectileMaxLifetime;
 
 		IProjectileController projectileController;
@@ -64,7 +64,10 @@ namespace CDR.AttackSystem
 				{
 					ResetObject();
 
-					projectileHitBox.onHitEnter -= OnHitEnter;
+					if (projectileHitBox != null)
+					{
+						projectileHitBox.onHitEnter -= OnHitEnter;
+					}
 
 					Return();
 				}
@@ -77,7 +80,7 @@ namespace CDR.AttackSystem
 			return projectileLifetime <= 0f;
 		}
 
-		protected virtual void OnHitEnter(IHitEnterData hitData) //Hitbox Response
+		protected virtual void OnHitEnter(IHitData hitData) //Hitbox Response
 		{
 			hitData.hurtShape.character.health.TakeDamage(projectileDamage);
 

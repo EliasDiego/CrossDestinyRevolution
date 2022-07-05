@@ -8,85 +8,78 @@ namespace CDR.AttackSystem
     {
         [Header("Unique properties")]
         [SerializeField]
-        private GameObject pivot;
+        private GameObject pivot, beam;
         [SerializeField]
-        private GameObject beam;
-        [SerializeField]
-        private float maxLength;
-        [SerializeField]
-        private float timeToScale;
-        [SerializeField]
-        private float rotationSpeed;
+        private Transform start, end;
 
-        private bool enableRotation = false;
+        public GameObject Pivot => pivot;
+        public GameObject Beam => beam;
+
+        private bool isHit = false;
+        private MechSystem.Health hpToDamage;
 
         private void Awake()
         {
-            HitBox.onHitEnter += OnHitEnter;        
-        }
-
-        public override void OnEnable()
-        {
-            base.OnEnable();
-            ScaleWithTime();
-            //Debugger();
-        }
-
-        private void Debugger()
-        {
-            enableRotation = true;
-            beam.transform.localScale = new Vector3(1f, 1f, maxLength);
+            HitBox.onHitEnter += OnHitEvent;
+            HitBox.onHitExit += OnHitExit;
         }
 
         private void OnDestroy()
         {       
-            HitBox.onHitEnter -= OnHitEnter;            
+            HitBox.onHitEnter -= OnHitEvent;            
+            HitBox.onHitExit -= OnHitExit;
+        }
+
+        public override void OnEnable()
+        {
+            return;
         }
 
         public override void Update()
         {
             base.Update();
-            Rotate();
+            HitPlayer();
         }
 
-        //private void FixedUpdate()
-        //{
-        //    AddRbForce(new Vector3(0f, 0f, 0.01f));
-        //}
-
-        protected override void OnHitEnter(IHitEnterData hitData)
+        private void OnHitEvent(IHitData data)
         {
-            Debug.Log("ALSKNd");
+            if(!isHit)
+            {
+                isHit = true;
+                hpToDamage = (MechSystem.Health)data.hurtShape.character.health;
+            }
         }
+
+        private void OnHitExit(IHitData data)
+        {
+            if(isHit)
+            {
+                isHit = false;
+                hpToDamage = null;
+            }
+        }
+
+        public void Init(Vector3 pos = default)
+        {
+            transform.position = pos;
+            pivot.transform.localScale = Vector3.one;
+            beam.transform.localScale = Vector3.zero;
+        }
+
+        private void HitPlayer()
+        {
+            if(isHit && hpToDamage != null)
+            {
+                hpToDamage.TakeDamage(projectileDamage);
+            }
+        }
+
         public override void ResetObject()
         {
-            enableRotation = false;
-            pivot.transform.localScale = Vector3.zero;
-            transform.localEulerAngles.Set(0f, 90f, 0f);
+            base.ResetObject();
+            gameObject.SetActive(false);
+            hpToDamage = null;
+            isHit = false;
         }
-
-        private void ScaleWithTime()
-        {
-            LeanTween.scale(beam, Vector3.one, 0.45f).setOnComplete(()=>
-            {
-                LeanTween.scaleZ(pivot, maxLength, timeToScale).setOnComplete(
-                () =>
-                {
-                    enableRotation = true;
-                });
-            });
-            
-        }
-
-        private void Rotate()
-        {
-            if (Mathf.Floor(270f - transform.localEulerAngles.y) != 0 && enableRotation)
-            {
-                transform.RotateAround(transform.position, transform.up, -rotationSpeed * Time.deltaTime);
-            }
-
-            //Rotate(Quaternion.Euler(0f, transform.localEulerAngles.y - (rotationSpeed * Time.deltaTime), 0f));
-        }
-
     }
 }
