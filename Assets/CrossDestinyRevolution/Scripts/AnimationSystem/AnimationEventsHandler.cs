@@ -90,7 +90,7 @@ namespace CDR.AnimationSystem
 
             InvokeAnimationEvents(_AnimationEvents, stateInfo.length, _CurrentTime, deltaTime);
 
-            _CurrentTime += Time.deltaTime;
+            _CurrentTime += deltaTime;
 
             if(_CurrentTime >= stateInfo.length)
             {
