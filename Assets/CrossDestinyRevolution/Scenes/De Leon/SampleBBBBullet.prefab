@@ -98,9 +98,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Rigidbody: {fileID: 569756686445565418}
+  ProjectileHitVFXPool: {fileID: 0}
   projectileHitBox: {fileID: 3920750736111360024}
   projectileDamage: 5
   hasLifeTime: 0
+  projectileLifetime: 0
   projectileMaxLifetime: 5
   bulletSpeed: 15
   bulletSplitSpeed: 5
