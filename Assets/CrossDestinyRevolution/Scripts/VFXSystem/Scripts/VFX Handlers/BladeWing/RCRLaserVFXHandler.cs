@@ -5,13 +5,19 @@ using UnityEngine;
 
 namespace CDR.VFXSystem
 {
-
-    public class RiotCrossRendVFXHandler : MonoBehaviour, IVFXHandler
+    public class RCRLaserVFXHandler : MonoBehaviour, IVFXHandler
     {
         [SerializeField]
         private AnimationCurve _FadeCurve;
         [SerializeField]
-        private float _Time;
+        private float _FadeTime;
+
+        [SerializeField]
+        private Transform _LaserHeadTransform;
+        [SerializeField]
+        private Transform _LaserBodyTransform;
+        [SerializeField]
+        private float _Length;
         
         private Material[] _Materials;
 
@@ -21,12 +27,25 @@ namespace CDR.VFXSystem
 
         public bool isActive => _IsActive;
 
+        public float length { get => _Length; set => _Length = value; }
+
         private void Awake() 
         {
             _Materials = GetComponentsInChildren<MeshRenderer>()?.Select(m => m.material)?.ToArray();
 
             foreach(Material m in _Materials)
                 m.SetFloat("_FadeValue", 0);    
+        }
+
+        private void Update() 
+        {
+            if(!isActive)
+                return;
+
+            _LaserHeadTransform.localPosition = Vector3.forward * length;
+
+            _LaserBodyTransform.localPosition = new Vector3(0, 0, length / 2);
+            _LaserBodyTransform.localScale = new Vector3(1, 1, length / 2);
         }
 
         private void EaseEvent(float easeValue)
@@ -40,7 +59,7 @@ namespace CDR.VFXSystem
             if(_Coroutine != null)
                 StopCoroutine(_Coroutine);
 
-            _Coroutine = StartCoroutine(VFXUtilities.LinearEaseIn(EaseEvent, () => Time.deltaTime, null, _Time));
+            _Coroutine = StartCoroutine(VFXUtilities.LinearEaseIn(EaseEvent, () => Time.deltaTime, null, _FadeTime));
 
             _IsActive = true;
         }
@@ -50,7 +69,7 @@ namespace CDR.VFXSystem
             if(_Coroutine != null)
                 StopCoroutine(_Coroutine);
 
-            _Coroutine = StartCoroutine(VFXUtilities.LinearEaseOut(EaseEvent, () => Time.deltaTime, null, _Time));
+            _Coroutine = StartCoroutine(VFXUtilities.LinearEaseOut(EaseEvent, () => Time.deltaTime, null, _FadeTime));
 
             _IsActive = false;
         }
