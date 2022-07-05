@@ -16,7 +16,8 @@ namespace CDR.AttackSystem
 		[SerializeField] float _speed;
 		[SerializeField] float _meleeDamage;
 		[SerializeField] float _distanceToTarget;
-		[SerializeField] MeleeAttackVFXHandler _vfx;
+		[SerializeField] MeleeAttackVFXHandler _meleeVfx;
+		[SerializeField] BoostVFXHandler[] _boostVfx;
 
 		// Animation Handler
 		[SerializeField] MeleeAttackAnimationHandler _animHandler;
@@ -59,7 +60,11 @@ namespace CDR.AttackSystem
 			base.Use();
 			
 			isHoming = true;
-			_vfx.Activate();
+			_meleeVfx.Activate();
+			for(int i =0; i < _boostVfx.Length; i++)
+			{
+				_boostVfx[i].Activate();
+			}
 			_animHandler.PlayAttackAnim();
 			//_hitBox.enabled = true;
 			_hitBox.onHitEnter += HitEnter;
@@ -74,7 +79,11 @@ namespace CDR.AttackSystem
 			base.End();
 
 			_timer = _meleeAttackDuration;
-			_vfx.Deactivate();
+			_meleeVfx.Deactivate();
+			for(int i =0; i < _boostVfx.Length; i++)
+			{
+				_boostVfx[i].Deactivate();
+			}
 			//_hitBox.enabled = false;
 			_hitBox.onHitEnter -= HitEnter;
 
@@ -87,7 +96,7 @@ namespace CDR.AttackSystem
 		{
 			base.ForceEnd();
 
-			_vfx.Deactivate();
+			_meleeVfx.Deactivate();
 			_hitBox.onHitEnter -= HitEnter;
 		}
 
@@ -150,6 +159,7 @@ namespace CDR.AttackSystem
 			{
 				isHoming = false;
 				_animHandler.EndAttackAnim();
+				_animHandler.ResumeAnimation();
 				Character.controller.SetVelocity(Vector3.zero);
 				End();
 			}
@@ -161,10 +171,11 @@ namespace CDR.AttackSystem
 
 			if(distance <= _distanceToTarget)
 			{
+				Debug.Log("distance reached");
 				isHoming = false;
 				_hitBox.enabled = true;
 				_animHandler.ResumeAnimation();
-				_vfx.Deactivate();
+				_meleeVfx.Deactivate();
 			}
 		}
 	}
