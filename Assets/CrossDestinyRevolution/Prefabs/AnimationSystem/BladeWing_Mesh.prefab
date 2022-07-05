@@ -1060,7 +1060,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6452363271832353315}
   - component: {fileID: 7384979721432756037}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: sword.001
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1705,7 +1705,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4887096753048937587}
   - component: {fileID: 7506720388417413227}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: MechSpiky
   m_TagString: Untagged
   m_Icon: {fileID: 0}
