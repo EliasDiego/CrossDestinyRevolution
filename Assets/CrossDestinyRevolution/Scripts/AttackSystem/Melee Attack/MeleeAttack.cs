@@ -17,7 +17,7 @@ namespace CDR.AttackSystem
 		[SerializeField] float _meleeDamage;
 		[SerializeField] float _distanceToTarget;
 		[SerializeField] MeleeAttackVFXHandler _meleeVfx;
-		[SerializeField] BoostVFXHandler _boostVfx;
+		[SerializeField] BoostVFXHandler[] _boostVfx;
 
 		// Animation Handler
 		[SerializeField] MeleeAttackAnimationHandler _animHandler;
@@ -61,7 +61,10 @@ namespace CDR.AttackSystem
 			
 			isHoming = true;
 			_meleeVfx.Activate();
-			_boostVfx.Activate();
+			for(int i =0; i < _boostVfx.Length; i++)
+			{
+				_boostVfx[i].Activate();
+			}
 			_animHandler.PlayAttackAnim();
 			//_hitBox.enabled = true;
 			_hitBox.onHitEnter += HitEnter;
@@ -77,7 +80,10 @@ namespace CDR.AttackSystem
 
 			_timer = _meleeAttackDuration;
 			_meleeVfx.Deactivate();
-			_boostVfx.Deactivate();
+			for(int i =0; i < _boostVfx.Length; i++)
+			{
+				_boostVfx[i].Deactivate();
+			}
 			//_hitBox.enabled = false;
 			_hitBox.onHitEnter -= HitEnter;
 
