@@ -78,7 +78,7 @@ namespace CDR.VersusSystem
             yield return null;
 
             foreach(IParticipant p in _Participants)
-                p.Reset();
+                p.Stop();
 
             yield return new WaitForSeconds(3);
             
@@ -86,7 +86,12 @@ namespace CDR.VersusSystem
                 ShowResults();
 
             else
+            {
+                foreach(IParticipant p in _Participants)
+                    p.Reset();
+
                 StartRound();
+            }
         }
 
         private void OnParticipantDeath()
