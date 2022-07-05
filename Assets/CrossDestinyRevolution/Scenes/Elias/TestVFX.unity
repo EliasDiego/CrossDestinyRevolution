@@ -762,7 +762,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5287166276816786271, guid: 156f654225559034eb54c4ca14bd83dc, type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5287166276816786271, guid: 156f654225559034eb54c4ca14bd83dc, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1030,8 +1030,8 @@ Transform:
   - {fileID: 1661925675}
   - {fileID: 1688458757629676836}
   - {fileID: 1477691683}
-  - {fileID: 834982822}
   - {fileID: 1217408110}
+  - {fileID: 834982822}
   m_Father: {fileID: 0}
   m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7111,6 +7111,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BladeWingMeleeAttackVFX
       objectReference: {fileID: 0}
+    - target: {fileID: 7021494157841086351, guid: 2baacb2c6320dcc41a1cbe87f2510793, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2baacb2c6320dcc41a1cbe87f2510793, type: 3}
 --- !u!1001 &4643531591550727087
@@ -7312,7 +7316,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6781282635968072714, guid: 5f4e43a46d18d114d8ce122e761b3ce9, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 6781282635968072714, guid: 5f4e43a46d18d114d8ce122e761b3ce9, type: 3}
       propertyPath: m_LocalPosition.x
