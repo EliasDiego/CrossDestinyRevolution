@@ -20,7 +20,7 @@
                     "id": "ead1492e-5112-47a3-86e1-9e2519f2b4d1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "MultiTap(tapTime=0.2,tapDelay=0.2)",
+                    "interactions": "MultiTap(tapTime=0.15,tapDelay=0.15)",
                     "initialStateCheck": true
                 },
                 {
@@ -167,28 +167,6 @@
                 },
                 {
                     "name": "",
-                    "id": "d1621f22-b20b-4a7a-b207-d3256adb8b07",
-                    "path": "<Keyboard>/i",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ChangeTarget",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "55f53234-16ba-4e19-a5fc-0327b9cac17e",
-                    "path": "<Gamepad>/buttonNorth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ChangeTarget",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "4274e19b-ee72-4974-80b2-8e4c5dc8a24e",
                     "path": "<Keyboard>/o",
                     "interactions": "",
@@ -212,7 +190,7 @@
                 {
                     "name": "",
                     "id": "0b6df3de-d81e-4bdd-8edf-52660d8d054d",
-                    "path": "<Keyboard>/p",
+                    "path": "<Keyboard>/i",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -234,7 +212,7 @@
                 {
                     "name": "",
                     "id": "36a3c8d4-c7c8-4a4c-8823-12cdd89b2c08",
-                    "path": "<Keyboard>/j",
+                    "path": "<Keyboard>/p",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -256,7 +234,7 @@
                 {
                     "name": "",
                     "id": "459d9237-3f7f-4e5f-8763-dca0fa921de4",
-                    "path": "<Keyboard>/k",
+                    "path": "<Keyboard>/j",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -278,7 +256,7 @@
                 {
                     "name": "",
                     "id": "db894b06-2d23-4981-887f-de90ecbbba2a",
-                    "path": "<Keyboard>/l",
+                    "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -300,7 +278,7 @@
                 {
                     "name": "",
                     "id": "ac105088-e5f0-4678-ab81-213ee4f1cc01",
-                    "path": "<Keyboard>/semicolon",
+                    "path": "<Keyboard>/l",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

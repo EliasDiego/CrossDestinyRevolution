@@ -25,7 +25,7 @@ namespace CDR.MechSystem
         AudioSource audioSource { get; }
     }
 
-    public interface IActiveCharacter : ICharacter
+    public interface IActiveCharacter : ICharacter, IStateHandler
     {
         Vector3 position { get; }
         Quaternion rotation { get; }
@@ -33,7 +33,6 @@ namespace CDR.MechSystem
         IHurtShape[] hurtBoxes { get; }
         ICharacterController controller { get; }
         IInput input { get; set; }
-        IState currentState { get; set; }
         ITargetHandler targetHandler { get; }
         IMovement movement { get; } 
     }

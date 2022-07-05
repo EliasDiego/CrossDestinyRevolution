@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6548558590547492288}
-  - component: {fileID: 6548558590547492350}
   - component: {fileID: 6548558590547492289}
+  - component: {fileID: 7374049608150173639}
+  - component: {fileID: 2113354904206208426}
   m_Layer: 7
   m_Name: MeleeAttack
   m_TagString: Untagged
@@ -32,26 +33,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6548558590547492350
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6548558590547492291}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37d22f6e84518c3439a335c03299bb63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _ActiveCharacter: {fileID: 0}
-  _Controller: {fileID: 0}
-  _HitLayer:
-    serializedVersion: 2
-    m_Bits: 128
-  _Bounds:
-    m_Center: {x: 0, y: 0, z: 0.81}
-    m_Extent: {x: 1.47, y: 0.93, z: 0.77}
 --- !u!114 &6548558590547492289
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,11 +46,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeCharacter: {fileID: 0}
-  _hitBox: {fileID: 6548558590547492350}
+  _hitBox: {fileID: 0}
   _speed: 3
-  _meleeAttackCoolDown: 5
   _meleeDamage: 10
+  _distanceToTarget: 1
+  _meleeVfx: {fileID: 0}
+  _boostVfx: []
+  _animHandler: {fileID: 0}
+  _meleeAttackCoolDown: 5
   _meleeAttackDuration: 2
   _timer: 0
   _pool: {fileID: 11400000, guid: eaf2c441e12af9a41b84951af90733ea, type: 2}
   isHoming: 0
+--- !u!65 &7374049608150173639
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6548558590547492291}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2113354904206208426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6548558590547492291}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c82b68b27b65aef40bb2ad52c207be39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ActiveCharacter: {fileID: 0}

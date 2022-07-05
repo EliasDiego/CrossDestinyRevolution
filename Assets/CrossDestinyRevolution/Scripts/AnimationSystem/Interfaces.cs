@@ -15,8 +15,8 @@ namespace CDR.AnimationSystem
     {
         float timeValue { get; }
         bool isNormalized { get; }
-        System.Action onEventTime { get; }
-        System.Action onStateEnter { get; }
-        System.Action onStateExit { get; }
+        void OnEventTime(Animator animator, AnimatorStateInfo stateInfo, int layerIndex);
+        void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex);
+        void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex);
     }
 }

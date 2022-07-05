@@ -3,43 +3,61 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using CDR.MechSystem;
+using CDR.VFXSystem;
 
 namespace CDR.AnimationSystem
 {
     public class ShieldAnimationHandler : MonoBehaviour
     {
         [SerializeField] ActiveCharacter _activeCharacter;
+        [SerializeField] ShieldVFXHandler _vfx;
         [SerializeField] AnimationEventsManager _manager;
+        [SerializeField] AnimationEvent _pauseEvent;
+        [SerializeField] AnimationEvent _vfxActivate;
+        [SerializeField] SFXAnimationEvent[] _sfx;
 
         private void Awake()
         {
-            _manager.AddAnimationEvent("Shield", new AnimationEvent(0.5f, true, EventTime, StateEnter, StateExit));
+            _pauseEvent.onEventTime += PauseAnimation;
+            _vfxActivate.onEventTime += ActivateShield;
+            _manager.AddAnimationEvent("Shield", _pauseEvent);
+            _manager.AddAnimationEvent("Shield", _vfxActivate);
+            _manager.AddAnimationEvent("Shield", _sfx);
         }
 
+        // Change Action Type
         public void PlayShieldAnim()
         {
-            _activeCharacter.animator.SetBool("IsShield", true);
-            //_activeCharacter.animator.SetFloat("ShieldSMultiplier", 0);
+            _activeCharacter.animator.SetInteger("ActionType", (int)ActionType.Shield);
         }
 
         public void EndShieldAnim()
         {
-            _activeCharacter.animator.SetBool("IsShield", false);
+            _activeCharacter.animator.SetInteger("ActionType", (int)ActionType.None);
         }
 
-        void EventTime()
+        // Pause/Resume Animation
+        public void PauseAnimation()
         {
-            Debug.Log("Shield Event Time");
+            Debug.Log("shield pause");
+            _activeCharacter.animator.SetFloat("ActionSMultiplier", 0);
         }
 
-        void StateEnter()
+        public void ResumeAnimation()
         {
-            Debug.Log("Shield State Enter");
+            Debug.Log("shield resume");
+            _activeCharacter.animator.SetFloat("ActionSMultiplier", 1);
         }
 
-        void StateExit()
+        // Activate/Deactivate Shield
+        public void ActivateShield()
         {
-            Debug.Log("Shield State Exit");
+            _vfx.Activate();
         }
-}
+
+        public void DeactivateShield()
+        {
+            _vfx.Deactivate();
+        }
+    }
 }

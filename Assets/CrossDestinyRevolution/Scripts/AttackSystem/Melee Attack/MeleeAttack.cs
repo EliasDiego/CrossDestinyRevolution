@@ -6,6 +6,7 @@ using CDR.StateSystem;
 using CDR.MechSystem;
 using CDR.ObjectPoolingSystem;
 using CDR.AnimationSystem;
+using CDR.VFXSystem;
 
 namespace CDR.AttackSystem
 {
@@ -14,6 +15,9 @@ namespace CDR.AttackSystem
 		[SerializeField] HitBox _hitBox;
 		[SerializeField] float _speed;
 		[SerializeField] float _meleeDamage;
+		[SerializeField] float _distanceToTarget;
+		[SerializeField] MeleeAttackVFXHandler _meleeVfx;
+		[SerializeField] BoostVFXHandler[] _boostVfx;
 
 		// Animation Handler
 		[SerializeField] MeleeAttackAnimationHandler _animHandler;
@@ -56,6 +60,11 @@ namespace CDR.AttackSystem
 			base.Use();
 			
 			isHoming = true;
+			_meleeVfx.Activate();
+			for(int i =0; i < _boostVfx.Length; i++)
+			{
+				_boostVfx[i].Activate();
+			}
 			_animHandler.PlayAttackAnim();
 			//_hitBox.enabled = true;
 			_hitBox.onHitEnter += HitEnter;
@@ -70,6 +79,11 @@ namespace CDR.AttackSystem
 			base.End();
 
 			_timer = _meleeAttackDuration;
+			_meleeVfx.Deactivate();
+			for(int i =0; i < _boostVfx.Length; i++)
+			{
+				_boostVfx[i].Deactivate();
+			}
 			//_hitBox.enabled = false;
 			_hitBox.onHitEnter -= HitEnter;
 
@@ -82,12 +96,12 @@ namespace CDR.AttackSystem
 		{
 			base.ForceEnd();
 
+			_meleeVfx.Deactivate();
 			_hitBox.onHitEnter -= HitEnter;
 		}
 
-		void HitEnter(IHitEnterData hitData)
+		void HitEnter(IHitData hitData)
 		{
-			isHoming = false;
 			_animHandler.EndAttackAnim();
 			Character.controller.SetVelocity(Vector3.zero);
 			Debug.LogWarning("Hit!!! " + hitData.hurtShape.character);
@@ -120,6 +134,7 @@ namespace CDR.AttackSystem
 			if(isHoming)
 			{
 				CheckAttackTimer();
+				CheckDistanceToTarget();
 			}
 		}
 
@@ -144,10 +159,24 @@ namespace CDR.AttackSystem
 			{
 				isHoming = false;
 				_animHandler.EndAttackAnim();
+				_animHandler.ResumeAnimation();
 				Character.controller.SetVelocity(Vector3.zero);
 				End();
 			}
 		}
+
+		void CheckDistanceToTarget()
+		{
+			float distance = Vector3.Distance(Character.position, Character.targetHandler.GetCurrentTarget().activeCharacter.position);
+
+			if(distance <= _distanceToTarget)
+			{
+				Debug.Log("distance reached");
+				isHoming = false;
+				_hitBox.enabled = true;
+				_animHandler.ResumeAnimation();
+				_meleeVfx.Deactivate();
+			}
+		}
 	}
 }
-
