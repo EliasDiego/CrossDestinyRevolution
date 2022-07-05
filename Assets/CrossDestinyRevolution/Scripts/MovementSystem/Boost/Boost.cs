@@ -148,7 +148,7 @@ namespace CDR.MovementSystem
             _boostValue.Consume();
             _boostValue.SetIsRegening(false);
             Character.movement.SetSpeedClamp(false);
-
+    
             for(int i = 0; i < vfxHandler.Length; i++)
             {
                 vfxHandler[i].Activate();
