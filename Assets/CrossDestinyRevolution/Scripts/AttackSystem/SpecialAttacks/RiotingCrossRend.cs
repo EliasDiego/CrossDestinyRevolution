@@ -10,48 +10,51 @@ namespace CDR.AttackSystem
         [SerializeField]
         private SFXAnimationEvent[] sfx;
         [SerializeField]
-        private VFXSystem.RiotCrossRendVFXHandler vfxHandler;
+        private VFXSystem.RCRLaserVFXHandler laserVFX;
+        [SerializeField]
+        private VFXSystem.RCRMuzzleFlashVFXHandler muzzleVFX;
         [Header("Unique properties")]
         [SerializeField]
         private Transform pivot;
         [SerializeField]
-        private float rotationSpeed = 40f;
+        private float rotTime = 5f;
         [SerializeField]
         private float maxLength = 30f;
         [SerializeField]
         private float scaleTime = 1f;
 
         private RCRBullet activeBullet;
-        private float targetY;
-        private bool enableRotation = false;
 
         protected override void Awake()
         {
             if (_pool[0] != null)
                 _pool[0].Initialize();
 
-            Character.animator.GetComponent<AnimationEventsManager>().AddAnimationEvent("SAttack3", sfx);
+            Character.animator.GetComponent<AnimationEventsManager>().AddAnimationEvent("SAttack2", sfx);
+            laserVFX.transform.parent = pivot;
+            laserVFX.length = 1f;
         }
 
         public override void Use()
         {
-            base.Use();
-            vfxHandler.Activate();
-            Character.animator.SetInteger("ActionType", (int)ActionType.SpecialAttack3);
+            base.Use();            
+            Character.animator.SetInteger("ActionType", (int)ActionType.SpecialAttack2);
             Fire();
         }
 
         public override void End()
         {
             base.End();
-            vfxHandler.Deactivate();
+            laserVFX.Deactivate();
+            muzzleVFX.Deactivate();
             Character.animator.SetInteger("ActionType", (int)ActionType.None);
         }
 
         public override void ForceEnd()
         {
             base.ForceEnd();
-            vfxHandler.Deactivate();
+            laserVFX.Deactivate();
+            muzzleVFX.Deactivate();
             Character.animator.SetInteger("ActionType", (int)ActionType.None);
         }
 
@@ -65,44 +68,42 @@ namespace CDR.AttackSystem
                 bullet.GetComponent<RCRBullet>().Init(Character.position);
                 bullet.transform.parent = pivot;
                 bullet.SetActive(true);
+                
                 activeBullet = bullet.GetComponent<RCRBullet>();
-                StartCoroutine(RiotRoutine());
+                ScaleAndRotateBeam();
             }
         }
 
-        private IEnumerator RiotRoutine()
+        private void ScaleAndRotateBeam()
         {
-            targetY = pivot.localEulerAngles.y - 180f;
-            var startRotate = false;
+            laserVFX.Activate();
+            muzzleVFX.Activate();
 
             LeanTween.scale(activeBullet.Beam, Vector3.one, 0.35f).setOnComplete(
                 () =>
                 {
+                    LeanTween.value(1f, 11f, scaleTime).setOnUpdate(
+                    (float f) =>
+                    {
+                        laserVFX.length = f;
+                    });
                     LeanTween.scaleZ(activeBullet.Pivot, maxLength, scaleTime).setOnComplete(
                         () =>
                         {
-                            startRotate = true;
+                            LeanTween.rotateAroundLocal(pivot.gameObject, transform.up, -180f, rotTime).setOnComplete(
+                                ()=>
+                                {
+                                    End();
+                                    LeanTween.delayedCall(2f, () =>
+                                    {
+                                        pivot.localEulerAngles = new Vector3(0f, 90f, 0f);
+                                        laserVFX.length = 1f;
+                                    });
+                                });                            
                         }
                         );
                 });
-
-            while (true)
-            {
-                if(startRotate)
-                {
-                    pivot.RotateAround(transform.position, transform.up, -rotationSpeed * Time.deltaTime);
-
-                    if (Mathf.Round(pivot.localEulerAngles.y) == 270f)
-                    {
-                        End();
-                        activeBullet.ResetObject();
-                        break;
-                    }                    
-                    yield return null;
-                }
-
-                yield return null;
-            }
+            
         }
     }
 }
