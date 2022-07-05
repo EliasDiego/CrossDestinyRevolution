@@ -76,7 +76,7 @@ namespace CDR.AttackSystem
 			Rotate(Quaternion.RotateTowards(transform.rotation, rotation, rotateSpeed * Time.deltaTime));
 		}
 
-        protected override void OnHitEnter(IHitEnterData hitData)
+        protected override void OnHitEnter(IHitData hitData)
         {
             base.OnHitEnter(hitData);
 
@@ -88,6 +88,15 @@ namespace CDR.AttackSystem
 
             Return();
         }
+
+        public bool CheckDistanceFromTarget()
+		{
+            if(originDistanceFromProjectile > originDistanceFromTarget)
+			{
+                return true;
+			}
+            return false;
+		}
     }
 }
 

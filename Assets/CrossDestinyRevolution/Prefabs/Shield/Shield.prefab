@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 429832282714657675}
   - component: {fileID: 429832282714657678}
-  - component: {fileID: 429832282714657677}
   - component: {fileID: 429832282714657676}
+  - component: {fileID: 8627049843015202857}
   m_Layer: 7
   m_Name: Shield
   m_TagString: Untagged
@@ -47,19 +47,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &429832282714657677
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 429832282714657674}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 974cad504e83b074bb0f7a5a21b4da68, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _ActiveCharacter: {fileID: 0}
 --- !u!114 &429832282714657676
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -73,12 +60,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   activeCharacter: {fileID: 0}
-  _hurtSphere: {fileID: 429832282714657677}
+  _hurtSphere: {fileID: 8627049843015202857}
   _sphereCollider: {fileID: 429832282714657678}
   _sphereRenderer: {fileID: 7358716529629381687}
   _radius: 2
+  _animHandler: {fileID: 0}
   _pool: {fileID: 11400000, guid: 04e8e6f15b0b3b244ada64cd04a3e0b9, type: 2}
   _isShieldActive: 0
+--- !u!114 &8627049843015202857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 429832282714657674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf9b0334255e6342bd6812589b7517a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ActiveCharacter: {fileID: 0}
 --- !u!1001 &7568812904065336313
 PrefabInstance:
   m_ObjectHideFlags: 0
