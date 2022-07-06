@@ -9,13 +9,34 @@ namespace CDR.VFXSystem
 	{
 		[SerializeField] HitVFXHandler hitVFXHandler;
 
+		[SerializeField] float activeTime;
+
 		IPool _pool;
 
 		public IPool pool { get => _pool; set => _pool = value; }
 
-		public void ResetObject(){}
+		public void PlayVFX()
+		{
+			hitVFXHandler.Activate();
+			StartCoroutine(EndVFX(activeTime));
+		}
+		IEnumerator EndVFX(float time)
+		{
+			yield return new WaitForSeconds(time);
+			Return();
+		}
 
-		public void Return(){}
+		public void ResetObject()
+		{
+			hitVFXHandler.Deactivate();
+		}
+
+		public void Return()
+		{
+			ResetObject();
+			transform.parent = null;
+			_pool.ReturnObject(this);
+		}
 	}
 }
 

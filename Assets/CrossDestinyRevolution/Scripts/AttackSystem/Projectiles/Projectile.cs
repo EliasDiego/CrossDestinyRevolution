@@ -96,7 +96,7 @@ namespace CDR.AttackSystem
 				var projectileHitVFX = ProjectileHitVFX.GetPoolable();
 				projectileHitVFX.transform.position = transform.position;
 				projectileHitVFX.SetActive(true);
-				projectileHitVFX.GetComponent<HitVFXHandler>().Activate();
+				projectileHitVFX.GetComponent<HitGunVFXPoolable>().PlayVFX();
 			}
 
 			hitData.hurtShape.character.health.TakeDamage(projectileDamage);
