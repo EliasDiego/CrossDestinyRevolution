@@ -118,15 +118,16 @@ namespace CDR.AttackSystem
 			Debug.LogWarning("Hit!!! " + hitData.hurtShape.character);
 			Character.controller.SetVelocity(Vector3.zero);
 
+			sender = (IMech)Character;
+			receiver = (IMech)hitData.hurtShape.character;
+
 			GameObject hitVfx = _hitVfxPool.GetPoolable();
 			hitVfx.transform.SetParent(this.transform);
+			hitVfx.transform.position = ((ActiveCharacter)receiver).transform.position;
 			hitVfx.SetActive(true);
 
 			_meleeHitVFX = hitVfx.GetComponent<BladeWingHitVFXPoolable>();
 			_meleeHitVFX.PlayVfx();
-
-			sender = (IMech)Character;
-			receiver = (IMech)hitData.hurtShape.character;
 
 			// Enemy only takes damage/changes state if not using shield
 			if(!receiver.shield.isActive)
