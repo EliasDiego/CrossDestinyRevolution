@@ -466,14 +466,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _activeCharacter: {fileID: 852551265084442558}
-  _vfx: {fileID: 5452461925557217933}
   _manager: {fileID: 6422407994287298984}
-  _pauseEvent:
-    _TimeValue: 0.5
-    _IsNormalized: 1
-  _vfxActivate:
-    _TimeValue: 0.1
-    _IsNormalized: 1
+  _vfx: {fileID: 5452461925557217933}
+  _animationCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _sfx: []
 --- !u!1001 &1095867486778233494
 PrefabInstance:
@@ -2568,6 +2568,74 @@ PrefabInstance:
     - target: {fileID: 1535693571389922763, guid: 66faeead24ef37241b5cb8f4a0bba069, type: 3}
       propertyPath: _Radius
       value: 4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535693571389922763, guid: 66faeead24ef37241b5cb8f4a0bba069, type: 3}
+      propertyPath: _RadiusCurve.m_Curve.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535693571389922763, guid: 66faeead24ef37241b5cb8f4a0bba069, type: 3}
+      propertyPath: _RadiusCurve.m_Curve.Array.data[1].time
+      value: 0.2631774
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535693571389922763, guid: 66faeead24ef37241b5cb8f4a0bba069, type: 3}
+      propertyPath: _RadiusCurve.m_Curve.Array.data[2].time
+      value: 0.6857355
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535693571389922763, guid: 66faeead24ef37241b5cb8f4a0bba069, type: 3}
+      propertyPath: _RadiusCurve.m_Curve.Array.data[3].time
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535693571389922763, guid: 66faeead24ef37241b5cb8f4a0bba069, type: 3}
+      propertyPath: _RadiusCurve.m_Curve.Array.data[1].value
+      value: 0.32185054
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535693571389922763, guid: 66faeead24ef37241b5cb8f4a0bba069, type: 3}
+      propertyPath: _RadiusCurve.m_Curve.Array.data[2].value
+      value: 0.95597416
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535693571389922763, guid: 66faeead24ef37241b5cb8f4a0bba069, type: 3}
+      propertyPath: _RadiusCurve.m_Curve.Array.data[3].value
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535693571389922763, guid: 66faeead24ef37241b5cb8f4a0bba069, type: 3}
+      propertyPath: _RadiusCurve.m_Curve.Array.data[1].inSlope
+      value: 3.5502436
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535693571389922763, guid: 66faeead24ef37241b5cb8f4a0bba069, type: 3}
+      propertyPath: _RadiusCurve.m_Curve.Array.data[2].inSlope
+      value: 0.49312416
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535693571389922763, guid: 66faeead24ef37241b5cb8f4a0bba069, type: 3}
+      propertyPath: _RadiusCurve.m_Curve.Array.data[3].inSlope
+      value: 0.53156257
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535693571389922763, guid: 66faeead24ef37241b5cb8f4a0bba069, type: 3}
+      propertyPath: _RadiusCurve.m_Curve.Array.data[1].outSlope
+      value: 3.5502436
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535693571389922763, guid: 66faeead24ef37241b5cb8f4a0bba069, type: 3}
+      propertyPath: _RadiusCurve.m_Curve.Array.data[2].inWeight
+      value: 0.33333334
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535693571389922763, guid: 66faeead24ef37241b5cb8f4a0bba069, type: 3}
+      propertyPath: _RadiusCurve.m_Curve.Array.data[2].outSlope
+      value: 0.49312416
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535693571389922763, guid: 66faeead24ef37241b5cb8f4a0bba069, type: 3}
+      propertyPath: _RadiusCurve.m_Curve.Array.data[3].inWeight
+      value: 0.6093456
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535693571389922763, guid: 66faeead24ef37241b5cb8f4a0bba069, type: 3}
+      propertyPath: _RadiusCurve.m_Curve.Array.data[3].outSlope
+      value: 0.53156257
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535693571389922763, guid: 66faeead24ef37241b5cb8f4a0bba069, type: 3}
+      propertyPath: _RadiusCurve.m_Curve.Array.data[1].outWeight
+      value: 0.042896595
+      objectReference: {fileID: 0}
+    - target: {fileID: 1535693571389922763, guid: 66faeead24ef37241b5cb8f4a0bba069, type: 3}
+      propertyPath: _RadiusCurve.m_Curve.Array.data[2].outWeight
+      value: 0.3145279
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66faeead24ef37241b5cb8f4a0bba069, type: 3}
