@@ -64,12 +64,13 @@ namespace CDR.InputSystem
             }
         }
 
-        private void OnRangeAttack()
+        private void OnRangeAttack(InputAction.CallbackContext context)
         {
-            //if(CheckBoolean(character?.rangeAttack?.isActive) || CheckBoolean(character?.rangeAttack?.isCoolingDown))
-            //    return;
+            if(CheckBoolean(character?.rangeAttack?.isActive))
+                character?.rangeAttack.End();
 
-            character?.rangeAttack?.Use();
+            else
+                character?.rangeAttack?.Use();
                 
             Debug.Log($"[Range Attack Input] Used Range Attack!");
         }
@@ -168,7 +169,8 @@ namespace CDR.InputSystem
             if (GetInputAction("SpecialAttack3", out inputAction))
                 inputAction.started += OnSpecialAttack3;
 
-            AddInputActionToUpdate("RangeAttack", OnRangeAttack);
+            if(GetInputAction("RangeAttack", out inputAction))
+                inputAction.performed += OnRangeAttack;
         }
     }
 }
