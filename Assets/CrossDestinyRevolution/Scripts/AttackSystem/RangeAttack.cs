@@ -27,14 +27,17 @@ namespace CDR.AttackSystem
 
 		bool isShootingRangeAttack = false;
 
+		Coroutine _coroutine;
+
 		void Start()
 		{
 			_Manager = Character.animator.GetComponent<AnimationEventsManager>();
 
-			var a = new CDR.AnimationSystem.AnimationEvent(0.29f, true, () => StartCoroutine(ShootHomingBullet()));
-			var b = new CDR.AnimationSystem.AnimationEvent(1f, true, () => End());
+			//var a = new CDR.AnimationSystem.AnimationEvent(0.29f, true, () => StartCoroutine(ShootHomingBullet()));
+			//var b = new CDR.AnimationSystem.AnimationEvent(1f, true, () => End());
 
-			_Manager.AddAnimationEvent("RAttack", a,b);
+			//_Manager.AddAnimationEvent("RAttack", a,b);
+
 			_Manager.AddAnimationEvent("RAttack", sfxAnimationEvents);
 		}
 
@@ -51,6 +54,11 @@ namespace CDR.AttackSystem
 			isShootingRangeAttack = true;
 
 			Character.animator.SetInteger("ActionType", (int)ActionType.RangeAttack);
+
+			if (_coroutine != null)
+				StopCoroutine(_coroutine);
+
+			_coroutine = StartCoroutine(ShootHomingBullet());
 		}
 
 		IEnumerator ShootHomingBullet()
@@ -79,7 +87,9 @@ namespace CDR.AttackSystem
 			Character.animator.SetInteger("ActionType", (int)ActionType.None);
 
 			isShootingRangeAttack = false;
-			StopCoroutine(ShootHomingBullet());
+
+			if (_coroutine != null)
+				StopCoroutine(_coroutine);
 		}
 
 		public override void ForceEnd()
@@ -89,7 +99,9 @@ namespace CDR.AttackSystem
 			Character.animator.SetInteger("ActionType", (int)ActionType.None);
 
 			isShootingRangeAttack = false;
-			StopCoroutine(ShootHomingBullet());
+
+			if (_coroutine != null)
+				StopCoroutine(_coroutine);
 
 			_pool.ReturnAll();
 		}
