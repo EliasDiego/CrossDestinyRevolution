@@ -99,7 +99,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Rigidbody: {fileID: 4205806657027634451}
-  ProjectileHitVFX: {fileID: 0}
+  ProjectileHitVFX: {fileID: 11400000, guid: 3f746844eae17f14b9274d348d5ca73f, type: 2}
   projectileHitBox: {fileID: 3191427527187845430}
   projectileDamage: 5
   hasLifeTime: 0
