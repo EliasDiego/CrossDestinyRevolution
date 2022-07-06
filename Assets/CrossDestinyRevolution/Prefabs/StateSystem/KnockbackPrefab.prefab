@@ -43,5 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fd30005908cee684bb815f47934d75c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _distance: 10
-  _duration: 5
+  _distance: 50
+  _duration: 0.7

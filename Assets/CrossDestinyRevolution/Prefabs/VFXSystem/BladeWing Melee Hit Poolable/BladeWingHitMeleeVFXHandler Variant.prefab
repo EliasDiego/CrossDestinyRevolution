@@ -9,19 +9,31 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 131724342235049420, guid: 8f346cfa9bd9bc1429561e97ea78fc67, type: 3}
       propertyPath: m_LocalScale.x
-      value: 10.015
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 131724342235049420, guid: 8f346cfa9bd9bc1429561e97ea78fc67, type: 3}
       propertyPath: m_LocalScale.y
-      value: 10.015
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 131724342235049420, guid: 8f346cfa9bd9bc1429561e97ea78fc67, type: 3}
       propertyPath: m_LocalScale.z
-      value: 10.015
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2989576349101576344, guid: 8f346cfa9bd9bc1429561e97ea78fc67, type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2989576349101576344, guid: 8f346cfa9bd9bc1429561e97ea78fc67, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2989576349101576344, guid: 8f346cfa9bd9bc1429561e97ea78fc67, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2989576349101576344, guid: 8f346cfa9bd9bc1429561e97ea78fc67, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 2989576349101576344, guid: 8f346cfa9bd9bc1429561e97ea78fc67, type: 3}
       propertyPath: m_LocalPosition.x
@@ -69,15 +81,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2989576349103318774, guid: 8f346cfa9bd9bc1429561e97ea78fc67, type: 3}
       propertyPath: m_LocalScale.x
-      value: 10.015
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2989576349103318774, guid: 8f346cfa9bd9bc1429561e97ea78fc67, type: 3}
       propertyPath: m_LocalScale.y
-      value: 10.015
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2989576349103318774, guid: 8f346cfa9bd9bc1429561e97ea78fc67, type: 3}
       propertyPath: m_LocalScale.z
-      value: 10.015
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f346cfa9bd9bc1429561e97ea78fc67, type: 3}
@@ -110,4 +122,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _vfx: {fileID: 7323275483521400296}
-  activeTime: 5
+  activeTime: 10

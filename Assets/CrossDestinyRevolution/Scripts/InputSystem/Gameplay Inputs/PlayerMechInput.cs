@@ -66,11 +66,18 @@ namespace CDR.InputSystem
 
         private void OnRangeAttack(InputAction.CallbackContext context)
         {
-            if(CheckBoolean(character?.rangeAttack?.isActive))
-                character?.rangeAttack.End();
+
+            if(context.control.IsPressed())
+                character?.rangeAttack?.Use();
 
             else
-                character?.rangeAttack?.Use();
+                character?.rangeAttack?.End();
+
+            // if(CheckBoolean(character?.rangeAttack?.isActive))
+            //     character?.rangeAttack.End();
+
+            // else
+            //     character?.rangeAttack?.Use();
                 
             Debug.Log($"[Range Attack Input] Used Range Attack!");
         }
@@ -80,15 +87,18 @@ namespace CDR.InputSystem
             if(CheckBoolean(character?.meleeAttack?.isCoolingDown))
                 return;
 
-            if(CheckBoolean(character?.meleeAttack?.isActive))
-            {
-                // if(!CheckBoolean(character?.meleeAttack?.isHit))
-                    character?.meleeAttack?.End();
-            }
+            if(context.control.IsPressed())
+                character?.meleeAttack?.Use();
 
             else
-                character?.meleeAttack?.Use();
-                
+                character?.meleeAttack?.End();
+
+            // if(CheckBoolean(character?.meleeAttack?.isActive))
+            //     character?.meleeAttack?.End();
+
+            // else
+            //     character?.meleeAttack?.Use();
+
             Debug.Log($"[Melee Attack Input] Used Melee Attack!");
         }
 

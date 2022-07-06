@@ -6,7 +6,7 @@ using CDR.ObjectPoolingSystem;
 
 namespace CDR.VFXSystem
 {
-    public class BladeWingHitVFXPoolable : MonoBehaviour, IPoolable
+    public class MeleeHitVFXPoolable : MonoBehaviour, IPoolable
     {
         [SerializeField] HitVFXHandler _vfx;
         [SerializeField] float activeTime;
