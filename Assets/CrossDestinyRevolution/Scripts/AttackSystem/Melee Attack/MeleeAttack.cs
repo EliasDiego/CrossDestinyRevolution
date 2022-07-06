@@ -20,7 +20,7 @@ namespace CDR.AttackSystem
 		// VFX
 		[SerializeField] MeleeAttackVFXHandler _meleeVfx;
 		[SerializeField] BoostVFXHandler[] _boostVfx;
-		BladeWingHitVFXPoolable _meleeHitVFX;
+		MeleeHitVFXPoolable _meleeHitVFX;
 
 		// Animation Handler
 		[SerializeField] MeleeAttackAnimationHandler _animHandler;
@@ -74,6 +74,7 @@ namespace CDR.AttackSystem
 			_hitBox.onHitEnter += HitEnter;
 
 			Character.input.DisableInput();
+			Character.input.EnableInput("MeleeAttack");
 			Character.movement.End();
 			//Character.shield.End();
 		}
@@ -82,6 +83,7 @@ namespace CDR.AttackSystem
 		{
 			base.End();
 
+			isHoming = false;
 			_animHandler.EndAttackAnim();
 			_meleeVfx.Deactivate();
 
@@ -126,8 +128,9 @@ namespace CDR.AttackSystem
 			hitVfx.transform.position = ((ActiveCharacter)receiver).transform.position;
 			hitVfx.SetActive(true);
 
-			_meleeHitVFX = hitVfx.GetComponent<BladeWingHitVFXPoolable>();
+			_meleeHitVFX = hitVfx.GetComponent<MeleeHitVFXPoolable>();
 			_meleeHitVFX.PlayVfx();
+			_meleeHitVFX.transform.SetParent((receiver as ActiveCharacter).transform);
 
 			// Enemy only takes damage/changes state if not using shield
 			if(!receiver.shield.isActive)
