@@ -5,17 +5,11 @@ using CDR.ObjectPoolingSystem;
 
 namespace CDR.VFXSystem
 {
-	public class HitGunVFXPoolable : MonoBehaviour, IPoolable
-	{
-		[SerializeField] HitVFXHandler hitVFXHandler;
+    public class NSVFXPoolable : HitGunVFXPoolable
+    {
+		[SerializeField] NightmareStalkerVFXHandler hitVFXHandler;
 
-		[SerializeField] float activeTime;
-
-		IPool _pool;
-
-		public IPool pool { get => _pool; set => _pool = value; }
-
-		public void PlayVFX()
+		public override void PlayVFX()
 		{
 			hitVFXHandler.Activate();
 			StartCoroutine(EndVFX(activeTime));
@@ -26,12 +20,12 @@ namespace CDR.VFXSystem
 			Return();
 		}
 
-		public void ResetObject()
+		public override void ResetObject()
 		{
 			hitVFXHandler.Deactivate();
 		}
 
-		public void Return()
+		public override void Return()
 		{
 			ResetObject();
 			transform.parent = null;
@@ -39,4 +33,5 @@ namespace CDR.VFXSystem
 		}
 	}
 }
+
 
