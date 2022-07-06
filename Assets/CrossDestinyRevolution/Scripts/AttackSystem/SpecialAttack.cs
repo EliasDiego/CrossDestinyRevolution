@@ -34,7 +34,7 @@ namespace CDR.AttackSystem
 		{
 			base.Use();
 
-			Character.animator.SetInteger("ActionSMultiplier", 1);
+			Character.animator.SetFloat("ActionSMultiplier", 1);
 
 			IMech mech = (IMech)Character;
 

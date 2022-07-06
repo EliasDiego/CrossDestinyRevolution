@@ -66,8 +66,8 @@ namespace CDR.InputSystem
 
         private void OnRangeAttack()
         {
-            if(CheckBoolean(character?.rangeAttack?.isActive) || CheckBoolean(character?.rangeAttack?.isCoolingDown))
-                return;
+            //if(CheckBoolean(character?.rangeAttack?.isActive) || CheckBoolean(character?.rangeAttack?.isCoolingDown))
+            //    return;
 
             character?.rangeAttack?.Use();
                 
