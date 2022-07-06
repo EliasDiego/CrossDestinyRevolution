@@ -28,10 +28,6 @@ namespace CDR.AttackSystem
 		// Cooldown
 		[SerializeField] float _meleeAttackCoolDown;
 
-		// Timer
-		[SerializeField] float _meleeAttackDuration;
-		[SerializeField] float _timer;
-
 		// Object Pool
 		[SerializeField] ObjectPooling _knockbackPool;
 		[SerializeField] ObjectPooling _hitVfxPool;
@@ -59,7 +55,6 @@ namespace CDR.AttackSystem
 		private void Start()
 		{
 			_cooldownDuration = _meleeAttackCoolDown;
-			_timer = _meleeAttackDuration;
 		}
 
 		public override void Use()
@@ -87,7 +82,6 @@ namespace CDR.AttackSystem
 		{
 			base.End();
 
-			_timer = _meleeAttackDuration;
 			_animHandler.EndAttackAnim();
 			_meleeVfx.Deactivate();
 
@@ -107,7 +101,6 @@ namespace CDR.AttackSystem
 		{
 			base.ForceEnd();
 
-			_timer = _meleeAttackDuration;
 			isHoming = false;
 			_animHandler.EndAttackAnim();
 			_meleeVfx.Deactivate();
@@ -159,7 +152,6 @@ namespace CDR.AttackSystem
 
 			if(isHoming)
 			{
-				CheckAttackTimer();
 				CheckDistanceToTarget();
 			}
 		}
@@ -177,18 +169,6 @@ namespace CDR.AttackSystem
 			}
 		}
 
-		void CheckAttackTimer()
-		{
-			_timer -= Time.deltaTime;
-
-			if(_timer < 0)
-			{
-				isHoming = false;
-				_animHandler.ResumeAnimation();
-				Character.controller.SetVelocity(Vector3.zero);
-				End();
-			}
-		}
 
 		void CheckDistanceToTarget()
 		{
