@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54cb1595d1718ef4381a868af2d7ba0a, type: 3}
   m_Name: CosmicStormVFXPool
   m_EditorClassIdentifier: 
-  itemToPool: {fileID: 0}
+  itemToPool: {fileID: 3453508947370718577, guid: 193cd1b94e9145e4a948c54bdd3966a9, type: 3}
   pooledObjects: []
-  amountToPool: 0
-  shouldExpand: 0
+  amountToPool: 1
+  shouldExpand: 1

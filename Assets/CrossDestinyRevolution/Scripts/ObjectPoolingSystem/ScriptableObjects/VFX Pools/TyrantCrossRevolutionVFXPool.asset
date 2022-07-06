@@ -12,7 +12,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54cb1595d1718ef4381a868af2d7ba0a, type: 3}
   m_Name: TyrantCrossRevolutionVFXPool
   m_EditorClassIdentifier: 
-  itemToPool: {fileID: 0}
-  pooledObjects: []
-  amountToPool: 0
-  shouldExpand: 0
+  itemToPool: {fileID: 343183564235998893, guid: 5e6c421849edc564e8f0cbf1112449c4, type: 3}
+  pooledObjects:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  amountToPool: 1
+  shouldExpand: 1
