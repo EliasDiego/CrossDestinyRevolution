@@ -4,6 +4,8 @@ using UnityEngine;
 
 namespace CDR.CameraSystem
 {
+    // NOTE: Check if world rotation would affect x or z axis through front and backward movement
+    // Adjust distance checking accordingly.
     public class CameraPivot : MonoBehaviour
     {
         [SerializeField]
@@ -51,25 +53,24 @@ namespace CDR.CameraSystem
         private void SetPos()
         {
             var diffY = YDiffToTarget();
-            var difference = Mathf.Round(diffY);
+            var difference = Mathf.Floor(diffY);
             var interpolation = Mathf.Abs(diffY) / 20f;
 
-            if (difference == 0f)
-            {
-                currentY = defaultY;
-                currentZ = defaultZ;
-                return;
-            }
             // Character is below target
-            if (difference < 0f)
+            if (difference < -1f)
             {                   
                 currentY = Mathf.Lerp(defaultY, 0f, interpolation);
             }
             // Character is above target
-            if (difference > 0f)
+            else if (difference > 1f)
             {               
                 currentY = Mathf.Lerp(defaultY, maxY, interpolation);               
                 currentZ = Mathf.Lerp(defaultZ, maxZ, interpolation) + 0.35f;
+            }
+            else
+            {
+                currentY = defaultY;
+                currentZ = defaultZ;
             }
             transform.localPosition = new Vector3(transform.localPosition.x, currentY, currentZ);
         }
@@ -87,9 +88,8 @@ namespace CDR.CameraSystem
                 return true;
             }
 
-
-            return Mathf.Abs(activeCharacter.targetHandler.GetCurrentTarget().activeCharacter.position.z -
-                transform.position.z) <= minDistance;
+            return Mathf.Abs(activeCharacter.targetHandler.GetCurrentTarget().activeCharacter.position.x -
+                transform.position.x) <= minDistance;
         }
     }
 }

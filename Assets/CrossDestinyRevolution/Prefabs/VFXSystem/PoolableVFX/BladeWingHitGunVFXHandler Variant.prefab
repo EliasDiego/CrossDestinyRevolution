@@ -86,3 +86,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitVFXHandler: {fileID: 343183564235998895}
+  activeTime: 1

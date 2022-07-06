@@ -10,19 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 54cb1595d1718ef4381a868af2d7ba0a, type: 3}
-  m_Name: HomingBulletPool
+  m_Name: TyrantCrossRevolutionVFXPool
   m_EditorClassIdentifier: 
-  itemToPool: {fileID: 3401622447246041622, guid: c4650a2f93296ec478995b71ef5a2973, type: 3}
-  pooledObjects:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  amountToPool: 10
-  shouldExpand: 1
+  itemToPool: {fileID: 0}
+  pooledObjects: []
+  amountToPool: 0
+  shouldExpand: 0

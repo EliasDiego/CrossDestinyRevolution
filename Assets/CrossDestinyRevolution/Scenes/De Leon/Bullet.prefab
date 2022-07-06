@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 5328174087131921152}
   - component: {fileID: 4777734176908723363}
   m_Layer: 7
-  m_Name: SampleBullet
+  m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -111,9 +111,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Rigidbody: {fileID: 5328174087131921152}
+  ProjectileHitVFXPool: {fileID: 11400000, guid: 1f960444a915e1349a35c2b7c598d7c2, type: 2}
   projectileHitBox: {fileID: 7291854690868315243}
   projectileDamage: 5
   hasLifeTime: 1
+  projectileLifetime: 0
   projectileMaxLifetime: 5
   BulletSpeed: 15
   generalDirection: {x: 0, y: 0, z: 0, w: 0}
