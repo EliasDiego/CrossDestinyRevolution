@@ -79,7 +79,7 @@ namespace CDR.AttackSystem
 
             bigBangBarrageVFXHandler.Activate();
 
-            yield return new WaitForSeconds(secondsBeforeSplit);
+            yield return new WaitForSecondsRealtime(secondsBeforeSplit);
 
             //2ND PHASE
 
@@ -114,7 +114,7 @@ namespace CDR.AttackSystem
             FirstPhaseBullet.GetComponent<BBBProjectile>().generalDirection = Quaternion.identity;
 
 
-            yield return new WaitForSeconds(secondsBeforeSplit);
+            yield return new WaitForSecondsRealtime(secondsBeforeSplit);
 
             //3RD PHASE
 
@@ -161,7 +161,7 @@ namespace CDR.AttackSystem
 			float z = originalPos.position.z;
 
 
-            return new Vector3(x,y,z);*?
+            return new Vector3(x,y,z);
 
             /*Vector3 randomPos = Random.onUnitSphere * distanceFromOriginal;
             randomPos += originalPos.position;
