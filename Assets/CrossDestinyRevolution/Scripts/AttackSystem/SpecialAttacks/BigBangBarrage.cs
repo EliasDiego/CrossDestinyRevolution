@@ -15,8 +15,6 @@ namespace CDR.AttackSystem
 
         [SerializeField] int amountOfSplitBullet;
 
-        [SerializeField] CDR.AnimationSystem.AnimationEvent _animationEvent;
-
         AnimationEventsManager _Manager;
         [SerializeField] SFXAnimationEvent[] sfxAnimationEvents;
 
@@ -44,8 +42,6 @@ namespace CDR.AttackSystem
             //StartCoroutine(BBBSequence());
 
             Character.animator.SetInteger("ActionType", (int)ActionType.SpecialAttack2);
-
-            End();
         }
 
         public override void End()
