@@ -48,7 +48,6 @@ namespace CDR.MovementSystem
 
             if(isHorizontal)
             {
-                Debug.Log(direction.normalized.x);
                 Character.animator.SetInteger("MoveType", (int)MoveType.HorizontalBoost);
                 Character.animator.SetFloat("MoveX", direction.normalized.x);
                 Character.animator.SetFloat("MoveY", direction.normalized.z);
@@ -56,6 +55,7 @@ namespace CDR.MovementSystem
             else
             {
                 Character.animator.SetInteger("MoveType", (int)MoveType.VerticalBoost);
+                Character.animator.SetFloat("MoveX", 0f);
                 Character.animator.SetFloat("MoveY", direction.normalized.y);
             }
 
@@ -171,7 +171,7 @@ namespace CDR.MovementSystem
                 vfxHandler[i].Deactivate();
             }
 
-            ResetAnimatorValues();
+            Character.animator.SetInteger("MoveType", (int)MoveType.None); 
             StartCoroutine(ResumeRegen());
             Character.movement.Use();
             Character.movement.Move(Vector2.zero);
