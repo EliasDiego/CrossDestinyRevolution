@@ -170,7 +170,7 @@ namespace CDR.MovementSystem
                 vfxHandler[i].Deactivate();
             }
 
-            ResetAnimatorValues();
+            Character.animator.SetInteger("MoveType", (int)MoveType.None); 
             StartCoroutine(ResumeRegen());
             Character.movement.Use();
             Character.movement.Move(Vector2.zero);
