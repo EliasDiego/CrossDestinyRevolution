@@ -45,7 +45,7 @@ namespace CDR.UISystem
 
             targetHandlerUI.camera = camera;
             
-            // _targetHandlerUI.SetTarget(mech.targetHandler.GetCurrentTarget());
+            _targetHandlerUI.SetTarget(mech.targetHandler.GetCurrentTarget());
 
             if(mech.specialAttack1!= null)
                 specialAttack1AttackUI.SetCooldownAction(mech.specialAttack1);
