@@ -41,6 +41,11 @@ namespace CDR.AttackSystem
 		{
 			projectileController = GetComponent<ProjectileController>();
 			projectileLifetime = projectileMaxLifetime;
+
+			if (ProjectileHitVFX != null)
+			{
+				ProjectileHitVFX.Initialize();
+			}
 		}
 
 		public virtual void OnEnable()
@@ -50,11 +55,6 @@ namespace CDR.AttackSystem
 			if (projectileHitBox != null)
 			{
 				projectileHitBox.onHitEnter += OnHitEnter;
-			}
-
-			if (ProjectileHitVFX != null)
-			{
-				ProjectileHitVFX.Initialize();
 			}
 		}
 
