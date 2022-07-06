@@ -52,6 +52,7 @@ namespace CDR.AttackSystem
 
             _sphereCollider.enabled = true;
             _animHandler.PlayShieldAnim();
+            _animHandler.ActivateShield();
             _hurtSphere.onHitEnter += HitEnter;
 
             Character.input.DisableInput();
