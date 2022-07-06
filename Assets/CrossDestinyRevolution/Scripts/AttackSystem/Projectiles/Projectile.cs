@@ -5,6 +5,7 @@ using UnityEngine;
 using CDR.MovementSystem;
 using CDR.ObjectPoolingSystem;
 using CDR.MechSystem;
+using CDR.VFXSystem;
 
 
 namespace CDR.AttackSystem
@@ -13,7 +14,7 @@ namespace CDR.AttackSystem
 	{
 		IPool _pool;
 
-		[SerializeField] ObjectPooling ProjectileHitVFXPool;
+		[SerializeField] ObjectPooling ProjectileHitVFX;
 
 		[SerializeField] public HitBox projectileHitBox;
 
@@ -50,6 +51,11 @@ namespace CDR.AttackSystem
 			{
 				projectileHitBox.onHitEnter += OnHitEnter;
 			}
+
+			if (ProjectileHitVFX != null)
+			{
+				ProjectileHitVFX.Initialize();
+			}
 		}
 
 		public virtual void Update()
@@ -85,6 +91,14 @@ namespace CDR.AttackSystem
 
 		protected virtual void OnHitEnter(IHitData hitData) //Hitbox Response
 		{
+			if (ProjectileHitVFX != null)
+			{
+				var projectileHitVFX = ProjectileHitVFX.GetPoolable();
+				projectileHitVFX.transform.position = transform.position;
+				projectileHitVFX.SetActive(true);
+				projectileHitVFX.GetComponent<HitVFXHandler>().Activate();
+			}
+
 			hitData.hurtShape.character.health.TakeDamage(projectileDamage);
 
 			ResetObject();
