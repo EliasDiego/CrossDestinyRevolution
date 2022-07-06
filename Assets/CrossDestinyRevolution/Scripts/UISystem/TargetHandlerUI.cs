@@ -11,6 +11,7 @@ namespace CDR.UISystem
     {
         [SerializeField] Camera _camera;
         [SerializeField] Image targetImage;
+        [SerializeField] float _heightOffset = 250f;
         [SerializeField] float minScale, maxScale;
 
         ITargetData currentTarget;
@@ -42,10 +43,18 @@ namespace CDR.UISystem
                 Vector2 pos = _camera.WorldToScreenPoint(currentTarget.activeCharacter.position);
                 float distance = Vector3.Distance(transform.position, currentTarget.activeCharacter.position);
 
-                //Modify Image
-                targetImage.rectTransform.localPosition = new Vector2(pos.x - (_camera.pixelWidth / 2), pos.y - (_camera.pixelHeight / 2));
+                // Check Camera Rect
+                if(_camera.rect.x == 0)
+                {
+                    targetImage.rectTransform.localPosition = new Vector2(pos.x - (_camera.pixelWidth * 0.5f), (pos.y + _heightOffset) - (_camera.pixelHeight / 2));
+                }
+                else if(_camera.rect.x == 0.5)
+                {
+                    targetImage.rectTransform.localPosition = new Vector2(pos.x - (_camera.pixelWidth * 1.5f), (pos.y + _heightOffset) - (_camera.pixelHeight / 2));
+                }
 
-                targetImage.rectTransform.localScale = new Vector2(Mathf.Clamp((distance / 10), minScale, maxScale),
+                // Scale Image based on Distance
+                targetImage.rectTransform.localScale = new Vector2(Mathf.Clamp((distance / 10), minScale, maxScale), 
                     Mathf.Clamp((distance / 10), minScale, maxScale));
             }
         }
