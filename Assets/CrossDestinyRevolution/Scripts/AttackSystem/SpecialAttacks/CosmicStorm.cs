@@ -29,12 +29,14 @@ namespace CDR.AttackSystem
         public override void End()
         {
             base.End();
+            vfxHandler.Deactivate();
             Character.animator.SetInteger("ActionType", (int)ActionType.None);
         }
 
         public override void ForceEnd()
         {
             base.ForceEnd();
+            vfxHandler.Deactivate();
             Character.animator.SetInteger("ActionType", (int)ActionType.None);
         }
 
@@ -44,10 +46,14 @@ namespace CDR.AttackSystem
             var cluster = _pool[0].GetPoolable();
             if(cluster != null)
             {
+                vfxHandler.Activate();
                 LeanTween.delayedCall(0.24f, () =>
                 {
                     cluster.GetComponent<CosmicBulletCluster>().Init(bulletSpawnPoint[0].transform.position, targetDir);
-                    LeanTween.delayedCall(1f, () => End());
+                    LeanTween.delayedCall(1f, () =>
+                    {                        
+                        End();
+                    });
                 });
             }
         }
