@@ -20,7 +20,7 @@ namespace CDR.UISystem
 
     public interface ITargetHandlerUI : IUIElement
     {
-        //void SetTarget(IActiveCharacter target);
+        Camera camera { get; set; }
         void SetTarget(ITargetData target);
     }
 
@@ -36,6 +36,7 @@ namespace CDR.UISystem
 
     public interface IPlayerMechBattleUI : IUIElement
     {
+        Camera camera { get; set; }
         IValueRangeUI healthUI { get; }
         IValueRangeUI boostUI { get; }
         ITargetHandlerUI targetHandlerUI { get; }

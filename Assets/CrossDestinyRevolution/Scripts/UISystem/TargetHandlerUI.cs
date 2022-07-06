@@ -9,14 +9,13 @@ namespace CDR.UISystem
 {
     public class TargetHandlerUI : MonoBehaviour, ITargetHandlerUI
     {
-        [SerializeField] Canvas _canvas;
         [SerializeField] Image targetImage;
         [SerializeField] float _heightOffset = 250f;
         [SerializeField] float minScale, maxScale;
 
         [SerializeField] Image targetHealthUI;
 
-        Camera _camera;
+        public new Camera camera { get ; set; }
 
         ITargetData currentTarget;
 
@@ -37,10 +36,6 @@ namespace CDR.UISystem
 
         public void SetTarget(ITargetData targetData)
         {
-            _camera = _canvas.worldCamera;
-
-            Debug.Log(_camera);
-
             if(currentTarget != null)
                 currentTarget.activeCharacter.health.OnModifyValue -= ChangeTargetHealthImage;
 
@@ -53,17 +48,17 @@ namespace CDR.UISystem
         {
             if(currentTarget != null)
             {
-                Vector2 pos = _camera.WorldToScreenPoint(currentTarget.activeCharacter.position);
+                Vector2 pos = camera.WorldToScreenPoint(currentTarget.activeCharacter.position);
                 float distance = Vector3.Distance(transform.position, currentTarget.activeCharacter.position);
 
                 // Check Camera Rect
-                if(_camera.rect.x == 0)
+                if(camera.rect.x == 0)
                 {
-                    targetImage.rectTransform.localPosition = new Vector2(pos.x - (_camera.pixelWidth * 0.5f), (pos.y + _heightOffset) - (_camera.pixelHeight / 2));
+                    targetImage.rectTransform.localPosition = new Vector2(pos.x - (camera.pixelWidth * 0.5f), (pos.y + _heightOffset) - (camera.pixelHeight / 2));
                 }
-                else if(_camera.rect.x == 0.5)
+                else if(camera.rect.x == 0.5)
                 {
-                    targetImage.rectTransform.localPosition = new Vector2(pos.x - (_camera.pixelWidth * 1.5f), (pos.y + _heightOffset) - (_camera.pixelHeight / 2));
+                    targetImage.rectTransform.localPosition = new Vector2(pos.x - (camera.pixelWidth * 1.5f), (pos.y + _heightOffset) - (camera.pixelHeight / 2));
                 }
 
                 // Scale Image based on Distance

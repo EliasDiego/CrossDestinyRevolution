@@ -26,6 +26,8 @@ namespace CDR.UISystem
         public ICooldownActionUI specialAttack3AttackUI => specialAttack3;
         public bool isShown => _isShown;
 
+        public new Camera camera { get; set; }
+
         public void Hide()
         {
             
@@ -40,8 +42,10 @@ namespace CDR.UISystem
         {
             healthUI.SetValueRange(mech.health);
             boostUI.SetValueRange(mech.boost.boostValue);
+
+            targetHandlerUI.camera = camera;
             
-            _targetHandlerUI.SetTarget(mech.targetHandler.GetCurrentTarget());
+            // _targetHandlerUI.SetTarget(mech.targetHandler.GetCurrentTarget());
 
             if(mech.specialAttack1!= null)
                 specialAttack1AttackUI.SetCooldownAction(mech.specialAttack1);
@@ -50,7 +54,7 @@ namespace CDR.UISystem
             if(mech.specialAttack3 != null)
                 specialAttack3AttackUI.SetCooldownAction(mech.specialAttack3);
             
-            mech.targetHandler.onSwitchTarget += _targetHandlerUI.SetTarget;
+            mech.targetHandler.onSwitchTarget += targetHandlerUI.SetTarget;
         }
 
         private void Update()
