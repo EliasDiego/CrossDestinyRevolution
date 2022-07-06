@@ -55,6 +55,7 @@ namespace CDR.MovementSystem
             else
             {
                 Character.animator.SetInteger("MoveType", (int)MoveType.VerticalBoost);
+                Character.animator.SetFloat("MoveX", 0f);
                 Character.animator.SetFloat("MoveY", direction.normalized.y);
             }
 

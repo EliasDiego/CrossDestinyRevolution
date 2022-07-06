@@ -120,7 +120,7 @@ namespace CDR.MovementSystem
 
             if (direction.magnitude == 0f)
             {
-                Character.animator.SetInteger("MoveType", (int)MoveType.None);
+                //Character.animator.SetInteger("MoveType", (int)MoveType.None);
                 currentDir = Vector3.zero;
             }
         }
