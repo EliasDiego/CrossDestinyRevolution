@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CDR.AnimationSystem;
+using CDR.VFXSystem;
 
 namespace CDR.AttackSystem
 {
@@ -18,6 +19,8 @@ namespace CDR.AttackSystem
         AnimationEventsManager _Manager;
 
         [SerializeField] SFXAnimationEvent[] sfxAnimationEvents;
+
+        [SerializeField] TyrantCrossRevolutionVFXHandler tyrantCrossRevolutionVFXHandler;
 
         protected override void Awake()
         {
@@ -54,6 +57,8 @@ namespace CDR.AttackSystem
             base.ForceEnd();
 
             Character.animator.SetInteger("ActionType", (int)ActionType.None);
+
+            tyrantCrossRevolutionVFXHandler.Deactivate();
 
             StopAllCoroutines();
         }
@@ -101,6 +106,8 @@ namespace CDR.AttackSystem
 
                 firstPhaseLeftBullets.SetActive(true);
             }
+
+            tyrantCrossRevolutionVFXHandler.Activate();
 
             yield return new WaitUntil(() => CheckBulletPosition(FirstPhaseBullets));
 

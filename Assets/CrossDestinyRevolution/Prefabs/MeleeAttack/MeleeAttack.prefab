@@ -49,6 +49,9 @@ MonoBehaviour:
   _hitBox: {fileID: 0}
   _speed: 3
   _meleeDamage: 10
+  _distanceToTarget: 1
+  _meleeVfx: {fileID: 0}
+  _boostVfx: []
   _animHandler: {fileID: 0}
   _meleeAttackCoolDown: 5
   _meleeAttackDuration: 2

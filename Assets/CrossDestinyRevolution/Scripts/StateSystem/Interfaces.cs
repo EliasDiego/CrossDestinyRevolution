@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -24,5 +25,11 @@ namespace CDR.StateSystem
     public interface IKnockback : IStun
     {
         float distance { get; } 
+    }
+
+    public interface IStateHandler
+    {
+        IState currentState { get; set; }
+        event Action<IState> onStateChange;
     }
 }

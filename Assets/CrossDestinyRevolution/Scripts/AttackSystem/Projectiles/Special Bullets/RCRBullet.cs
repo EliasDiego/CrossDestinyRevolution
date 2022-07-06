@@ -8,44 +8,40 @@ namespace CDR.AttackSystem
     {
         [Header("Unique properties")]
         [SerializeField]
-        private GameObject pivot;
+        private GameObject pivot, beam;
         [SerializeField]
-        private GameObject beam;
-        [SerializeField]
-        private float maxLength;
-        [SerializeField]
-        private float timeToScale;
-        [SerializeField]
-        private float rotationSpeed;
+        private Transform start, end;
 
-        private Vector3 beamPos;
-        private bool enableRotation = false;
-        private float targetY;
+        public GameObject Pivot => pivot;
+        public GameObject Beam => beam;
+
         private bool isHit = false;
         private MechSystem.Health hpToDamage;
 
         private void Awake()
         {
-            HitBox.onHitEnter += OnHitEnter;
+            HitBox.onHitEnter += OnHitEvent;
             HitBox.onHitExit += OnHitExit;
-
-            beamPos = beam.transform.localPosition;
         }
 
         private void OnDestroy()
         {       
-            HitBox.onHitEnter -= OnHitEnter;            
+            HitBox.onHitEnter -= OnHitEvent;            
             HitBox.onHitExit -= OnHitExit;
+        }
+
+        public override void OnEnable()
+        {
+            return;
         }
 
         public override void Update()
         {
             base.Update();
-            Rotate();
             HitPlayer();
         }
 
-        private void OnHitEnter(IHitData data)
+        private void OnHitEvent(IHitData data)
         {
             if(!isHit)
             {
@@ -68,8 +64,6 @@ namespace CDR.AttackSystem
             transform.position = pos;
             pivot.transform.localScale = Vector3.one;
             beam.transform.localScale = Vector3.zero;
-            gameObject.SetActive(true);
-            ScaleWithTime();
         }
 
         private void HitPlayer()
@@ -83,36 +77,9 @@ namespace CDR.AttackSystem
         public override void ResetObject()
         {
             base.ResetObject();
-            enableRotation = false;
-        }
-
-        private void ScaleWithTime()
-        {
-            targetY = transform.localEulerAngles.y - 180f;
-
-            LeanTween.scale(beam, Vector3.one, 0.45f)
-            .setOnComplete(()=>
-            {
-                LeanTween.scaleZ(pivot, maxLength, timeToScale)
-                .setOnComplete(() =>
-                {
-                    enableRotation = true;
-                });
-            });
-        }
-
-        private void Rotate()
-        {
-            if (enableRotation)
-            {
-                transform.RotateAround(transform.position, transform.up, -rotationSpeed * Time.deltaTime);
-                AddRbForce(new Vector3(0f, 0f, 0.001f), ForceMode.Acceleration);
-            }
-            if (Mathf.Floor(targetY - transform.localEulerAngles.y) == 0f)
-            {
-                gameObject.SetActive(false);
-                ResetObject();
-            }
+            gameObject.SetActive(false);
+            hpToDamage = null;
+            isHit = false;
         }
     }
 }

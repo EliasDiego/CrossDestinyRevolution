@@ -7,6 +7,7 @@ using CDR.StateSystem;
 using CDR.MechSystem;
 using CDR.ObjectPoolingSystem;
 using CDR.AnimationSystem;
+using CDR.VFXSystem;
 
 namespace CDR.AttackSystem
 {
@@ -14,7 +15,6 @@ namespace CDR.AttackSystem
     {
         [SerializeField] HurtSphere _hurtSphere;
         [SerializeField] SphereCollider _sphereCollider;
-        [SerializeField] MeshRenderer _sphereRenderer;
         [SerializeField] float _radius;
 
         // Animation Handler
@@ -51,8 +51,8 @@ namespace CDR.AttackSystem
             base.Use();
 
             _sphereCollider.enabled = true;
-            _sphereRenderer.enabled = true;
             _animHandler.PlayShieldAnim();
+            _animHandler.ActivateShield();
             _hurtSphere.onHitEnter += HitEnter;
 
             Character.input.DisableInput();
@@ -65,8 +65,10 @@ namespace CDR.AttackSystem
             base.End();
 
             _sphereCollider.enabled = false;
-            _sphereRenderer.enabled = false;
+
             _animHandler.EndShieldAnim();
+            _animHandler.ResumeAnimation();
+            _animHandler.DeactivateShield();
             _hurtSphere.onHitEnter -= HitEnter;
 
             Character.input.EnableInput();
@@ -78,6 +80,8 @@ namespace CDR.AttackSystem
             base.ForceEnd();
 
             _sphereCollider.enabled = false;
+            _animHandler.EndShieldAnim();
+            _animHandler.DeactivateShield();
             _hurtSphere.onHitEnter -= HitEnter;
         }
 

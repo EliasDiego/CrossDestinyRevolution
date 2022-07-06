@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CDR.AnimationSystem;
+using CDR.VFXSystem;
+
 namespace CDR.AttackSystem
 {
     public class NightmareStalker : SpecialAttack
@@ -14,11 +16,11 @@ namespace CDR.AttackSystem
 
         [SerializeField] float AfterDistanceCheckInterval; // Interval between despawning bullet trail
 
-        [SerializeField] CDR.AnimationSystem.AnimationEvent _animationEvent;
-
 		AnimationEventsManager _Manager;
 
         [SerializeField] SFXAnimationEvent[] sfxAnimationEvents;
+
+        [SerializeField] NightmareStalkerVFXHandler nightmareStalkerVFXHandler;
 
         protected override void Awake()
         {
@@ -59,6 +61,8 @@ namespace CDR.AttackSystem
 
             Character.animator.SetInteger("ActionType", (int)ActionType.None);
 
+            nightmareStalkerVFXHandler.Deactivate();
+
             StopAllCoroutines();
         }
 
@@ -70,6 +74,8 @@ namespace CDR.AttackSystem
 		IEnumerator NSSequence()
 		{
             //1ST PHASE
+
+            Debug.Log("Nightmare Stalker Started");
 
             var target = Character.targetHandler.GetCurrentTarget();
 
@@ -85,16 +91,13 @@ namespace CDR.AttackSystem
             firstBullet.GetComponent<HomingBullet>().originPoint = bulletSpawnPoint[0].transform.position;
 			firstBullet.SetActive(true);
 
+            nightmareStalkerVFXHandler.Activate();
+
             yield return new WaitForSecondsRealtime(checkDistanceInterval);
 
             StartCoroutine(CheckDistanceSpawn(firstBullet, bulletTrailSpawn));
 
             yield return new WaitWhile(() => !firstBullet.GetComponent<HomingBullet>().CheckDistanceFromTarget());
-
-            /*while (!firstBullet.GetComponent<HomingBullet>().CheckDistanceFromTarget())
-			{
-                yield return null;
-            }*/
 
             yield return new WaitForSecondsRealtime(AfterDistanceCheckInterval);
 
@@ -102,9 +105,6 @@ namespace CDR.AttackSystem
             firstBullet.GetComponent<HomingBullet>().Return();
 
             yield return new WaitUntil(() => !firstBullet.activeInHierarchy);
-
-            
-
             //2nd PHASE
             
             var bulletTrailBullets = new List<GameObject>();
@@ -151,7 +151,7 @@ namespace CDR.AttackSystem
                 yield return new WaitForSecondsRealtime(bulletTrailSpawnInterval);
             }*/
 
-            yield return new WaitUntil(() => CheckIfAllActive(bulletTrailBullets));
+            //yield return new WaitUntil(() => CheckIfAllActive(bulletTrailBullets));
 
             //3rd Phase
 

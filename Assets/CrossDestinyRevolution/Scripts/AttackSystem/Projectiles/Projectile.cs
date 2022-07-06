@@ -5,6 +5,7 @@ using UnityEngine;
 using CDR.MovementSystem;
 using CDR.ObjectPoolingSystem;
 using CDR.MechSystem;
+using CDR.VFXSystem;
 
 
 namespace CDR.AttackSystem
@@ -13,6 +14,8 @@ namespace CDR.AttackSystem
 	{
 		IPool _pool;
 
+		[SerializeField] protected ObjectPooling ProjectileHitVFX;
+
 		[SerializeField] public HitBox projectileHitBox;
 
 		public float projectileDamage;
@@ -20,6 +23,7 @@ namespace CDR.AttackSystem
 		public bool hasLifeTime = true;
 		public float projectileLifetime;
 		public float projectileMaxLifetime;
+
 
 		IProjectileController projectileController;
 		public IActiveCharacter target { get; set; }
@@ -37,6 +41,11 @@ namespace CDR.AttackSystem
 		{
 			projectileController = GetComponent<ProjectileController>();
 			projectileLifetime = projectileMaxLifetime;
+
+			if (ProjectileHitVFX != null)
+			{
+				ProjectileHitVFX.Initialize();
+			}
 		}
 
 		public virtual void OnEnable()
@@ -64,7 +73,10 @@ namespace CDR.AttackSystem
 				{
 					ResetObject();
 
-					//projectileHitBox.onHitEnter -= OnHitEnter;
+					if (projectileHitBox != null)
+					{
+						projectileHitBox.onHitEnter -= OnHitEnter;
+					}
 
 					Return();
 				}
@@ -79,6 +91,19 @@ namespace CDR.AttackSystem
 
 		protected virtual void OnHitEnter(IHitData hitData) //Hitbox Response
 		{
+			if (ProjectileHitVFX != null)
+			{
+				var projectileHitVFX = ProjectileHitVFX.GetPoolable();
+
+				projectileHitVFX.transform.position = transform.position;
+
+				projectileHitVFX.SetActive(true);
+
+				projectileHitVFX.transform.position = transform.position;
+
+				projectileHitVFX.GetComponent<HitGunVFXPoolable>().PlayVFX();
+			}
+
 			hitData.hurtShape.character.health.TakeDamage(projectileDamage);
 
 			ResetObject();
