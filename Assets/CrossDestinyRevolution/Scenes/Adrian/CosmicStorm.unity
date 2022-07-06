@@ -245,6 +245,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 852551265084442547, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
   m_PrefabInstance: {fileID: 719160275}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &786992865 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8028309934427116829, guid: 73465d63fd461734fa7caa8610d1c717, type: 3}
+  m_PrefabInstance: {fileID: 1473709154}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1316445841
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,7 +616,7 @@ PrefabInstance:
     - target: {fileID: 3007737515874209334, guid: eed773af46d63704ba188eaa6b869149, type: 3}
       propertyPath: _TestObject
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 786992865}
     - target: {fileID: 3007737515874209335, guid: eed773af46d63704ba188eaa6b869149, type: 3}
       propertyPath: m_Name
       value: Test Manager

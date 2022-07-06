@@ -42,10 +42,10 @@ namespace CDR.AttackSystem
 		{
 			SetVelocity(transform.forward * bulletSpeed);
 
-			if (isInSplitPoint)
-			{
-				towardsSplitPoint = transform.position;	
-			}
+			// (isInSplitPoint)
+			//{
+			//	towardsSplitPoint = transform.position;	
+			//}
 
 			if (!isInSplitPoint)
 			{
@@ -80,7 +80,7 @@ namespace CDR.AttackSystem
 		{
 			magnitude = (towardsSplitPoint - transform.position).magnitude;
 
-			if (magnitude < 2.5f)
+			if (magnitude < 1f)
 			{
 				transform.position = towardsSplitPoint;
 				return true;
