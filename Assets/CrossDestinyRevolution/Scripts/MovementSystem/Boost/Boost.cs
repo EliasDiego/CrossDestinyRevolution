@@ -48,7 +48,6 @@ namespace CDR.MovementSystem
 
             if(isHorizontal)
             {
-                Debug.Log(direction.normalized.x);
                 Character.animator.SetInteger("MoveType", (int)MoveType.HorizontalBoost);
                 Character.animator.SetFloat("MoveX", direction.normalized.x);
                 Character.animator.SetFloat("MoveY", direction.normalized.z);
