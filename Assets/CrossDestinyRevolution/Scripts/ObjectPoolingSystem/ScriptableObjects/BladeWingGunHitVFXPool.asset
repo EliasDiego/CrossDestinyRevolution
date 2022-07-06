@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BladeWingGunHitVFXPool
   m_EditorClassIdentifier: 
   itemToPool: {fileID: 343183564235998893, guid: 5e6c421849edc564e8f0cbf1112449c4, type: 3}
-  pooledObjects: []
-  amountToPool: 5
+  pooledObjects:
+  - {fileID: 0}
+  amountToPool: 1
   shouldExpand: 1
