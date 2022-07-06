@@ -140,7 +140,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3439496675066549363, guid: 47a8aeec8ceabda4799e8ecddc7198bf, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7616411143403275057, guid: 47a8aeec8ceabda4799e8ecddc7198bf, type: 3}
       propertyPath: m_IsActive
@@ -276,6 +276,10 @@ PrefabInstance:
       propertyPath: _flightPlane
       value: 
       objectReference: {fileID: 1578338854}
+    - target: {fileID: 1705852990301667716, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5405757172939556565, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
       propertyPath: m_IsActive
       value: 0

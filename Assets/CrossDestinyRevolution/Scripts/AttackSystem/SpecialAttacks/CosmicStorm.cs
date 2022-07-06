@@ -44,9 +44,12 @@ namespace CDR.AttackSystem
             var cluster = _pool[0].GetPoolable();
             if(cluster != null)
             {
-                cluster.GetComponent<CosmicBulletCluster>().Init(bulletSpawnPoint[0].transform.position, targetDir);
+                LeanTween.delayedCall(0.24f, () =>
+                {
+                    cluster.GetComponent<CosmicBulletCluster>().Init(bulletSpawnPoint[0].transform.position, targetDir);
+                    LeanTween.delayedCall(1f, () => End());
+                });
             }
-            End();
         }
     }
 }
