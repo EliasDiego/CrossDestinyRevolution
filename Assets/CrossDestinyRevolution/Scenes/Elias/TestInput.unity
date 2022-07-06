@@ -974,6 +974,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 728861740478238882, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
+      propertyPath: _hitVfxPool
+      value: 
+      objectReference: {fileID: 11400000, guid: 5f94e03f363064e4cb83a2e4d576fb21, type: 2}
+    - target: {fileID: 728861740478238882, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
+      propertyPath: _knockbackPool
+      value: 
+      objectReference: {fileID: 11400000, guid: eaf2c441e12af9a41b84951af90733ea, type: 2}
     - target: {fileID: 852551265084442547, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -1631,6 +1639,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Castle (Military Mech)
       objectReference: {fileID: 0}
+    - target: {fileID: 8279755034536247419, guid: 73465d63fd461734fa7caa8610d1c717, type: 3}
+      propertyPath: _flightPlane
+      value: 
+      objectReference: {fileID: 1780383792}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 73465d63fd461734fa7caa8610d1c717, type: 3}
 --- !u!1 &2123217049

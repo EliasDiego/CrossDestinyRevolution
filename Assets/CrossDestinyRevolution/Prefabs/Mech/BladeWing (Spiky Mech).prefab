@@ -468,9 +468,6 @@ MonoBehaviour:
   _activeCharacter: {fileID: 852551265084442558}
   _vfx: {fileID: 5452461925557217933}
   _manager: {fileID: 6422407994287298984}
-  _pauseEvent:
-    _TimeValue: 0.5
-    _IsNormalized: 1
   _vfxActivate:
     _TimeValue: 0.1
     _IsNormalized: 1
@@ -2298,9 +2295,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 196612576322701611}
     - target: {fileID: 6548558590547492289, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: _hitVfxPool
+      value: 
+      objectReference: {fileID: 11400000, guid: 5f94e03f363064e4cb83a2e4d576fb21, type: 2}
+    - target: {fileID: 6548558590547492289, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
       propertyPath: _animHandler
       value: 
       objectReference: {fileID: 5821526427618461947}
+    - target: {fileID: 6548558590547492289, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: _knockbackPool
+      value: 
+      objectReference: {fileID: 11400000, guid: eaf2c441e12af9a41b84951af90733ea, type: 2}
     - target: {fileID: 6548558590547492289, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
       propertyPath: activeCharacter
       value: 

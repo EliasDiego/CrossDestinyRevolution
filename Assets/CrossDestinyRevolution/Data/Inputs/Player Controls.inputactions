@@ -43,7 +43,7 @@
                 },
                 {
                     "name": "RangeAttack",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "286e3dfa-3277-45f0-86bb-9a8fe9416f4c",
                     "expectedControlType": "Button",
                     "processors": "",

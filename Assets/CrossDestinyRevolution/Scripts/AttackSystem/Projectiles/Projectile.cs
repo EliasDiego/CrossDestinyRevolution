@@ -13,6 +13,8 @@ namespace CDR.AttackSystem
 	{
 		IPool _pool;
 
+		[SerializeField] ObjectPooling ProjectileHitVFXPool;
+
 		[SerializeField] public HitBox projectileHitBox;
 
 		public float projectileDamage;
@@ -20,6 +22,7 @@ namespace CDR.AttackSystem
 		public bool hasLifeTime = true;
 		public float projectileLifetime;
 		public float projectileMaxLifetime;
+
 
 		IProjectileController projectileController;
 		public IActiveCharacter target { get; set; }
