@@ -11,14 +11,12 @@ namespace CDR.AnimationSystem
     {
         [SerializeField] ActiveCharacter _activeCharacter;
         [SerializeField] ShieldVFXHandler _vfx;
+        [SerializeField] float _shieldDelay;
         [SerializeField] AnimationEventsManager _manager;
-        [SerializeField] AnimationEvent _vfxActivate;
         [SerializeField] SFXAnimationEvent[] _sfx;
 
         private void Awake()
         {
-            _vfxActivate.onEventTime += ActivateShield;
-            _manager.AddAnimationEvent("Shield", _vfxActivate);
             _manager.AddAnimationEvent("Shield", _sfx);
         }
 
@@ -49,12 +47,18 @@ namespace CDR.AnimationSystem
         // Activate/Deactivate Shield
         public void ActivateShield()
         {
-            _vfx.Activate();
+            StartCoroutine(ShieldUp(_shieldDelay));
         }
 
         public void DeactivateShield()
         {
             _vfx.Deactivate();
+        }
+
+        IEnumerator ShieldUp(float delay)
+        {
+            yield return new WaitForSeconds(delay);
+            _vfx.Activate();
         }
     }
 }

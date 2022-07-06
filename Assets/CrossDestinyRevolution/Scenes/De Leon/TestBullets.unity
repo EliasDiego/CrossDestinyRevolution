@@ -2937,6 +2937,22 @@ PrefabInstance:
       propertyPath: _pool
       value: 
       objectReference: {fileID: 11400000, guid: fd6335d6b35e4f94a84f7d7d0eee1bed, type: 2}
+    - target: {fileID: 3166481685183693198, guid: 73465d63fd461734fa7caa8610d1c717, type: 3}
+      propertyPath: secondsBeforeSplit
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3166481685183693198, guid: 73465d63fd461734fa7caa8610d1c717, type: 3}
+      propertyPath: SpecialAbilityCooldown
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3166481685183693198, guid: 73465d63fd461734fa7caa8610d1c717, type: 3}
+      propertyPath: distanceFromFirstSplit
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3166481685183693198, guid: 73465d63fd461734fa7caa8610d1c717, type: 3}
+      propertyPath: distanceFromSecondSplit
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8028309934427116821, guid: 73465d63fd461734fa7caa8610d1c717, type: 3}
       propertyPath: m_RootOrder
       value: 6

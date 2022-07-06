@@ -783,6 +783,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 749927426}
     - target: {fileID: 5887842173946641475, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
+      propertyPath: _shieldDelay
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5887842173946641475, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
       propertyPath: _pauseEvent._TimeValue
       value: 0.1
       objectReference: {fileID: 0}
@@ -1591,6 +1595,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1454006180044828653, guid: 73465d63fd461734fa7caa8610d1c717, type: 3}
+      propertyPath: _shieldDelay
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 7972488884963213828, guid: 73465d63fd461734fa7caa8610d1c717, type: 3}
       propertyPath: _hitVfxPool
       value: 

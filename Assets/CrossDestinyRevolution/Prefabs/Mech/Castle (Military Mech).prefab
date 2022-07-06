@@ -1625,10 +1625,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activeCharacter: {fileID: 8028309934427116824}
   _vfx: {fileID: 6971417771879498889}
+  _shieldDelay: 0.2
   _manager: {fileID: 5483858858193808130}
-  _vfxActivate:
-    _TimeValue: 0.1
-    _IsNormalized: 1
   _sfx: []
 --- !u!1001 &8614331714448304157
 PrefabInstance:

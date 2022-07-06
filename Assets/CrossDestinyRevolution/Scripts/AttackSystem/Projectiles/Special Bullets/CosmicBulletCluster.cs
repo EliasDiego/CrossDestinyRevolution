@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CDR.ObjectPoolingSystem;
+using CDR.VFXSystem;
 
 namespace CDR.AttackSystem
 {
@@ -105,6 +106,14 @@ namespace CDR.AttackSystem
 
         private void OnHitEvent(IHitData data)
         {
+            if (ProjectileHitVFX != null)
+            {
+                var projectileHitVFX = ProjectileHitVFX.GetPoolable();
+                projectileHitVFX.transform.position = data.hitShape.collider.transform.position;
+                projectileHitVFX.SetActive(true);
+                projectileHitVFX.GetComponent<HitGunVFXPoolable>().PlayVFX();
+            }
+
             data.hitShape.collider.gameObject.SetActive(false);
             data.hurtShape.character.health.TakeDamage(projectileDamage);
             if (ActiveProjectiles() == 0)
@@ -112,7 +121,7 @@ namespace CDR.AttackSystem
                 ResetObject();
             }
         }
-       
+      
         private int ActiveProjectiles()
         {
             var count = 4;
