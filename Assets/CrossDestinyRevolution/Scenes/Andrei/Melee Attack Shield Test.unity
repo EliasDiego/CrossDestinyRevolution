@@ -1591,6 +1591,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7972488884963213828, guid: 73465d63fd461734fa7caa8610d1c717, type: 3}
+      propertyPath: _hitVfxPool
+      value: 
+      objectReference: {fileID: 11400000, guid: 7eeb6545d33c91645b194526f1e42649, type: 2}
+    - target: {fileID: 7972488884963213828, guid: 73465d63fd461734fa7caa8610d1c717, type: 3}
+      propertyPath: _knockbackPool
+      value: 
+      objectReference: {fileID: 11400000, guid: eaf2c441e12af9a41b84951af90733ea, type: 2}
     - target: {fileID: 8028309934427116821, guid: 73465d63fd461734fa7caa8610d1c717, type: 3}
       propertyPath: m_RootOrder
       value: 8
