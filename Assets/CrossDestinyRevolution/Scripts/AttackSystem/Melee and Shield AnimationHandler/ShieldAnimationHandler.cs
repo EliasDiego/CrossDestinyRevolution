@@ -12,15 +12,12 @@ namespace CDR.AnimationSystem
         [SerializeField] ActiveCharacter _activeCharacter;
         [SerializeField] ShieldVFXHandler _vfx;
         [SerializeField] AnimationEventsManager _manager;
-        [SerializeField] AnimationEvent _pauseEvent;
         [SerializeField] AnimationEvent _vfxActivate;
         [SerializeField] SFXAnimationEvent[] _sfx;
 
         private void Awake()
         {
-            _pauseEvent.onEventTime += PauseAnimation;
             _vfxActivate.onEventTime += ActivateShield;
-            _manager.AddAnimationEvent("Shield", _pauseEvent);
             _manager.AddAnimationEvent("Shield", _vfxActivate);
             _manager.AddAnimationEvent("Shield", _sfx);
         }

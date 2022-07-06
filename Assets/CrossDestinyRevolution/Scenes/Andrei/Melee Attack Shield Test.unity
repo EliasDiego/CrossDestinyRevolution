@@ -671,6 +671,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 941614525}
     - target: {fileID: 728861740478238882, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
+      propertyPath: _hitVfxPool
+      value: 
+      objectReference: {fileID: 11400000, guid: 5f94e03f363064e4cb83a2e4d576fb21, type: 2}
+    - target: {fileID: 728861740478238882, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
+      propertyPath: _knockbackPool
+      value: 
+      objectReference: {fileID: 11400000, guid: eaf2c441e12af9a41b84951af90733ea, type: 2}
+    - target: {fileID: 728861740478238882, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
       propertyPath: _distanceToTarget
       value: 5
       objectReference: {fileID: 0}
@@ -773,7 +781,7 @@ PrefabInstance:
     - target: {fileID: 5887842173946641475, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
       propertyPath: _vfx
       value: 
-      objectReference: {fileID: 2069487273}
+      objectReference: {fileID: 0}
     - target: {fileID: 5887842173946641475, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
       propertyPath: _pauseEvent._TimeValue
       value: 0.1
@@ -3758,17 +3766,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2067253758}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &2069487273 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1386874666171485746, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
-  m_PrefabInstance: {fileID: 498861192}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a0d830bb1ccbe86448a6b4f04832b93e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2090737813
 GameObject:
   m_ObjectHideFlags: 0
