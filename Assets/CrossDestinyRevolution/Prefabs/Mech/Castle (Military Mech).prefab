@@ -632,9 +632,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5233252480386003988}
     - target: {fileID: 6548558590547492289, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: _hitVfxPool
+      value: 
+      objectReference: {fileID: 11400000, guid: 7eeb6545d33c91645b194526f1e42649, type: 2}
+    - target: {fileID: 6548558590547492289, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
       propertyPath: _animHandler
       value: 
       objectReference: {fileID: 2023446894356357187}
+    - target: {fileID: 6548558590547492289, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: _knockbackPool
+      value: 
+      objectReference: {fileID: 11400000, guid: eaf2c441e12af9a41b84951af90733ea, type: 2}
     - target: {fileID: 6548558590547492289, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
       propertyPath: activeCharacter
       value: 
