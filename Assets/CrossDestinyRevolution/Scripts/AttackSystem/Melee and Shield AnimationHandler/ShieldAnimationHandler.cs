@@ -3,23 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using CDR.MechSystem;
+using CDR.VFXSystem;
 
 namespace CDR.AnimationSystem
 {
     public class ShieldAnimationHandler : MonoBehaviour
     {
         [SerializeField] ActiveCharacter _activeCharacter;
+        [SerializeField] ShieldVFXHandler _vfx;
         [SerializeField] AnimationEventsManager _manager;
-        [SerializeField] AnimationEvent _animationEvent;
+        [SerializeField] AnimationEvent _vfxActivate;
         [SerializeField] SFXAnimationEvent[] _sfx;
 
         private void Awake()
         {
-            _animationEvent.onEventTime += PauseAnimation;
-            _manager.AddAnimationEvent("Shield", _animationEvent);
+            _vfxActivate.onEventTime += ActivateShield;
+            _manager.AddAnimationEvent("Shield", _vfxActivate);
             _manager.AddAnimationEvent("Shield", _sfx);
         }
 
+        // Change Action Type
         public void PlayShieldAnim()
         {
             _activeCharacter.animator.SetInteger("ActionType", (int)ActionType.Shield);
@@ -30,6 +33,7 @@ namespace CDR.AnimationSystem
             _activeCharacter.animator.SetInteger("ActionType", (int)ActionType.None);
         }
 
+        // Pause/Resume Animation
         public void PauseAnimation()
         {
             Debug.Log("shield pause");
@@ -40,6 +44,17 @@ namespace CDR.AnimationSystem
         {
             Debug.Log("shield resume");
             _activeCharacter.animator.SetFloat("ActionSMultiplier", 1);
+        }
+
+        // Activate/Deactivate Shield
+        public void ActivateShield()
+        {
+            _vfx.Activate();
+        }
+
+        public void DeactivateShield()
+        {
+            _vfx.Deactivate();
         }
     }
 }

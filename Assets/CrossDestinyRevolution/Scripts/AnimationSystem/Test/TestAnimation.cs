@@ -20,13 +20,12 @@ namespace CDR.AnimationSystem
 
             _AnimationEvent.onEventTime += OnEventTime;
             
-            manager.AddAnimationEvent("MAttack", _AnimationEvent);
+            manager.AddAnimationEvent("SAttack2", _AnimationEvent);
         }
 
         void OnEventTime()
         {
-            Debug.Log("Blah");
-            _Animator.SetFloat("MAttackSMultiplier", 0);
+            
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -10,14 +11,10 @@ namespace CDR.VFXSystem
         [SerializeField]
         private AnimationCurve _FadeCurve;
         [SerializeField]
-        private AnimationCurve _SizeCurve;
-        [SerializeField]
-        private float _Size;
-        [SerializeField]
         private float _Time;
 
         private float _SizeCurveOffset;
-        private Material _Material;
+        private Material[] _Materials;
 
         private Coroutine _Coroutine;
 
@@ -29,18 +26,16 @@ namespace CDR.VFXSystem
         {
             MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
 
-            _Material = meshRenderer.material;
-                
-            _Material.SetFloat("_FadeValue", 0);
+            _Materials = GetComponentsInChildren<MeshRenderer>().Select(m => m.material).ToArray();
 
-            _SizeCurveOffset = 1 - _SizeCurve.GetArea(0.001f);
+            foreach(Material m in _Materials)
+                m.SetFloat("_FadeValue", 0);
         }
 
         private void EaseEvent(float easeValue)
         {
-            transform.localScale = Vector3.one * (_SizeCurve.Evaluate(easeValue) + _SizeCurveOffset) * _Size;
-                
-            _Material.SetFloat("_FadeValue", _FadeCurve.Evaluate(easeValue));
+            foreach(Material m in _Materials)
+                m.SetFloat("_FadeValue", _FadeCurve.Evaluate(easeValue));
         }
 
         public void Activate()

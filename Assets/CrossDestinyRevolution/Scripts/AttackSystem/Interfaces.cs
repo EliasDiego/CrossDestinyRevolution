@@ -12,7 +12,7 @@ using CDR.ObjectPoolingSystem;
 
 namespace CDR.AttackSystem
 {
-    public interface IRangeAttack : ICooldownAction
+    public interface IRangeAttack : IAction
     {
         float range { get; }
     }
