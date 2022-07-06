@@ -39,8 +39,6 @@ namespace CDR.VersusSystem
             mech.health.ModifyValue(_Mech.health.MaxValue);
             mech.boost?.boostValue.ModifyValue(_Mech.boost.boostValue.MaxValue);
 
-            mech.input?.DisableInput();
-
             if(CheckBoolean(mech.targetHandler?.isActive))
                 mech.targetHandler?.End();
 
@@ -75,6 +73,11 @@ namespace CDR.VersusSystem
             mech.input?.EnableInput();
             mech.targetHandler?.Use();
             mech.movement?.Use();
+        }
+
+        public virtual void Stop()
+        {
+            mech.input?.DisableInput();
         }
     }
 }

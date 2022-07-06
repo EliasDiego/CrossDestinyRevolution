@@ -4,10 +4,11 @@ using UnityEngine;
 using CDR.ActionSystem;
 using CDR.ObjectPoolingSystem;
 using CDR.AnimationSystem;
+using CDR.VFXSystem;
 
 namespace CDR.AttackSystem
 {
-	public class RangeAttack : CooldownAction , IRangeAttack
+	public class RangeAttack : Action , IRangeAttack
 	{
 		[SerializeField] ObjectPooling _pool;
 
@@ -15,17 +16,26 @@ namespace CDR.AttackSystem
 		[SerializeField] GameObject GunPoint;
 		[SerializeField] float attackRange;
 
+		[SerializeField] RangeAttackVFXHandler rangeAttackVFXHandler;
+
 		public float range => attackRange;
 
 		[SerializeField] CDR.AnimationSystem.AnimationEvent _animationEvent;
 
 		AnimationEventsManager _Manager;
+		[SerializeField] SFXAnimationEvent[] sfxAnimationEvents;
+
+		bool isShootingRangeAttack = false;
 
 		void Start()
 		{
-			//var a = new CDR.AnimationSystem.AnimationEvent(0.1f, true, null, null, null);
+			_Manager = Character.animator.GetComponent<AnimationEventsManager>();
 
-			//_Manager.AddAnimationEvent("RangeAttack", a);
+			var a = new CDR.AnimationSystem.AnimationEvent(0.29f, true, () => StartCoroutine(ShootHomingBullet()));
+			var b = new CDR.AnimationSystem.AnimationEvent(1f, true, () => End());
+
+			_Manager.AddAnimationEvent("RAttack", a,b);
+			_Manager.AddAnimationEvent("RAttack", sfxAnimationEvents);
 		}
 
 		protected override void Awake()
@@ -34,43 +44,52 @@ namespace CDR.AttackSystem
 				_pool.Initialize();
 		}
 
-		public override void Update()
-		{
-			base.Update();
-			_cooldownDuration = FireRate;
-		}
-
 		public override void Use()
 		{
 			base.Use();
 
-			GetBulletFromObjectPool();
+			isShootingRangeAttack = true;
 
-			End();
+			Character.animator.SetInteger("ActionType", (int)ActionType.RangeAttack);
 		}
 
-		void GetBulletFromObjectPool()
+		IEnumerator ShootHomingBullet()
 		{
-			var target = Character.targetHandler.GetCurrentTarget();
-			
-			var bullet = _pool.GetPoolable();
+			while(isShootingRangeAttack)
+			{
+				yield return new WaitForSeconds(FireRate);
 
-			bullet.GetComponent<HomingBullet>().target = target.activeCharacter;
-			bullet.GetComponent<HomingBullet>().playerAttackRange = attackRange;
-			bullet.GetComponent<HomingBullet>().transform.position = GunPoint.transform.position;
-			bullet.GetComponent<HomingBullet>().originPoint = GunPoint.transform.position;
+				var target = Character.targetHandler.GetCurrentTarget();
+				var bullet = _pool.GetPoolable();
 
-			bullet.SetActive(true);
+				bullet.GetComponent<HomingBullet>().target = target.activeCharacter;
+				bullet.GetComponent<HomingBullet>().playerAttackRange = attackRange;
+				bullet.GetComponent<HomingBullet>().transform.position = GunPoint.transform.position;
+				bullet.GetComponent<HomingBullet>().originPoint = GunPoint.transform.position;
+				bullet.SetActive(true);
+
+				rangeAttackVFXHandler.Activate();
+			}
 		}
 
 		public override void End()
 		{
 			base.End();
+
+			Character.animator.SetInteger("ActionType", (int)ActionType.None);
+
+			isShootingRangeAttack = false;
+			StopCoroutine(ShootHomingBullet());
 		}
 
 		public override void ForceEnd()
 		{
 			base.ForceEnd();
+
+			Character.animator.SetInteger("ActionType", (int)ActionType.None);
+
+			isShootingRangeAttack = false;
+			StopCoroutine(ShootHomingBullet());
 
 			_pool.ReturnAll();
 		}

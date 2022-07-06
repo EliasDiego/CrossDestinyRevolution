@@ -2,6 +2,7 @@ using CDR.MechSystem;
 using System;
 using UnityEngine;
 using CDR.TargetingSystem;
+using CDR.AnimationSystem;
 
 // This class handles movement of a controller through a rigidbody.
 
@@ -17,6 +18,8 @@ namespace CDR.MovementSystem
         private float _gravity;
         [SerializeField]
         private bool clampSpeed = false;
+        [SerializeField]
+        private SFXAnimationEvent[] sfx;
 
         private Vector3 currentDir = Vector3.zero;
         private ITargetData currentTarget;
@@ -28,8 +31,15 @@ namespace CDR.MovementSystem
         protected override void Awake()
         {
             base.Awake();
-            var a = new AnimationSystem.AnimationEvent(0.1f, true, null, null, null);
-            Character.animator.GetComponent<AnimationSystem.AnimationEventsManager>().AddAnimationEvent("Move", a);
+            Character.animator.GetComponent<AnimationEventsManager>().AddAnimationEvent("Move");
+            Character.animator.GetComponent<AnimationEventsManager>().AddAnimationEvent("Move", sfx);
+
+        }
+
+        private void Start()
+        {
+            Character.controller.flightPlane.AddCharacterController((CharacterController)Character.controller);
+            
         }
 
         private void Update()
@@ -98,9 +108,7 @@ namespace CDR.MovementSystem
         {
             var dir = new Vector3(direction.x, 0f, direction.y);
             currentDir = dir;
-
-            Character.animator.SetBool("IsMove", true);
-
+          
             LeanTween.value(Character.animator.GetFloat("MoveX"), direction.x, leanTime).setOnUpdate((float f) =>
             {
                 Character.animator.SetFloat("MoveX", f);
@@ -112,7 +120,7 @@ namespace CDR.MovementSystem
 
             if (direction.magnitude == 0f)
             {
-                Character.animator.SetBool("IsMove", false);
+                //Character.animator.SetInteger("MoveType", (int)MoveType.None);
                 currentDir = Vector3.zero;
             }
         }
@@ -122,11 +130,13 @@ namespace CDR.MovementSystem
             base.Use();
             currentTarget = Character.targetHandler.GetCurrentTarget();
             distanceToTarget = Vector3.Distance(Character.position, currentTarget.activeCharacter.position);
+            Character.animator.SetInteger("MoveType", (int)MoveType.Movement);
         }
 
         public override void End()
         {
             base.End();
+            Character.animator.SetInteger("MoveType", (int)MoveType.None);
         }
 
         public override void ForceEnd()
@@ -136,7 +146,7 @@ namespace CDR.MovementSystem
             Character.controller.SetVelocity(Vector3.zero);
             Character.animator.SetFloat("MoveX", 0f);
             Character.animator.SetFloat("MoveY", 0f);
-            Character.animator.SetBool("IsMove", false);
+            Character.animator.SetInteger("MoveType", (int)MoveType.None);
         }
 
         public void SetSpeedClamp(bool isClamped)

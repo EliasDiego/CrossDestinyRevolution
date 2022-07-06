@@ -6,6 +6,7 @@ using CDR.StateSystem;
 using CDR.MechSystem;
 using CDR.ObjectPoolingSystem;
 using CDR.AnimationSystem;
+using CDR.VFXSystem;
 
 namespace CDR.AttackSystem
 {
@@ -14,6 +15,12 @@ namespace CDR.AttackSystem
 		[SerializeField] HitBox _hitBox;
 		[SerializeField] float _speed;
 		[SerializeField] float _meleeDamage;
+		[SerializeField] float _distanceToTarget;
+
+		// VFX
+		[SerializeField] MeleeAttackVFXHandler _meleeVfx;
+		[SerializeField] BoostVFXHandler[] _boostVfx;
+		MeleeHitVFXPoolable _meleeHitVFX;
 
 		// Animation Handler
 		[SerializeField] MeleeAttackAnimationHandler _animHandler;
@@ -21,12 +28,9 @@ namespace CDR.AttackSystem
 		// Cooldown
 		[SerializeField] float _meleeAttackCoolDown;
 
-		// Timer
-		[SerializeField] float _meleeAttackDuration;
-		[SerializeField] float _timer;
-
 		// Object Pool
-		[SerializeField] ObjectPooling _pool;
+		[SerializeField] ObjectPooling _knockbackPool;
+		[SerializeField] ObjectPooling _hitVfxPool;
 
 		// State
 		IMech sender;
@@ -41,14 +45,16 @@ namespace CDR.AttackSystem
 		{
 			base.Awake();
 
-			if(_pool != null)
-				_pool.Initialize();
+			if(_knockbackPool != null)
+				_knockbackPool.Initialize();
+
+			if(_hitVfxPool != null)
+				_hitVfxPool.Initialize();
 		}
 
 		private void Start()
 		{
 			_cooldownDuration = _meleeAttackCoolDown;
-			_timer = _meleeAttackDuration;
 		}
 
 		public override void Use()
@@ -56,11 +62,19 @@ namespace CDR.AttackSystem
 			base.Use();
 			
 			isHoming = true;
+
+			_meleeVfx.Activate();
+
+			for(int i =0; i < _boostVfx.Length; i++)
+			{
+				_boostVfx[i].Activate();
+			}
+
 			_animHandler.PlayAttackAnim();
-			//_hitBox.enabled = true;
 			_hitBox.onHitEnter += HitEnter;
 
 			Character.input.DisableInput();
+			Character.input.EnableInput("MeleeAttack");
 			Character.movement.End();
 			//Character.shield.End();
 		}
@@ -69,8 +83,15 @@ namespace CDR.AttackSystem
 		{
 			base.End();
 
-			_timer = _meleeAttackDuration;
-			//_hitBox.enabled = false;
+			isHoming = false;
+			_animHandler.EndAttackAnim();
+			_meleeVfx.Deactivate();
+
+			for(int i =0; i < _boostVfx.Length; i++)
+			{
+				_boostVfx[i].Deactivate();
+			}
+
 			_hitBox.onHitEnter -= HitEnter;
 
 			Character.input.EnableInput();
@@ -82,25 +103,41 @@ namespace CDR.AttackSystem
 		{
 			base.ForceEnd();
 
+			isHoming = false;
+			_animHandler.EndAttackAnim();
+			_meleeVfx.Deactivate();
+
+			for(int i =0; i < _boostVfx.Length; i++)
+			{
+				_boostVfx[i].Deactivate();
+			}
+
 			_hitBox.onHitEnter -= HitEnter;
 		}
 
-		void HitEnter(IHitEnterData hitData)
+		void HitEnter(IHitData hitData)
 		{
-			isHoming = false;
-			_animHandler.EndAttackAnim();
-			Character.controller.SetVelocity(Vector3.zero);
 			Debug.LogWarning("Hit!!! " + hitData.hurtShape.character);
+			Character.controller.SetVelocity(Vector3.zero);
 
-		
 			sender = (IMech)Character;
 			receiver = (IMech)hitData.hurtShape.character;
 
+			GameObject hitVfx = _hitVfxPool.GetPoolable();
+			hitVfx.transform.SetParent(this.transform);
+			hitVfx.transform.position = ((ActiveCharacter)receiver).transform.position;
+			hitVfx.SetActive(true);
+
+			_meleeHitVFX = hitVfx.GetComponent<MeleeHitVFXPoolable>();
+			_meleeHitVFX.PlayVfx();
+			_meleeHitVFX.transform.SetParent((receiver as ActiveCharacter).transform);
+
+			// Enemy only takes damage/changes state if not using shield
 			if(!receiver.shield.isActive)
 			{
 				receiver.health.TakeDamage(_meleeDamage);
 
-				GameObject kb = _pool.GetPoolable();
+				GameObject kb = _knockbackPool.GetPoolable();
 				kb.transform.SetParent(((ActiveCharacter)receiver).transform);
 				kb.SetActive(true);
 
@@ -119,7 +156,7 @@ namespace CDR.AttackSystem
 
 			if(isHoming)
 			{
-				CheckAttackTimer();
+				CheckDistanceToTarget();
 			}
 		}
 
@@ -136,18 +173,19 @@ namespace CDR.AttackSystem
 			}
 		}
 
-		void CheckAttackTimer()
-		{
-			_timer -= Time.deltaTime;
 
-			if(_timer < 0)
+		void CheckDistanceToTarget()
+		{
+			float distance = Vector3.Distance(Character.position, Character.targetHandler.GetCurrentTarget().activeCharacter.position);
+
+			if(distance <= _distanceToTarget)
 			{
+				Debug.Log("distance reached");
 				isHoming = false;
-				_animHandler.EndAttackAnim();
-				Character.controller.SetVelocity(Vector3.zero);
-				End();
+				_hitBox.enabled = true;
+				_animHandler.ResumeAnimation();
+				_meleeVfx.Deactivate();
 			}
 		}
 	}
 }
-

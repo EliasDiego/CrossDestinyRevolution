@@ -21,6 +21,7 @@ namespace CDR.VersusSystem
         IMech mech { get; }
 
         void Start();
+        void Stop();
         void Reset();
     }
 

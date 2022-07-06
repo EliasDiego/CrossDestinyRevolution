@@ -13,13 +13,16 @@ namespace CDR.AttackSystem
 	{
 		IPool _pool;
 
+		[SerializeField] ObjectPooling ProjectileHitVFXPool;
+
 		[SerializeField] public HitBox projectileHitBox;
 
 		public float projectileDamage;
 
 		public bool hasLifeTime = true;
-		protected float projectileLifetime;
+		public float projectileLifetime;
 		public float projectileMaxLifetime;
+
 
 		IProjectileController projectileController;
 		public IActiveCharacter target { get; set; }
@@ -64,7 +67,10 @@ namespace CDR.AttackSystem
 				{
 					ResetObject();
 
-					projectileHitBox.onHitEnter -= OnHitEnter;
+					if (projectileHitBox != null)
+					{
+						projectileHitBox.onHitEnter -= OnHitEnter;
+					}
 
 					Return();
 				}
@@ -77,7 +83,7 @@ namespace CDR.AttackSystem
 			return projectileLifetime <= 0f;
 		}
 
-		protected virtual void OnHitEnter(IHitEnterData hitData) //Hitbox Response
+		protected virtual void OnHitEnter(IHitData hitData) //Hitbox Response
 		{
 			hitData.hurtShape.character.health.TakeDamage(projectileDamage);
 

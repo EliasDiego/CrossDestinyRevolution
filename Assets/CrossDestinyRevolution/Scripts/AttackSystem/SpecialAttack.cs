@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using CDR.ActionSystem;
 using CDR.ObjectPoolingSystem;
+using CDR.MechSystem;
+using CDR.AnimationSystem;
 
 namespace CDR.AttackSystem
 {
@@ -14,9 +16,12 @@ namespace CDR.AttackSystem
 
 		[SerializeField] float SpecialAbilityCooldown;
 
+
+
 		void Start()
 		{
 			_cooldownDuration = SpecialAbilityCooldown;
+
 		}
 
 		public override void Update()
@@ -28,11 +33,26 @@ namespace CDR.AttackSystem
 		public override void Use()
 		{
 			base.Use();
+
+			Character.animator.SetFloat("ActionSMultiplier", 1);
+
+			IMech mech = (IMech)Character;
+
+			mech.movement?.ForceEnd();
+			mech.rangeAttack?.ForceEnd();
+			//mech.shield?.ForceEnd();
+			//mech.meleeAttack?.ForceEnd();
+			mech.boost?.ForceEnd();
+
+			mech.input?.DisableInput();
 		}
 
 		public override void End()
 		{
 			base.End();
+
+			Character.input?.EnableInput();
+			Character.movement?.Use();
 		}
 
 		public override void ForceEnd()

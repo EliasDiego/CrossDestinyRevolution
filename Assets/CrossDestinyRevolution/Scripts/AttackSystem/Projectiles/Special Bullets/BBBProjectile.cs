@@ -70,7 +70,7 @@ namespace CDR.AttackSystem
 			}
 		}
 
-		protected override void OnHitEnter(IHitEnterData hitData)
+		protected override void OnHitEnter(IHitData hitData)
 		{
 			base.OnHitEnter(hitData);
 		}
