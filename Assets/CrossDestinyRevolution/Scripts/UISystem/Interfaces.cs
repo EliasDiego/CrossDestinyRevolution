@@ -39,7 +39,6 @@ namespace CDR.UISystem
         IValueRangeUI healthUI { get; }
         IValueRangeUI boostUI { get; }
         ITargetHandlerUI targetHandlerUI { get; }
-        ITargetHandlerUI targetHealthHandlerUI { get; }
         ICooldownActionUI specialAttack1AttackUI { get; }
         ICooldownActionUI specialAttack2AttackUI { get; }
         ICooldownActionUI specialAttack3AttackUI { get; }

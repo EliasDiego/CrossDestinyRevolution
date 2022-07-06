@@ -9,10 +9,14 @@ namespace CDR.UISystem
 {
     public class TargetHandlerUI : MonoBehaviour, ITargetHandlerUI
     {
-        [SerializeField] Camera _camera;
+        [SerializeField] Canvas _canvas;
         [SerializeField] Image targetImage;
         [SerializeField] float _heightOffset = 250f;
         [SerializeField] float minScale, maxScale;
+
+        [SerializeField] Image targetHealthUI;
+
+        Camera _camera;
 
         ITargetData currentTarget;
 
@@ -33,7 +37,16 @@ namespace CDR.UISystem
 
         public void SetTarget(ITargetData targetData)
         {
+            _camera = _canvas.worldCamera;
+
+            Debug.Log(_camera);
+
+            if(currentTarget != null)
+                currentTarget.activeCharacter.health.OnModifyValue -= ChangeTargetHealthImage;
+
             currentTarget = targetData;
+
+            currentTarget.activeCharacter.health.OnModifyValue += ChangeTargetHealthImage;
         }
 
         private void LateUpdate()
@@ -57,6 +70,11 @@ namespace CDR.UISystem
                 targetImage.rectTransform.localScale = new Vector2(Mathf.Clamp((distance / 10), minScale, maxScale), 
                     Mathf.Clamp((distance / 10), minScale, maxScale));
             }
+        }
+
+        void ChangeTargetHealthImage(IValueRange valueRange)
+        {
+            targetHealthUI.fillAmount = valueRange.CurrentValue / valueRange.MaxValue;
         }
     }
 }

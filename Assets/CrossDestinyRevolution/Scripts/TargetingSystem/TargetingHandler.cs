@@ -14,8 +14,6 @@ namespace CDR.TargetingSystem
         ActiveCharacter currentTarget;
         public event System.Action<ITargetData> onSwitchTarget;
 
-        [SerializeField] Image targetHealthUI;
-
         private void Start() 
         {
 
@@ -65,16 +63,6 @@ namespace CDR.TargetingSystem
             currentTarget = nextTarget;
 
             Debug.Log("Change Target" + nextTarget.name);
-        }
-
-        private void Update()
-        {
-            ChangeTargetHealthImage(GetCurrentTarget().activeCharacter.health);
-        }
-
-        void ChangeTargetHealthImage(IValueRange valueRange)
-        {
-            targetHealthUI.fillAmount = valueRange.CurrentValue / valueRange.MaxValue;
         }
     }
 }
