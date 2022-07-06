@@ -51,6 +51,8 @@ MonoBehaviour:
   - {fileID: 2111228784368867426}
   SpecialAbilityCooldown: 5
   secondsBeforeSplit: 2
-  distanceFromFirstSplit: 6
-  distanceFromSecondSplit: 4
+  distanceFromFirstSplit: 3
+  distanceFromSecondSplit: 1.5
   amountOfSplitBullet: 4
+  sfxAnimationEvents: []
+  bigBangBarrageVFXHandler: {fileID: 0}

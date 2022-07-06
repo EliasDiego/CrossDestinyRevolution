@@ -14,7 +14,7 @@ namespace CDR.AttackSystem
 	{
 		IPool _pool;
 
-		[SerializeField] ObjectPooling ProjectileHitVFX;
+		[SerializeField] protected ObjectPooling ProjectileHitVFX;
 
 		[SerializeField] public HitBox projectileHitBox;
 
@@ -94,8 +94,13 @@ namespace CDR.AttackSystem
 			if (ProjectileHitVFX != null)
 			{
 				var projectileHitVFX = ProjectileHitVFX.GetPoolable();
+
 				projectileHitVFX.transform.position = transform.position;
+
 				projectileHitVFX.SetActive(true);
+
+				projectileHitVFX.transform.position = transform.position;
+
 				projectileHitVFX.GetComponent<HitGunVFXPoolable>().PlayVFX();
 			}
 
