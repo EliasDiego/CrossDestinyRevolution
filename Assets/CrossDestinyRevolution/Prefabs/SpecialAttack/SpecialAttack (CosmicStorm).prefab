@@ -47,4 +47,6 @@ MonoBehaviour:
   _pool:
   - {fileID: 11400000, guid: e636c39deb4d59a43ab7036122534c4b, type: 2}
   bulletSpawnPoint: []
-  SpecialAbilityCooldown: 0
+  SpecialAbilityCooldown: 2
+  sfx: []
+  vfxHandler: {fileID: 0}
