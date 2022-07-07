@@ -38,7 +38,7 @@ namespace CDR.AttackSystem
         public override void Update()
         {
             base.Update();
-            HitPlayer();
+            //HitPlayer();
         }
 
         private void OnHitEvent(IHitData data)
@@ -46,7 +46,9 @@ namespace CDR.AttackSystem
             if(!isHit)
             {
                 isHit = true;
-                hpToDamage = (MechSystem.Health)data.hurtShape.character.health;
+                var enemyHp = (MechSystem.Health)data.hurtShape.character.health;
+                enemyHp.TakeDamage(enemyHp.MaxValue * 0.3f);
+                //hpToDamage = (MechSystem.Health)data.hurtShape.character.health;
             }
         }
 

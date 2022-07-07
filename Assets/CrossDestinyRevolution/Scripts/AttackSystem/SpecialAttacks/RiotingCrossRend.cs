@@ -32,16 +32,8 @@ namespace CDR.AttackSystem
             if (_pool[0] != null)
                 _pool[0].Initialize();
 
-            var a = new AnimationSystem.AnimationEvent(1f, true, AA);
-
-            Character.animator.GetComponent<AnimationEventsManager>().AddAnimationEvent("SAttack2", a);
             Character.animator.GetComponent<AnimationEventsManager>().AddAnimationEvent("SAttack2", sfx);
             laserVFX.length = 1f;
-        }
-
-        void AA()
-        {
-            Debug.Log("AA");
         }
 
         public override void Use()
