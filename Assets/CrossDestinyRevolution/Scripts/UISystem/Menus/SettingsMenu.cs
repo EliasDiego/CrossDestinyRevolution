@@ -1,18 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
-public class SettingsMenu : MonoBehaviour
-{
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+using CDR.InputSystem;
 
-    // Update is called once per frame
-    void Update()
+namespace CDR.UISystem
+{
+    public class SettingsMenu : Menu, IMenuCancelHandler
     {
-        
+        public void OnCancel()
+        {
+            Back();
+        }
     }
 }
