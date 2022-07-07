@@ -2384,6 +2384,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 196612576322701611}
     - target: {fileID: 6548558590547492289, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: _onHitSfx
+      value: 
+      objectReference: {fileID: 11400000, guid: db955e69ccc067e4caefb5acb2167eb0, type: 2}
+    - target: {fileID: 6548558590547492289, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: _onUseSfx
+      value: 
+      objectReference: {fileID: 11400000, guid: 5b7e9b2b10b513c488e04ce22ea54cf3, type: 2}
+    - target: {fileID: 6548558590547492289, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
       propertyPath: _hitVfxPool
       value: 
       objectReference: {fileID: 11400000, guid: 5f94e03f363064e4cb83a2e4d576fb21, type: 2}
