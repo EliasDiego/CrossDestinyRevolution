@@ -32,16 +32,8 @@ namespace CDR.AttackSystem
             if (_pool[0] != null)
                 _pool[0].Initialize();
 
-            var a = new AnimationSystem.AnimationEvent(1f, true, AA);
-
-            Character.animator.GetComponent<AnimationEventsManager>().AddAnimationEvent("SAttack2", a);
             Character.animator.GetComponent<AnimationEventsManager>().AddAnimationEvent("SAttack2", sfx);
             laserVFX.length = 1f;
-        }
-
-        void AA()
-        {
-            Debug.Log("AA");
         }
 
         public override void Use()
@@ -64,9 +56,14 @@ namespace CDR.AttackSystem
         public override void ForceEnd()
         {
             base.ForceEnd();          
+            Character.animator.SetInteger("ActionType", (int)ActionType.None);
+        }
+
+        public override void UltimaEnd()
+        {
+            base.UltimaEnd();
             laserVFX.Deactivate();
             muzzleVFX.Deactivate();
-            Character.animator.SetInteger("ActionType", (int)ActionType.None);
         }
 
         private void Fire()
