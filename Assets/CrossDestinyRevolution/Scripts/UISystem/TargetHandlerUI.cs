@@ -10,6 +10,7 @@ namespace CDR.UISystem
     public class TargetHandlerUI : MonoBehaviour, ITargetHandlerUI
     {
         [SerializeField] Image targetImage;
+        [SerializeField] RectTransform rectTransform;
         [SerializeField] float _heightOffset = 250f;
         [SerializeField] float minScale, maxScale;
 
@@ -54,15 +55,15 @@ namespace CDR.UISystem
                 // Check Camera Rect
                 if(camera.rect.x == 0)
                 {
-                    targetImage.rectTransform.localPosition = new Vector2(pos.x - (camera.pixelWidth * 0.5f), (pos.y + _heightOffset) - (camera.pixelHeight / 2));
+                    rectTransform.localPosition = new Vector2(pos.x - (camera.pixelWidth * 0.5f), (pos.y + _heightOffset) - (camera.pixelHeight / 2));
                 }
                 else if(camera.rect.x == 0.5)
                 {
-                    targetImage.rectTransform.localPosition = new Vector2(pos.x - (camera.pixelWidth * 1.5f), (pos.y + _heightOffset) - (camera.pixelHeight / 2));
+                    rectTransform.localPosition = new Vector2(pos.x - (camera.pixelWidth * 1.5f), (pos.y + _heightOffset) - (camera.pixelHeight / 2));
                 }
 
                 // Scale Image based on Distance
-                targetImage.rectTransform.localScale = new Vector2(Mathf.Clamp((distance / 10), minScale, maxScale), 
+                rectTransform.localScale = new Vector2(Mathf.Clamp((distance / 10), minScale, maxScale), 
                     Mathf.Clamp((distance / 10), minScale, maxScale));
             }
         }
