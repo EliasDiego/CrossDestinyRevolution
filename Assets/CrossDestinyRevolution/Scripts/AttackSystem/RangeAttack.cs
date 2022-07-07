@@ -22,18 +22,13 @@ namespace CDR.AttackSystem
 
 		public float range => attackRange;
 
-		[SerializeField] CDR.AnimationSystem.AnimationEvent _animationEvent;
-
 		AnimationEventsManager _Manager;
-		[SerializeField] SFXAnimationEvent[] sfxAnimationEvents;
 
 		[SerializeField] AudioClipPreset audioClipPreset;
 
 		bool isShootingRangeAttack = false;
 
 		Coroutine _coroutine;
-
-		
 
 		void Start()
 		{
