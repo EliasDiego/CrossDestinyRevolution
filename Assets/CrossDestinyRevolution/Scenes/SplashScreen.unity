@@ -583,7 +583,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 11400000, guid: f5384e6046073054f92b1c074ece52dc, type: 2}
         m_TargetAssemblyTypeName: CDR.SceneManagementSystem.SceneLoader, Assembly-CSharp
-        m_MethodName: LoadScene
+        m_MethodName: LoadSceneAsync
         m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
