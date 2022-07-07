@@ -48,6 +48,5 @@ MonoBehaviour:
   FireRate: 0.2
   GunPoint: {fileID: 104275379936504733}
   attackRange: 50
-  _animationEvent:
-    _TimeValue: 0
-    _IsNormalized: 0
+  rangeAttackVFXHandler: {fileID: 0}
+  audioClipPreset: {fileID: 11400000, guid: bc3fc2d3b3832514dab79aa95d0121c0, type: 2}
