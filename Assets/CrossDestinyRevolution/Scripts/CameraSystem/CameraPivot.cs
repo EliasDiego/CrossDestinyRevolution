@@ -54,12 +54,13 @@ namespace CDR.CameraSystem
         {
             var diffY = YDiffToTarget();
             var difference = Mathf.Floor(diffY);
-            var interpolation = Mathf.Abs(diffY) / 20f;
+            var interpolation = Mathf.Abs(diffY) / 50f;
 
             // Character is below target
             if (difference < -1f)
-            {                   
+            {     
                 currentY = Mathf.Lerp(defaultY, 0f, interpolation);
+                currentZ = defaultZ;
             }
             // Character is above target
             else if (difference > 1f)

@@ -82,6 +82,7 @@ namespace CDR.AttackSystem
 
 			Character.input.DisableInputExcept("MeleeAttack");
 			Character.movement.End();
+			(Character as Mech).rangeAttack.End();
 			//Character.shield.End();
 		}
 

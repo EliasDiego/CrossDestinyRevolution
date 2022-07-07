@@ -77,7 +77,7 @@ MonoBehaviour:
   activeCharacter: {fileID: 0}
   _pool: []
   bulletSpawnPoint: []
-  SpecialAbilityCooldown: 0
+  SpecialAbilityCooldown: 2
   sfx: []
   laserVFX: {fileID: 0}
   muzzleVFX: {fileID: 0}
@@ -85,3 +85,4 @@ MonoBehaviour:
   rotTime: 5
   maxLength: 30
   scaleTime: 1
+  animationTimeScale: 0.15

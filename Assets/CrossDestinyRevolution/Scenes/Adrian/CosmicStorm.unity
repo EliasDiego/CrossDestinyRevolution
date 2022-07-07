@@ -190,6 +190,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1064248418828744190, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
+      propertyPath: enableGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1610334659628405469, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}
       propertyPath: _flightPlane
       value: 
@@ -267,7 +271,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1316445842
 Transform:
   m_ObjectHideFlags: 0
@@ -315,6 +319,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7672567849715591000, guid: 73465d63fd461734fa7caa8610d1c717, type: 3}
+      propertyPath: enableGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8028309934427116821, guid: 73465d63fd461734fa7caa8610d1c717, type: 3}
       propertyPath: m_RootOrder
       value: 6
