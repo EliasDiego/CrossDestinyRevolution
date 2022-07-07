@@ -11,8 +11,8 @@ namespace CDR.ActionSystem
         bool isActive { get; }
         void Use();
         void End();
-
         void ForceEnd();
+        void UltimaEnd();
 
         event System.Action onUse;
         event System.Action onEnd;
