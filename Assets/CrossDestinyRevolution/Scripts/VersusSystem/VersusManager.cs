@@ -75,8 +75,6 @@ namespace CDR.VersusSystem
 
         private IEnumerator EndRoundSequence()
         {
-            yield return null;
-
             foreach(IParticipant p in _Participants)
                 p.Stop();
 
@@ -178,7 +176,10 @@ namespace CDR.VersusSystem
             _VersusUI.resultsMenu.returnToMainMenuEvent -= ExitVersus;
             
             foreach(IParticipant p in _Participants)
+            {
                 p.score = 0;
+                p.Reset();
+            }
 
             _CurrentRound = 0;
 
