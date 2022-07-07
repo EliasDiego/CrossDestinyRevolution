@@ -1411,6 +1411,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8028309934427116821}
     m_Modifications:
+    - target: {fileID: 140093037427550056, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
+      propertyPath: enableGravity
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1831913344042762315, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
       propertyPath: rb
       value: 
@@ -1433,7 +1437,7 @@ PrefabInstance:
       objectReference: {fileID: 8028309934427116824}
     - target: {fileID: 6489849201931218856, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
       propertyPath: _boostValue.maxValue
-      value: 100
+      value: 9999
       objectReference: {fileID: 0}
     - target: {fileID: 6489849201931218856, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
       propertyPath: _boostValue.regenRate
@@ -1445,7 +1449,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6489849201931218856, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
       propertyPath: _boostValue.currentValue
-      value: 100
+      value: 9999
       objectReference: {fileID: 0}
     - target: {fileID: 6489849201931218856, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
       propertyPath: vfxHandler.Array.data[0]
