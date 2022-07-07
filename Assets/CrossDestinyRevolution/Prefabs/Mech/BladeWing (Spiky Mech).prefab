@@ -154,8 +154,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 4966420952128526731}
   _health:
-    currentValue: 100
-    maxValue: 100
+    currentValue: 300
+    maxValue: 300
   _hurtShape:
   - {fileID: 8687338158661225238}
   - {fileID: 1165976704503313098}
@@ -301,13 +301,29 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 852551265084442558}
     - target: {fileID: 3697473259059643659, guid: b982cabe50657124ab0338a0791f7313, type: 3}
+      propertyPath: bulletTrailDeSpawnInterval
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697473259059643659, guid: b982cabe50657124ab0338a0791f7313, type: 3}
       propertyPath: nightmareStalkerVFXHandler
       value: 
       objectReference: {fileID: 2627651055189709557}
     - target: {fileID: 3697473259059643659, guid: b982cabe50657124ab0338a0791f7313, type: 3}
+      propertyPath: sfxAnimationEvents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3697473259059643659, guid: b982cabe50657124ab0338a0791f7313, type: 3}
       propertyPath: bulletSpawnPoint.Array.data[0]
       value: 
       objectReference: {fileID: 8451079477922243173}
+    - target: {fileID: 3697473259059643659, guid: b982cabe50657124ab0338a0791f7313, type: 3}
+      propertyPath: sfxAnimationEvents.Array.data[0]._ClipPreset
+      value: 
+      objectReference: {fileID: 11400000, guid: 3f45fb9299491cd4dbc9ee32f1929cb7, type: 2}
+    - target: {fileID: 3697473259059643659, guid: b982cabe50657124ab0338a0791f7313, type: 3}
+      propertyPath: sfxAnimationEvents.Array.data[0]._IsNormalized
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b982cabe50657124ab0338a0791f7313, type: 3}
 --- !u!114 &3861806049209190018 stripped
@@ -794,12 +810,16 @@ PrefabInstance:
       objectReference: {fileID: 1524792194515366172}
     - target: {fileID: 1022151575901924852, guid: 4da7ad14123db1444bceecd09199741d, type: 3}
       propertyPath: maxLength
-      value: 10
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 1022151575901924852, guid: 4da7ad14123db1444bceecd09199741d, type: 3}
       propertyPath: muzzleVFX
       value: 
       objectReference: {fileID: 5846610458905910208}
+    - target: {fileID: 1022151575901924852, guid: 4da7ad14123db1444bceecd09199741d, type: 3}
+      propertyPath: scaleTime
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1022151575901924852, guid: 4da7ad14123db1444bceecd09199741d, type: 3}
       propertyPath: sfx.Array.size
       value: 2
@@ -2243,6 +2263,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 852551265084442558}
     - target: {fileID: 908903558953591605, guid: a14d3b2633d550e4b94f1e0c6d2ce61c, type: 3}
+      propertyPath: audioClipPreset
+      value: 
+      objectReference: {fileID: 11400000, guid: bc3fc2d3b3832514dab79aa95d0121c0, type: 2}
+    - target: {fileID: 908903558953591605, guid: a14d3b2633d550e4b94f1e0c6d2ce61c, type: 3}
       propertyPath: rangeAttackVFXHandler
       value: 
       objectReference: {fileID: 848193443011866845}
@@ -2399,6 +2423,10 @@ PrefabInstance:
       propertyPath: _animHandler
       value: 
       objectReference: {fileID: 5821526427618461947}
+    - target: {fileID: 6548558590547492289, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: _meleeDamage
+      value: 75
+      objectReference: {fileID: 0}
     - target: {fileID: 6548558590547492289, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
       propertyPath: _knockbackPool
       value: 
@@ -2684,7 +2712,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4867262133350005881, guid: cf8cb9b7f4b882247bfb1454514ba8eb, type: 3}
       propertyPath: _Length
-      value: 1
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 4867262133350005882, guid: cf8cb9b7f4b882247bfb1454514ba8eb, type: 3}
       propertyPath: m_Name

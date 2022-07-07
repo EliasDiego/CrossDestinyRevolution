@@ -114,6 +114,10 @@ namespace CDR.AttackSystem
                 projectileHitVFX.GetComponent<HitGunVFXPoolable>().PlayVFX();
             }
 
+            var audioClip = audioClipPool.GetPoolable();
+            audioClip.SetActive(true);
+            audioClip.GetComponent<AudioSourcePoolable>().PlayAudio(audioClipPreset);
+
             data.hitShape.collider.gameObject.SetActive(false);
             data.hurtShape.character.health.TakeDamage(projectileDamage);
             if (ActiveProjectiles() == 0)
