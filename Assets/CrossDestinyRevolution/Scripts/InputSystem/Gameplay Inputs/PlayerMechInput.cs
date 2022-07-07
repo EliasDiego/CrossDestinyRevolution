@@ -49,7 +49,7 @@ namespace CDR.InputSystem
 
         private void OnShield(InputAction.CallbackContext context)
         {
-            if(!CheckBoolean(character?.shield?.isActive))
+            if(context.control.IsPressed())
             {
                 character?.shield?.Use();
 
@@ -72,12 +72,6 @@ namespace CDR.InputSystem
 
             else
                 character?.rangeAttack?.End();
-
-            // if(CheckBoolean(character?.rangeAttack?.isActive))
-            //     character?.rangeAttack.End();
-
-            // else
-            //     character?.rangeAttack?.Use();
                 
             Debug.Log($"[Range Attack Input] Used Range Attack!");
         }
@@ -86,20 +80,17 @@ namespace CDR.InputSystem
         {
             if(CheckBoolean(character?.meleeAttack?.isCoolingDown))
                 return;
-
+                
             if(context.control.IsPressed())
-                character?.meleeAttack?.Use();
+            {
+                if(!CheckBoolean(character?.meleeAttack?.isActive))
+                    character?.meleeAttack?.Use();
+            }
 
-            else
+            else if(CheckBoolean(character?.meleeAttack?.isActive))
                 character?.meleeAttack?.End();
 
-            // if(CheckBoolean(character?.meleeAttack?.isActive))
-            //     character?.meleeAttack?.End();
-
-            // else
-            //     character?.meleeAttack?.Use();
-
-            Debug.Log($"[Melee Attack Input] Used Melee Attack!");
+            Debug.Log($"[Melee Attack Input] Used Start Melee Attack!");
         }
 
         private void OnBoostDown(InputAction.CallbackContext context)

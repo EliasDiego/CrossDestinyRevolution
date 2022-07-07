@@ -15,7 +15,5 @@ MonoBehaviour:
   itemToPool: {fileID: 343183564235998893, guid: 5e6c421849edc564e8f0cbf1112449c4, type: 3}
   pooledObjects:
   - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   amountToPool: 1
   shouldExpand: 1

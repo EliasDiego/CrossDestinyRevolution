@@ -468,11 +468,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activeCharacter: {fileID: 852551265084442558}
   _vfx: {fileID: 5452461925557217933}
+  _shieldDelay: 0.2
   _manager: {fileID: 6422407994287298984}
-  _vfxActivate:
-    _TimeValue: 0.1
+  _sfx:
+  - _TimeValue: 0
     _IsNormalized: 1
-  _sfx: []
+    _ClipPreset: {fileID: 11400000, guid: 000008024281c0f4fb501b913273c440, type: 2}
 --- !u!1001 &1095867486778233494
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -491,6 +492,10 @@ PrefabInstance:
     - target: {fileID: 6489849201931218852, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
       propertyPath: m_Name
       value: Movement
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489849201931218856, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
+      propertyPath: sfx.Array.size
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6489849201931218856, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
       propertyPath: activeCharacter
@@ -520,6 +525,14 @@ PrefabInstance:
       propertyPath: vfxHandler.Array.data[1]
       value: 
       objectReference: {fileID: 3161273990879497115}
+    - target: {fileID: 6489849201931218856, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
+      propertyPath: sfx.Array.data[0]._ClipPreset
+      value: 
+      objectReference: {fileID: 11400000, guid: 5b7e9b2b10b513c488e04ce22ea54cf3, type: 2}
+    - target: {fileID: 6489849201931218856, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
+      propertyPath: sfx.Array.data[0]._IsNormalized
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6489849201931218857, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -788,6 +801,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5846610458905910208}
     - target: {fileID: 1022151575901924852, guid: 4da7ad14123db1444bceecd09199741d, type: 3}
+      propertyPath: sfx.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1022151575901924852, guid: 4da7ad14123db1444bceecd09199741d, type: 3}
       propertyPath: activeCharacter
       value: 
       objectReference: {fileID: 852551265084442558}
@@ -803,6 +820,26 @@ PrefabInstance:
       propertyPath: _pool.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: 08ba4916aaa0fc4468f08d647f50b9a2, type: 2}
+    - target: {fileID: 1022151575901924852, guid: 4da7ad14123db1444bceecd09199741d, type: 3}
+      propertyPath: sfx.Array.data[1]._TimeValue
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1022151575901924852, guid: 4da7ad14123db1444bceecd09199741d, type: 3}
+      propertyPath: sfx.Array.data[0]._ClipPreset
+      value: 
+      objectReference: {fileID: 11400000, guid: 153253a4bcd1ca8459cfc0e635e2a954, type: 2}
+    - target: {fileID: 1022151575901924852, guid: 4da7ad14123db1444bceecd09199741d, type: 3}
+      propertyPath: sfx.Array.data[1]._ClipPreset
+      value: 
+      objectReference: {fileID: 11400000, guid: 258e9ba2db9464e4490410da0630c488, type: 2}
+    - target: {fileID: 1022151575901924852, guid: 4da7ad14123db1444bceecd09199741d, type: 3}
+      propertyPath: sfx.Array.data[0]._IsNormalized
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1022151575901924852, guid: 4da7ad14123db1444bceecd09199741d, type: 3}
+      propertyPath: sfx.Array.data[1]._IsNormalized
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4da7ad14123db1444bceecd09199741d, type: 3}
 --- !u!114 &1379877882461385459 stripped
@@ -2209,6 +2246,18 @@ PrefabInstance:
       propertyPath: rangeAttackVFXHandler
       value: 
       objectReference: {fileID: 848193443011866845}
+    - target: {fileID: 908903558953591605, guid: a14d3b2633d550e4b94f1e0c6d2ce61c, type: 3}
+      propertyPath: sfxAnimationEvents.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 908903558953591605, guid: a14d3b2633d550e4b94f1e0c6d2ce61c, type: 3}
+      propertyPath: sfxAnimationEvents.Array.data[0]._ClipPreset
+      value: 
+      objectReference: {fileID: 11400000, guid: bc3fc2d3b3832514dab79aa95d0121c0, type: 2}
+    - target: {fileID: 908903558953591605, guid: a14d3b2633d550e4b94f1e0c6d2ce61c, type: 3}
+      propertyPath: sfxAnimationEvents.Array.data[0]._IsNormalized
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2535057715589452168, guid: a14d3b2633d550e4b94f1e0c6d2ce61c, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -2334,6 +2383,14 @@ PrefabInstance:
       propertyPath: _meleeVfx
       value: 
       objectReference: {fileID: 196612576322701611}
+    - target: {fileID: 6548558590547492289, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: _onHitSfx
+      value: 
+      objectReference: {fileID: 11400000, guid: db955e69ccc067e4caefb5acb2167eb0, type: 2}
+    - target: {fileID: 6548558590547492289, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: _onUseSfx
+      value: 
+      objectReference: {fileID: 11400000, guid: 5b7e9b2b10b513c488e04ce22ea54cf3, type: 2}
     - target: {fileID: 6548558590547492289, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
       propertyPath: _hitVfxPool
       value: 
@@ -2462,7 +2519,10 @@ MonoBehaviour:
   _pauseEvent:
     _TimeValue: 0.52
     _IsNormalized: 1
-  _sfx: []
+  _sfx:
+  - _TimeValue: 0.2
+    _IsNormalized: 1
+    _ClipPreset: {fileID: 11400000, guid: db955e69ccc067e4caefb5acb2167eb0, type: 2}
 --- !u!1001 &6153149686570620895
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2870,6 +2930,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 852551265084442558}
     - target: {fileID: 8580773993442605795, guid: 58ae2558cfa70054db9eb652c295458f, type: 3}
+      propertyPath: sfxAnimationEvents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8580773993442605795, guid: 58ae2558cfa70054db9eb652c295458f, type: 3}
       propertyPath: bulletSpawnPoint.Array.data[0]
       value: 
       objectReference: {fileID: 8451079477922243173}
@@ -2877,6 +2941,14 @@ PrefabInstance:
       propertyPath: tyrantCrossRevolutionVFXHandler
       value: 
       objectReference: {fileID: 3176408795512520503}
+    - target: {fileID: 8580773993442605795, guid: 58ae2558cfa70054db9eb652c295458f, type: 3}
+      propertyPath: sfxAnimationEvents.Array.data[0]._ClipPreset
+      value: 
+      objectReference: {fileID: 11400000, guid: 0391842cbaed018499d87e6348bb7028, type: 2}
+    - target: {fileID: 8580773993442605795, guid: 58ae2558cfa70054db9eb652c295458f, type: 3}
+      propertyPath: sfxAnimationEvents.Array.data[0]._IsNormalized
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58ae2558cfa70054db9eb652c295458f, type: 3}
 --- !u!4 &7758073463588795747 stripped

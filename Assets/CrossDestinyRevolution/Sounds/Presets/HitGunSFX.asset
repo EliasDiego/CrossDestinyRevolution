@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14f07829ab45ca345a564fd1a93faacb, type: 3}
+  m_Name: HitGunSFX
+  m_EditorClassIdentifier: 
+  _AudioClip: {fileID: 0}
+  _OutputAudioMixerGroup: {fileID: 0}
+  _Priority: 128
+  _Volume: 1
+  _Pitch: 1
+  _IsRandomPitch: 0
+  _MinPitch: 1
+  _MaxPitch: 1
