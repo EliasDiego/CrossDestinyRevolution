@@ -45,12 +45,6 @@ namespace CDR.AttackSystem
             transform.Translate(flightDir * Time.deltaTime * flightSpeed);
         }
 
-        private void FixedUpdate()
-        {
-            AddRbForce(Vector3.forward);
-            ClampVelocity(0.01f);
-        }
-
         public void Init(Vector3 spawnPos = default, Vector3 dir = default)
         {
             transform.position = spawnPos;
