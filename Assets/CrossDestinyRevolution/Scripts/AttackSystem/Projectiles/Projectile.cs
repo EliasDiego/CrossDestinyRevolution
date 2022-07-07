@@ -11,7 +11,6 @@ using CDR.AudioSystem;
 
 namespace CDR.AttackSystem
 {
-	[RequireComponent(typeof(AudioSource))]
 	public class Projectile : ProjectileController, IProjectile
 	{
 		IPool _pool;
@@ -20,7 +19,7 @@ namespace CDR.AttackSystem
 
 		[SerializeField] public HitBox projectileHitBox;
 
-		[SerializeField] AudioClipPreset audioClipPreset;
+		[SerializeField] protected ObjectPooling audioClipPool;
 
 		public float projectileDamage;
 
@@ -41,18 +40,19 @@ namespace CDR.AttackSystem
 
 		public IPool pool { get => _pool; set => _pool = value; }
 
-		protected AudioSource audioSource;
-
 		public virtual void Start()
 		{
 			projectileController = GetComponent<ProjectileController>();
 			projectileLifetime = projectileMaxLifetime;
 
-			audioSource = GetComponent<AudioSource>();
-
 			if (ProjectileHitVFX != null)
 			{
 				ProjectileHitVFX.Initialize();
+			}
+
+			if (audioClipPool != null)
+			{
+				audioClipPool.Initialize();
 			}
 		}
 
@@ -112,7 +112,9 @@ namespace CDR.AttackSystem
 				}
 			}
 
-			audioClipPreset.PlayOneShot(audioSource);
+			var audioClip = audioClipPool.GetPoolable();
+
+			audioClip.GetComponent<AudioSourcePoolable>().PlayAudio();
 
 			hitData.hurtShape.character.health.TakeDamage(projectileDamage);
 
