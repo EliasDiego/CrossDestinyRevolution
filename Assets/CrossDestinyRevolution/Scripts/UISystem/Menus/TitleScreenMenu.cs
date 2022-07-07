@@ -9,6 +9,8 @@ namespace CDR.UISystem
     public class TitleScreenMenu : Menu
     {
         [SerializeField]
+        GameObject _Environment;
+        [SerializeField]
         InputActionReference _StartActionReference;
         [SerializeField]
         MainMenu _MainMenu;
@@ -25,6 +27,8 @@ namespace CDR.UISystem
             _StartActionReference.action.Enable();
 
             _StartActionReference.action.started += OnStart;
+
+            _Environment.gameObject.SetActive(true);
         }
 
         public override void Hide()
@@ -34,6 +38,8 @@ namespace CDR.UISystem
             _StartActionReference.action.Disable();
 
             _StartActionReference.action.started -= OnStart;
+
+            _Environment.gameObject.SetActive(false);
         }
     }
 }
