@@ -26,12 +26,14 @@ namespace CDR.UISystem
         public void Hide()
         {
             targetImage.enabled = false;
+            targetHealthUI.enabled = false;
             _isShown = false;
         }
 
         public void Show()
         {
             targetImage.enabled = true;
+            targetHealthUI.enabled = true;
             _isShown = true;
         }
 
