@@ -14,6 +14,8 @@ namespace CDR.UISystem
     {
         [Header("Fade")]
         [SerializeField]
+        private float _Delay;
+        [SerializeField]
         private Gradient _FadeGradient;
         [SerializeField]
         private Image _Panel;
@@ -36,9 +38,19 @@ namespace CDR.UISystem
             _Panel.color = _FadeGradient.Evaluate(easeValue);
         }
 
+        private void OnEaseOut()
+        {
+            _OnHideEvent?.Invoke();
+
+            if(_Coroutine != null)
+                StopCoroutine(_Coroutine);
+
+            transform.SetActiveChildren(false);
+        }
+
         private IEnumerator SplashScreenSequence()
         {
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(_Delay);
 
             yield return VFXUtilities.LinearEaseIn(OnEase, () => Time.deltaTime, null, _FadeInTime);
 
@@ -49,12 +61,15 @@ namespace CDR.UISystem
 
         public override void Hide()
         {
-            base.Hide();
+            if(!isShown)
+                return;
+
+            isShown = false;
 
             if(_Coroutine != null)
                 StopCoroutine(_Coroutine);
                 
-            _Coroutine = StartCoroutine(VFXUtilities.LinearEaseIn(OnEase, () => Time.deltaTime, null, _FadeOutTime, () => _OnHideEvent?.Invoke()));
+            _Coroutine = StartCoroutine(VFXUtilities.LinearEaseOut(OnEase, () => Time.deltaTime, null, _FadeOutTime, OnEaseOut));
         }
 
         public override void Show()
@@ -69,8 +84,7 @@ namespace CDR.UISystem
 
         public void OnSubmit()
         {
-            if(isShown)
-                Hide();
+            Hide();
         }
     }
 }
