@@ -41,6 +41,8 @@ namespace CDR.MovementSystem
         Vector3 position { get; }
         Quaternion rotation { get; }
 
+        float radius { get; }
+
         void AddCharacterController(CharacterController controller);
     }
 

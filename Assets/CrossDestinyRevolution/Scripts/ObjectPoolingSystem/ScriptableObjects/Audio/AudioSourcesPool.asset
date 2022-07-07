@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54cb1595d1718ef4381a868af2d7ba0a, type: 3}
   m_Name: AudioSourcesPool
   m_EditorClassIdentifier: 
-  itemToPool: {fileID: 0}
+  itemToPool: {fileID: 19943319650246717, guid: 3851235962d4c2142a88b49425d46413, type: 3}
   pooledObjects: []
-  amountToPool: 0
-  shouldExpand: 0
+  amountToPool: 20
+  shouldExpand: 1
