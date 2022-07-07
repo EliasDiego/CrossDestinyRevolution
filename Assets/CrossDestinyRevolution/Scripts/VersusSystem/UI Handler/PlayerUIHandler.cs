@@ -10,16 +10,16 @@ namespace CDR.VersusSystem
 {
     public class PlayerUIHandler : MonoBehaviour
     {
+        [SerializeField]
+        Image[] _Images;
+
         RectTransform _RectTransform;
         PlayerUIInput _PlayerInput;
         SelectableEventHandler _SelectableEventHandler;
-        Image _Image;
 
         void Awake()
         {
             _RectTransform = transform as RectTransform;
-
-            _Image = GetComponent<Image>();
 
             _PlayerInput = GetComponent<PlayerUIInput>();
 
@@ -32,7 +32,8 @@ namespace CDR.VersusSystem
 
         private void OnEnableInput(IInput input)
         {
-            _Image.enabled = true;
+            foreach(Image image in _Images)
+                image.enabled = true;
             
             _RectTransform.position = Vector2.zero;
             _RectTransform.sizeDelta = Vector2.zero;
@@ -40,7 +41,8 @@ namespace CDR.VersusSystem
 
         private void OnDisableInput(IInput input)
         {
-            _Image.enabled = false;
+            foreach(Image image in _Images)
+                image.enabled = false;
         }
 
         private void OnCurrentSelectableChange(Selectable selectable)

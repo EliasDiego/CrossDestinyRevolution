@@ -140,7 +140,12 @@ namespace CDR.VersusSystem
             }
 
             if(previousMenu != null)
+            {
+                if(_Environment)
+                    _Environment?.SetActive(false);
+
                 Back();
+            }
         }
 
         private void OnPlayerInputsComplete()
@@ -183,9 +188,6 @@ namespace CDR.VersusSystem
             _Disposable.Dispose();
 
             _PlayerSelectInput.DisableInput();
-            
-            if(_Environment)
-                _Environment?.SetActive(false);
         }
 
         public void OnCompleted() { }
