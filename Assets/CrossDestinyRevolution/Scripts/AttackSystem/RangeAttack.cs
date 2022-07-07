@@ -108,7 +108,7 @@ namespace CDR.AttackSystem
 			if (_coroutine != null)
 				StopCoroutine(_coroutine);
 
-			//_pool.ReturnAll();
+			_pool.ReturnAll();
 		}
 
 		private void OnDrawGizmos()
