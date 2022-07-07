@@ -45,12 +45,6 @@ namespace CDR.AttackSystem
             transform.Translate(flightDir * Time.deltaTime * flightSpeed);
         }
 
-        private void FixedUpdate()
-        {
-            AddRbForce(Vector3.forward);
-            ClampVelocity(0.01f);
-        }
-
         public void Init(Vector3 spawnPos = default, Vector3 dir = default)
         {
             transform.position = spawnPos;
@@ -113,6 +107,10 @@ namespace CDR.AttackSystem
                 projectileHitVFX.SetActive(true);
                 projectileHitVFX.GetComponent<HitGunVFXPoolable>().PlayVFX();
             }
+
+            var audioClip = audioClipPool.GetPoolable();
+            audioClip.SetActive(true);
+            audioClip.GetComponent<AudioSourcePoolable>().PlayAudio(audioClipPreset);
 
             data.hitShape.collider.gameObject.SetActive(false);
             data.hurtShape.character.health.TakeDamage(projectileDamage);

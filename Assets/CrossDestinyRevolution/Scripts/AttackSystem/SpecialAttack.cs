@@ -39,7 +39,7 @@ namespace CDR.AttackSystem
 			IMech mech = (IMech)Character;
 
 			mech.movement?.ForceEnd();
-			mech.rangeAttack?.ForceEnd();
+			mech.rangeAttack?.End();
 			//mech.shield?.ForceEnd();
 			//mech.meleeAttack?.ForceEnd();
 			mech.boost?.ForceEnd();
@@ -51,6 +51,8 @@ namespace CDR.AttackSystem
 		{
 			base.End();
 
+			Character.animator.SetFloat("ActionSMultiplier", 1);
+
 			Character.input?.EnableInput();
 			Character.movement?.Use();
 		}
@@ -59,7 +61,9 @@ namespace CDR.AttackSystem
 		{
 			base.ForceEnd();
 
-			for(int i = 0; i < _pool.Length; i++)
+			Character.animator.SetFloat("ActionSMultiplier", 1);
+
+			for (int i = 0; i < _pool.Length; i++)
 			{
 				if(_pool[i] != null)
 				{

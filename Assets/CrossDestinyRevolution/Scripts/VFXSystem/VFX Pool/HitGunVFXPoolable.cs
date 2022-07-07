@@ -29,6 +29,7 @@ namespace CDR.VFXSystem
 		public virtual void ResetObject()
 		{
 			hitVFXHandler.Deactivate();
+			transform.position = Vector3.zero;
 		}
 
 		public virtual void Return()

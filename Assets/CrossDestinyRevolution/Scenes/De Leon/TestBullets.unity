@@ -462,7 +462,7 @@ PrefabInstance:
     - target: {fileID: 3007737515874209334, guid: eed773af46d63704ba188eaa6b869149, type: 3}
       propertyPath: _TestObject
       value: 
-      objectReference: {fileID: 2143436845}
+      objectReference: {fileID: 1853288682}
     - target: {fileID: 3007737515874209335, guid: eed773af46d63704ba188eaa6b869149, type: 3}
       propertyPath: m_Name
       value: TestManager1
@@ -1615,7 +1615,7 @@ PrefabInstance:
     - target: {fileID: 3007737515874209334, guid: eed773af46d63704ba188eaa6b869149, type: 3}
       propertyPath: _TestObject
       value: 
-      objectReference: {fileID: 1853288682}
+      objectReference: {fileID: 2143436845}
     - target: {fileID: 3007737515874209334, guid: eed773af46d63704ba188eaa6b869149, type: 3}
       propertyPath: _InputActionAsset
       value: 
@@ -2947,11 +2947,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3166481685183693198, guid: 73465d63fd461734fa7caa8610d1c717, type: 3}
       propertyPath: distanceFromFirstSplit
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3166481685183693198, guid: 73465d63fd461734fa7caa8610d1c717, type: 3}
       propertyPath: distanceFromSecondSplit
-      value: 1
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8028309934427116821, guid: 73465d63fd461734fa7caa8610d1c717, type: 3}
       propertyPath: m_RootOrder
@@ -3312,7 +3312,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1866449157
 Transform:
   m_ObjectHideFlags: 0
@@ -3855,7 +3855,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2136042039}
-  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 0}
 --- !u!4 &2136042044
 Transform:
   m_ObjectHideFlags: 0
