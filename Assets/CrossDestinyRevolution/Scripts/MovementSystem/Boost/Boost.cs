@@ -36,7 +36,8 @@ namespace CDR.MovementSystem
 
         private void Start()
         {
-            Character.animator.GetComponent<AnimationEventsManager>().AddAnimationEvent("Boost", sfx);
+            Character.animator.GetComponent<AnimationEventsManager>().AddAnimationEvent("VBoost", sfx);
+            Character.animator.GetComponent<AnimationEventsManager>().AddAnimationEvent("HBoost", sfx);
             offsetArea = 1f - animationCurve.GetArea(0.001f);
             StartCoroutine(_boostValue.Regenerate());
         }
