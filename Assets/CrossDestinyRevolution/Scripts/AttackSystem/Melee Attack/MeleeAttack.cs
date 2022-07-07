@@ -77,12 +77,13 @@ namespace CDR.AttackSystem
 				_boostVfx[i].Activate();
 			}
 
-			_animHandler.PlayAttackAnim();
 			_hitBox.onHitEnter += HitEnter;
 
 			Character.input.DisableInputExcept("MeleeAttack");
 			Character.movement.End();
 			(Character as Mech).rangeAttack.ForceEnd();
+
+			_animHandler.PlayAttackAnim();
 			//Character.shield.End();
 		}
 
