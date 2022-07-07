@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using CDR.ActionSystem;
 using CDR.StateSystem;
 using CDR.MechSystem;
 using CDR.ObjectPoolingSystem;
 using CDR.AnimationSystem;
 using CDR.VFXSystem;
+using CDR.AudioSystem;
 
 namespace CDR.AttackSystem
 {
@@ -24,6 +26,10 @@ namespace CDR.AttackSystem
 
 		// Animation Handler
 		[SerializeField] MeleeAttackAnimationHandler _animHandler;
+
+		// Audio
+		[SerializeField] AudioClipPreset _onUseSfx;
+		[SerializeField] AudioClipPreset _onHitSfx;
 
 		// Cooldown
 		[SerializeField] float _meleeAttackCoolDown;
@@ -63,6 +69,7 @@ namespace CDR.AttackSystem
 			
 			isHoming = true;
 
+			_onUseSfx.PlayOneShot(Character.audioSource);
 			_meleeVfx.Activate();
 
 			for(int i =0; i < _boostVfx.Length; i++)
@@ -73,8 +80,7 @@ namespace CDR.AttackSystem
 			_animHandler.PlayAttackAnim();
 			_hitBox.onHitEnter += HitEnter;
 
-			Character.input.DisableInput();
-			Character.input.EnableInput("MeleeAttack");
+			Character.input.DisableInputExcept("MeleeAttack");
 			Character.movement.End();
 			//Character.shield.End();
 		}
@@ -85,6 +91,7 @@ namespace CDR.AttackSystem
 
 			isHoming = false;
 			_animHandler.EndAttackAnim();
+			_animHandler.ResumeAnimation();
 			_meleeVfx.Deactivate();
 
 			for(int i =0; i < _boostVfx.Length; i++)
@@ -105,6 +112,7 @@ namespace CDR.AttackSystem
 
 			isHoming = false;
 			_animHandler.EndAttackAnim();
+			_animHandler.ResumeAnimation();
 			_meleeVfx.Deactivate();
 
 			for(int i =0; i < _boostVfx.Length; i++)
@@ -123,6 +131,7 @@ namespace CDR.AttackSystem
 			sender = (IMech)Character;
 			receiver = (IMech)hitData.hurtShape.character;
 
+			_onHitSfx.PlayOneShot(Character.audioSource);
 			GameObject hitVfx = _hitVfxPool.GetPoolable();
 			hitVfx.transform.SetParent(this.transform);
 			hitVfx.transform.position = ((ActiveCharacter)receiver).transform.position;
