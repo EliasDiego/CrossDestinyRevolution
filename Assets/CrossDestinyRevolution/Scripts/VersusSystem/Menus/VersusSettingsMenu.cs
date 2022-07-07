@@ -49,6 +49,8 @@ namespace CDR.VersusSystem
             base.Show();
 
             _EventSystem?.SetSelectedGameObject(_FirstSelected.gameObject);
+
+            versusData.settings = new VersusSettings(1, 60);
         }
     }
 }
