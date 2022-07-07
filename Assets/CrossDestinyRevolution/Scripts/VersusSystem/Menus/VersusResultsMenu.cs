@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 using TMPro;
 
@@ -15,6 +16,10 @@ namespace CDR.VersusSystem
     {
         [SerializeField]
         TMP_Text _WinnerText;
+        [SerializeField]
+        EventSystem _EventSystem;
+        [SerializeField]
+        GameObject _FirstSelect;
 
         public event Action rematchEvent;
         public event Action returnToMainMenuEvent;
@@ -34,6 +39,8 @@ namespace CDR.VersusSystem
         public override void Show()
         {
             base.Show();
+
+            _EventSystem.SetSelectedGameObject(_FirstSelect);
 
             _WinnerText.text = results.winner.name;
         }
