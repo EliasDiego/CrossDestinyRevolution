@@ -15,8 +15,6 @@ namespace CDR.AttackSystem
 
         [SerializeField] int amountOfSplitBullet;
 
-        [SerializeField] CDR.AnimationSystem.AnimationEvent _animationEvent;
-
         AnimationEventsManager _Manager;
         [SerializeField] SFXAnimationEvent[] sfxAnimationEvents;
 
@@ -44,8 +42,6 @@ namespace CDR.AttackSystem
             //StartCoroutine(BBBSequence());
 
             Character.animator.SetInteger("ActionType", (int)ActionType.SpecialAttack2);
-
-            End();
         }
 
         public override void End()
@@ -83,7 +79,7 @@ namespace CDR.AttackSystem
 
             bigBangBarrageVFXHandler.Activate();
 
-            yield return new WaitForSeconds(secondsBeforeSplit);
+            yield return new WaitForSecondsRealtime(secondsBeforeSplit);
 
             //2ND PHASE
 
@@ -118,7 +114,7 @@ namespace CDR.AttackSystem
             FirstPhaseBullet.GetComponent<BBBProjectile>().generalDirection = Quaternion.identity;
 
 
-            yield return new WaitForSeconds(secondsBeforeSplit);
+            yield return new WaitForSecondsRealtime(secondsBeforeSplit);
 
             //3RD PHASE
 
@@ -165,7 +161,7 @@ namespace CDR.AttackSystem
 			float z = originalPos.position.z;
 
 
-            return new Vector3(x,y,z);*?
+            return new Vector3(x,y,z);
 
             /*Vector3 randomPos = Random.onUnitSphere * distanceFromOriginal;
             randomPos += originalPos.position;

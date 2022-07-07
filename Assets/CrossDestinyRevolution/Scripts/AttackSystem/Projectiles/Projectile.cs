@@ -5,21 +5,31 @@ using UnityEngine;
 using CDR.MovementSystem;
 using CDR.ObjectPoolingSystem;
 using CDR.MechSystem;
+using CDR.VFXSystem;
+using CDR.AudioSystem;
 
 
 namespace CDR.AttackSystem
 {
+	[RequireComponent(typeof(AudioSource))]
 	public class Projectile : ProjectileController, IProjectile
 	{
 		IPool _pool;
 
+		[SerializeField] protected ObjectPooling ProjectileHitVFX;
+
 		[SerializeField] public HitBox projectileHitBox;
+
+		[SerializeField] protected ObjectPooling audioClipPool;
+
+		[SerializeField] protected AudioClipPreset audioClipPreset;
 
 		public float projectileDamage;
 
 		public bool hasLifeTime = true;
 		public float projectileLifetime;
 		public float projectileMaxLifetime;
+
 
 		IProjectileController projectileController;
 		public IActiveCharacter target { get; set; }
@@ -33,10 +43,24 @@ namespace CDR.AttackSystem
 
 		public IPool pool { get => _pool; set => _pool = value; }
 
+		AudioSource audioSource;
+
 		public virtual void Start()
 		{
 			projectileController = GetComponent<ProjectileController>();
 			projectileLifetime = projectileMaxLifetime;
+
+			audioSource = GetComponent<AudioSource>();
+
+			if (ProjectileHitVFX != null)
+			{
+				ProjectileHitVFX.Initialize();
+			}
+
+			if (audioClipPool != null)
+			{
+				audioClipPool.Initialize();
+			}
 		}
 
 		public virtual void OnEnable()
@@ -82,6 +106,23 @@ namespace CDR.AttackSystem
 
 		protected virtual void OnHitEnter(IHitData hitData) //Hitbox Response
 		{
+			if (ProjectileHitVFX != null)
+			{
+				var projectileHitVFX = ProjectileHitVFX.GetPoolable();
+
+				projectileHitVFX.transform.position = transform.position;
+
+				if (projectileHitVFX.transform.position == transform.position)
+				{
+					projectileHitVFX.SetActive(true);
+					projectileHitVFX.GetComponent<HitGunVFXPoolable>().PlayVFX();
+				}
+			}
+
+			var audioClip = audioClipPool.GetPoolable();
+			audioClip.SetActive(true);
+			audioClip.GetComponent<AudioSourcePoolable>().PlayAudio(audioClipPreset);
+
 			hitData.hurtShape.character.health.TakeDamage(projectileDamage);
 
 			ResetObject();

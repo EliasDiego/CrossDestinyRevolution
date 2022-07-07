@@ -1,12 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using CDR.ActionSystem;
 using CDR.StateSystem;
 using CDR.MechSystem;
 using CDR.ObjectPoolingSystem;
 using CDR.AnimationSystem;
 using CDR.VFXSystem;
+using CDR.AudioSystem;
 
 namespace CDR.AttackSystem
 {
@@ -16,21 +18,25 @@ namespace CDR.AttackSystem
 		[SerializeField] float _speed;
 		[SerializeField] float _meleeDamage;
 		[SerializeField] float _distanceToTarget;
+
+		// VFX
 		[SerializeField] MeleeAttackVFXHandler _meleeVfx;
 		[SerializeField] BoostVFXHandler[] _boostVfx;
+		MeleeHitVFXPoolable _meleeHitVFX;
 
 		// Animation Handler
 		[SerializeField] MeleeAttackAnimationHandler _animHandler;
 
+		// Audio
+		[SerializeField] AudioClipPreset _onUseSfx;
+		[SerializeField] AudioClipPreset _onHitSfx;
+
 		// Cooldown
 		[SerializeField] float _meleeAttackCoolDown;
 
-		// Timer
-		[SerializeField] float _meleeAttackDuration;
-		[SerializeField] float _timer;
-
 		// Object Pool
-		[SerializeField] ObjectPooling _pool;
+		[SerializeField] ObjectPooling _knockbackPool;
+		[SerializeField] ObjectPooling _hitVfxPool;
 
 		// State
 		IMech sender;
@@ -45,14 +51,16 @@ namespace CDR.AttackSystem
 		{
 			base.Awake();
 
-			if(_pool != null)
-				_pool.Initialize();
+			if(_knockbackPool != null)
+				_knockbackPool.Initialize();
+
+			if(_hitVfxPool != null)
+				_hitVfxPool.Initialize();
 		}
 
 		private void Start()
 		{
 			_cooldownDuration = _meleeAttackCoolDown;
-			_timer = _meleeAttackDuration;
 		}
 
 		public override void Use()
@@ -60,16 +68,19 @@ namespace CDR.AttackSystem
 			base.Use();
 			
 			isHoming = true;
+
+			_onUseSfx.PlayOneShot(Character.audioSource);
 			_meleeVfx.Activate();
+
 			for(int i =0; i < _boostVfx.Length; i++)
 			{
 				_boostVfx[i].Activate();
 			}
+
 			_animHandler.PlayAttackAnim();
-			//_hitBox.enabled = true;
 			_hitBox.onHitEnter += HitEnter;
 
-			Character.input.DisableInput();
+			Character.input.DisableInputExcept("MeleeAttack");
 			Character.movement.End();
 			//Character.shield.End();
 		}
@@ -78,13 +89,16 @@ namespace CDR.AttackSystem
 		{
 			base.End();
 
-			_timer = _meleeAttackDuration;
+			isHoming = false;
+			_animHandler.EndAttackAnim();
+			_animHandler.ResumeAnimation();
 			_meleeVfx.Deactivate();
+
 			for(int i =0; i < _boostVfx.Length; i++)
 			{
 				_boostVfx[i].Deactivate();
 			}
-			//_hitBox.enabled = false;
+
 			_hitBox.onHitEnter -= HitEnter;
 
 			Character.input.EnableInput();
@@ -96,25 +110,43 @@ namespace CDR.AttackSystem
 		{
 			base.ForceEnd();
 
+			isHoming = false;
+			_animHandler.EndAttackAnim();
+			_animHandler.ResumeAnimation();
 			_meleeVfx.Deactivate();
+
+			for(int i =0; i < _boostVfx.Length; i++)
+			{
+				_boostVfx[i].Deactivate();
+			}
+
 			_hitBox.onHitEnter -= HitEnter;
 		}
 
 		void HitEnter(IHitData hitData)
 		{
-			_animHandler.EndAttackAnim();
-			Character.controller.SetVelocity(Vector3.zero);
 			Debug.LogWarning("Hit!!! " + hitData.hurtShape.character);
+			Character.controller.SetVelocity(Vector3.zero);
 
-		
 			sender = (IMech)Character;
 			receiver = (IMech)hitData.hurtShape.character;
 
+			_onHitSfx.PlayOneShot(Character.audioSource);
+			GameObject hitVfx = _hitVfxPool.GetPoolable();
+			hitVfx.transform.SetParent(this.transform);
+			hitVfx.transform.position = ((ActiveCharacter)receiver).transform.position;
+			hitVfx.SetActive(true);
+
+			_meleeHitVFX = hitVfx.GetComponent<MeleeHitVFXPoolable>();
+			_meleeHitVFX.PlayVfx();
+			_meleeHitVFX.transform.SetParent((receiver as ActiveCharacter).transform);
+
+			// Enemy only takes damage/changes state if not using shield
 			if(!receiver.shield.isActive)
 			{
 				receiver.health.TakeDamage(_meleeDamage);
 
-				GameObject kb = _pool.GetPoolable();
+				GameObject kb = _knockbackPool.GetPoolable();
 				kb.transform.SetParent(((ActiveCharacter)receiver).transform);
 				kb.SetActive(true);
 
@@ -133,7 +165,6 @@ namespace CDR.AttackSystem
 
 			if(isHoming)
 			{
-				CheckAttackTimer();
 				CheckDistanceToTarget();
 			}
 		}
@@ -151,19 +182,6 @@ namespace CDR.AttackSystem
 			}
 		}
 
-		void CheckAttackTimer()
-		{
-			_timer -= Time.deltaTime;
-
-			if(_timer < 0)
-			{
-				isHoming = false;
-				_animHandler.EndAttackAnim();
-				_animHandler.ResumeAnimation();
-				Character.controller.SetVelocity(Vector3.zero);
-				End();
-			}
-		}
 
 		void CheckDistanceToTarget()
 		{
