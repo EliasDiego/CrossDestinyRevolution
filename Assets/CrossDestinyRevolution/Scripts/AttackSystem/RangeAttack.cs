@@ -57,8 +57,8 @@ namespace CDR.AttackSystem
 
 			Character.animator.SetInteger("ActionType", (int)ActionType.RangeAttack);
 
-			if (_coroutine != null)
-				StopCoroutine(_coroutine);
+			//if (_coroutine != null)
+			//	StopCoroutine(_coroutine);
 
 			_coroutine = StartCoroutine(ShootHomingBullet());
 		}
@@ -92,8 +92,8 @@ namespace CDR.AttackSystem
 
 			isShootingRangeAttack = false;
 
-			if (_coroutine != null)
-				StopCoroutine(_coroutine);
+			//if (_coroutine != null)
+			//	StopCoroutine(_coroutine);
 		}
 
 		public override void ForceEnd()
@@ -105,8 +105,8 @@ namespace CDR.AttackSystem
 
 			isShootingRangeAttack = false;
 
-			if (_coroutine != null)
-				StopCoroutine(_coroutine);
+			//if (_coroutine != null)
+			//	StopCoroutine(_coroutine);
 
 			_pool.ReturnAll();
 		}
