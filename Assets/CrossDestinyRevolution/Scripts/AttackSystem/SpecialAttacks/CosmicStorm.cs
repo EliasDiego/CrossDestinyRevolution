@@ -36,8 +36,14 @@ namespace CDR.AttackSystem
         public override void ForceEnd()
         {
             base.ForceEnd();
-            vfxHandler.Deactivate();
+            
             Character.animator.SetInteger("ActionType", (int)ActionType.None);
+        }
+
+        public override void UltimaEnd()
+        {
+            base.UltimaEnd();
+            vfxHandler.Deactivate();
         }
 
         private void Fire()
