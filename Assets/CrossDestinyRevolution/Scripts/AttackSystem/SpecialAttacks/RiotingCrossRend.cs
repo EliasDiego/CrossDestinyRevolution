@@ -96,7 +96,7 @@ namespace CDR.AttackSystem
                 () =>
                 {
                     LeanTween.scaleZ(activeBullet.Pivot, maxLength, scaleTime);
-                    LeanTween.value(1f, 11f, scaleTime).setOnUpdate(
+                    LeanTween.value(1f, maxLength, scaleTime).setOnUpdate(
                     (float f) =>
                     {
                         laserVFX.length = f;
