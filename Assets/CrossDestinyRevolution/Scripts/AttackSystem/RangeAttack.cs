@@ -34,6 +34,7 @@ namespace CDR.AttackSystem
 		{
 			_Manager = Character.animator.GetComponent<AnimationEventsManager>();
 
+
 			//var a = new CDR.AnimationSystem.AnimationEvent(0.29f, true, () => StartCoroutine(ShootHomingBullet()));
 			//var b = new CDR.AnimationSystem.AnimationEvent(1f, true, () => End());
 

@@ -20,7 +20,9 @@ namespace CDR.AttackSystem
 
 		[SerializeField] public HitBox projectileHitBox;
 
-		[SerializeField] AudioClipPreset audioClipPreset;
+		[SerializeField] protected ObjectPooling audioClipPool;
+
+		[SerializeField] protected AudioClipPreset audioClipPreset;
 
 		public float projectileDamage;
 
@@ -41,7 +43,7 @@ namespace CDR.AttackSystem
 
 		public IPool pool { get => _pool; set => _pool = value; }
 
-		protected AudioSource audioSource;
+		AudioSource audioSource;
 
 		public virtual void Start()
 		{
@@ -53,6 +55,11 @@ namespace CDR.AttackSystem
 			if (ProjectileHitVFX != null)
 			{
 				ProjectileHitVFX.Initialize();
+			}
+
+			if (audioClipPool != null)
+			{
+				audioClipPool.Initialize();
 			}
 		}
 
@@ -112,7 +119,9 @@ namespace CDR.AttackSystem
 				}
 			}
 
-			audioClipPreset.PlayOneShot(audioSource);
+			var audioClip = audioClipPool.GetPoolable();
+			audioClip.SetActive(true);
+			audioClip.GetComponent<AudioSourcePoolable>().PlayAudio(audioClipPreset);
 
 			hitData.hurtShape.character.health.TakeDamage(projectileDamage);
 

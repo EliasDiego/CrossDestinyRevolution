@@ -114,6 +114,7 @@ MonoBehaviour:
   _Rigidbody: {fileID: 5328174087131921152}
   ProjectileHitVFX: {fileID: 0}
   projectileHitBox: {fileID: 7291854690868315243}
+  audioClipPool: {fileID: 11400000, guid: cbc68881c63ce324a88ff9d0cf4e4bd7, type: 2}
   audioClipPreset: {fileID: 11400000, guid: b15c0fd2ee3ecb24389f33467c983ef4, type: 2}
   projectileDamage: 5
   hasLifeTime: 1
