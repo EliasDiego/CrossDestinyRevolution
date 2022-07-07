@@ -69,7 +69,7 @@ namespace CDR.AttackSystem
 			
 			isHoming = true;
 
-			_onUseSfx.PlayOneShot(Character.audioSource);
+			//_onUseSfx.PlayOneShot(Character.audioSource);
 			_meleeVfx.Activate();
 
 			for(int i =0; i < _boostVfx.Length; i++)
@@ -82,6 +82,7 @@ namespace CDR.AttackSystem
 
 			Character.input.DisableInputExcept("MeleeAttack");
 			Character.movement.End();
+			(Character as Mech).rangeAttack.End();
 			//Character.shield.End();
 		}
 
@@ -131,7 +132,7 @@ namespace CDR.AttackSystem
 			sender = (IMech)Character;
 			receiver = (IMech)hitData.hurtShape.character;
 
-			_onHitSfx.PlayOneShot(Character.audioSource);
+			//_onHitSfx.PlayOneShot(Character.audioSource);
 			GameObject hitVfx = _hitVfxPool.GetPoolable();
 			hitVfx.transform.SetParent(this.transform);
 			hitVfx.transform.position = ((ActiveCharacter)receiver).transform.position;
