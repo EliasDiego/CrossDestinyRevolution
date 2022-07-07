@@ -188,8 +188,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 4277034680999361573}
   _health:
-    currentValue: 100
-    maxValue: 100
+    currentValue: 300
+    maxValue: 300
   _hurtShape:
   - {fileID: 8661533445400127352}
   - {fileID: 5277732034540442253}
@@ -651,6 +651,10 @@ PrefabInstance:
       propertyPath: _animHandler
       value: 
       objectReference: {fileID: 2023446894356357187}
+    - target: {fileID: 6548558590547492289, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
+      propertyPath: _meleeDamage
+      value: 75
+      objectReference: {fileID: 0}
     - target: {fileID: 6548558590547492289, guid: 9726bdfd88f65364594fa9c6908d55e3, type: 3}
       propertyPath: _knockbackPool
       value: 
