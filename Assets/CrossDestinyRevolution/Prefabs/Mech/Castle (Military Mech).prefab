@@ -764,15 +764,9 @@ MonoBehaviour:
     _TimeValue: 0.52
     _IsNormalized: 1
   _sfx:
-  - _TimeValue: 0
-    _IsNormalized: 0
-    _ClipPreset: {fileID: 0}
-  - _TimeValue: 0
-    _IsNormalized: 0
-    _ClipPreset: {fileID: 0}
-  - _TimeValue: 0
-    _IsNormalized: 0
-    _ClipPreset: {fileID: 0}
+  - _TimeValue: 0.2
+    _IsNormalized: 1
+    _ClipPreset: {fileID: 11400000, guid: 4c9bed75754d7d940a1b48108ece464d, type: 2}
 --- !u!1001 &3772507902511653897
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -922,9 +916,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5844733807002564331}
     - target: {fileID: 2111228784368867427, guid: cc4bb43d2d5e894499d5ca1e7ec6602a, type: 3}
+      propertyPath: sfxAnimationEvents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2111228784368867427, guid: cc4bb43d2d5e894499d5ca1e7ec6602a, type: 3}
       propertyPath: bulletSpawnPoint.Array.data[0]
       value: 
       objectReference: {fileID: 5440806801675947920}
+    - target: {fileID: 2111228784368867427, guid: cc4bb43d2d5e894499d5ca1e7ec6602a, type: 3}
+      propertyPath: sfxAnimationEvents.Array.data[0]._ClipPreset
+      value: 
+      objectReference: {fileID: 11400000, guid: 150ea7cedc0928b4fb7c66cb24f456d3, type: 2}
+    - target: {fileID: 2111228784368867427, guid: cc4bb43d2d5e894499d5ca1e7ec6602a, type: 3}
+      propertyPath: sfxAnimationEvents.Array.data[0]._IsNormalized
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cc4bb43d2d5e894499d5ca1e7ec6602a, type: 3}
 --- !u!114 &3166481685183693198 stripped
@@ -1127,6 +1133,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6703666182034372234}
     - target: {fileID: 6482616816266265379, guid: 7d8f9584f4364cf4f95e97ad5ddda03a, type: 3}
+      propertyPath: sfx.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6482616816266265379, guid: 7d8f9584f4364cf4f95e97ad5ddda03a, type: 3}
       propertyPath: activeCharacter
       value: 
       objectReference: {fileID: 8028309934427116824}
@@ -1135,9 +1145,17 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6482616816266265379, guid: 7d8f9584f4364cf4f95e97ad5ddda03a, type: 3}
+      propertyPath: sfx.Array.data[0]._ClipPreset
+      value: 
+      objectReference: {fileID: 11400000, guid: 4733eb8689a50ac418ab90ff72240026, type: 2}
+    - target: {fileID: 6482616816266265379, guid: 7d8f9584f4364cf4f95e97ad5ddda03a, type: 3}
       propertyPath: bulletSpawnPoint.Array.data[0]
       value: 
       objectReference: {fileID: 5440806801675947920}
+    - target: {fileID: 6482616816266265379, guid: 7d8f9584f4364cf4f95e97ad5ddda03a, type: 3}
+      propertyPath: sfx.Array.data[0]._IsNormalized
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6482616816266265388, guid: 7d8f9584f4364cf4f95e97ad5ddda03a, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -1216,9 +1234,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 4005348147899195850}
     - target: {fileID: 1340859940084886449, guid: 1d5472dfbea0b9946922a5c567f51f2f, type: 3}
+      propertyPath: sfxAnimationEvents.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1340859940084886449, guid: 1d5472dfbea0b9946922a5c567f51f2f, type: 3}
       propertyPath: bulletSpawnPoint.Array.data[0]
       value: 
       objectReference: {fileID: 5440806801675947920}
+    - target: {fileID: 1340859940084886449, guid: 1d5472dfbea0b9946922a5c567f51f2f, type: 3}
+      propertyPath: sfxAnimationEvents.Array.data[0]._ClipPreset
+      value: 
+      objectReference: {fileID: 11400000, guid: a4e255bcefd929f498886995df17866f, type: 2}
+    - target: {fileID: 1340859940084886449, guid: 1d5472dfbea0b9946922a5c567f51f2f, type: 3}
+      propertyPath: sfxAnimationEvents.Array.data[0]._IsNormalized
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5816485605749745736, guid: 1d5472dfbea0b9946922a5c567f51f2f, type: 3}
       propertyPath: m_Name
       value: SpecialAttack (NuclearGrenade)
@@ -1378,6 +1408,10 @@ PrefabInstance:
       value: Movement
       objectReference: {fileID: 0}
     - target: {fileID: 6489849201931218856, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
+      propertyPath: sfx.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6489849201931218856, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
       propertyPath: activeCharacter
       value: 
       objectReference: {fileID: 8028309934427116824}
@@ -1405,6 +1439,14 @@ PrefabInstance:
       propertyPath: vfxHandler.Array.data[1]
       value: 
       objectReference: {fileID: 69899884947967777}
+    - target: {fileID: 6489849201931218856, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
+      propertyPath: sfx.Array.data[0]._ClipPreset
+      value: 
+      objectReference: {fileID: 11400000, guid: 5b7e9b2b10b513c488e04ce22ea54cf3, type: 2}
+    - target: {fileID: 6489849201931218856, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
+      propertyPath: sfx.Array.data[0]._IsNormalized
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6489849201931218857, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -1627,7 +1669,10 @@ MonoBehaviour:
   _vfx: {fileID: 6971417771879498889}
   _shieldDelay: 0.2
   _manager: {fileID: 5483858858193808130}
-  _sfx: []
+  _sfx:
+  - _TimeValue: 0
+    _IsNormalized: 1
+    _ClipPreset: {fileID: 11400000, guid: 000008024281c0f4fb501b913273c440, type: 2}
 --- !u!1001 &8614331714448304157
 PrefabInstance:
   m_ObjectHideFlags: 0
