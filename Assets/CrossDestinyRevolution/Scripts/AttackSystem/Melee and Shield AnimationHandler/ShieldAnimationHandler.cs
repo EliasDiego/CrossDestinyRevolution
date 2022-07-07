@@ -15,6 +15,8 @@ namespace CDR.AnimationSystem
         [SerializeField] AnimationEventsManager _manager;
         [SerializeField] SFXAnimationEvent[] _sfx;
 
+        Coroutine _Coroutine;
+
         private void Awake()
         {
             _manager.AddAnimationEvent("Shield", _sfx);
@@ -47,11 +49,17 @@ namespace CDR.AnimationSystem
         // Activate/Deactivate Shield
         public void ActivateShield()
         {
-            StartCoroutine(ShieldUp(_shieldDelay));
+            if(_Coroutine != null)
+                StopCoroutine(_Coroutine);
+
+            _Coroutine = StartCoroutine(ShieldUp(_shieldDelay));
         }
 
         public void DeactivateShield()
         {
+            if(_Coroutine != null)
+                StopCoroutine(_Coroutine);
+                
             _vfx.Deactivate();
         }
 
