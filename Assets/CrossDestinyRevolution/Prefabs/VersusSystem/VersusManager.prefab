@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9014087214905044050}
   - component: {fileID: 2236688331149387844}
+  - component: {fileID: 9160744053023791535}
   m_Layer: 0
   m_Name: VersusManager
   m_TagString: Untagged
@@ -25,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2896002814986124884}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.400002, y: 7.35, z: -4.806853}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -45,3 +46,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _SceneLoader: {fileID: 11400000, guid: f5384e6046073054f92b1c074ece52dc, type: 2}
   _AfterVersusSceneTask: {fileID: 11400000, guid: 3d6b90b78b8500741b7815beac57c0d3, type: 2}
+--- !u!81 &9160744053023791535
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2896002814986124884}
+  m_Enabled: 1

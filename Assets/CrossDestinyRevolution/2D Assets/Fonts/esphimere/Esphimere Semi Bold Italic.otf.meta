@@ -1,0 +1,30 @@
+fileFormatVersion: 2
+guid: 58ec9c8be4ab1ce4e96eb41a9ad411af
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Esphimere
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: e3597a99d3fce78429cbcc32ba74cd50, type: 3}
+  - {fileID: 12800000, guid: 26d1cc0798b3bf84188882df624500cc, type: 3}
+  - {fileID: 12800000, guid: 97aaf2dd8c23bfd4d8a99df63377d832, type: 3}
+  - {fileID: 12800000, guid: c5052e29939217740aa21d46370747fd, type: 3}
+  - {fileID: 12800000, guid: 469762df1db2156449ff1592739a00b8, type: 3}
+  - {fileID: 12800000, guid: 221aabf476736f146972b51c89c66dd5, type: 3}
+  - {fileID: 12800000, guid: 4220b6301482f1d4697f4d626bf36bb0, type: 3}
+  - {fileID: 12800000, guid: 222820825b38e8a4e977786e44b19d94, type: 3}
+  - {fileID: 12800000, guid: 87d2af8b2461179419fc5c94d3759157, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

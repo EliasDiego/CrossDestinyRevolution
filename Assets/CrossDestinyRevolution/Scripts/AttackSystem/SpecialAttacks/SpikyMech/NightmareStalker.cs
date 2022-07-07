@@ -151,7 +151,7 @@ namespace CDR.AttackSystem
                 yield return new WaitForSecondsRealtime(bulletTrailSpawnInterval);
             }*/
 
-            yield return new WaitUntil(() => CheckIfAllActive(bulletTrailBullets));
+            //yield return new WaitUntil(() => CheckIfAllActive(bulletTrailBullets));
 
             //3rd Phase
 

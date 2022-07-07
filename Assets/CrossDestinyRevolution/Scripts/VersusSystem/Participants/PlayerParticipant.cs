@@ -19,6 +19,8 @@ namespace CDR.VersusSystem
         {
             _BattleUI = battleUI;
             _Camera = camera;
+
+            _BattleUI.camera = camera;
         }
 
         public override void Start()

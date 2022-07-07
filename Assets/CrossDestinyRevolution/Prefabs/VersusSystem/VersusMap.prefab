@@ -46,8 +46,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _FlightPlane: {fileID: 7482395423180719162}
   _ParticipantPositions:
-  - {x: 50, y: 8, z: 0}
-  - {x: -50, y: 8, z: 0}
+  - {x: 50, y: 5, z: 0}
+  - {x: -50, y: 5, z: 0}
 --- !u!1001 &2525764539980264242
 PrefabInstance:
   m_ObjectHideFlags: 0

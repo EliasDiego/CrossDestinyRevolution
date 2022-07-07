@@ -38,9 +38,26 @@ namespace CDR.VersusSystem
         {
             mech.health.ModifyValue(_Mech.health.MaxValue);
             mech.boost?.boostValue.ModifyValue(_Mech.boost.boostValue.MaxValue);
+            
+            (mech as Mech).transform.position = _StartPosition;
+        }
+
+        public virtual void Start()
+        {
+            mech.input?.EnableInput();
+            mech.targetHandler?.Use();
+            mech.movement?.Use();
+        }
+
+        public virtual void Stop()
+        {
+            mech.input?.DisableInput();
 
             if(CheckBoolean(mech.targetHandler?.isActive))
                 mech.targetHandler?.End();
+
+            if(CheckBoolean(mech.shield?.isActive))
+                mech.shield?.ForceEnd();
 
             if(CheckBoolean(mech.specialAttack1?.isActive))
             mech.specialAttack1?.ForceEnd();
@@ -64,20 +81,6 @@ namespace CDR.VersusSystem
                 mech.movement?.ForceEnd();
 
             mech.controller?.SetVelocity(Vector3.zero);
-            
-            (mech as Mech).transform.position = _StartPosition;
-        }
-
-        public virtual void Start()
-        {
-            mech.input?.EnableInput();
-            mech.targetHandler?.Use();
-            mech.movement?.Use();
-        }
-
-        public virtual void Stop()
-        {
-            mech.input?.DisableInput();
         }
     }
 }
