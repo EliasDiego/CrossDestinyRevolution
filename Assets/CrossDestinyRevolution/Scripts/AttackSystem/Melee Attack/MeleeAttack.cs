@@ -73,8 +73,7 @@ namespace CDR.AttackSystem
 			_animHandler.PlayAttackAnim();
 			_hitBox.onHitEnter += HitEnter;
 
-			Character.input.DisableInput();
-			Character.input.EnableInput("MeleeAttack");
+			Character.input.DisableInputExcept("MeleeAttack");
 			Character.movement.End();
 			//Character.shield.End();
 		}
@@ -85,6 +84,7 @@ namespace CDR.AttackSystem
 
 			isHoming = false;
 			_animHandler.EndAttackAnim();
+			_animHandler.ResumeAnimation();
 			_meleeVfx.Deactivate();
 
 			for(int i =0; i < _boostVfx.Length; i++)
@@ -105,6 +105,7 @@ namespace CDR.AttackSystem
 
 			isHoming = false;
 			_animHandler.EndAttackAnim();
+			_animHandler.ResumeAnimation();
 			_meleeVfx.Deactivate();
 
 			for(int i =0; i < _boostVfx.Length; i++)
