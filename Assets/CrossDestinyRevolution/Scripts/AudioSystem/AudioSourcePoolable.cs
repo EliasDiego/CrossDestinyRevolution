@@ -6,9 +6,10 @@ using CDR.AudioSystem;
 
 namespace CDR.VFXSystem
 {
+	[RequireComponent(typeof(AudioSource))]
 	public class AudioSourcePoolable : MonoBehaviour, IPoolable
 	{
-		[SerializeField] AudioSourceHandler audioSourceHandler;
+		[SerializeField] AudioSource audioSource;
 
 		[SerializeField] protected float activeTime;
 
@@ -16,9 +17,9 @@ namespace CDR.VFXSystem
 
 		public IPool pool { get => _pool; set => _pool = value; }
 
-		public virtual void PlayAudio()
+		public virtual void PlayAudio(AudioClipPreset preset)
 		{
-			audioSourceHandler.Activate();
+			preset.PlayOneShot(audioSource);
 			StartCoroutine(EndAudio(activeTime));
 		}
 		IEnumerator EndAudio(float time)
@@ -29,7 +30,7 @@ namespace CDR.VFXSystem
 
 		public virtual void ResetObject()
 		{
-			audioSourceHandler.Deactivate();
+			//audioSourceHandler.Deactivate();
 		}
 
 		public virtual void Return()
