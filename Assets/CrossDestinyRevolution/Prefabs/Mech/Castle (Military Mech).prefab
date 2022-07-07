@@ -503,6 +503,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8028309934427116824}
     - target: {fileID: 908903558953591605, guid: a14d3b2633d550e4b94f1e0c6d2ce61c, type: 3}
+      propertyPath: audioClipPreset
+      value: 
+      objectReference: {fileID: 11400000, guid: bc3fc2d3b3832514dab79aa95d0121c0, type: 2}
+    - target: {fileID: 908903558953591605, guid: a14d3b2633d550e4b94f1e0c6d2ce61c, type: 3}
       propertyPath: rangeAttackVFXHandler
       value: 
       objectReference: {fileID: 2694242237471538802}
