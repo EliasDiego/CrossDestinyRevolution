@@ -97,11 +97,11 @@ namespace CDR.AttackSystem
 
 				projectileHitVFX.transform.position = transform.position;
 
-				projectileHitVFX.SetActive(true);
-
-				projectileHitVFX.transform.position = transform.position;
-
-				projectileHitVFX.GetComponent<HitGunVFXPoolable>().PlayVFX();
+				if (projectileHitVFX.transform.position == transform.position)
+				{
+					projectileHitVFX.SetActive(true);
+					projectileHitVFX.GetComponent<HitGunVFXPoolable>().PlayVFX();
+				}
 			}
 
 			hitData.hurtShape.character.health.TakeDamage(projectileDamage);

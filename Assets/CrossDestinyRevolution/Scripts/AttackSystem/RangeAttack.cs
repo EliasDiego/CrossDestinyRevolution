@@ -85,6 +85,7 @@ namespace CDR.AttackSystem
 			base.End();
 
 			Character.animator.SetInteger("ActionType", (int)ActionType.None);
+			Character.animator.SetFloat("ActionSMultiplier", 1);
 
 			isShootingRangeAttack = false;
 
@@ -97,6 +98,7 @@ namespace CDR.AttackSystem
 			base.ForceEnd();
 
 			Character.animator.SetInteger("ActionType", (int)ActionType.None);
+			Character.animator.SetFloat("ActionSMultiplier", 1);
 
 			isShootingRangeAttack = false;
 
