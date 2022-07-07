@@ -20,6 +20,8 @@ namespace CDR.InputSystem
         void DisableInput();
         void EnableInput(string name);
         void DisableInput(string name);
+        void EnableInputExcept(params string[] except);
+        void DisableInputExcept(params string[] except);
     }
 
     public interface IPlayerInput : IInput

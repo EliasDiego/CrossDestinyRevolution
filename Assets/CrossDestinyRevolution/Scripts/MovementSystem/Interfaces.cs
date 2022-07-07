@@ -37,8 +37,13 @@ namespace CDR.MovementSystem
 
     public interface IFlightPlane
     {
+        List<CharacterController> activeControllers { get; }
         Vector3 position { get; }
         Quaternion rotation { get; }
+
+        float radius { get; }
+
+        void AddCharacterController(CharacterController controller);
     }
 
     public interface IMovement : IAction

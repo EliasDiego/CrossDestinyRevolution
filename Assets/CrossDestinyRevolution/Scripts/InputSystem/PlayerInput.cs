@@ -226,7 +226,8 @@ namespace CDR.InputSystem
 
         public virtual void EnableInput()
         {
-            actionMap.Enable();
+            foreach(InputAction inputAction in _InputActions?.Values?.Where(i => !i.enabled))
+                inputAction.Enable();
 
             _IsEnabled = true;
 
@@ -235,7 +236,8 @@ namespace CDR.InputSystem
 
         public virtual void DisableInput()
         {
-            actionMap.Disable();
+            foreach(InputAction inputAction in _InputActions?.Values?.Where(i => i.enabled))
+                inputAction.Disable();
             
             _IsEnabled = false;
 
@@ -262,6 +264,26 @@ namespace CDR.InputSystem
 
             else
                 Debug.Log($"[Input Error] {name} does not exist!");
+
+            _IsEnabled = _InputActions.Values.FirstOrDefault(i => i.enabled) != null;
+
+            onDisableInput?.Invoke(this);
+        }
+
+        public void EnableInputExcept(params string[] except)
+        {
+            foreach(InputAction inputAction in _InputActions?.Values?.Where(i => !except.Contains(i.name)))
+                inputAction.Enable();
+
+            _IsEnabled = _InputActions.Values.FirstOrDefault(i => i.enabled) != null;
+
+            onEnableInput?.Invoke(this);
+        }
+
+        public void DisableInputExcept(params string[] except)
+        {
+            foreach(InputAction inputAction in _InputActions?.Values?.Where(i => !except.Contains(i.name)))
+                inputAction.Disable();
 
             _IsEnabled = _InputActions.Values.FirstOrDefault(i => i.enabled) != null;
 

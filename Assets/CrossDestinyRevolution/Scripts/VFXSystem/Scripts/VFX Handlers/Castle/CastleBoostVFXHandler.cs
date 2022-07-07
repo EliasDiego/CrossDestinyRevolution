@@ -23,16 +23,15 @@ namespace CDR.VFXSystem
         private Coroutine _Coroutine;
 
         private Material[] _Materials;
+
+        private Vector3 _StartScale;
         
         private bool _IsActive = false;
-        private float _HeightCurveOffset = 0;
 
         public override bool isActive => _IsActive;
 
         private void Awake() 
         {
-            _HeightCurveOffset = 1 - _HeightCurve.GetArea(0.001f);
-
             _Materials = GetComponentsInChildren<MeshRenderer>()?.Select(m => m.material)?.ToArray();
 
             foreach(Material material in _Materials)
@@ -40,6 +39,8 @@ namespace CDR.VFXSystem
                 material.SetColor("_EmissionColor", _EmissionColorGradient.Evaluate(0));
                 material.SetFloat("_EmissionIntensity", _EmissionIntensityCurve.Evaluate(0) * _EmissionIntensity);
             }
+
+            _StartScale = transform.localScale;
         }
 
         private void EaseEvent(float easeValue)
@@ -52,9 +53,7 @@ namespace CDR.VFXSystem
                 material.SetFloat("_EmissionIntensity", _EmissionIntensityCurve.Evaluate(easeValue) * _EmissionIntensity);
             }
 
-            scale.y = (_HeightCurve.Evaluate(easeValue) + _HeightCurveOffset) * _Height;
-
-            transform.localScale = scale;
+            transform.localScale = _StartScale + Vector3.up * _HeightCurve.Evaluate(easeValue) * _Height;
         }
 
         public override void Activate()

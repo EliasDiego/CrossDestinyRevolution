@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CDR.ObjectPoolingSystem;
+using CDR.AnimationSystem;
 
 namespace CDR.StateSystem
 {
@@ -17,19 +18,24 @@ namespace CDR.StateSystem
         public override void StartState()
         {
             base.StartState();
-            
+
+            receiver.animator.SetInteger("StateType", (int)StateType.Stun);
             StartCoroutine(StunCoroutine(duration));
         }
 
         public override void EndState()
         {
             base.EndState();
+
+            receiver.animator.SetInteger("StateType", (int)StateType.None);
             Return();
         }
 
         public override void ForceEndState()
         {
             base.ForceEndState();
+
+            receiver.animator.SetInteger("StateType", (int)StateType.None);
             Return();
         }
 

@@ -33,6 +33,13 @@ namespace CDR.MovementSystem
             base.Awake();
             Character.animator.GetComponent<AnimationEventsManager>().AddAnimationEvent("Move");
             Character.animator.GetComponent<AnimationEventsManager>().AddAnimationEvent("Move", sfx);
+
+        }
+
+        private void Start()
+        {
+            Character.controller.flightPlane.AddCharacterController((CharacterController)Character.controller);
+            
         }
 
         private void Update()
@@ -101,9 +108,7 @@ namespace CDR.MovementSystem
         {
             var dir = new Vector3(direction.x, 0f, direction.y);
             currentDir = dir;
-
-            Character.animator.SetInteger("MoveType", (int)MoveType.Movement);
-
+          
             LeanTween.value(Character.animator.GetFloat("MoveX"), direction.x, leanTime).setOnUpdate((float f) =>
             {
                 Character.animator.SetFloat("MoveX", f);
@@ -115,7 +120,7 @@ namespace CDR.MovementSystem
 
             if (direction.magnitude == 0f)
             {
-                Character.animator.SetInteger("MoveType", (int)MoveType.None);
+                //Character.animator.SetInteger("MoveType", (int)MoveType.None);
                 currentDir = Vector3.zero;
             }
         }
@@ -125,11 +130,13 @@ namespace CDR.MovementSystem
             base.Use();
             currentTarget = Character.targetHandler.GetCurrentTarget();
             distanceToTarget = Vector3.Distance(Character.position, currentTarget.activeCharacter.position);
+            Character.animator.SetInteger("MoveType", (int)MoveType.Movement);
         }
 
         public override void End()
         {
             base.End();
+            Character.animator.SetInteger("MoveType", (int)MoveType.None);
         }
 
         public override void ForceEnd()

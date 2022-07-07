@@ -29,24 +29,31 @@ namespace CDR.AttackSystem
         public override void End()
         {
             base.End();
+            vfxHandler.Deactivate();
             Character.animator.SetInteger("ActionType", (int)ActionType.None);
         }
 
         public override void ForceEnd()
         {
             base.ForceEnd();
+            vfxHandler.Deactivate();
             Character.animator.SetInteger("ActionType", (int)ActionType.None);
         }
 
         private void Fire()
         {
-            var targetDir = -activeCharacter.targetHandler.GetCurrentTarget().direction;
             var cluster = _pool[0].GetPoolable();
             if(cluster != null)
             {
-                cluster.GetComponent<CosmicBulletCluster>().Init(bulletSpawnPoint[0].transform.position, targetDir);
+                vfxHandler.Activate();
+                LeanTween.delayedCall(0.24f, () =>
+                {
+                    var targetDir = -activeCharacter.targetHandler.GetCurrentTarget().direction;
+
+                    cluster.GetComponent<CosmicBulletCluster>().Init(bulletSpawnPoint[0].transform.position, targetDir);
+                        End();
+                });
             }
-            End();
         }
     }
 }

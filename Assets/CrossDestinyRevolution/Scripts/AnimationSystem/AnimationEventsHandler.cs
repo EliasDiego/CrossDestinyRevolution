@@ -16,8 +16,6 @@ namespace CDR.AnimationSystem
         private IAnimationEvent[] _AnimationEvents;
         private float _CurrentTime;
 
-        private bool _IsStateFinished = false;
-
         private Animator _Animator;
         private AnimatorStateInfo _CurrentStateInfo;
         private int _CurrentLayerIndex;
@@ -58,8 +56,6 @@ namespace CDR.AnimationSystem
 
             _CurrentTime = 0;
 
-            _IsStateFinished = false;
-
             for(int i = 0; i < _AnimationEvents.Length; i++)
                 _AnimationEvents[i].OnStateEnter(animator, stateInfo, layerIndex);
         }
@@ -79,10 +75,10 @@ namespace CDR.AnimationSystem
         {
             base.OnStateUpdate(animator, stateInfo, layerIndex);
 
-            if(_AnimationEvents == null || _AnimationEvents?.Length <= 0 || _IsStateFinished)
+            if(_AnimationEvents == null || _AnimationEvents?.Length <= 0 || stateInfo.speed * stateInfo.speedMultiplier == 0)
                 return;
 
-            float deltaTime = stateInfo.speed * stateInfo.speedMultiplier * Time.deltaTime;
+            float deltaTime = stateInfo.normalizedTime * stateInfo.length - _CurrentTime;
 
             _Animator = animator;
             _CurrentStateInfo = stateInfo;
@@ -94,7 +90,8 @@ namespace CDR.AnimationSystem
 
             if(_CurrentTime >= stateInfo.length)
             {
-                _IsStateFinished = !stateInfo.loop;
+                if(!stateInfo.loop)
+                    _AnimationEvents = null;
 
                 _CurrentTime = 0;
             }

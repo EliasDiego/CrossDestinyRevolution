@@ -20,7 +20,7 @@
                     "id": "0a9956e8-30b6-430f-ab05-1fbaf7ab5c39",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": "",
+                    "interactions": "MultiTap(tapTime=0.15,tapDelay=0.15)",
                     "initialStateCheck": true
                 },
                 {
@@ -34,7 +34,7 @@
                 },
                 {
                     "name": "MeleeAttack",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "d05a2475-5599-4814-be42-2b048ff6e24e",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -43,7 +43,7 @@
                 },
                 {
                     "name": "RangeAttack",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "a0139e08-a17b-4719-96ed-5623009a6465",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -156,19 +156,8 @@
                 },
                 {
                     "name": "",
-                    "id": "2d69e0f5-2fd6-44db-bacb-e311373eed63",
-                    "path": "<Keyboard>/numpad4",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ChangeTarget",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "ed303d15-7c89-4646-ade1-3e53b03116bc",
-                    "path": "<Keyboard>/numpad3",
+                    "path": "<Keyboard>/numpad2",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -179,7 +168,7 @@
                 {
                     "name": "",
                     "id": "bd1e8dae-112a-4195-a607-bf935079ee0e",
-                    "path": "<Keyboard>/numpad5",
+                    "path": "<Keyboard>/numpad4",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -190,7 +179,7 @@
                 {
                     "name": "",
                     "id": "055c97b7-9b41-4def-b689-c4b6917800ca",
-                    "path": "<Keyboard>/numpad2",
+                    "path": "<Keyboard>/numpad3",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -201,7 +190,7 @@
                 {
                     "name": "",
                     "id": "b9fa44fd-3fc9-4a5f-aa9b-ce0df70a5ec8",
-                    "path": "<Keyboard>/numpad6",
+                    "path": "<Keyboard>/numpad5",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -212,7 +201,7 @@
                 {
                     "name": "",
                     "id": "6e136b1e-4510-4609-8a03-4824093326bc",
-                    "path": "<Keyboard>/numpad7",
+                    "path": "<Keyboard>/numpad6",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
