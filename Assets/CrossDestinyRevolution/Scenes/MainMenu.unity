@@ -183,6 +183,7 @@ GameObject:
   - component: {fileID: 152823039}
   - component: {fileID: 152823038}
   - component: {fileID: 152823037}
+  - component: {fileID: 152823040}
   m_Layer: 5
   m_Name: Quit (1)
   m_TagString: Untagged
@@ -241,7 +242,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 3044193072639924906, guid: 0b8629f07fc417b4186db4332237d681, type: 3}
     m_PressedSprite: {fileID: -4817280723609005122, guid: 0b8629f07fc417b4186db4332237d681, type: 3}
-    m_SelectedSprite: {fileID: -4817280723609005122, guid: 0b8629f07fc417b4186db4332237d681, type: 3}
+    m_SelectedSprite: {fileID: 3044193072639924906, guid: 0b8629f07fc417b4186db4332237d681, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -304,6 +305,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 152823035}
   m_CullTransparentMesh: 1
+--- !u!114 &152823040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152823035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb5e536779e73b5459108ab35a366408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _AudioSource: {fileID: 1318985563}
+  _OnSubmitSFX: {fileID: 11400000, guid: 50e8b5e4be4b0b648ba9e2edbc2a5e25, type: 2}
+  _OnSelectSFX: {fileID: 11400000, guid: 01981b15979b7384e896e530a100fcef, type: 2}
 --- !u!1 &178470615
 GameObject:
   m_ObjectHideFlags: 0
@@ -1230,6 +1246,7 @@ GameObject:
   - component: {fileID: 433660312}
   - component: {fileID: 433660311}
   - component: {fileID: 433660310}
+  - component: {fileID: 433660313}
   m_Layer: 5
   m_Name: Versus (1)
   m_TagString: Untagged
@@ -1288,7 +1305,7 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 3044193072639924906, guid: 0b8629f07fc417b4186db4332237d681, type: 3}
     m_PressedSprite: {fileID: -4817280723609005122, guid: 0b8629f07fc417b4186db4332237d681, type: 3}
-    m_SelectedSprite: {fileID: -4817280723609005122, guid: 0b8629f07fc417b4186db4332237d681, type: 3}
+    m_SelectedSprite: {fileID: 3044193072639924906, guid: 0b8629f07fc417b4186db4332237d681, type: 3}
     m_DisabledSprite: {fileID: 0}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -1351,6 +1368,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 433660308}
   m_CullTransparentMesh: 1
+--- !u!114 &433660313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 433660308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb5e536779e73b5459108ab35a366408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _AudioSource: {fileID: 1318985563}
+  _OnSubmitSFX: {fileID: 11400000, guid: 50e8b5e4be4b0b648ba9e2edbc2a5e25, type: 2}
+  _OnSelectSFX: {fileID: 11400000, guid: 01981b15979b7384e896e530a100fcef, type: 2}
 --- !u!1 &666726585
 GameObject:
   m_ObjectHideFlags: 0
@@ -2189,6 +2221,7 @@ GameObject:
   - component: {fileID: 1049379020}
   - component: {fileID: 1049379019}
   - component: {fileID: 1049379018}
+  - component: {fileID: 1049379021}
   m_Layer: 5
   m_Name: Tutorial (1)
   m_TagString: Untagged
@@ -2247,15 +2280,15 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 3044193072639924906, guid: 0b8629f07fc417b4186db4332237d681, type: 3}
     m_PressedSprite: {fileID: -4817280723609005122, guid: 0b8629f07fc417b4186db4332237d681, type: 3}
-    m_SelectedSprite: {fileID: -4817280723609005122, guid: 0b8629f07fc417b4186db4332237d681, type: 3}
-    m_DisabledSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 3044193072639924906, guid: 0b8629f07fc417b4186db4332237d681, type: 3}
+    m_DisabledSprite: {fileID: -4817280723609005122, guid: 0b8629f07fc417b4186db4332237d681, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1049379019}
   m_OnClick:
     m_PersistentCalls:
@@ -2310,6 +2343,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1049379016}
   m_CullTransparentMesh: 1
+--- !u!114 &1049379021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1049379016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb5e536779e73b5459108ab35a366408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _AudioSource: {fileID: 1318985563}
+  _OnSubmitSFX: {fileID: 11400000, guid: 50e8b5e4be4b0b648ba9e2edbc2a5e25, type: 2}
+  _OnSelectSFX: {fileID: 11400000, guid: 01981b15979b7384e896e530a100fcef, type: 2}
 --- !u!1 &1086664260
 GameObject:
   m_ObjectHideFlags: 0
@@ -2363,6 +2411,7 @@ MonoBehaviour:
   _IsShown: 1
   _Environment: {fileID: 1758801884}
   _StartActionReference: {fileID: 5219092782739238062, guid: 68bdc22a752cb6f419983bee70ecd6cd, type: 3}
+  _EventSystem: {fileID: 1889259509}
   _MainMenu: {fileID: 1318985562}
 --- !u!1 &1095020850
 GameObject:
@@ -2376,6 +2425,7 @@ GameObject:
   - component: {fileID: 1095020854}
   - component: {fileID: 1095020853}
   - component: {fileID: 1095020852}
+  - component: {fileID: 1095020855}
   m_Layer: 5
   m_Name: Settings (1)
   m_TagString: Untagged
@@ -2434,15 +2484,15 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 3044193072639924906, guid: 0b8629f07fc417b4186db4332237d681, type: 3}
     m_PressedSprite: {fileID: -4817280723609005122, guid: 0b8629f07fc417b4186db4332237d681, type: 3}
-    m_SelectedSprite: {fileID: -4817280723609005122, guid: 0b8629f07fc417b4186db4332237d681, type: 3}
-    m_DisabledSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 3044193072639924906, guid: 0b8629f07fc417b4186db4332237d681, type: 3}
+    m_DisabledSprite: {fileID: -4817280723609005122, guid: 0b8629f07fc417b4186db4332237d681, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1095020853}
   m_OnClick:
     m_PersistentCalls:
@@ -2497,6 +2547,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1095020850}
   m_CullTransparentMesh: 1
+--- !u!114 &1095020855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095020850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb5e536779e73b5459108ab35a366408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _AudioSource: {fileID: 1318985563}
+  _OnSubmitSFX: {fileID: 11400000, guid: 50e8b5e4be4b0b648ba9e2edbc2a5e25, type: 2}
+  _OnSelectSFX: {fileID: 11400000, guid: 01981b15979b7384e896e530a100fcef, type: 2}
 --- !u!1 &1118109126
 GameObject:
   m_ObjectHideFlags: 0
@@ -2726,6 +2791,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1318985561}
   - component: {fileID: 1318985562}
+  - component: {fileID: 1318985563}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -2768,6 +2834,104 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _IsShown: 0
   _Environment: {fileID: 337446612}
+  _EventSystem: {fileID: 1889259509}
+  _FirstSelect: {fileID: 433660308}
+--- !u!82 &1318985563
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1318985560}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1324558428
 GameObject:
   m_ObjectHideFlags: 0
@@ -3846,7 +4010,7 @@ MonoBehaviour:
   m_ScrollWheelAction: {fileID: 6240969308177333660, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_TrackedDevicePositionAction: {fileID: 6564999863303420839, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
   m_TrackedDeviceOrientationAction: {fileID: 7970375526676320489, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
-  m_DeselectOnBackgroundClick: 1
+  m_DeselectOnBackgroundClick: 0
   m_PointerBehavior: 0
 --- !u!114 &1889259509
 MonoBehaviour:
@@ -3905,7 +4069,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!82 &1905497376
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4064,6 +4228,7 @@ GameObject:
   - component: {fileID: 1908210899}
   - component: {fileID: 1908210898}
   - component: {fileID: 1908210897}
+  - component: {fileID: 1908210900}
   m_Layer: 5
   m_Name: Credits (1)
   m_TagString: Untagged
@@ -4122,15 +4287,15 @@ MonoBehaviour:
   m_SpriteState:
     m_HighlightedSprite: {fileID: 3044193072639924906, guid: 0b8629f07fc417b4186db4332237d681, type: 3}
     m_PressedSprite: {fileID: -4817280723609005122, guid: 0b8629f07fc417b4186db4332237d681, type: 3}
-    m_SelectedSprite: {fileID: -4817280723609005122, guid: 0b8629f07fc417b4186db4332237d681, type: 3}
-    m_DisabledSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 3044193072639924906, guid: 0b8629f07fc417b4186db4332237d681, type: 3}
+    m_DisabledSprite: {fileID: -4817280723609005122, guid: 0b8629f07fc417b4186db4332237d681, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
     m_HighlightedTrigger: Highlighted
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 1908210898}
   m_OnClick:
     m_PersistentCalls:
@@ -4185,6 +4350,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1908210895}
   m_CullTransparentMesh: 1
+--- !u!114 &1908210900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1908210895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb5e536779e73b5459108ab35a366408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _AudioSource: {fileID: 1318985563}
+  _OnSubmitSFX: {fileID: 11400000, guid: 50e8b5e4be4b0b648ba9e2edbc2a5e25, type: 2}
+  _OnSelectSFX: {fileID: 11400000, guid: 01981b15979b7384e896e530a100fcef, type: 2}
 --- !u!1 &1908922402
 GameObject:
   m_ObjectHideFlags: 0
