@@ -32,6 +32,11 @@ namespace CDR.ActionSystem
 		{
 			isActionActive = false;
 		}
+
+		public virtual void UltimaEnd()
+		{
+			ForceEnd();
+		}
 	}
 }
 
