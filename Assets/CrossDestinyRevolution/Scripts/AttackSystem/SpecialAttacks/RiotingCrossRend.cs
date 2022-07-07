@@ -56,9 +56,14 @@ namespace CDR.AttackSystem
         public override void ForceEnd()
         {
             base.ForceEnd();          
+            Character.animator.SetInteger("ActionType", (int)ActionType.None);
+        }
+
+        public override void UltimaEnd()
+        {
+            base.UltimaEnd();
             laserVFX.Deactivate();
             muzzleVFX.Deactivate();
-            Character.animator.SetInteger("ActionType", (int)ActionType.None);
         }
 
         private void Fire()
