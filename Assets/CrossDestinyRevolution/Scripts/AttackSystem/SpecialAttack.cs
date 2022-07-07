@@ -39,7 +39,7 @@ namespace CDR.AttackSystem
 			IMech mech = (IMech)Character;
 
 			mech.movement?.ForceEnd();
-			mech.rangeAttack?.ForceEnd();
+			mech.rangeAttack?.End();
 			//mech.shield?.ForceEnd();
 			//mech.meleeAttack?.ForceEnd();
 			mech.boost?.ForceEnd();
