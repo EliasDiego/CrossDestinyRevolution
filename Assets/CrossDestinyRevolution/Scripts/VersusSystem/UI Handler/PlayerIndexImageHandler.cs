@@ -18,23 +18,18 @@ namespace CDR.VersusSystem
 
         public bool isShown => _IsShown;
 
-        private void Awake() 
-        {
-            _LightImage.enabled = false;
-        }
-
         public void Show()
         {
             _IsShown = true;
 
-            _LightImage.enabled = true;
+            _LightImage.gameObject.SetActive(true);
         }
 
         public void Hide()
         {
             _IsShown = false;
 
-            _LightImage.enabled = false;
+            _LightImage.gameObject.SetActive(false);
         }
     }
 }
