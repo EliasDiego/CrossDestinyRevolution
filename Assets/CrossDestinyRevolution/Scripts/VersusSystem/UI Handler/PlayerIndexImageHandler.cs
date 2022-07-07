@@ -12,9 +12,7 @@ namespace CDR.VersusSystem
     public class PlayerIndexImageHandler : MonoBehaviour, IUIElement
     {
         [SerializeField]
-        private Gradient _Gradient;
-
-        private Image _Image;
+        private Image _LightImage;
 
         private bool _IsShown = false;
 
@@ -22,21 +20,21 @@ namespace CDR.VersusSystem
 
         private void Awake() 
         {
-            _Image = GetComponent<Image>();    
+            _LightImage.enabled = false;
         }
 
         public void Show()
         {
             _IsShown = true;
 
-            _Image.color = _Gradient.Evaluate(1);
+            _LightImage.enabled = true;
         }
 
         public void Hide()
         {
             _IsShown = false;
 
-            _Image.color = _Gradient.Evaluate(0);
+            _LightImage.enabled = false;
         }
     }
 }

@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CDR.ObjectPoolingSystem;
+using CDR.AudioSystem;
 
 namespace CDR.VFXSystem
 {
-	public class HitGunVFXPoolable : MonoBehaviour, IPoolable
+	[RequireComponent(typeof(AudioSource))]
+	public class AudioSourcePoolable : MonoBehaviour, IPoolable
 	{
-		[SerializeField] HitVFXHandler hitVFXHandler;
+		[SerializeField] AudioSource audioSource;
 
 		[SerializeField] protected float activeTime;
 
@@ -15,12 +17,12 @@ namespace CDR.VFXSystem
 
 		public IPool pool { get => _pool; set => _pool = value; }
 
-		public virtual void PlayVFX()
+		public virtual void PlayAudio(AudioClipPreset preset)
 		{
-			hitVFXHandler.Activate();
-			StartCoroutine(EndVFX(activeTime));
+			preset.PlayOneShot(audioSource);
+			StartCoroutine(EndAudio(activeTime));
 		}
-		IEnumerator EndVFX(float time)
+		IEnumerator EndAudio(float time)
 		{
 			yield return new WaitForSeconds(time);
 			Return();
@@ -28,8 +30,7 @@ namespace CDR.VFXSystem
 
 		public virtual void ResetObject()
 		{
-			hitVFXHandler.Deactivate();
-			transform.position = Vector3.zero;
+			//audioSourceHandler.Deactivate();
 		}
 
 		public virtual void Return()
@@ -40,4 +41,3 @@ namespace CDR.VFXSystem
 		}
 	}
 }
-

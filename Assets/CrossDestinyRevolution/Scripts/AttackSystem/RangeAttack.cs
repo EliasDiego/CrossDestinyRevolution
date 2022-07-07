@@ -5,9 +5,11 @@ using CDR.ActionSystem;
 using CDR.ObjectPoolingSystem;
 using CDR.AnimationSystem;
 using CDR.VFXSystem;
+using CDR.AudioSystem;
 
 namespace CDR.AttackSystem
 {
+	
 	public class RangeAttack : Action , IRangeAttack
 	{
 		[SerializeField] ObjectPooling _pool;
@@ -20,10 +22,9 @@ namespace CDR.AttackSystem
 
 		public float range => attackRange;
 
-		[SerializeField] CDR.AnimationSystem.AnimationEvent _animationEvent;
-
 		AnimationEventsManager _Manager;
-		[SerializeField] SFXAnimationEvent[] sfxAnimationEvents;
+
+		[SerializeField] AudioClipPreset audioClipPreset;
 
 		bool isShootingRangeAttack = false;
 
@@ -33,12 +34,13 @@ namespace CDR.AttackSystem
 		{
 			_Manager = Character.animator.GetComponent<AnimationEventsManager>();
 
+
 			//var a = new CDR.AnimationSystem.AnimationEvent(0.29f, true, () => StartCoroutine(ShootHomingBullet()));
 			//var b = new CDR.AnimationSystem.AnimationEvent(1f, true, () => End());
 
 			//_Manager.AddAnimationEvent("RAttack", a,b);
 
-			_Manager.AddAnimationEvent("RAttack", sfxAnimationEvents);
+			//_Manager.AddAnimationEvent("RAttack", sfxAnimationEvents);
 		}
 
 		protected override void Awake()
@@ -77,6 +79,7 @@ namespace CDR.AttackSystem
 				bullet.SetActive(true);
 
 				rangeAttackVFXHandler.Activate();
+				audioClipPreset.PlayOneShot(Character.audioSource);
 			}
 		}
 
@@ -85,6 +88,7 @@ namespace CDR.AttackSystem
 			base.End();
 
 			Character.animator.SetInteger("ActionType", (int)ActionType.None);
+			Character.animator.SetFloat("ActionSMultiplier", 1);
 
 			isShootingRangeAttack = false;
 
@@ -97,6 +101,7 @@ namespace CDR.AttackSystem
 			base.ForceEnd();
 
 			Character.animator.SetInteger("ActionType", (int)ActionType.None);
+			Character.animator.SetFloat("ActionSMultiplier", 1);
 
 			isShootingRangeAttack = false;
 

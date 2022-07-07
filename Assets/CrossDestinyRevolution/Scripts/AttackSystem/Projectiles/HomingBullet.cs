@@ -80,13 +80,13 @@ namespace CDR.AttackSystem
         {
             base.OnHitEnter(hitData);
 
-            hitData.hurtShape.character.health.TakeDamage(projectileDamage);
+            //hitData.hurtShape.character.health.TakeDamage(projectileDamage);
 
-            ResetObject();
+            //ResetObject();
 
-            projectileHitBox.onHitEnter -= OnHitEnter;
+            //projectileHitBox.onHitEnter -= OnHitEnter;
 
-            Return();
+            //Return();
         }
 
         public bool CheckDistanceFromTarget()
