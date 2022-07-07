@@ -31,7 +31,7 @@ namespace CDR.SceneManagementSystem
             {
                 AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(_SceneIndex, LoadSceneMode.Additive);
 
-                yield return new WaitWhile(() => asyncOperation.isDone);
+                yield return new WaitWhile(() => !asyncOperation.isDone);
                 
                 SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(_SceneIndex));
             }
