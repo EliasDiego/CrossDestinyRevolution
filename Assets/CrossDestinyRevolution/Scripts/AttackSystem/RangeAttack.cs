@@ -5,9 +5,11 @@ using CDR.ActionSystem;
 using CDR.ObjectPoolingSystem;
 using CDR.AnimationSystem;
 using CDR.VFXSystem;
+using CDR.AudioSystem;
 
 namespace CDR.AttackSystem
 {
+	
 	public class RangeAttack : Action , IRangeAttack
 	{
 		[SerializeField] ObjectPooling _pool;
@@ -25,9 +27,13 @@ namespace CDR.AttackSystem
 		AnimationEventsManager _Manager;
 		[SerializeField] SFXAnimationEvent[] sfxAnimationEvents;
 
+		[SerializeField] AudioClipPreset audioClipPreset;
+
 		bool isShootingRangeAttack = false;
 
 		Coroutine _coroutine;
+
+		
 
 		void Start()
 		{
@@ -38,7 +44,7 @@ namespace CDR.AttackSystem
 
 			//_Manager.AddAnimationEvent("RAttack", a,b);
 
-			_Manager.AddAnimationEvent("RAttack", sfxAnimationEvents);
+			//_Manager.AddAnimationEvent("RAttack", sfxAnimationEvents);
 		}
 
 		protected override void Awake()
@@ -77,6 +83,7 @@ namespace CDR.AttackSystem
 				bullet.SetActive(true);
 
 				rangeAttackVFXHandler.Activate();
+				audioClipPreset.PlayOneShot(Character.audioSource);
 			}
 		}
 
