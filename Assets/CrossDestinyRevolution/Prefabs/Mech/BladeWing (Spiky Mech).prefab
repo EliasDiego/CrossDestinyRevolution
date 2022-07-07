@@ -523,7 +523,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6489849201931218856, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
       propertyPath: _boostValue.regenRate
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6489849201931218856, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
       propertyPath: vfxHandler.Array.size
@@ -2957,6 +2957,10 @@ PrefabInstance:
       propertyPath: activeCharacter
       value: 
       objectReference: {fileID: 852551265084442558}
+    - target: {fileID: 8580773993442605795, guid: 58ae2558cfa70054db9eb652c295458f, type: 3}
+      propertyPath: SpecialAbilityCooldown
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 8580773993442605795, guid: 58ae2558cfa70054db9eb652c295458f, type: 3}
       propertyPath: sfxAnimationEvents.Array.size
       value: 1

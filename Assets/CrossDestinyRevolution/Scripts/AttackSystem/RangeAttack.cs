@@ -107,6 +107,11 @@ namespace CDR.AttackSystem
 
 			if (_coroutine != null)
 				StopCoroutine(_coroutine);
+		}
+
+		public override void UltimaEnd()
+		{
+			base.UltimaEnd();
 
 			_pool.ReturnAll();
 		}

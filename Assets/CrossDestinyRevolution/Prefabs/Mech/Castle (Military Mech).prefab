@@ -928,6 +928,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8028309934427116824}
     - target: {fileID: 2111228784368867427, guid: cc4bb43d2d5e894499d5ca1e7ec6602a, type: 3}
+      propertyPath: SpecialAbilityCooldown
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2111228784368867427, guid: cc4bb43d2d5e894499d5ca1e7ec6602a, type: 3}
       propertyPath: bigBangBarrageVFXHandler
       value: 
       objectReference: {fileID: 5844733807002564331}
@@ -1437,7 +1441,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6489849201931218856, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
       propertyPath: _boostValue.regenRate
-      value: 10
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 6489849201931218856, guid: 3c6c96384e244614d9d87b7bbc0cf8e8, type: 3}
       propertyPath: vfxHandler.Array.size
