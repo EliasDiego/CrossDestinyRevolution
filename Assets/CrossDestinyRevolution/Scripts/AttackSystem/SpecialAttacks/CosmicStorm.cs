@@ -42,18 +42,16 @@ namespace CDR.AttackSystem
 
         private void Fire()
         {
-            var targetDir = -activeCharacter.targetHandler.GetCurrentTarget().direction;
             var cluster = _pool[0].GetPoolable();
             if(cluster != null)
             {
                 vfxHandler.Activate();
                 LeanTween.delayedCall(0.24f, () =>
                 {
+                    var targetDir = -activeCharacter.targetHandler.GetCurrentTarget().direction;
+
                     cluster.GetComponent<CosmicBulletCluster>().Init(bulletSpawnPoint[0].transform.position, targetDir);
-                    LeanTween.delayedCall(1f, () =>
-                    {                        
                         End();
-                    });
                 });
             }
         }
