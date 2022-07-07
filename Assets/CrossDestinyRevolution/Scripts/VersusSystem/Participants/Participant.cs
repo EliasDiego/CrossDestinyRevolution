@@ -57,28 +57,28 @@ namespace CDR.VersusSystem
                 mech.targetHandler?.End();
 
             if(CheckBoolean(mech.shield?.isActive))
-                mech.shield?.ForceEnd();
+                mech.shield?.UltimaEnd();
 
             if(CheckBoolean(mech.specialAttack1?.isActive))
-            mech.specialAttack1?.ForceEnd();
+                mech.specialAttack1?.UltimaEnd();
 
             if(CheckBoolean(mech.specialAttack2?.isActive))
-            mech.specialAttack2?.ForceEnd();
+                mech.specialAttack2?.UltimaEnd();
 
             if(CheckBoolean(mech.specialAttack3?.isActive))
-            mech.specialAttack3?.ForceEnd();
+                mech.specialAttack3?.UltimaEnd();
 
             if(CheckBoolean(mech.meleeAttack?.isActive))
-            mech.meleeAttack?.ForceEnd();
+                mech.meleeAttack?.UltimaEnd();
 
             if(CheckBoolean(mech.rangeAttack?.isActive))
-            mech.rangeAttack?.ForceEnd();
+                mech.rangeAttack?.UltimaEnd();
 
             if(CheckBoolean(mech.boost?.isActive))
-                mech.boost?.ForceEnd();
+                mech.boost?.UltimaEnd();
             
             if(CheckBoolean(mech.movement?.isActive))
-                mech.movement?.ForceEnd();
+                mech.movement?.UltimaEnd();
     
             mech.animator.SetInteger("StateType", (int)AnimationSystem.StateType.None);
             mech.animator.SetInteger("ActionType", (int)AnimationSystem.ActionType.None);

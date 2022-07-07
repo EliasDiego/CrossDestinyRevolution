@@ -21,6 +21,8 @@ namespace CDR.VersusSystem
             _Camera = camera;
 
             _BattleUI.camera = camera;
+
+            _BattleUI.targetHandlerUI.Hide();
         }
 
         public override void Start()
@@ -32,6 +34,13 @@ namespace CDR.VersusSystem
 
             _BattleUI.SetMech(mech);
             _BattleUI.Show();
+            _BattleUI.targetHandlerUI.Show();
+        }
+
+        public override void Stop()
+        {
+            base.Stop();
+            _BattleUI.targetHandlerUI.Hide();
         }
     }
 }

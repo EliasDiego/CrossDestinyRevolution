@@ -193,14 +193,18 @@ namespace CDR.MovementSystem
             {
                 StopCoroutine(_FixedCoroutine);
             }
+         
+            Character.controller.SetVelocity(Vector3.zero);
+            ResetAnimatorValues();
+        }
 
+        public override void UltimaEnd()
+        {
+            base.UltimaEnd();
             for (int i = 0; i < vfxHandler.Length; i++)
             {
                 vfxHandler[i].Deactivate();
             }
-
-            Character.controller.SetVelocity(Vector3.zero);
-            ResetAnimatorValues();
         }
     }
 }

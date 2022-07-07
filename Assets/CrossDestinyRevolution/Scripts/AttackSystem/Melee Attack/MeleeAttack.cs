@@ -82,7 +82,7 @@ namespace CDR.AttackSystem
 
 			Character.input.DisableInputExcept("MeleeAttack");
 			Character.movement.End();
-			(Character as Mech).rangeAttack.End();
+			(Character as Mech).rangeAttack.ForceEnd();
 			//Character.shield.End();
 		}
 
@@ -122,6 +122,18 @@ namespace CDR.AttackSystem
 			}
 
 			_hitBox.onHitEnter -= HitEnter;
+		}
+
+		public override void UltimaEnd()
+		{
+			base.UltimaEnd();
+			
+			_meleeVfx.Deactivate();
+
+			for(int i =0; i < _boostVfx.Length; i++)
+			{
+				_boostVfx[i].Deactivate();
+			}
 		}
 
 		void HitEnter(IHitData hitData)
