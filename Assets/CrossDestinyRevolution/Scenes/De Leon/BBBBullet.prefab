@@ -108,7 +108,7 @@ MonoBehaviour:
   hasLifeTime: 0
   projectileLifetime: 0
   projectileMaxLifetime: 5
-  bulletSpeed: 15
+  bulletSpeed: 20
   bulletSplitSpeed: 5
   generalDirection: {x: 0, y: 0, z: 0, w: 0}
   towardsSplitPoint: {x: 0, y: 0, z: 0}
