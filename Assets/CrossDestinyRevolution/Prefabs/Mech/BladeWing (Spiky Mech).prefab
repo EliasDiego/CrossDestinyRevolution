@@ -810,7 +810,7 @@ PrefabInstance:
       objectReference: {fileID: 1524792194515366172}
     - target: {fileID: 1022151575901924852, guid: 4da7ad14123db1444bceecd09199741d, type: 3}
       propertyPath: maxLength
-      value: 500
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 1022151575901924852, guid: 4da7ad14123db1444bceecd09199741d, type: 3}
       propertyPath: muzzleVFX
