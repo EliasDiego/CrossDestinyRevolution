@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0bab37b0807832b4c923f7ef9883ee33, type: 3}
   m_Name: New After Versus Scene Task
   m_EditorClassIdentifier: 
-  _NextSceneIndex: 0
+  _NextSceneIndex: 1

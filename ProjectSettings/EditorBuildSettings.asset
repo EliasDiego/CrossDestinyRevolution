@@ -6,6 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/CrossDestinyRevolution/Scenes/SplashScreen.unity
+    guid: 52bf15dc8b5fcbd4c8f1de9d9c7b46f8
+  - enabled: 1
     path: Assets/CrossDestinyRevolution/Scenes/MainMenu.unity
     guid: 6530e685d41acb24786be2c01f29c0fe
   - enabled: 1
