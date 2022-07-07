@@ -17,6 +17,8 @@ namespace CDR.VersusSystem
 {
     public class PlayerInputSelectMenu : MultipleUsersVersusMenu, IPlayerInputSelectMenu
     {
+        [SerializeField]
+        private GameObject _Environment;
         [Header("Versus Stuff")]
         [SerializeField]
         private GameObject _CameraPrefab;
@@ -169,6 +171,9 @@ namespace CDR.VersusSystem
             ResetImageHandlers();
 
             UpdateImageHandlers(_CurrentPlayerIndex);
+
+            if(_Environment)
+                _Environment?.SetActive(true);
         }
 
         public override void Hide()
@@ -178,6 +183,9 @@ namespace CDR.VersusSystem
             _Disposable.Dispose();
 
             _PlayerSelectInput.DisableInput();
+            
+            if(_Environment)
+                _Environment?.SetActive(false);
         }
 
         public void OnCompleted() { }
