@@ -96,7 +96,7 @@ namespace CDR.VersusSystem
         {
             int aliveParticipants = _Participants.Count(p => p.mech.health.CurrentValue > 0);
 
-            if(aliveParticipants <= 1)
+            if(aliveParticipants == 1)
             {
                 IParticipant aliveParticipant = _Participants.FirstOrDefault(p => p.mech.health.CurrentValue > 0);
 
@@ -106,6 +106,9 @@ namespace CDR.VersusSystem
 
                 EndRound();
             }
+
+            foreach(IParticipant p in _Participants.Where(p => p.mech.health.CurrentValue <= 0))
+                p.mech.animator.SetInteger("StateType", (int)AnimationSystem.StateType.Death);
         }
 
         public void Initialize(IVersusSettings versusSettings, IVersusUI versusUI, params IParticipant[] participants)
@@ -144,7 +147,10 @@ namespace CDR.VersusSystem
                 StopCoroutine(_EndRoundCoroutine);
 
             foreach(IParticipant p in _Participants)
+            {
+                p.Stop();
                 p.mech.health.OnDeath -= OnParticipantDeath;
+            }
 
             _VersusUI.roundTimeUIHandler.Hide();
             _VersusUI.pauseMenu.returnToMainMenuEvent -= ExitVersus;

@@ -79,6 +79,14 @@ namespace CDR.VersusSystem
             
             if(CheckBoolean(mech.movement?.isActive))
                 mech.movement?.ForceEnd();
+    
+            mech.animator.SetInteger("StateType", (int)AnimationSystem.StateType.None);
+            mech.animator.SetInteger("ActionType", (int)AnimationSystem.ActionType.None);
+            mech.animator.SetInteger("MoveType", (int)AnimationSystem.MoveType.Movement);
+
+            mech.animator.SetFloat("StateSMultiplier", 1);
+            mech.animator.SetFloat("ActionSMultiplier", 1);
+            mech.animator.SetFloat("MoveSMultiplier", 1);
 
             mech.controller?.SetVelocity(Vector3.zero);
         }
