@@ -18,6 +18,25 @@ namespace CDR.SceneManagementSystem
 
         public ISceneTask sceneTask => _SceneTask;
 
+        private struct SimpleSceneTask : ISceneTask
+        {
+            private int _SceneIndex;
+
+            public SimpleSceneTask(int sceneIndex)
+            {
+                _SceneIndex = sceneIndex;
+            }
+
+            public IEnumerator Process()
+            {
+                AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(_SceneIndex, LoadSceneMode.Additive);
+
+                yield return new WaitWhile(() => asyncOperation.isDone);
+                
+                SceneManager.SetActiveScene(SceneManager.GetSceneByBuildIndex(_SceneIndex));
+            }
+        }
+
         public void LoadScene(int sceneIndex)
         {
             SceneManager.LoadScene(sceneIndex);
@@ -28,6 +47,11 @@ namespace CDR.SceneManagementSystem
             _SceneTask = sceneTask;
 
             SceneManager.LoadScene(_LoadingScreenSceneIndex, LoadSceneMode.Additive);
+        }
+
+        public void LoadSceneAsync(int sceneIndex)
+        {
+            LoadSceneAsync(new SimpleSceneTask(sceneIndex));
         }
     }
 }
