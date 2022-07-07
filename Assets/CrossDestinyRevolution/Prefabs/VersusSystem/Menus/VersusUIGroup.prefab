@@ -116,6 +116,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _IsShown: 0
   _PauseAction: {fileID: -7487173287901066445, guid: 68bdc22a752cb6f419983bee70ecd6cd, type: 3}
+  _EventSystem: {fileID: 3577660952296359532}
+  _FirstSelect: {fileID: 6857529648448392661}
 --- !u!1 &1299739531964973322
 GameObject:
   m_ObjectHideFlags: 0
@@ -970,6 +972,7 @@ GameObject:
   - component: {fileID: 5520456884951277963}
   - component: {fileID: 4969585284307588781}
   - component: {fileID: 6399338213049125784}
+  - component: {fileID: 8088586756487685861}
   m_Layer: 5
   m_Name: Quit
   m_TagString: Untagged
@@ -1091,6 +1094,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8088586756487685861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3458165202538615515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb5e536779e73b5459108ab35a366408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _AudioSource: {fileID: 8293375527863578766}
+  _OnSubmitSFX: {fileID: 11400000, guid: 50e8b5e4be4b0b648ba9e2edbc2a5e25, type: 2}
+  _OnSelectSFX: {fileID: 11400000, guid: 01981b15979b7384e896e530a100fcef, type: 2}
 --- !u!1 &3577660952296359534
 GameObject:
   m_ObjectHideFlags: 0
@@ -1325,6 +1343,7 @@ GameObject:
   - component: {fileID: 7584820291378622412}
   - component: {fileID: 3658610148732838969}
   - component: {fileID: 3669501847909911459}
+  - component: {fileID: 3136430044925914426}
   m_Layer: 5
   m_Name: ReturnToMainMenu
   m_TagString: Untagged
@@ -1446,6 +1465,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &3136430044925914426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4263340827812750510}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb5e536779e73b5459108ab35a366408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _AudioSource: {fileID: 8293375527863578766}
+  _OnSubmitSFX: {fileID: 11400000, guid: 50e8b5e4be4b0b648ba9e2edbc2a5e25, type: 2}
+  _OnSelectSFX: {fileID: 11400000, guid: 01981b15979b7384e896e530a100fcef, type: 2}
 --- !u!1 &4316783248290604690
 GameObject:
   m_ObjectHideFlags: 0
@@ -1498,6 +1532,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _IsShown: 0
   _WinnerText: {fileID: 3931002782573309393}
+  _EventSystem: {fileID: 3577660952296359532}
+  _FirstSelect: {fileID: 8318121727745236724}
 --- !u!1 &4531704139149860590
 GameObject:
   m_ObjectHideFlags: 0
@@ -1760,6 +1796,7 @@ GameObject:
   - component: {fileID: 7769031564390046319}
   - component: {fileID: 3525201401719454325}
   - component: {fileID: 4407324074945681229}
+  - component: {fileID: 4327350788721014132}
   m_Layer: 5
   m_Name: Settings
   m_TagString: Untagged
@@ -1864,11 +1901,26 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 3525201401719454325}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4327350788721014132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6268279319589111910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb5e536779e73b5459108ab35a366408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _AudioSource: {fileID: 8293375527863578766}
+  _OnSubmitSFX: {fileID: 11400000, guid: 50e8b5e4be4b0b648ba9e2edbc2a5e25, type: 2}
+  _OnSelectSFX: {fileID: 11400000, guid: 01981b15979b7384e896e530a100fcef, type: 2}
 --- !u!1 &6399155910713027447
 GameObject:
   m_ObjectHideFlags: 0
@@ -2421,6 +2473,7 @@ GameObject:
   - component: {fileID: 8635848594847293121}
   - component: {fileID: 2868966753100507911}
   - component: {fileID: 903133015120039479}
+  - component: {fileID: 9134466341023156946}
   m_Layer: 5
   m_Name: Resume
   m_TagString: Untagged
@@ -2542,6 +2595,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &9134466341023156946
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6857529648448392661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb5e536779e73b5459108ab35a366408, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _AudioSource: {fileID: 8293375527863578766}
+  _OnSubmitSFX: {fileID: 11400000, guid: 50e8b5e4be4b0b648ba9e2edbc2a5e25, type: 2}
+  _OnSelectSFX: {fileID: 11400000, guid: 01981b15979b7384e896e530a100fcef, type: 2}
 --- !u!1 &6964458129735039288
 GameObject:
   m_ObjectHideFlags: 0

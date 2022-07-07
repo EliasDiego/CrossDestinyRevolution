@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
 
 using CDR.UISystem;
 using CDR.InputSystem;
@@ -14,6 +15,10 @@ namespace CDR.VersusSystem
     {
         [SerializeField]
         InputActionReference _PauseAction;
+        [SerializeField]
+        EventSystem _EventSystem;
+        [SerializeField]
+        GameObject _FirstSelect;
 
         public event Action returnToMainMenuEvent;
 
@@ -41,6 +46,13 @@ namespace CDR.VersusSystem
         public void ReturnToMainMenu()
         {
             returnToMainMenuEvent?.Invoke();
+        }
+
+        public override void Show()
+        {
+            base.Show();
+
+            _EventSystem.SetSelectedGameObject(_FirstSelect);
         }
     }
 }
