@@ -124,6 +124,18 @@ namespace CDR.AttackSystem
 			_hitBox.onHitEnter -= HitEnter;
 		}
 
+		public override void UltimaEnd()
+		{
+			base.UltimaEnd();
+			
+			_meleeVfx.Deactivate();
+
+			for(int i =0; i < _boostVfx.Length; i++)
+			{
+				_boostVfx[i].Deactivate();
+			}
+		}
+
 		void HitEnter(IHitData hitData)
 		{
 			Debug.LogWarning("Hit!!! " + hitData.hurtShape.character);
