@@ -70,6 +70,7 @@ namespace CDR.ObjectPoolingSystem
                     if(pooledObjects[i].GetComponent<IPoolable>() == poolable)
 					{
                         pooledObjects[i].SetActive(false);
+                        pooledObjects[i].GetComponent<IPoolable>().ResetObject();
                     }
                 }
             }
@@ -82,6 +83,7 @@ namespace CDR.ObjectPoolingSystem
                 if (pooledObjects[i].activeInHierarchy)
                 {
                     pooledObjects[i].SetActive(false);
+                    pooledObjects[i].GetComponent<IPoolable>().ResetObject();
                 }
             }
         }
