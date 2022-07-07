@@ -1071,8 +1071,8 @@ MonoBehaviour:
   targetImage: {fileID: 4444224788045867246}
   rectTransform: {fileID: 5478286738607419545}
   _heightOffset: 250
-  minScale: 0.5
-  maxScale: 2
+  minScale: 0.1
+  maxScale: 5
   targetHealthUI: {fileID: 9157441086189850598}
 --- !u!1 &7009080978237138520
 GameObject:

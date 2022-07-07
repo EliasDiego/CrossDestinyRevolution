@@ -21,7 +21,11 @@ namespace CDR.UISystem
         ITargetData currentTarget;
 
         bool _isShown;
+
+        float _MaxDistance;
         public bool isShown => _isShown;
+
+        public IMech mech { get; set; }
 
         public void Hide()
         {
@@ -35,6 +39,8 @@ namespace CDR.UISystem
             targetImage.enabled = true;
             targetHealthUI.enabled = true;
             _isShown = true;
+
+            _MaxDistance = mech.controller.flightPlane.radius * 2;
         }
 
         public void SetTarget(ITargetData targetData)
@@ -52,7 +58,7 @@ namespace CDR.UISystem
             if(currentTarget != null)
             {
                 Vector2 pos = camera.WorldToScreenPoint(currentTarget.activeCharacter.position);
-                float distance = Vector3.Distance(transform.position, currentTarget.activeCharacter.position);
+                float distance = Vector3.Distance(mech.position, currentTarget.activeCharacter.position);
 
                 // Check Camera Rect
                 if(camera.rect.x == 0)
@@ -65,8 +71,7 @@ namespace CDR.UISystem
                 }
 
                 // Scale Image based on Distance
-                rectTransform.localScale = new Vector2(Mathf.Clamp((distance / 10), minScale, maxScale), 
-                    Mathf.Clamp((distance / 10), minScale, maxScale));
+                rectTransform.localScale = Vector2.one * Mathf.Lerp(maxScale, minScale, Mathf.Clamp01(distance / _MaxDistance));
             }
         }
 

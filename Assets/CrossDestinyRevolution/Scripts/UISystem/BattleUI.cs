@@ -44,6 +44,7 @@ namespace CDR.UISystem
             boostUI.SetValueRange(mech.boost.boostValue);
 
             targetHandlerUI.camera = camera;
+            targetHandlerUI.mech = mech;
             
             _targetHandlerUI.SetTarget(mech.targetHandler.GetCurrentTarget());
 

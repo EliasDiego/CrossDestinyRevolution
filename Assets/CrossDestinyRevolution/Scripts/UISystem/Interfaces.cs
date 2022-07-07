@@ -21,6 +21,7 @@ namespace CDR.UISystem
     public interface ITargetHandlerUI : IUIElement
     {
         Camera camera { get; set; }
+        IMech mech { get; set; }
         void SetTarget(ITargetData target);
     }
 
