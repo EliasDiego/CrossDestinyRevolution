@@ -106,9 +106,6 @@ namespace CDR.VersusSystem
 
                 EndRound();
             }
-
-            foreach(IParticipant p in _Participants.Where(p => p.mech.health.CurrentValue <= 0))
-                p.mech.animator.SetInteger("StateType", (int)AnimationSystem.StateType.Death);
         }
 
         public void Initialize(IVersusSettings versusSettings, IVersusUI versusUI, params IParticipant[] participants)
