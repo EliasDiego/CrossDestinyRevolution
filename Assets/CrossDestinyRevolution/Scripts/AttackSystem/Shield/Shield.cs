@@ -92,15 +92,18 @@ namespace CDR.AttackSystem
             sender = (IMech)Character;
             receiver = (IMech)hitData.hitShape.character;
 
-            GameObject stun = _pool.GetPoolable();
-            stun.transform.SetParent(((ActiveCharacter)receiver).transform);
-			stun.SetActive(true);
+            if(receiver != null)
+            {
+                GameObject stun = _pool.GetPoolable();
+                stun.transform.SetParent(((ActiveCharacter)receiver).transform);
+                stun.SetActive(true);
 
-            receiver.currentState = stun.GetComponent<IState>();
-			receiver.currentState.sender = sender;
-			receiver.currentState.receiver = receiver;
+                receiver.currentState = stun.GetComponent<IState>();
+                receiver.currentState.sender = sender;
+                receiver.currentState.receiver = receiver;
 
-			receiver.currentState.StartState();
+                receiver.currentState.StartState();
+            }
         }
     }
 }
