@@ -12,7 +12,7 @@ using CDR.UISystem;
 
 namespace CDR.VersusSystem
 {
-    public class VersusResultsMenu : Menu, IVersusResultsMenu
+    public class VersusResultsMenu : AnimatedMenu, IVersusResultsMenu
     {
         [SerializeField]
         TMP_Text _WinnerText;
