@@ -59,9 +59,17 @@ namespace CDR.VersusSystem
             }
         }
 
-        private void Awake() 
+        protected override void Awake() 
         {
+            base.Awake();
+            
             _PlayerSelectInput = GetComponent<PlayerUIInput>();
+        }
+
+        private void OnDestroy() 
+        {
+            if(_Disposable != null)
+                _Disposable.Dispose();    
         }
         
         private IParticipantData SetPlayerData(string name, InputActionAsset actionAsset, params InputDevice[] devices)

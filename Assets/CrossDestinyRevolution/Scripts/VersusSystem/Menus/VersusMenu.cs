@@ -8,7 +8,7 @@ using CDR.InputSystem;
 
 namespace CDR.VersusSystem
 {
-    public class VersusMenu : Menu
+    public class VersusMenu : AnimatedMenu
     {
         [Header("Versus Data")]
         [SerializeField]
