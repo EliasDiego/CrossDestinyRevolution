@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CDR.UISystem
 {
-    public class PauseMenu : Menu
+    public class PauseMenu : AnimatedMenu
     {
         private bool _IsPaused = false;
 
