@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14f07829ab45ca345a564fd1a93faacb, type: 3}
   m_Name: OnStartSFX
   m_EditorClassIdentifier: 
-  _AudioClip: {fileID: 0}
-  _OutputAudioMixerGroup: {fileID: 0}
+  _AudioClip: {fileID: 8300000, guid: 93d9a8f916a236b45be8b8387a6b8ee0, type: 3}
+  _OutputAudioMixerGroup: {fileID: -958939178708527580, guid: 47b897c08c661af46adaa5b330845c4e, type: 2}
   _Priority: 128
   _Volume: 1
   _Pitch: 1

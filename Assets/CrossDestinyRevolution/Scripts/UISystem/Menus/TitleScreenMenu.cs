@@ -5,9 +5,11 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
 
+using CDR.AudioSystem;
+
 namespace CDR.UISystem
 {
-    public class TitleScreenMenu : Menu
+    public class TitleScreenMenu : AnimatedMenu
     {
         [SerializeField]
         GameObject _Environment;
@@ -17,15 +19,36 @@ namespace CDR.UISystem
         EventSystem _EventSystem;
         [SerializeField]
         MainMenu _MainMenu;
+        [SerializeField]
+        AudioClipPreset _StartSFX;
+        [SerializeField]
+        AudioSource _AudioSource;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
+
             _EventSystem.gameObject.SetActive(false);
         }
 
         private void OnStart(InputAction.CallbackContext context)
         {
             SwitchTo(_MainMenu);
+        }
+
+        protected override IEnumerator HideAnimatedSequence()
+        {
+            _StartSFX?.PlayOneShot(_AudioSource);
+
+            _StartActionReference.action.Disable();
+
+            _StartActionReference.action.started -= OnStart;
+
+            yield return base.HideAnimatedSequence();
+
+            _Environment.gameObject.SetActive(false);
+
+            _EventSystem.gameObject.SetActive(true);
         }
 
         public override void Show()
@@ -37,19 +60,6 @@ namespace CDR.UISystem
             _StartActionReference.action.started += OnStart;
 
             _Environment.gameObject.SetActive(true);
-        }
-
-        public override void Hide()
-        {
-            base.Hide();
-
-            _StartActionReference.action.Disable();
-
-            _StartActionReference.action.started -= OnStart;
-
-            _Environment.gameObject.SetActive(false);
-
-            _EventSystem.gameObject.SetActive(true);
         }
     }
 }

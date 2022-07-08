@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 namespace CDR.UISystem
 {
-    public class MainMenu : Menu
+    public class MainMenu : AnimatedMenu
     {
         [SerializeField]
         private GameObject _Environment;
@@ -15,20 +15,20 @@ namespace CDR.UISystem
         [SerializeField]
         GameObject _FirstSelect;
 
+        protected override IEnumerator HideAnimatedSequence()
+        {
+            yield return base.HideAnimatedSequence();
+
+            _Environment.SetActive(false);
+        }
+
         public override void Show()
         {
-            base.Show();
-
             _Environment.SetActive(true);
 
             _EventSystem.SetSelectedGameObject(_FirstSelect);
-        }
 
-        public override void Hide()
-        {
-            base.Hide();
-
-            _Environment.SetActive(false);
+            base.Show();
         }
 
         public void Quit()

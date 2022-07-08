@@ -7,7 +7,7 @@ using CDR.InputSystem;
 
 namespace CDR.UISystem
 {
-    public class TutorialMenu : Menu, IMenuCancelHandler
+    public class TutorialMenu : AnimatedMenu, IMenuCancelHandler
     {
         public void OnCancel()
         {
