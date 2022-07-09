@@ -28,6 +28,13 @@ namespace CDR.VersusSystem
 
         public void InvokRematch()
         {
+            Hide();
+        }
+
+        protected override IEnumerator HideAnimatedSequence()
+        {
+            yield return base.HideAnimatedSequence();
+
             rematchEvent?.Invoke();
         }
 

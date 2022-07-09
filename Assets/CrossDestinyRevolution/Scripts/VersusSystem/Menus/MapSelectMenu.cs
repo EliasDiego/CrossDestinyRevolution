@@ -21,7 +21,8 @@ namespace CDR.VersusSystem
 
         public void OnCancel()
         {
-            Back();
+            if(previousMenu != null)
+                Back();
         }
 
         public void PickMap(IMapData mapData)

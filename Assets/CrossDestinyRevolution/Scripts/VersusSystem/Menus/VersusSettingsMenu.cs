@@ -24,7 +24,8 @@ namespace CDR.VersusSystem
 
         public void OnCancel()
         {
-            Back();
+            if(previousMenu != null)
+                Back();
         }
 
         public void SetRounds(int rounds)

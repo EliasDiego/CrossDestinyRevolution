@@ -26,7 +26,8 @@ namespace CDR.VersusSystem
             {
                 Debug.Log("Back");
 
-                Back();
+                if(previousMenu != null)
+                    Back();
 
                 return;
             }

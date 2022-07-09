@@ -74,6 +74,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7785637249059370150}
   - component: {fileID: 8189336209108954515}
+  - component: {fileID: 7542282712073787627}
   m_Layer: 5
   m_Name: VersusPauseMenu
   m_TagString: Untagged
@@ -115,9 +116,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _IsShown: 0
+  _ShowAnimationClip: {fileID: 7400000, guid: 2997fcbfce81e7241a1e4c65d0d0a93e, type: 2}
+  _HideAnimationClip: {fileID: 7400000, guid: d42ea30322d8b6a4eb85334e80b86f4d, type: 2}
   _PauseAction: {fileID: -7487173287901066445, guid: 68bdc22a752cb6f419983bee70ecd6cd, type: 3}
   _EventSystem: {fileID: 3577660952296359532}
   _FirstSelect: {fileID: 6857529648448392661}
+--- !u!111 &7542282712073787627
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 640002809973874094}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 7400000, guid: 2997fcbfce81e7241a1e4c65d0d0a93e, type: 2}
+  - {fileID: 7400000, guid: d42ea30322d8b6a4eb85334e80b86f4d, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1299739531964973322
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,6 +563,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9049202721108125873}
   - component: {fileID: 8635950712890901554}
+  - component: {fileID: 1614266049634560020}
   m_Layer: 5
   m_Name: Layout
   m_TagString: Untagged
@@ -599,6 +620,18 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!225 &1614266049634560020
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1967539969100805222}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &2462863361738023791
 GameObject:
   m_ObjectHideFlags: 0
@@ -2701,7 +2734,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.21698111, g: 0.21698111, b: 0.21698111, a: 0.6509804}
+  m_Color: {r: 0.2169811, g: 0.2169811, b: 0.2169811, a: 0.6509804}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1

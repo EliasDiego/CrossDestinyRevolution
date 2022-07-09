@@ -152,7 +152,8 @@ namespace CDR.VersusSystem
                 if(_Environment)
                     _Environment?.SetActive(false);
 
-                Back();
+                if(previousMenu != null)
+                    Back();
             }
         }
 

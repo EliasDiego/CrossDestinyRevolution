@@ -174,7 +174,6 @@ namespace CDR.VersusSystem
 
         public void Rematch()
         {
-            _VersusUI.resultsMenu.Hide();
             _VersusUI.resultsMenu.rematchEvent -= Rematch;
             _VersusUI.resultsMenu.returnToMainMenuEvent -= ExitVersus;
             
