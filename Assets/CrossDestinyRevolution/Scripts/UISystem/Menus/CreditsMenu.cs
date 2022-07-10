@@ -9,9 +9,12 @@ namespace CDR.UISystem
 {
     public class CreditsMenu : Menu, IMenuCancelHandler
     {
+        [SerializeField]
+        Transition _CreditsTransition;
+
         public void OnCancel()
         {
-            Back();
+            _CreditsTransition.Back();
         }
     }
 }

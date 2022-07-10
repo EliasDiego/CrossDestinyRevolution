@@ -14,6 +14,8 @@ namespace CDR.UISystem
         GameObject _FirstSelect;
         [SerializeField]
         Transition _VersusTransition;
+        [SerializeField]
+        Transition _CreditsTransition;
 
         public override void Show()
         {
@@ -25,6 +27,11 @@ namespace CDR.UISystem
         public void GoToVersus()
         {
             _VersusTransition.Next(this);
+        }
+
+        public void GoToCredits()
+        {
+            _CreditsTransition.Next(this);
         }
 
         public void Quit()
