@@ -30,8 +30,19 @@ namespace CDR.UISystem
                 yield break;
 
             _Animation.Play(_ShowAnimationClip.name);
+            
+            AnimationState state = _Animation[_ShowAnimationClip.name];
 
-            yield return new WaitWhile(() => _Animation.isPlaying);
+            if(Time.timeScale > 0)
+                yield return new WaitWhile(() => _Animation.isPlaying);
+
+            else while(_Animation.isPlaying)
+            {
+                state.time += Time.unscaledDeltaTime;
+                _Animation.Sample();
+
+                yield return null;
+            }
 
             isShown = true;
         }
@@ -42,7 +53,18 @@ namespace CDR.UISystem
             {
                 _Animation.Play(_HideAnimationClip.name);
 
-                yield return new WaitWhile(() => _Animation.isPlaying);
+                AnimationState state = _Animation[_HideAnimationClip.name];
+
+                if(Time.timeScale > 0)
+                    yield return new WaitWhile(() => _Animation.isPlaying);
+
+                else while(_Animation.isPlaying)
+                {
+                    state.time += Time.unscaledDeltaTime;
+                    _Animation.Sample();
+
+                    yield return null;
+                }
             }
             
             base.Hide();

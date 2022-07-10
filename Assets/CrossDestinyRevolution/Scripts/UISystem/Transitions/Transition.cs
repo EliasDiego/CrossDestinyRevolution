@@ -46,7 +46,7 @@ namespace CDR.UISystem
         {
             previousUIElement.Hide();
 
-            yield return new WaitForSeconds(_TransitionInDelay);
+            yield return new WaitForSecondsRealtime(_TransitionInDelay);
 
             Show();
 
@@ -54,7 +54,7 @@ namespace CDR.UISystem
 
             nextUIElement.Show();
 
-            yield return new WaitForSeconds(_TransitionOutDelay);
+            yield return new WaitForSecondsRealtime(_TransitionOutDelay);
 
             Hide();
         }
@@ -68,7 +68,19 @@ namespace CDR.UISystem
 
             _Animation.Play(_ShowAnimationClip.name);
 
-            yield return new WaitWhile(() => _Animation.isPlaying);
+            AnimationState state = _Animation[_ShowAnimationClip.name];
+
+            if(Time.timeScale > 0)
+                yield return new WaitWhile(() => _Animation.isPlaying);
+
+            else while(_Animation.isPlaying)
+            {
+                Debug.Log("Show Blah");
+                state.time += Time.unscaledDeltaTime;
+                _Animation.Sample();
+
+                yield return null;
+            }
 
             isShown = true;
         }
@@ -79,7 +91,22 @@ namespace CDR.UISystem
             {
                 _Animation.Play(_HideAnimationClip.name);
 
-                yield return new WaitWhile(() => _Animation.isPlaying);
+                AnimationState state = _Animation[_HideAnimationClip.name];
+
+                if(Time.timeScale > 0)
+                    yield return new WaitWhile(() => _Animation.isPlaying);
+
+                else 
+                {
+                    while(_Animation.isPlaying)
+                    {
+                        Debug.Log("Blah");
+                        state.time += Time.unscaledDeltaTime;
+                        _Animation.Sample();
+
+                        yield return null;
+                    }
+                }
             }
             
             isShown = false;
