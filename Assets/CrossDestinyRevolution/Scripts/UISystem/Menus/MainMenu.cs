@@ -9,26 +9,22 @@ namespace CDR.UISystem
     public class MainMenu : AnimatedMenu
     {
         [SerializeField]
-        private GameObject _Environment;
-        [SerializeField]
         private EventSystem _EventSystem;
         [SerializeField]
         GameObject _FirstSelect;
-
-        protected override IEnumerator HideAnimatedSequence()
-        {
-            yield return base.HideAnimatedSequence();
-
-            _Environment.SetActive(false);
-        }
+        [SerializeField]
+        Transition _VersusTransition;
 
         public override void Show()
         {
-            _Environment.SetActive(true);
-
             _EventSystem.SetSelectedGameObject(_FirstSelect);
 
             base.Show();
+        }
+
+        public void GoToVersus()
+        {
+            _VersusTransition.Next(this);
         }
 
         public void Quit()

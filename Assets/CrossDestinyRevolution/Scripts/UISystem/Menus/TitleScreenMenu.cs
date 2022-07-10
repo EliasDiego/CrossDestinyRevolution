@@ -12,13 +12,11 @@ namespace CDR.UISystem
     public class TitleScreenMenu : AnimatedMenu
     {
         [SerializeField]
-        GameObject _Environment;
-        [SerializeField]
         InputActionReference _StartActionReference;
         [SerializeField]
         EventSystem _EventSystem;
         [SerializeField]
-        MainMenu _MainMenu;
+        Transition _MainMenuTransition;
         [SerializeField]
         AudioClipPreset _StartSFX;
         [SerializeField]
@@ -33,7 +31,7 @@ namespace CDR.UISystem
 
         private void OnStart(InputAction.CallbackContext context)
         {
-            SwitchTo(_MainMenu);
+            _MainMenuTransition.Next(this);
         }
 
         protected override IEnumerator HideAnimatedSequence()
@@ -46,8 +44,6 @@ namespace CDR.UISystem
 
             yield return base.HideAnimatedSequence();
 
-            _Environment.gameObject.SetActive(false);
-
             _EventSystem.gameObject.SetActive(true);
         }
 
@@ -58,8 +54,6 @@ namespace CDR.UISystem
             _StartActionReference.action.Enable();
 
             _StartActionReference.action.started += OnStart;
-
-            _Environment.gameObject.SetActive(true);
         }
     }
 }

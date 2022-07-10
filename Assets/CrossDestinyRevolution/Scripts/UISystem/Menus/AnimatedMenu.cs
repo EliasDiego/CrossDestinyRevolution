@@ -24,7 +24,7 @@ namespace CDR.UISystem
 
         protected virtual IEnumerator ShowAnimatedSequence()
         {
-            base.Show();
+            transform.SetActiveChildren(true);
 
             if(!_ShowAnimationClip)
                 yield break;
@@ -32,13 +32,14 @@ namespace CDR.UISystem
             _Animation.Play(_ShowAnimationClip.name);
 
             yield return new WaitWhile(() => _Animation.isPlaying);
+
+            isShown = true;
         }
 
         protected virtual IEnumerator HideAnimatedSequence()
         {
             if(_HideAnimationClip)
             {
-                Debug.Log(_Animation + " " + _HideAnimationClip);
                 _Animation.Play(_HideAnimationClip.name);
 
                 yield return new WaitWhile(() => _Animation.isPlaying);

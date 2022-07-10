@@ -8,6 +8,7 @@ namespace CDR.UISystem
     {
         [SerializeField]
         private bool _IsShown = false;
+
         private Coroutine _SwitchToCoroutine;
 
         public IMenu previousMenu { get; set; }
@@ -57,19 +58,14 @@ namespace CDR.UISystem
             previousMenu = null;
         }
 
-        public void SwitchTo(IMenu nextMenu)
+        public void SwitchTo(Menu menu)
         {
-            nextMenu.previousMenu = this;
+            menu.previousMenu = this;
             
             if(_SwitchToCoroutine != null)
                 StopCoroutine(_SwitchToCoroutine);
 
-            _SwitchToCoroutine = StartCoroutine(SwitchToCoroutine(nextMenu));
-        }
-
-        public void SwitchTo(Menu menu)
-        {
-            SwitchTo((IMenu)menu);
+            _SwitchToCoroutine = StartCoroutine(SwitchToCoroutine(menu));
         }
 
         public virtual void Hide()
