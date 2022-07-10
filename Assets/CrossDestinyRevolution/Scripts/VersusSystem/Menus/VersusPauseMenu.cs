@@ -52,7 +52,17 @@ namespace CDR.VersusSystem
         {
             base.Show();
 
+            EnablePauseInput();
+
             _EventSystem.SetSelectedGameObject(_FirstSelect);
+        }
+
+        public override void Hide()
+        {
+            base.Hide();
+
+            if(isPaused)
+                DisablePauseInput();
         }
     }
 }

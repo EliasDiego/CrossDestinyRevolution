@@ -176,11 +176,16 @@ namespace CDR.VersusSystem
             SwitchTo(_VersusSettingsMenu);
         }
 
+        protected override IEnumerator ShowAnimatedSequence()
+        {
+            yield return base.ShowAnimatedSequence();
+
+            _Disposable = UnityEngine.InputSystem.InputSystem.onEvent.Subscribe(this);
+        }
+
         public override void Show()
         {
             base.Show();
-
-            _Disposable = UnityEngine.InputSystem.InputSystem.onEvent.Subscribe(this);
 
             _CurrentPlayerIndex = 0;
             

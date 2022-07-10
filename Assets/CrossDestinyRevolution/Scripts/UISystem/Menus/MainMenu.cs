@@ -24,6 +24,13 @@ namespace CDR.UISystem
             base.Show();
         }
 
+        public override void Hide()
+        {
+            _EventSystem.SetSelectedGameObject(null);
+
+            base.Hide();
+        }
+
         public void GoToVersus()
         {
             _VersusTransition.Next(this);
