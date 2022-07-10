@@ -10,11 +10,11 @@ namespace CDR.VersusSystem
     public class MapData : ScriptableObject, IMapData
     {
         [SerializeField]
-        string _MapName;
+        Sprite _Preview;
         [SerializeField]
         int _MapSceneIndex;
 
-        public string mapName => _MapName;
+        public Sprite mapPreview => _Preview;
 
         public IEnumerator Process()
         {

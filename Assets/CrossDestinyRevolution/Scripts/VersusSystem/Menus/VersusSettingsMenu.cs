@@ -18,9 +18,13 @@ namespace CDR.VersusSystem
         EventSystem _EventSystem;
         [SerializeField]
         MechSelectMenu _MechSelectMenu;
-
-        private int _Rounds = 1;
-        private int _RoundTime = 60;
+        [SerializeField]
+        RoundToggleHandler _FirstRoundToggle;
+        [SerializeField]
+        RoundTimeToggleHandler _FirstRoundTimeToggle;
+        
+        RoundToggleHandler _CurrentRoundToggle;
+        RoundTimeToggleHandler _CurrentRoundTimeToggle;
 
         public void OnCancel()
         {
@@ -28,19 +32,51 @@ namespace CDR.VersusSystem
                 Back();
         }
 
-        public void SetRounds(int rounds)
+        protected override IEnumerator HideAnimatedSequence()
         {
-            _Rounds = rounds;
+            yield return base.HideAnimatedSequence();
+
+            _CurrentRoundToggle.toggle.SetIsOnWithoutNotify(false);
+            _CurrentRoundTimeToggle.toggle.SetIsOnWithoutNotify(false);
         }
 
-        public void SetRoundTime(int roundTime)
+        public void SetRounds(RoundToggleHandler roundToggle)
         {
-            _RoundTime = roundTime;
+            if(_CurrentRoundToggle == roundToggle)
+            {
+                roundToggle.toggle.SetIsOnWithoutNotify(true);
+
+                return;
+            }
+
+            if(_CurrentRoundToggle)
+            {
+                _CurrentRoundToggle.toggle.SetIsOnWithoutNotify(false);
+            }
+
+            _CurrentRoundToggle = roundToggle;
+        }
+
+        public void SetRoundTime(RoundTimeToggleHandler roundTimeToggle)
+        {
+            if(_CurrentRoundTimeToggle == roundTimeToggle)
+            {
+                roundTimeToggle.toggle.SetIsOnWithoutNotify(true);
+
+                return;
+            }
+
+            if(_CurrentRoundTimeToggle)
+            {
+                _CurrentRoundTimeToggle.toggle.SetIsOnWithoutNotify(false);
+            }
+            
+            _CurrentRoundTimeToggle = roundTimeToggle;
         }
         
         public void SetSettings()
         {
-            versusData.settings = new VersusSettings(_Rounds, _RoundTime);
+            versusData.settings = new VersusSettings(_CurrentRoundToggle.round, _CurrentRoundTimeToggle.roundTime);
 
             SwitchTo(_MechSelectMenu);
         }
@@ -50,8 +86,8 @@ namespace CDR.VersusSystem
             base.Show();
 
             _EventSystem?.SetSelectedGameObject(_FirstSelected.gameObject);
-
-            versusData.settings = new VersusSettings(1, 60);
+            _FirstRoundToggle.toggle.isOn = true;
+            _FirstRoundTimeToggle.toggle.isOn = true;
         }
     }
 }

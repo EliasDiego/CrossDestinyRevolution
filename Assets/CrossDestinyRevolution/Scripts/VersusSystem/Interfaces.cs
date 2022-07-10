@@ -38,7 +38,7 @@ namespace CDR.VersusSystem
 
     public interface IMapData : ISceneTask
     {
-        string mapName { get; }
+        
     }
 
     public interface IVersusSettings

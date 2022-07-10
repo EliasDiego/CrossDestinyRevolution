@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14f07829ab45ca345a564fd1a93faacb, type: 3}
   m_Name: OnCancelSFX
   m_EditorClassIdentifier: 
-  _AudioClip: {fileID: 0}
+  _AudioClip: {fileID: 8300000, guid: eae2601861704c24f887525a604381f2, type: 3}
   _OutputAudioMixerGroup: {fileID: -958939178708527580, guid: 47b897c08c661af46adaa5b330845c4e, type: 2}
   _Priority: 128
   _Volume: 1

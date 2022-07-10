@@ -12,6 +12,7 @@ using UnityEngine.InputSystem.LowLevel;
 
 using CDR.UISystem;
 using CDR.InputSystem;
+using CDR.AudioSystem;
 
 namespace CDR.VersusSystem
 {
@@ -38,6 +39,12 @@ namespace CDR.VersusSystem
         [Header("Player Select")]
         [SerializeField]
         private PlayerIndexImageHandler[] _PlayerIndexImageHandlers;
+        [SerializeField]
+        AudioClipPreset _OnPlayerSubmitSFX;
+        [SerializeField]
+        AudioClipPreset _OnPlayerCancelSFX;
+        [SerializeField]
+        AudioSource _AudioSource;
 
         private int _CurrentPlayerIndex = 0;
         private PlayerInputData _CurrentPlayerInputData;
@@ -110,6 +117,9 @@ namespace CDR.VersusSystem
         {
             versusData.participantDataList.Add(SetPlayerData($"Player {_CurrentPlayerIndex + 1}", _CurrentPlayerInputData.actionAsset, _CurrentPlayerInputData.devices));
 
+            if(_AudioSource)
+                _OnPlayerSubmitSFX?.PlayOneShot(_AudioSource);
+
             if(_CurrentPlayerIndex < _PlayerInputDatas.Count)
                 _PlayerInputDatas[_CurrentPlayerIndex] = _CurrentPlayerInputData;
 
@@ -143,6 +153,9 @@ namespace CDR.VersusSystem
                 versusData.participantDataList.RemoveAt(_CurrentPlayerIndex);
 
                 _PlayerInputDatas.RemoveAt(_CurrentPlayerIndex);
+                    
+                if(_AudioSource)
+                    _OnPlayerCancelSFX?.PlayOneShot(_AudioSource);
 
                 return;
             }

@@ -8,16 +8,16 @@ using CDR.InputSystem;
 
 namespace CDR.VersusSystem
 {
-    public class MapButton : MonoBehaviour, ISubmitHandler, IPointerDownHandler
+    public class MapButton : MonoBehaviour, ISubmitHandler, ISelectHandler
     {
         [SerializeField]
         MapSelectMenu _MapSelectMenu;
         [SerializeField]
         MapData _MapData;
 
-        public void OnPointerDown(PointerEventData eventData)
+        public void OnSelect(BaseEventData eventData)
         {
-            _MapSelectMenu.PickMap(_MapData);
+            _MapSelectMenu.PreviewMap(_MapData.mapPreview);
         }
 
         public void OnSubmit(BaseEventData eventData)

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f357dae9ef849c4bb929bebe28c4555, type: 3}
-  m_Name: ForestLakeMapData
+  m_Name: SpaceMapData
   m_EditorClassIdentifier: 
-  _MapName: Forest Lake Map
-  _MapSceneIndex: 4
+  _Preview: {fileID: 21300000, guid: 7e9028b96b247db4ea2937178c570181, type: 3}
+  _MapSceneIndex: 5
