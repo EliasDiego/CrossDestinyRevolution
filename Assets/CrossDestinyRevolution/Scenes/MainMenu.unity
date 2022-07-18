@@ -3152,6 +3152,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1149558523}
   - component: {fileID: 1149558524}
+  - component: {fileID: 1149558526}
+  - component: {fileID: 1149558525}
   m_Layer: 5
   m_Name: CreditsMenu
   m_TagString: Untagged
@@ -3192,7 +3194,39 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _IsShown: 0
+  _ShowAnimationClip: {fileID: 7400000, guid: 95eb9ba92f6bb4f4c9a32adea05b14df, type: 2}
+  _HideAnimationClip: {fileID: 7400000, guid: f7e30dddade124f418a8c2eed6d225d4, type: 2}
   _CreditsTransition: {fileID: 1313987436}
+--- !u!225 &1149558525
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1149558522}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!111 &1149558526
+Animation:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1149558522}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Animation: {fileID: 0}
+  m_Animations:
+  - {fileID: 0}
+  - {fileID: 7400000, guid: f7e30dddade124f418a8c2eed6d225d4, type: 2}
+  - {fileID: 7400000, guid: 95eb9ba92f6bb4f4c9a32adea05b14df, type: 2}
+  m_WrapMode: 0
+  m_PlayAutomatically: 0
+  m_AnimatePhysics: 0
+  m_CullingType: 0
 --- !u!1 &1170018828
 GameObject:
   m_ObjectHideFlags: 0
@@ -4547,7 +4581,7 @@ MonoBehaviour:
     Audio
 
     Rica
-    Andrea Marcel'
+    Andrea Marcelo'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
