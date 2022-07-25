@@ -14,6 +14,7 @@ namespace CDR.VersusSystem
         Camera _Camera;
         
         public Camera camera => _Camera;
+        public IPlayerMechBattleUI battleUI => _BattleUI;
 
         public PlayerParticipant(string name, IMech mech, IPlayerMechBattleUI battleUI, Camera camera, Vector3 startPosition, Quaternion startRotation) : base(name, mech, startPosition, startRotation)
         {

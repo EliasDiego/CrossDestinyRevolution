@@ -30,12 +30,22 @@ namespace CDR.UISystem
 
         public void Hide()
         {
-            
+            healthUI.Hide();
+            boostUI.Hide();
+            targetHandlerUI.Hide();
+            specialAttack1AttackUI.Hide();
+            specialAttack2AttackUI.Hide();
+            specialAttack3AttackUI.Hide();
         }
 
         public void Show()
         {
-
+            healthUI.Show();
+            boostUI.Show();
+            targetHandlerUI.Show();
+            specialAttack1AttackUI.Show();
+            specialAttack2AttackUI.Show();
+            specialAttack3AttackUI.Show();
         }
 
         public void SetMech(IMech mech)

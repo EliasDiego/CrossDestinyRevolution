@@ -19,8 +19,44 @@ namespace CDR.VersusSystem
         EventSystem _EventSystem;
         [SerializeField]
         GameObject _FirstSelect;
+        
+        public IPlayerMechBattleUI[] battleUIs { get; set; }
+        public IVersusUI versusUI { get; set; }
+        public AudioSource musicAudioSource { get; set; }
 
         public event Action returnToMainMenuEvent;
+
+        public void OnToggleMusic(bool value)
+        {
+            Debug.Log("Music " + value + " " + musicAudioSource.clip);
+
+            if(value)
+                musicAudioSource.Play();
+
+            else
+                musicAudioSource.Stop();
+        }
+
+        public void OnToggleBattleUI(bool value)
+        {
+            Debug.Log("BattleUI " + value + " " + battleUIs?.Length);
+
+            if(value)
+            {
+                foreach(BattleUI battleUI in battleUIs)
+                    battleUI.Show();
+
+                versusUI.roundTimeUIHandler.Show();
+            }
+
+            else
+            {
+                foreach(BattleUI battleUI in battleUIs)
+                    battleUI.Hide();
+
+                versusUI.roundTimeUIHandler.Hide();
+            }
+        }
 
         private void OnPause(InputAction.CallbackContext context)
         {

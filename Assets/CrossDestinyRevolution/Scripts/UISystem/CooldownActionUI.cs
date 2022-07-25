@@ -8,6 +8,7 @@ namespace CDR.UISystem
 {
     public class CooldownActionUI : MonoBehaviour, ICooldownActionUI
     {
+        [SerializeField] Image _Frame;
         [SerializeField] Image _fillImage;
 
         bool _isShown;
@@ -15,12 +16,14 @@ namespace CDR.UISystem
 
         public void Hide()
         {
+            _Frame.enabled = false;
             _fillImage.enabled = false;
             _isShown = false;
         }
 
         public void Show()
         {
+            _Frame.enabled = true;
             _fillImage.enabled = true;
             _isShown = true;
         }

@@ -56,6 +56,10 @@ namespace CDR.VersusSystem
             IParticipant[] participants = _VersusData.participantDatas.Select((p, i) => p.GetParticipant(versusMap.participantPositions[i], 
                 Quaternion.LookRotation(versusMap.flightPlane.position.xz() - versusMap.participantPositions[i].xz(), Vector3.up), versusMap.flightPlane)).ToArray();
 
+            versusUI.pauseMenu.versusUI = versusUI;
+            versusUI.pauseMenu.battleUIs = participants?.Cast<PlayerParticipant>()?.Select(p => p.battleUI)?.ToArray();
+            versusUI.pauseMenu.musicAudioSource = versusManager.GetComponentInChildren<AudioSource>();
+
             ICameraParticipant[] cameraParticipants = participants.Where(p => p is ICameraParticipant).Cast<ICameraParticipant>().ToArray();
 
             cameraParticipants[0].camera.cullingMask ^= LayerMask.GetMask("Player2Cam");
