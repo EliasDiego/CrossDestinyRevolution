@@ -42,12 +42,8 @@ namespace CDR.VersusSystem
     {
         bool isPaused { get; }
         
-        public IVersusUI versusUI { get; set; }
-        public IPlayerMechBattleUI[] battleUIs { get; set; }
-        public AudioSource musicAudioSource { get; set; }
         event Action returnToMainMenuEvent; 
         
-
         void EnablePauseInput();
         void DisablePauseInput();
     }

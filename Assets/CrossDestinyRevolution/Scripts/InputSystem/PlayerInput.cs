@@ -32,8 +32,6 @@ namespace CDR.InputSystem
         protected InputActionMap actionMap => _ActionMap;
         
         public InputDevice[] pairedDevices => _User.valid ? _User.pairedDevices.ToArray() : null;
-        
-        public bool isEnabled => _IsEnabled;
 
         public bool isAssignedInput => _IsAssignedInput;
         
@@ -56,7 +54,7 @@ namespace CDR.InputSystem
 
         private void Update()
         {
-            if(!isEnabled)
+            if(!_IsEnabled)
                 return;
 
             foreach(InputActionUpdate actionUpdate in _InputActionUpdates.Values)
