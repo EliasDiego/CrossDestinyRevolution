@@ -144,6 +144,9 @@ namespace CDR.UISystem
 
         public void Back()
         {
+            if(_PreviousUIElement == null)
+                return;
+
             if(_TransitionCoroutine != null)
                 StopCoroutine(_TransitionCoroutine);
 

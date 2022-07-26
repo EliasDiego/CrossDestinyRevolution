@@ -50,6 +50,9 @@ namespace CDR.UISystem
 
         public void Back()
         {
+            if(previousMenu == null)
+                return;
+
             if(_SwitchToCoroutine != null)
                 StopCoroutine(_SwitchToCoroutine);
 
