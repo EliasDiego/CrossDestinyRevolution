@@ -41,6 +41,8 @@ namespace CDR.VersusSystem
     public interface IVersusPauseMenu : IMenu
     {
         bool isPaused { get; }
+
+        event Action<bool> onActivatePauseMenu;
         
         event Action returnToMainMenuEvent; 
         

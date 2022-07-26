@@ -47,6 +47,7 @@ namespace CDR.VersusSystem
             yield return new WaitForSeconds(3);
 
             _VersusUI.pauseMenu.returnToMainMenuEvent += ExitVersus;
+            _VersusUI.pauseMenu.onActivatePauseMenu += OnPause;
             _VersusUI.pauseMenu.EnablePauseInput();
 
             Debug.Log("Round Start!");
@@ -92,6 +93,21 @@ namespace CDR.VersusSystem
             }
         }
 
+        private void OnPause(bool isPaused)
+        {
+            if(isPaused)
+            {
+                foreach(IParticipant participant in _Participants)
+                    participant.mech.input.DisableInput();
+            }
+
+            else
+            {
+                foreach(IParticipant participant in _Participants)
+                        participant.mech.input.EnableInput();
+            }
+        }
+
         private void OnParticipantDeath()
         {
             int aliveParticipants = _Participants.Count(p => p.mech.health.CurrentValue > 0);
@@ -103,9 +119,9 @@ namespace CDR.VersusSystem
                 Debug.Log("Alive! " + aliveParticipant.name);
 
                 aliveParticipant.score += 1;
-
-                EndRound();
             }
+
+            EndRound();
         }
 
         public void Initialize(IVersusSettings versusSettings, IVersusUI versusUI, params IParticipant[] participants)
@@ -151,6 +167,7 @@ namespace CDR.VersusSystem
 
             _VersusUI.roundTimeUIHandler.Hide();
             _VersusUI.pauseMenu.returnToMainMenuEvent -= ExitVersus;
+            _VersusUI.pauseMenu.onActivatePauseMenu -= OnPause;
             _VersusUI.pauseMenu.DisablePauseInput();
 
             Debug.Log("End Round");

@@ -12,7 +12,6 @@ namespace CDR.InputSystem
 {
     public interface IInput
     {
-        bool enabled { get; set; }
         event Action<IInput> onEnableInput;
         event Action<IInput> onDisableInput;
 
