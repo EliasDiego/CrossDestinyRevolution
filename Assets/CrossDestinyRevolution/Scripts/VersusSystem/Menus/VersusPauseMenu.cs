@@ -23,6 +23,11 @@ namespace CDR.VersusSystem
         public event Action returnToMainMenuEvent;
         public event Action<bool> onActivatePauseMenu;
 
+        private void OnDestroy() 
+        {
+            DisablePauseInput();    
+        }
+
         private void OnPause(InputAction.CallbackContext context)
         {
             if(isPaused)

@@ -5,13 +5,16 @@ using UnityEngine;
 
 using CDR.MechSystem;
 using CDR.UISystem;
+using CDR.CameraSystem;
 
 namespace CDR.VersusSystem
 {
     public class PlayerParticipant : Participant, ICameraParticipant
     {
-        IPlayerMechBattleUI _BattleUI;
-        Camera _Camera;
+        private IPlayerMechBattleUI _BattleUI;
+        private Camera _Camera;
+        private CameraPivot _CameraPivot;
+        private Vector3 _CameraPivotStartPosition;
         
         public Camera camera => _Camera;
         public IPlayerMechBattleUI battleUI => _BattleUI;
@@ -20,6 +23,10 @@ namespace CDR.VersusSystem
         {
             _BattleUI = battleUI;
             _Camera = camera;
+
+            _CameraPivot = (mech as Mech).GetComponentInChildren<CameraPivot>();
+            
+            _CameraPivotStartPosition = _CameraPivot.transform.localPosition;
 
             _BattleUI.camera = camera;
 
@@ -41,7 +48,16 @@ namespace CDR.VersusSystem
         public override void Stop()
         {
             base.Stop();
+            
             _BattleUI.targetHandlerUI.Hide();
+        }
+
+        public override void Reset()
+        {
+            base.Reset();
+            
+            _CameraPivot.transform.localPosition = _CameraPivotStartPosition;
+            _CameraPivot.transform.localRotation = Quaternion.identity;
         }
     }
 }

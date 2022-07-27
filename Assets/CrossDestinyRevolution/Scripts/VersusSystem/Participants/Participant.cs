@@ -39,7 +39,10 @@ namespace CDR.VersusSystem
             mech.health.ModifyValue(_Mech.health.MaxValue);
             mech.boost?.boostValue.ModifyValue(_Mech.boost.boostValue.MaxValue);
             
-            (mech as Mech).transform.position = _StartPosition;
+            Transform transform = (mech as Mech).transform; 
+            
+            transform.position = _StartPosition;
+            transform.rotation = _StartRotation;
         }
 
         public virtual void Start()
