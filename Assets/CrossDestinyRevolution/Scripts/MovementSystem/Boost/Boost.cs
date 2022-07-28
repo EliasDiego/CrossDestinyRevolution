@@ -198,9 +198,9 @@ namespace CDR.MovementSystem
             ResetAnimatorValues();
         }
 
-        public override void UltimaEnd()
+        public override void Stop()
         {
-            base.UltimaEnd();
+            base.Stop();
             for (int i = 0; i < vfxHandler.Length; i++)
             {
                 vfxHandler[i].Deactivate();

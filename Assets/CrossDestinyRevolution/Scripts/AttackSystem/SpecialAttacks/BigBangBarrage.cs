@@ -62,6 +62,13 @@ namespace CDR.AttackSystem
             StopAllCoroutines();
 		}
 
+        public override void Stop()
+        {
+            base.Stop();
+
+            ForceEnd();
+        }
+
 		IEnumerator BBBSequence()
         {
             //1ST PHASE

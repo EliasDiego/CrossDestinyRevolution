@@ -56,32 +56,24 @@ namespace CDR.VersusSystem
         {
             mech.input?.DisableInput();
 
-            if(CheckBoolean(mech.targetHandler?.isActive))
-                mech.targetHandler?.End();
+            mech.targetHandler?.End();
 
             if(CheckBoolean(mech.shield?.isActive))
-                mech.shield?.UltimaEnd();
+                mech.shield?.Stop();
 
-            if(CheckBoolean(mech.specialAttack1?.isActive))
-                mech.specialAttack1?.UltimaEnd();
-
-            if(CheckBoolean(mech.specialAttack2?.isActive))
-                mech.specialAttack2?.UltimaEnd();
-
-            if(CheckBoolean(mech.specialAttack3?.isActive))
-                mech.specialAttack3?.UltimaEnd();
+            mech.specialAttack1?.Stop();
+            mech.specialAttack2?.Stop();
+            mech.specialAttack3?.Stop();
 
             if(CheckBoolean(mech.meleeAttack?.isActive))
-                mech.meleeAttack?.UltimaEnd();
+                mech.meleeAttack?.Stop();
 
-            if(CheckBoolean(mech.rangeAttack?.isActive))
-                mech.rangeAttack?.UltimaEnd();
+            mech.rangeAttack?.Stop();
 
             if(CheckBoolean(mech.boost?.isActive))
-                mech.boost?.UltimaEnd();
+                mech.boost?.Stop();
             
-            if(CheckBoolean(mech.movement?.isActive))
-                mech.movement?.UltimaEnd();
+            mech.movement?.Stop();
     
             mech.animator.SetInteger("StateType", (int)AnimationSystem.StateType.None);
             mech.animator.SetInteger("ActionType", (int)AnimationSystem.ActionType.None);

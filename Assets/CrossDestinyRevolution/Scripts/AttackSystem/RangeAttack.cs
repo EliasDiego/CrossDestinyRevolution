@@ -109,9 +109,11 @@ namespace CDR.AttackSystem
 				StopCoroutine(_coroutine);
 		}
 
-		public override void UltimaEnd()
+		public override void Stop()
 		{
-			base.UltimaEnd();
+			base.Stop();
+
+			ForceEnd();
 
 			_pool.ReturnAll();
 		}

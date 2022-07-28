@@ -85,9 +85,9 @@ namespace CDR.AttackSystem
             _hurtSphere.onHitEnter -= HitEnter;
         }
 
-        public override void UltimaEnd()
+        public override void Stop()
         {
-            base.UltimaEnd();
+            base.Stop();
 
             _animHandler.DeactivateShield();
         }

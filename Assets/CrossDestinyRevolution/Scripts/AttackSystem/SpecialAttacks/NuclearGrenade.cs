@@ -45,7 +45,6 @@ namespace CDR.AttackSystem
             base.End();
 
             Character.animator.SetInteger("ActionType", (int)ActionType.None);
-            //ForceEnd();
         }
 
 		public override void ForceEnd()
@@ -57,6 +56,13 @@ namespace CDR.AttackSystem
 
             StopAllCoroutines();
 		}
+
+        public override void Stop()
+        {
+            base.Stop();
+
+            ForceEnd();
+        }
 
 		IEnumerator NGSequence()
 		{

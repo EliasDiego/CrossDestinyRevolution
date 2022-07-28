@@ -90,18 +90,8 @@ namespace CDR.AttackSystem
 		public override void End()
 		{
 			base.End();
-
-			isHoming = false;
-			_animHandler.EndAttackAnim();
-			_animHandler.ResumeAnimation();
-			_meleeVfx.Deactivate();
-
-			for(int i =0; i < _boostVfx.Length; i++)
-			{
-				_boostVfx[i].Deactivate();
-			}
-
-			_hitBox.onHitEnter -= HitEnter;
+			
+			ForceEnd();
 
 			Character.input.EnableInput();
 			Character.movement.Use();
@@ -125,12 +115,12 @@ namespace CDR.AttackSystem
 			_hitBox.onHitEnter -= HitEnter;
 		}
 
-		public override void UltimaEnd()
+		public override void Stop()
 		{
-			base.UltimaEnd();
-			
-			_meleeVfx.Deactivate();
+			base.Stop();
 
+			ForceEnd();
+			
 			for(int i =0; i < _boostVfx.Length; i++)
 			{
 				_boostVfx[i].Deactivate();

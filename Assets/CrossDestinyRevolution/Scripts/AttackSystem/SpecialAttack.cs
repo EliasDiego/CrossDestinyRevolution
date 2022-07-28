@@ -62,7 +62,10 @@ namespace CDR.AttackSystem
 			base.ForceEnd();
 
 			Character.animator.SetFloat("ActionSMultiplier", 1);
+		}
 
+		public override void Stop()
+		{
 			for (int i = 0; i < _pool.Length; i++)
 			{
 				if(_pool[i] != null)

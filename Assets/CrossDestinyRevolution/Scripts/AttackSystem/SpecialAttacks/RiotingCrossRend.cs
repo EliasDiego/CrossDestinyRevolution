@@ -47,6 +47,7 @@ namespace CDR.AttackSystem
         public override void End()
         {
             base.End();
+            ForceEnd();
             laserVFX.length = 1f;
             laserVFX.Deactivate();
             muzzleVFX.Deactivate();            
@@ -59,9 +60,10 @@ namespace CDR.AttackSystem
             Character.animator.SetInteger("ActionType", (int)ActionType.None);
         }
 
-        public override void UltimaEnd()
+        public override void Stop()
         {
-            base.UltimaEnd();
+            base.Stop();
+            ForceEnd();
             laserVFX.Deactivate();
             muzzleVFX.Deactivate();
         }

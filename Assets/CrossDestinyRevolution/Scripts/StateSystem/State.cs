@@ -56,14 +56,14 @@ namespace CDR.StateSystem
 
         void DisableActions()
         {
-            if(_receiver.movement.isActive) { _receiver.movement.End(); }
-            if(_receiver.boost.isActive) { _receiver.boost.End(); }
-            //if(_receiver.meleeAttack.isActive) { _receiver.meleeAttack.End(); }
-            //if(_receiver.rangeAttack.isActive) { _receiver.rangeAttack.End(); }
-            //if(_receiver.shield.isActive) { _receiver.shield.End(); }
-            //if(_receiver.specialAttack1.isActive) { _receiver.specialAttack1.End(); }
-            //if(_receiver.specialAttack2.isActive) { _receiver.specialAttack2.End(); }
-            //if(_receiver.specialAttack3.isActive) { _receiver.specialAttack3.End(); }
+            if(_receiver.movement.isActive) { _receiver.movement.ForceEnd(); }
+            if(_receiver.boost.isActive) { _receiver.boost.ForceEnd(); }
+            if(_receiver.meleeAttack.isActive) { _receiver.meleeAttack.ForceEnd(); }
+            if(_receiver.rangeAttack.isActive) { _receiver.rangeAttack.ForceEnd(); }
+            if(_receiver.shield.isActive) { _receiver.shield.ForceEnd(); }
+            if(_receiver.specialAttack1.isActive) { _receiver.specialAttack1.ForceEnd(); }
+            if(_receiver.specialAttack2.isActive) { _receiver.specialAttack2.ForceEnd(); }
+            if(_receiver.specialAttack3.isActive) { _receiver.specialAttack3.ForceEnd(); }
         }
 
         void EnableActions()

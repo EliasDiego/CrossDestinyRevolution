@@ -30,7 +30,8 @@ namespace CDR.AttackSystem
         {
             base.End();
             vfxHandler.Deactivate();
-            Character.animator.SetInteger("ActionType", (int)ActionType.None);
+            
+            ForceEnd();
         }
 
         public override void ForceEnd()
@@ -40,9 +41,10 @@ namespace CDR.AttackSystem
             Character.animator.SetInteger("ActionType", (int)ActionType.None);
         }
 
-        public override void UltimaEnd()
+        public override void Stop()
         {
-            base.UltimaEnd();
+            base.Stop();
+            
             vfxHandler.Deactivate();
         }
 

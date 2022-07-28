@@ -62,7 +62,7 @@ namespace CDR.AttackSystem
 
         private void Rotate()
         {
-            rotator.Rotate(Vector3.right, rotateSpeed);
+            rotator.Rotate(Vector3.right, rotateSpeed * Time.timeScale);
         }
 
         private void RotateToSelf()

@@ -63,6 +63,13 @@ namespace CDR.AttackSystem
             StopAllCoroutines();
         }
 
+        public override void Stop()
+        {
+            base.Stop();
+
+            ForceEnd();
+        }
+
         IEnumerator TCRSequence()
 		{
             var target = Character.targetHandler.GetCurrentTarget();

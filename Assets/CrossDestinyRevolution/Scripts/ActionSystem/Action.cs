@@ -33,9 +33,9 @@ namespace CDR.ActionSystem
 			isActionActive = false;
 		}
 
-		public virtual void UltimaEnd()
+		public virtual void Stop()
 		{
-			ForceEnd();
+			isActionActive = false;
 		}
 	}
 }

@@ -78,6 +78,7 @@ namespace CDR.ObjectPoolingSystem
 
         public void ReturnAll()
         {
+            Debug.LogWarning(this + ": " + pooledObjects + " || " + pooledObjects?.Count + " || " + pooledObjects[0]);
             for (int i = 0; i < pooledObjects.Count; i++)
             {
                 if (pooledObjects[i].activeInHierarchy)

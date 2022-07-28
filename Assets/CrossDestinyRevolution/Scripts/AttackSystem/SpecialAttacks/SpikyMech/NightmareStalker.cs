@@ -66,6 +66,13 @@ namespace CDR.AttackSystem
             StopAllCoroutines();
         }
 
+        public override void Stop()
+        {
+            base.Stop();
+
+            ForceEnd();
+        }
+
 		public override void Update()
 		{
             base.Update();

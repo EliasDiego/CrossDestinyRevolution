@@ -18,6 +18,8 @@ namespace CDR.VersusSystem
         {
             AsyncOperation asyncOperation = SceneManager.LoadSceneAsync(_NextSceneIndex, LoadSceneMode.Additive);
 
+            LeanTween.cancelAll();
+
             while(!asyncOperation.isDone)
                 yield return null;
 
