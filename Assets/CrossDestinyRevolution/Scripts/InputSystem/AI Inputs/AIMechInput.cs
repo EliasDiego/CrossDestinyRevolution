@@ -32,6 +32,25 @@ namespace CDR.InputSystem
             }
         }
 
+        private float GetAsin(float value, float radius)
+        {
+            float sign = Mathf.Sign(value);
+
+            return sign * Mathf.Min(Mathf.Asin(Mathf.Abs(value) / radius), radius);
+        }
+
+        private Vector3 GetBoundaryEdge()
+        {
+            IFlightPlane flightPlane = character.controller.flightPlane;
+            
+            Vector3 dirCenterToCharacter = (character.position - flightPlane.position).normalized;
+
+            float xValue = Mathf.Rad2Deg * GetAsin(character.position.y - flightPlane.position.y, flightPlane.radius);
+            float yValue = Quaternion.LookRotation(dirCenterToCharacter, Vector3.up).eulerAngles.y - 180;
+
+            return Quaternion.Euler(xValue, yValue, 0) * -Vector3.forward * flightPlane.radius;
+        }
+
         private void OnSwitchTarget(ITargetData targetData)
         {
             _CurrentTarget = targetData.activeCharacter;
@@ -42,14 +61,19 @@ namespace CDR.InputSystem
             if(_CurrentTarget == null)
                 return;
 
-            IFlightPlane flightPlane = character.controller.flightPlane;
+            Vector3 dirAwayFromTarget = _CurrentTarget.position - character.position;
+            Vector3 dirAwayFromEdge = GetBoundaryEdge() - character.position;
 
-            Vector3 dirAwayFromTarget = (_CurrentTarget.position - character.position).normalized;
-            Vector3 dirCenterToCharacter = (character.position - flightPlane.position).normalized;
-            Vector3 posBoundaryEnd = flightPlane.position + dirCenterToCharacter * flightPlane.radius;
+            Quaternion rotAwayFromTarget = Quaternion.LookRotation(character.rotation * dirAwayFromTarget, Vector3.up);
+            Quaternion rotAwayFromEdge = Quaternion.LookRotation(character.rotation * dirAwayFromTarget, Vector3.up);
 
-            _DebugPosition = posBoundaryEnd;
-            // _DebugDirection = dirCenterToCharacter;
+            Vector3 dirMove = Quaternion.Lerp(rotAwayFromEdge, rotAwayFromTarget, 0.5f) * -Vector3.forward;
+            // Vector3 dirMove = new Vector3(1, 0, 0);
+            
+            character.movement.Move(new Vector2(dirMove.x, dirMove.z));
+
+            _DebugPosition = character.position;
+            _DebugDirection = dirMove * 10;
         }
 
         public override void SetupInput()
