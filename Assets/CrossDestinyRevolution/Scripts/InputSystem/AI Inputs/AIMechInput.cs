@@ -77,24 +77,18 @@ namespace CDR.InputSystem
                 return weightedDirection.GetRotation(Vector3.up);
             }
 
-            string debug = "";
+            float longestMagnitude = directions.Max(d => d.magnitude); // longestDirection.magnitude;
 
-            float longestMagnitude = directions.Select(d => d.magnitude).Max();
-
-            Quaternion weightedRotation = Quaternion.identity;
+            Quaternion weightedRotation = Quaternion.LookRotation(directions.First(), Vector3.up); // Quaternion.identity; // Quaternion.LookRotation(longestDirection, Vector3.up);
 
             foreach(WeightedDirection w in directions.Select(d => new WeightedDirection(d, 1 - (d.magnitude / longestMagnitude))).OrderByDescending(d => d.magnitude))
             {
                 Quaternion rotation = w.GetRotation(Vector3.up);
 
-                weightedRotation = Quaternion.Slerp(weightedRotation, rotation, .5f);
-
-                debug += rotation.eulerAngles.y + "\n";
+                weightedRotation = Quaternion.Slerp(weightedRotation, rotation, w.weight);
             }
 
-            Debug.Log(weightedRotation.eulerAngles.y + "\n\n" + debug);
-
-            return weightedRotation; //Quaternion.Euler(weightedRotation.eulerAngles.x, weightedRotation.eulerAngles.y + 180, weightedRotation.eulerAngles.z);
+            return weightedRotation;
         }
 
         private float GetAsin(float value, float radius)
@@ -132,6 +126,8 @@ namespace CDR.InputSystem
             _CurrentTarget = targetData.activeCharacter;
         }
 
+        Vector3 _MoveDirection;
+
         private void OnMove()
         {
             if(_CurrentTarget == null)
@@ -146,7 +142,11 @@ namespace CDR.InputSystem
 
             Vector3 dirMove = weightedRotation * Vector3.forward;
 
-            character.controller.Translate(new Vector3(dirMove.x, 0, dirMove.z), .1f);
+            _MoveDirection = Vector3.Lerp(_MoveDirection, new Vector3(dirMove.x, dirMove.z, 0), Time.deltaTime);
+            // _MoveDirection = Vector3.Lerp(_MoveDirection, new Vector3(dirMove.x, 0, dirMove.z), Time.deltaTime);
+
+            character.movement.Move(Quaternion.AngleAxis(character.rotation.eulerAngles.y + 90, Vector3.up) * _MoveDirection);
+            // character.controller.Translate(_MoveDirection, .1f);
 
             _DebugPositions[0] = boundaryEdge;
             _DebugPosition = character.position;
