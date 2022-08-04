@@ -140,17 +140,15 @@ namespace CDR.InputSystem
 
             Quaternion weightedRotation = GetWeightedDirectionAverageRotation(dirAwayFromTarget, dirAwayFromEdge);
 
-            Vector3 dirMove = weightedRotation * Vector3.forward;
+            Vector3 dirMove = Quaternion.Inverse(character.rotation) * weightedRotation * Vector3.forward;
 
             _MoveDirection = Vector3.Lerp(_MoveDirection, new Vector3(dirMove.x, dirMove.z, 0), Time.deltaTime);
-            // _MoveDirection = Vector3.Lerp(_MoveDirection, new Vector3(dirMove.x, 0, dirMove.z), Time.deltaTime);
 
-            character.movement.Move(Quaternion.AngleAxis(character.rotation.eulerAngles.y + 90, Vector3.up) * _MoveDirection);
-            // character.controller.Translate(_MoveDirection, .1f);
+            character.movement.Move(_MoveDirection);
 
             _DebugPositions[0] = boundaryEdge;
             _DebugPosition = character.position;
-            _DebugDirection = dirMove * 30;
+            _DebugDirection = character.rotation * new Vector3(_MoveDirection.x, 0, _MoveDirection.y) * 30; // new Vector3(_MoveDirection.x, 0, _MoveDirection.y) * 30;
         }
 
         public override void SetupInput()
