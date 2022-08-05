@@ -16,6 +16,8 @@ namespace CDR.AttackSystem
 	{
 		IController controller { get; }
 
+		public Vector3 position { get; }
+		public Quaternion rotation { get; }
 		public HitBox HitBox { get; }
 		public float Lifetime { get; }
 		public float Damage { get; }

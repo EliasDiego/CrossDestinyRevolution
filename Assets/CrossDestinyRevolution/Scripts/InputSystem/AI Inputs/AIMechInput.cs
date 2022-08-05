@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using CDR.MechSystem;
+using CDR.AttackSystem;
 using CDR.TargetingSystem;
 using CDR.MovementSystem;
 
@@ -13,6 +14,8 @@ namespace CDR.InputSystem
     public class AIMechInput : AIActiveCharacterInput<Mech>
     {   
         private IActiveCharacter _CurrentTarget;
+
+        private Vector3 _MoveDirection;
 
         private Vector3[] _DebugPositions;
         private Vector3 _DebugPosition;
@@ -77,9 +80,9 @@ namespace CDR.InputSystem
                 return weightedDirection.GetRotation(Vector3.up);
             }
 
-            float longestMagnitude = directions.Max(d => d.magnitude); // longestDirection.magnitude;
+            float longestMagnitude = directions.Max(d => d.magnitude);
 
-            Quaternion weightedRotation = Quaternion.LookRotation(directions.First(), Vector3.up); // Quaternion.identity; // Quaternion.LookRotation(longestDirection, Vector3.up);
+            Quaternion weightedRotation = Quaternion.LookRotation(directions.First(), Vector3.up);
 
             foreach(WeightedDirection w in directions.Select(d => new WeightedDirection(d, 1 - (d.magnitude / longestMagnitude))).OrderByDescending(d => d.magnitude))
             {
@@ -126,8 +129,6 @@ namespace CDR.InputSystem
             _CurrentTarget = targetData.activeCharacter;
         }
 
-        Vector3 _MoveDirection;
-
         private void OnMove()
         {
             if(_CurrentTarget == null)
@@ -138,11 +139,13 @@ namespace CDR.InputSystem
             Vector3 dirAwayFromTarget = character.position - _CurrentTarget.position;
             Vector3 dirAwayFromEdge = character.position - boundaryEdge;
 
-            Quaternion weightedRotation = GetWeightedDirectionAverageRotation(dirAwayFromTarget, dirAwayFromEdge);
+            Vector3[] dirAwayFromCharacter = Projectile.projectiles.Select(p => character.position - p.position).Concat(new Vector3[] { dirAwayFromEdge, dirAwayFromTarget }).ToArray();
+
+            Quaternion weightedRotation = GetWeightedDirectionAverageRotation(dirAwayFromCharacter);
 
             Vector3 dirMove = Quaternion.Inverse(character.rotation) * weightedRotation * Vector3.forward;
 
-            _MoveDirection = Vector3.Lerp(_MoveDirection, new Vector3(dirMove.x, dirMove.z, 0), Time.deltaTime);
+            _MoveDirection = Vector3.Lerp(_MoveDirection, new Vector3(dirMove.x, dirMove.z, 0), Time.deltaTime / 2);
 
             character.movement.Move(_MoveDirection);
 

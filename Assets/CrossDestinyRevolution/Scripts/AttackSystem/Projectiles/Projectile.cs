@@ -43,7 +43,14 @@ namespace CDR.AttackSystem
 
 		public IPool pool { get => _pool; set => _pool = value; }
 
-		AudioSource audioSource;
+        public Vector3 position => transform.position;
+
+        public Quaternion rotation => transform.rotation;
+
+        AudioSource audioSource;
+
+		private static List<Projectile> _Projectiles = new List<Projectile>(); 
+		public static Projectile[] projectiles => _Projectiles.ToArray();
 
 		public virtual void Start()
 		{
@@ -65,12 +72,19 @@ namespace CDR.AttackSystem
 
 		public virtual void OnEnable()
 		{
+			_Projectiles.Add(this);
+
 			projectileLifetime = projectileMaxLifetime;
 
 			if (projectileHitBox != null)
 			{
 				projectileHitBox.onHitEnter += OnHitEnter;
 			}
+		}
+
+		private void OnDisable() 
+		{
+			_Projectiles.Remove(this);
 		}
 
 		public virtual void Update()
