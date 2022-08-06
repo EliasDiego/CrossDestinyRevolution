@@ -17,7 +17,7 @@ namespace CDR.InputSystem
         public event Action<IInput> onEnableInput;
         public event Action<IInput> onDisableInput;
 
-        private void Update()
+        protected virtual void Update()
         {
             foreach(AIAction action in _AIActions?.Values?.Where(a => a.enabled))
                 action.Invoke();

@@ -12,14 +12,24 @@ using CDR.MovementSystem;
 namespace CDR.InputSystem
 {
     public class AIMechInput : AIActiveCharacterInput<Mech>
-    {   
+    {
+        private Vector3[] _DirectionsToAvoid = null;
+        private Quaternion _WeightedAvoidanceRotation;
         private IActiveCharacter _CurrentTarget;
 
         private Vector3 _MoveDirection;
 
-        private Vector3[] _DebugPositions;
-        private Vector3 _DebugPosition;
-        private Vector3 _DebugDirection;
+        protected override void Update()
+        {
+            base.Update();
+
+            Vector3 dirAwayFromTarget = character.position - _CurrentTarget.position;
+            Vector3 dirAwayFromEdge = character.position -  GetBoundaryEdge();
+
+            _DirectionsToAvoid = Projectile.projectiles.Select(p => character.position - p.position).Concat(new Vector3[] { dirAwayFromEdge, dirAwayFromTarget }).ToArray();
+
+            _WeightedAvoidanceRotation = GetWeightedDirectionAverageRotation(_DirectionsToAvoid);
+        }
 
         private struct WeightedDirection
         {
@@ -44,27 +54,6 @@ namespace CDR.InputSystem
             public Vector3 GetEulerAngles(Vector3 up)
             {
                 return GetRotation(up).eulerAngles;
-            }
-        }
-
-        private void OnDrawGizmos() 
-        {
-            for(int i = 0; i < _DebugPositions.Length; i++)
-            {
-                Gizmos.DrawSphere(_DebugPositions[i], 5);
-            }
-
-            if(_DebugDirection == Vector3.zero)
-            {
-                Gizmos.color = Color.red;
-                Gizmos.DrawSphere(_DebugPosition, 10);
-            }
-
-            else
-            {
-                Gizmos.DrawLine(_DebugPosition, _DebugPosition + _DebugDirection);
-                Gizmos.color = Color.red;
-                Gizmos.DrawSphere(_DebugPosition + _DebugDirection, 10);
             }
         }
 
@@ -129,36 +118,46 @@ namespace CDR.InputSystem
             _CurrentTarget = targetData.activeCharacter;
         }
 
+        private void OnBoost()
+        {
+            if(_CurrentTarget == null || _DirectionsToAvoid == null || character.boost.isActive)
+                return;
+
+            int objectsNear = _DirectionsToAvoid.Count(v => v.magnitude < 2);
+
+            if(objectsNear >= 3)
+            {
+                character.boost.VerticalBoost(1);
+
+                Debug.Log("[AI Input] Vertical Boost Up!");
+            }
+
+            else
+            {
+                Vector3 dirMove = Quaternion.Inverse(character.rotation) * _WeightedAvoidanceRotation * Vector3.forward;
+
+                character.boost.HorizontalBoost(new Vector2(dirMove.x, dirMove.z));
+
+                Debug.Log("[AI Input] Horizontal Boost Up!");
+            } 
+        }
+
         private void OnMove()
         {
             if(_CurrentTarget == null)
                 return;
 
-            Vector3 boundaryEdge = GetBoundaryEdge();
-
-            Vector3 dirAwayFromTarget = character.position - _CurrentTarget.position;
-            Vector3 dirAwayFromEdge = character.position - boundaryEdge;
-
-            Vector3[] dirAwayFromCharacter = Projectile.projectiles.Select(p => character.position - p.position).Concat(new Vector3[] { dirAwayFromEdge, dirAwayFromTarget }).ToArray();
-
-            Quaternion weightedRotation = GetWeightedDirectionAverageRotation(dirAwayFromCharacter);
-
-            Vector3 dirMove = Quaternion.Inverse(character.rotation) * weightedRotation * Vector3.forward;
+            Vector3 dirMove = Quaternion.Inverse(character.rotation) * _WeightedAvoidanceRotation * Vector3.forward;
 
             _MoveDirection = Vector3.Lerp(_MoveDirection, new Vector3(dirMove.x, dirMove.z, 0), Time.deltaTime / 2);
 
             character.movement.Move(_MoveDirection);
-
-            _DebugPositions[0] = boundaryEdge;
-            _DebugPosition = character.position;
-            _DebugDirection = character.rotation * new Vector3(_MoveDirection.x, 0, _MoveDirection.y) * 30; // new Vector3(_MoveDirection.x, 0, _MoveDirection.y) * 30;
         }
 
         public override void SetupInput()
         {
-            _DebugPositions = new Vector3[5];
-
             AddAction("Move", OnMove);
+            AddAction("Boost", OnBoost);
 
             character.targetHandler.onSwitchTarget += OnSwitchTarget;
         }
