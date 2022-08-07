@@ -45,11 +45,12 @@ namespace CDR.AttackSystem
             transform.Translate(flightDir * Time.deltaTime * flightSpeed);
         }
 
-        public void Init(Vector3 spawnPos = default, Vector3 dir = default)
+        public void Init(MechSystem.IActiveCharacter owner, Vector3 spawnPos = default, Vector3 dir = default)
         {
             transform.position = spawnPos;
             flightDir = dir;
             gameObject.SetActive(true);
+            this.owner = owner;
         }
 
         private void SetPosition()

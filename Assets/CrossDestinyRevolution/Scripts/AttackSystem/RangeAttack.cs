@@ -76,6 +76,7 @@ namespace CDR.AttackSystem
 				bullet.GetComponent<HomingBullet>().playerAttackRange = attackRange;
 				bullet.GetComponent<HomingBullet>().transform.position = GunPoint.transform.position;
 				bullet.GetComponent<HomingBullet>().originPoint = GunPoint.transform.position;
+				bullet.GetComponent<HomingBullet>().owner = Character;
 				bullet.SetActive(true);
 
 				rangeAttackVFXHandler.Activate();

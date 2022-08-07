@@ -81,6 +81,7 @@ namespace CDR.AttackSystem
             FirstPhaseBullet.GetComponent<BBBProjectile>().transform.position = bulletSpawnPoint[0].transform.position;
             FirstPhaseBullet.GetComponent<BBBProjectile>().hasLifeTime = false;
             FirstPhaseBullet.GetComponent<BBBProjectile>().towardsSplitPoint = transform.position;
+            FirstPhaseBullet.GetComponent<BBBProjectile>().owner = Character;
 
             FirstPhaseBullet.SetActive(true);
 
@@ -109,6 +110,7 @@ namespace CDR.AttackSystem
                         FirstPhaseBullet.GetComponent<BBBProjectile>().generalDirection;
 
                     SecondPhaseBulletSub.GetComponent<BBBProjectile>().hasLifeTime = false;
+                    SecondPhaseBulletSub.GetComponent<BBBProjectile>().owner = Character;
 
                     SecondPhaseBulletSub.SetActive(true);
 
@@ -144,6 +146,7 @@ namespace CDR.AttackSystem
                             secondPhaseBullet.GetComponent<BBBProjectile>().generalDirection;
 
                         ThirdPhaseBulletSub.GetComponent<BBBProjectile>().hasLifeTime = true;
+                        ThirdPhaseBulletSub.GetComponent<BBBProjectile>().owner = Character;
 
                         ThirdPhaseBulletSub.SetActive(true);
                     }

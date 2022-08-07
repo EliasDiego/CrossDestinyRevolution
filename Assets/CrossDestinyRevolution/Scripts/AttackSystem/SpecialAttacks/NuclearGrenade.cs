@@ -89,6 +89,7 @@ namespace CDR.AttackSystem
                 firstPhaseBullets.GetComponent<NGProjectile>().targetPoint = staticPositions;
                 firstPhaseBullets.GetComponent<NGProjectile>().transform.position = bulletSpawnPoint[0].transform.position;
                 firstPhaseBullets.GetComponent<NGProjectile>().hasLifeTime = false;
+                firstPhaseBullets.GetComponent<NGProjectile>().owner = Character;
 
                 firstPhaseBullets.SetActive(true);
             }
@@ -108,6 +109,7 @@ namespace CDR.AttackSystem
                     firstPhaseBullets.GetComponent<NGProjectile>().targetPlayerDir = Quaternion.LookRotation(targetDir);
                     firstPhaseBullets.GetComponent<NGProjectile>().secondPhaseStart = true;
                     firstPhaseBullets.GetComponent<NGProjectile>().hasLifeTime = true;
+                    firstPhaseBullets.GetComponent<NGProjectile>().owner = Character;
 
                     //firstPhaseBullets.GetComponent<NGProjectile>().ResetObject();
                     //firstPhaseBullets.GetComponent<NGProjectile>().Return();

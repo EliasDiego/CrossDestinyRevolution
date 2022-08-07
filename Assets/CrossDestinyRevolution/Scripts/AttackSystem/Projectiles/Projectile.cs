@@ -47,12 +47,13 @@ namespace CDR.AttackSystem
 
         public Quaternion rotation => transform.rotation;
 
+        public IActiveCharacter owner { get; set; }
         AudioSource audioSource;
 
 		private static List<Projectile> _Projectiles = new List<Projectile>(); 
 		public static Projectile[] projectiles => _Projectiles.ToArray();
 
-		public virtual void Start()
+        public virtual void Start()
 		{
 			projectileController = GetComponent<ProjectileController>();
 			projectileLifetime = projectileMaxLifetime;

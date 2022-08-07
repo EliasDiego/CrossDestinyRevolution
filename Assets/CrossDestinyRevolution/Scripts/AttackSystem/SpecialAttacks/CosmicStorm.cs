@@ -58,7 +58,7 @@ namespace CDR.AttackSystem
                 {
                     var targetDir = -activeCharacter.targetHandler.GetCurrentTarget().direction;
 
-                    cluster.GetComponent<CosmicBulletCluster>().Init(bulletSpawnPoint[0].transform.position, targetDir);
+                    cluster.GetComponent<CosmicBulletCluster>().Init(Character, bulletSpawnPoint[0].transform.position, targetDir);
                         End();
                 });
             }

@@ -96,6 +96,7 @@ namespace CDR.AttackSystem
             firstBullet.GetComponent<HomingBullet>().playerAttackRange = attackRange;
             firstBullet.GetComponent<HomingBullet>().transform.position = bulletSpawnPoint[0].transform.position;
             firstBullet.GetComponent<HomingBullet>().originPoint = bulletSpawnPoint[0].transform.position;
+            firstBullet.GetComponent<HomingBullet>().owner = Character;
 			firstBullet.SetActive(true);
 
             nightmareStalkerVFXHandler.Activate();
@@ -123,7 +124,7 @@ namespace CDR.AttackSystem
                 var bulletTrailBullet = _pool[1].GetPoolable();
 
                 bulletTrailBullet.transform.position = bulletTrailSpawnArray[i];
-
+                bulletTrailBullet.GetComponent<Projectile>().owner = Character;
                 
 
                 bulletTrailBullet.SetActive(true);

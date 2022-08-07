@@ -14,6 +14,7 @@ namespace CDR.AttackSystem
 {
 	public interface IProjectile : IPoolable
 	{
+		IActiveCharacter owner { get; }
 		IController controller { get; }
 
 		public Vector3 position { get; }

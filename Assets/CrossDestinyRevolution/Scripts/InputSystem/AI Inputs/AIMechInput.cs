@@ -13,23 +13,9 @@ namespace CDR.InputSystem
 {
     public class AIMechInput : AIActiveCharacterInput<Mech>
     {
-        private Vector3[] _DirectionsToAvoid = null;
-        private Quaternion _WeightedAvoidanceRotation;
         private IActiveCharacter _CurrentTarget;
 
         private Vector3 _MoveDirection;
-
-        protected override void Update()
-        {
-            base.Update();
-
-            Vector3 dirAwayFromTarget = character.position - _CurrentTarget.position;
-            Vector3 dirAwayFromEdge = character.position -  GetBoundaryEdge();
-
-            _DirectionsToAvoid = Projectile.projectiles.Select(p => character.position - p.position).Concat(new Vector3[] { dirAwayFromEdge, dirAwayFromTarget }).ToArray();
-
-            _WeightedAvoidanceRotation = GetWeightedDirectionAverageRotation(_DirectionsToAvoid);
-        }
 
         private struct WeightedDirection
         {
@@ -120,10 +106,19 @@ namespace CDR.InputSystem
 
         private void OnBoost()
         {
-            if(_CurrentTarget == null || _DirectionsToAvoid == null || character.boost.isActive)
+            if(_CurrentTarget == null || character.boost.isActive)
                 return;
 
-            int objectsNear = _DirectionsToAvoid.Count(v => v.magnitude < 2);
+            Vector3 dirAwayFromTarget = character.position - _CurrentTarget.position;
+            Vector3 dirAwayFromEdge = character.position - GetBoundaryEdge();
+
+            Debug.Log(Projectile.projectiles.Where(p => p.owner != (IActiveCharacter)character)?.Count());
+
+            Vector3[] directionsToAvoid = Projectile.projectiles.Where(p => p.owner != (IActiveCharacter)character)?.Select(p => character.position - p.position)?.Concat(new Vector3[] { dirAwayFromEdge, dirAwayFromTarget })?.ToArray();
+
+            Quaternion weightedAvoidanceRotation = GetWeightedDirectionAverageRotation(directionsToAvoid);
+
+            int objectsNear = directionsToAvoid.Count(v => v.magnitude < 2);
 
             if(objectsNear >= 3)
             {
@@ -132,13 +127,13 @@ namespace CDR.InputSystem
                 Debug.Log("[AI Input] Vertical Boost Up!");
             }
 
-            else
+            else if(objectsNear > 0)
             {
-                Vector3 dirMove = Quaternion.Inverse(character.rotation) * _WeightedAvoidanceRotation * Vector3.forward;
+                Vector3 dirMove = Quaternion.Inverse(character.rotation) * weightedAvoidanceRotation * Vector3.forward;
 
                 character.boost.HorizontalBoost(new Vector2(dirMove.x, dirMove.z));
 
-                Debug.Log("[AI Input] Horizontal Boost Up!");
+                Debug.Log("[AI Input] Horizontal Boost!");
             } 
         }
 
@@ -147,17 +142,76 @@ namespace CDR.InputSystem
             if(_CurrentTarget == null)
                 return;
 
-            Vector3 dirMove = Quaternion.Inverse(character.rotation) * _WeightedAvoidanceRotation * Vector3.forward;
+            Vector3 dirAwayFromTarget = character.position - _CurrentTarget.position;
+            Vector3 dirAwayFromEdge = character.position - GetBoundaryEdge();
+
+            Vector3[] directionsToAvoid = Projectile.projectiles.Select(p => character.position - p.position).Concat(new Vector3[] { dirAwayFromEdge, dirAwayFromTarget }).ToArray();
+
+            Quaternion weightedAvoidanceRotation = GetWeightedDirectionAverageRotation(directionsToAvoid);
+
+            Vector3 dirMove = Quaternion.Inverse(character.rotation) * weightedAvoidanceRotation * Vector3.forward;
 
             _MoveDirection = Vector3.Lerp(_MoveDirection, new Vector3(dirMove.x, dirMove.z, 0), Time.deltaTime / 2);
 
             character.movement.Move(_MoveDirection);
         }
 
+        private void OnRangeAttack()
+        {
+            if(_CurrentTarget == null || character.rangeAttack.isActive)
+                return;
+
+            character.rangeAttack.Use();
+        }
+
+        private void OnMeleeAttack()
+        {
+            if(_CurrentTarget == null || character.meleeAttack.isCoolingDown)
+                return;
+
+            if(_CurrentTarget is Mech && (_CurrentTarget as Mech).meleeAttack.isActive)
+                return;
+
+            if((_CurrentTarget.position - character.position).magnitude < 50)
+            {
+                if(!character.meleeAttack.isActive)
+                    character.meleeAttack.Use();
+            }
+
+            else if(character.meleeAttack.isActive)
+                character.meleeAttack.End();
+        }
+
+        private void OnShield()
+        {
+            if(_CurrentTarget == null)
+                return;
+
+            if(!(_CurrentTarget is Mech) || !(_CurrentTarget as Mech).meleeAttack.isActive)
+            {
+                if(character.shield.isActive)
+                    character.shield.End();
+
+                return;
+            }
+                
+            if((_CurrentTarget.position - character.position).magnitude < 30)
+            {
+                if(!character.shield.isActive)
+                    character.shield.Use();
+            }
+                    
+            else if(character.shield.isActive)
+                character.shield.End();
+        }
+
         public override void SetupInput()
         {
             AddAction("Move", OnMove);
             AddAction("Boost", OnBoost);
+            AddAction("RangeAttack", OnRangeAttack);
+            AddAction("MeleeAttack", OnMeleeAttack);
+            AddAction("Shield", OnShield);
 
             character.targetHandler.onSwitchTarget += OnSwitchTarget;
         }

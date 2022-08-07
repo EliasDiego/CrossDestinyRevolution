@@ -93,6 +93,8 @@ namespace CDR.AttackSystem
 
                 firstPhaseLeftBullets.GetComponent<TCRProjectile>().hasLifeTime = false;
 
+                firstPhaseLeftBullets.GetComponent<TCRProjectile>().owner = Character;
+
                 firstPhaseLeftBullets.SetActive(true);
             }
             
@@ -110,6 +112,8 @@ namespace CDR.AttackSystem
                 firstPhaseLeftBullets.GetComponent<TCRProjectile>().transform.position = transform.position + (bulletSpawnSpacing * i * transform.right);
 
                 firstPhaseLeftBullets.GetComponent<TCRProjectile>().hasLifeTime = false;
+
+                firstPhaseLeftBullets.GetComponent<TCRProjectile>().owner = Character;
 
                 firstPhaseLeftBullets.SetActive(true);
             }
@@ -129,6 +133,7 @@ namespace CDR.AttackSystem
                     firstPhaseBullets.GetComponent<TCRProjectile>().targetPlayerDir = Quaternion.LookRotation(targetDir);
                     firstPhaseBullets.GetComponent<TCRProjectile>().secondPhaseStart = true;
                     firstPhaseBullets.GetComponent<TCRProjectile>().hasLifeTime = true;
+                    firstPhaseBullets.GetComponent<TCRProjectile>().owner = Character;
                 }
             }
 

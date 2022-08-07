@@ -82,6 +82,7 @@ namespace CDR.AttackSystem
                 bullet.SetActive(true);
                 
                 activeBullet = bullet.GetComponent<RCRBullet>();
+                activeBullet.owner = Character;
                 ScaleAndRotateBeam();
             }
         }
