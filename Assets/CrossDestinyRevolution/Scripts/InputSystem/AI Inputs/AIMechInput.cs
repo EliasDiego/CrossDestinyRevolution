@@ -17,6 +17,8 @@ namespace CDR.InputSystem
 
         private Vector3 _MoveDirection;
 
+        public AIMechInputSettings settings { get; set; }
+
         private struct WeightedDirection
         {
             public Vector3 direction { get; }
@@ -145,7 +147,7 @@ namespace CDR.InputSystem
             Vector3 dirAwayFromTarget = character.position - _CurrentTarget.position;
             Vector3 dirAwayFromEdge = character.position - GetBoundaryEdge();
 
-            Vector3[] directionsToAvoid = Projectile.projectiles.Select(p => character.position - p.position).Concat(new Vector3[] { dirAwayFromEdge, dirAwayFromTarget }).ToArray();
+            Vector3[] directionsToAvoid = Projectile.projectiles.Where(p => p.owner != (IActiveCharacter)character)?.Select(p => character.position - p.position).Concat(new Vector3[] { dirAwayFromEdge, dirAwayFromTarget }).ToArray();
 
             Quaternion weightedAvoidanceRotation = GetWeightedDirectionAverageRotation(directionsToAvoid);
 
@@ -205,6 +207,42 @@ namespace CDR.InputSystem
                 character.shield.End();
         }
 
+        private void OnSpecialAttack1()
+        {
+            if(_CurrentTarget == null || !settings || character.specialAttack1.isCoolingDown)
+                return;
+
+            if(settings.specialAttack1Range.IsWithinRange((_CurrentTarget.position - character.position).magnitude))
+            {
+                if(!character.specialAttack1.isActive)
+                    character.specialAttack1.Use();
+            }
+        }
+
+        private void OnSpecialAttack2()
+        {
+            if(_CurrentTarget == null || !settings || character.specialAttack2.isCoolingDown)
+                return;
+
+            if(settings.specialAttack2Range.IsWithinRange((_CurrentTarget.position - character.position).magnitude))
+            {
+                if(!character.specialAttack2.isActive)
+                    character.specialAttack2.Use();
+            }
+        }
+        
+        private void OnSpecialAttack3()
+        {
+            if(_CurrentTarget == null || !settings || character.specialAttack3.isCoolingDown)
+                return;
+
+            if(settings.specialAttack3Range.IsWithinRange((_CurrentTarget.position - character.position).magnitude))
+            {
+                if(!character.specialAttack3.isActive)
+                    character.specialAttack3.Use();
+            }
+        }
+
         public override void SetupInput()
         {
             AddAction("Move", OnMove);
@@ -212,6 +250,9 @@ namespace CDR.InputSystem
             AddAction("RangeAttack", OnRangeAttack);
             AddAction("MeleeAttack", OnMeleeAttack);
             AddAction("Shield", OnShield);
+            AddAction("SpecialAttack1", OnSpecialAttack1);
+            AddAction("SpecialAttack2", OnSpecialAttack2);
+            AddAction("SpecialAttack3", OnSpecialAttack3);
 
             character.targetHandler.onSwitchTarget += OnSwitchTarget;
         }

@@ -12,10 +12,14 @@ namespace CDR.InputSystem
     {
         [SerializeField]
         GameObject _TestObject;
+        [SerializeField]
+        AIMechInputSettings _Settings;
 
         private void Start() 
         {
             AIMechInput AIInput = InputUtilities.AssignAIInput<AIMechInput>(_TestObject);
+
+            AIInput.settings = _Settings;
 
             AIInput.EnableInput();
 
