@@ -12,7 +12,7 @@ namespace CDR.InputSystem
     public abstract class AIInput : MonoBehaviour, IAIInput
     {
         [SerializeField]
-        private Dictionary<string, AIAction> _AIActions = new Dictionary<string, AIAction>();
+        protected Dictionary<string, AIAction> _AIActions = new Dictionary<string, AIAction>();
 
         public event Action<IInput> onEnableInput;
         public event Action<IInput> onDisableInput;

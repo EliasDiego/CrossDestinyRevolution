@@ -19,6 +19,32 @@ namespace CDR.InputSystem
 
         public AIMechInputSettings settings { get; set; }
 
+        protected override void Update()
+        {
+            base.Update();
+            
+            if(character.currentState != null)
+                return;
+
+            if(_AIActions?.Values?.Where(a => a.enabled).Count() <= 0)
+            {
+                Debug.LogError($"Paused because {character} has no inputs!\n" +
+                    $"Movement: {character.movement.isActive}\n" +
+                    $"Boost: {character.boost.isActive}\n" +
+                    $"RangeAttack: {character.rangeAttack.isActive}\n" +
+                    $"MeleeAttack: {character.movement.isActive} {character.meleeAttack.isCoolingDown}\n" +
+                    $"Shield: {character.shield.isActive}\n" +
+                    $"Special Attack 1: {character.specialAttack1.isActive}\n" +
+                    $"Special Attack 2: {character.specialAttack2.isActive}\n" +
+                    $"Special Attack 3: {character.specialAttack3.isActive}\n"
+                    );
+
+                // UnityEditor.EditorApplication.isPaused = true;
+
+                return;
+            }
+        }
+
         private struct WeightedDirection
         {
             public Vector3 direction { get; }
@@ -114,8 +140,6 @@ namespace CDR.InputSystem
             Vector3 dirAwayFromTarget = character.position - _CurrentTarget.position;
             Vector3 dirAwayFromEdge = character.position - GetBoundaryEdge();
 
-            Debug.Log(Projectile.projectiles.Where(p => p.owner != (IActiveCharacter)character)?.Count());
-
             Vector3[] directionsToAvoid = Projectile.projectiles.Where(p => p.owner != (IActiveCharacter)character)?.Select(p => character.position - p.position)?.Concat(new Vector3[] { dirAwayFromEdge, dirAwayFromTarget })?.ToArray();
 
             Quaternion weightedAvoidanceRotation = GetWeightedDirectionAverageRotation(directionsToAvoid);
@@ -126,7 +150,7 @@ namespace CDR.InputSystem
             {
                 character.boost.VerticalBoost(1);
 
-                Debug.Log("[AI Input] Vertical Boost Up!");
+                Debug.Log($"[{character} AI Input] Vertical Boost Up!");
             }
 
             else if(objectsNear > 0)
@@ -135,7 +159,7 @@ namespace CDR.InputSystem
 
                 character.boost.HorizontalBoost(new Vector2(dirMove.x, dirMove.z));
 
-                Debug.Log("[AI Input] Horizontal Boost!");
+                Debug.Log($"[{character} AI Input] Horizontal Boost!");
             } 
         }
 
@@ -156,6 +180,8 @@ namespace CDR.InputSystem
             _MoveDirection = Vector3.Lerp(_MoveDirection, new Vector3(dirMove.x, dirMove.z, 0), Time.deltaTime / 2);
 
             character.movement.Move(_MoveDirection);
+
+            Debug.Log($"[{character} AI Input] Movement!");
         }
 
         private void OnRangeAttack()
@@ -164,6 +190,8 @@ namespace CDR.InputSystem
                 return;
 
             character.rangeAttack.Use();
+
+            Debug.Log($"[{character} AI Input] Range Attack!");
         }
 
         private void OnMeleeAttack()
@@ -177,7 +205,11 @@ namespace CDR.InputSystem
             if((_CurrentTarget.position - character.position).magnitude < 50)
             {
                 if(!character.meleeAttack.isActive)
+                {
                     character.meleeAttack.Use();
+
+                    Debug.Log($"[{character} AI Input] Melee Attack!");
+                }
             }
 
             else if(character.meleeAttack.isActive)
@@ -200,7 +232,11 @@ namespace CDR.InputSystem
             if((_CurrentTarget.position - character.position).magnitude < 30)
             {
                 if(!character.shield.isActive)
+                {
                     character.shield.Use();
+
+                    Debug.Log($"[{character} AI Input] Shield!");
+                }
             }
                     
             else if(character.shield.isActive)
@@ -215,7 +251,11 @@ namespace CDR.InputSystem
             if(settings.specialAttack1Range.IsWithinRange((_CurrentTarget.position - character.position).magnitude))
             {
                 if(!character.specialAttack1.isActive)
+                {
                     character.specialAttack1.Use();
+
+                    Debug.Log($"[{character} AI Input] Special Attack 1!");
+                }
             }
         }
 
@@ -227,7 +267,11 @@ namespace CDR.InputSystem
             if(settings.specialAttack2Range.IsWithinRange((_CurrentTarget.position - character.position).magnitude))
             {
                 if(!character.specialAttack2.isActive)
+                {
                     character.specialAttack2.Use();
+
+                    Debug.Log($"[{character} AI Input] Special Attack 2!");
+                }
             }
         }
         
@@ -239,7 +283,11 @@ namespace CDR.InputSystem
             if(settings.specialAttack3Range.IsWithinRange((_CurrentTarget.position - character.position).magnitude))
             {
                 if(!character.specialAttack3.isActive)
+                {
                     character.specialAttack3.Use();
+
+                    Debug.Log($"[{character} AI Input] Special Attack 3!");
+                }
             }
         }
 
