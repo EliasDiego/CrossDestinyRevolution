@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: BladeWingAIInputSettings
   m_EditorClassIdentifier: 
   <specialAttack1Range>k__BackingField:
-    _MinValue: 0
-    _MaxValue: 15
-  <specialAttack2Range>k__BackingField:
-    _MinValue: 0
+    _MinValue: 30
     _MaxValue: 100
+  <specialAttack2Range>k__BackingField:
+    _MinValue: 120
+    _MaxValue: 150
   <specialAttack3Range>k__BackingField:
     _MinValue: 0
-    _MaxValue: 100
+    _MaxValue: 120

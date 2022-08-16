@@ -21,6 +21,7 @@ namespace CDR.MovementSystem
 
     public interface IController
     {
+        Transform transform { get; }
         Vector3 velocity { get; }
 
         void Translate(Vector3 direction, float magnitude);

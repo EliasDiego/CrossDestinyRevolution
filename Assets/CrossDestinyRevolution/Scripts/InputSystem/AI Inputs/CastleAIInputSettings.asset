@@ -16,8 +16,8 @@ MonoBehaviour:
     _MinValue: 0
     _MaxValue: 15
   <specialAttack2Range>k__BackingField:
-    _MinValue: 0
-    _MaxValue: 100
+    _MinValue: 50
+    _MaxValue: 200
   <specialAttack3Range>k__BackingField:
-    _MinValue: 0
-    _MaxValue: 100
+    _MinValue: 50
+    _MaxValue: 200
