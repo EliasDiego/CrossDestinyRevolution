@@ -8,7 +8,7 @@ using CDR.AudioSystem;
 
 namespace CDR.UISystem
 {
-    public class SelectableSFXHandler : MonoBehaviour, ISelectHandler, IPointerDownHandler, ISubmitHandler
+    public class SelectableSFXHandler : MonoBehaviour, ISelectHandler, IPointerDownHandler, ISubmitHandler, IPointerEnterHandler
     {
         [SerializeField]
         AudioSource _AudioSource;
@@ -20,6 +20,11 @@ namespace CDR.UISystem
         public void OnPointerDown(PointerEventData eventData)
         {
             _OnSubmitSFX?.PlayOneShot(_AudioSource);
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            _OnSelectSFX?.PlayOneShot(_AudioSource);
         }
 
         public void OnSelect(BaseEventData eventData)

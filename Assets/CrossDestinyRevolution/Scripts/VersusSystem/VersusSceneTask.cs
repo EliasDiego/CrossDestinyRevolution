@@ -61,8 +61,11 @@ namespace CDR.VersusSystem
             cameraParticipants[0].camera.cullingMask ^= LayerMask.GetMask("Player2Cam");
             cameraParticipants[0].camera.rect = new Rect(Vector2.zero, new Vector2(0.5f, 1));
 
-            cameraParticipants[1].camera.cullingMask ^= LayerMask.GetMask("Player1Cam");
-            cameraParticipants[1].camera.rect = new Rect(Vector2.right * 0.5f, new Vector2(0.5f, 1));
+            if(cameraParticipants.Length > 1)
+            {
+                cameraParticipants[1].camera.cullingMask ^= LayerMask.GetMask("Player1Cam");
+                cameraParticipants[1].camera.rect = new Rect(Vector2.right * 0.5f, new Vector2(0.5f, 1));
+            }
 
             CameraManager cameraManager = GameObject.Instantiate(_VersusData.cameraManagerPrefab).GetComponent<CameraManager>();
 
