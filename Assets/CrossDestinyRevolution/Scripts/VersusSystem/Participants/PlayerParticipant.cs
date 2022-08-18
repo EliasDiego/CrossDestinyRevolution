@@ -5,28 +5,26 @@ using UnityEngine;
 
 using CDR.MechSystem;
 using CDR.UISystem;
-using CDR.CameraSystem;
+using CDR.CameraSystem.NewStuff;
+using Cinemachine;
 
 namespace CDR.VersusSystem
 {
     public class PlayerParticipant : Participant, ICameraParticipant
     {
         private IPlayerMechBattleUI _BattleUI;
-        private Camera _Camera;
-        private CameraPivot _CameraPivot;
-        private Vector3 _CameraPivotStartPosition;
+        private CameraHandler _CameraHandler;
         
-        public Camera camera => _Camera;
+        public Camera camera => _CameraHandler.camera;
         public IPlayerMechBattleUI battleUI => _BattleUI;
 
-        public PlayerParticipant(string name, IMech mech, IPlayerMechBattleUI battleUI, Camera camera, Vector3 startPosition, Quaternion startRotation) : base(name, mech, startPosition, startRotation)
+        public CinemachineVirtualCamera virtualCamera => _CameraHandler.virtualCamera;
+
+        public PlayerParticipant(string name, IMech mech, IPlayerMechBattleUI battleUI, CameraHandler cameraHandler, Vector3 startPosition, Quaternion startRotation) : base(name, mech, startPosition, startRotation)
         {
             _BattleUI = battleUI;
-            _Camera = camera;
-
-            _CameraPivot = (mech as Mech).GetComponentInChildren<CameraPivot>();
-            
-            _CameraPivotStartPosition = _CameraPivot.transform.localPosition;
+            _CameraHandler = cameraHandler;
+            _CameraHandler.Enable();
 
             _BattleUI.camera = camera;
 
@@ -50,14 +48,6 @@ namespace CDR.VersusSystem
             base.Stop();
             
             _BattleUI.targetHandlerUI.Hide();
-        }
-
-        public override void Reset()
-        {
-            base.Reset();
-            
-            _CameraPivot.transform.localPosition = _CameraPivotStartPosition;
-            _CameraPivot.transform.localRotation = Quaternion.identity;
         }
     }
 }

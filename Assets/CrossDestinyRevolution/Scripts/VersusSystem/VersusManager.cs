@@ -132,6 +132,9 @@ namespace CDR.VersusSystem
 
             _VersusUI = versusUI;
 
+            foreach(IParticipant p in _Participants)
+                p.Ready();
+
             _VersusUI.roundTimeUIHandler.Hide();
             _VersusUI.roundUIHandler.Hide();
 

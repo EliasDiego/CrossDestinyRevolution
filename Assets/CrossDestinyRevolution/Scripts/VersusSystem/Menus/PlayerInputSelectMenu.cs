@@ -18,8 +18,6 @@ namespace CDR.VersusSystem
 {
     public class PlayerInputSelectMenu : MultipleUsersVersusMenu, IPlayerInputSelectMenu
     {
-        [SerializeField]
-        private Transition _MainMenuTransition;
         [Header("Versus Stuff")]
         [SerializeField]
         private GameObject _CameraPrefab;
@@ -159,8 +157,6 @@ namespace CDR.VersusSystem
 
                 return;
             }
-
-            _MainMenuTransition?.Back();
         }
 
         private void OnPlayerInputsComplete()

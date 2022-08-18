@@ -9,26 +9,27 @@ using CDR.InputSystem;
 
 namespace CDR.VersusSystem
 {
-    public class VersusModeMenu : AnimatedMenu
+    public class VersusModeMenu : AnimatedMenu, IMenuCancelHandler
     {
+        [SerializeField]
+        private Transition _MainMenuTransition;
         [SerializeField]
         private VersusData _VersusData;
         [SerializeField]
         private InputActionAsset _InputAsset;
         [SerializeField]
-        private PlayerMechInputSettings _Settings;
+        private PlayerMechInputSettings _PlayerInputSettings;
         [SerializeField]
         private GameObject _BattleUIPrefab;
         [SerializeField]
         private GameObject _CameraPrefab;
 
-        
         private IParticipantData SetPlayerData(string name, InputActionAsset actionAsset, params InputDevice[] devices)
         {
             return new PlayerParticipantData() 
             { 
                 name = name,
-                settings = _Settings,
+                settings = _PlayerInputSettings,
                 cameraPrefab = _CameraPrefab,
                 actionAsset = actionAsset, 
                 devices = devices, 
@@ -38,7 +39,16 @@ namespace CDR.VersusSystem
 
         public void SetAIMode()
         {
-            _VersusData.participantDataList = new List<IParticipantData> { SetPlayerData("Player 1", _InputAsset, UnityEngine.InputSystem.InputSystem.devices.ToArray()), new AIParticipantData() };
+            _VersusData.participantDataList = new List<IParticipantData> 
+                { 
+                    SetPlayerData("Player 1", _InputAsset, UnityEngine.InputSystem.InputSystem.devices.ToArray()), 
+                    new AIParticipantData()
+                };
+        }
+
+        public void OnCancel()
+        {
+            _MainMenuTransition?.Back();
         }
     }
 }

@@ -15,7 +15,7 @@ namespace CDR.VersusSystem
         [SerializeField]
         MapSelectMenu _MapSelectMenu;
         [SerializeField]
-        MechData[] _MechDatas;
+        AIMechData[] _MechDatas;
 
         public void OnPlayerCancel(IPlayerInput playerInput)
         {
@@ -79,8 +79,11 @@ namespace CDR.VersusSystem
 
                 playerInputs[0].AssignInput(playerData.actionAsset.FindActionMap("UI"), playerData.devices);
                 playerInputs[0].EnableInput();
+
+                AIMechData aiData = _MechDatas[UnityEngine.Random.Range(0, _MechDatas.Length)];
                 
-                versusData.participantDatas[1].mechData = _MechDatas[UnityEngine.Random.Range(0, 1)];
+                (versusData.participantDatas[1] as AIParticipantData).settings = aiData.settings;
+                versusData.participantDatas[1].mechData = aiData;
             }
         }
     }

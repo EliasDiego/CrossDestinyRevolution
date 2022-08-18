@@ -58,25 +58,17 @@ namespace CDR.VersusSystem
 
             ICameraParticipant[] cameraParticipants = participants.Where(p => p is ICameraParticipant).Cast<ICameraParticipant>().ToArray();
 
+            cameraParticipants[0].virtualCamera.gameObject.layer = LayerMask.NameToLayer("Player1Cam");
             cameraParticipants[0].camera.cullingMask ^= LayerMask.GetMask("Player2Cam");
-            cameraParticipants[0].camera.rect = new Rect(Vector2.zero, new Vector2(0.5f, 1));
 
             if(cameraParticipants.Length > 1)
             {
+                cameraParticipants[0].camera.rect = new Rect(Vector2.zero, new Vector2(0.5f, 1));
+
+                cameraParticipants[1].virtualCamera.gameObject.layer = LayerMask.NameToLayer("Player2Cam");
                 cameraParticipants[1].camera.cullingMask ^= LayerMask.GetMask("Player1Cam");
                 cameraParticipants[1].camera.rect = new Rect(Vector2.right * 0.5f, new Vector2(0.5f, 1));
             }
-
-            CameraManager cameraManager = GameObject.Instantiate(_VersusData.cameraManagerPrefab).GetComponent<CameraManager>();
-
-            cameraManager.gameObject.SetActive(false);
-
-            yield return null;
-
-            cameraManager.gameObject.SetActive(true);
-
-            for(int i = 0; i < cameraParticipants.Length; i++)
-                cameraManager.SetPlayerCam((cameraParticipants[i].mech as Mech).transform, i);
 
             yield return new WaitForSeconds(2);
 

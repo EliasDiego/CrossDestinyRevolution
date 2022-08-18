@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd70c3c08983ef24e97c7cd06dc233b8, type: 3}
-  m_Name: BladeWingMechData
+  m_Script: {fileID: 11500000, guid: dbd2776d9d3deaf4395a0a0ff8c66b19, type: 3}
+  m_Name: BladeWingAIData
   m_EditorClassIdentifier: 
-  _MechName: Blade Wing
-  _MechPrefab: {fileID: 4102475430528319348, guid: 9caca10370e619f418541b61c1598e13, type: 3}
+  _MechData: {fileID: 11400000, guid: a15a26ff85905d140b1ca2c69c82fe68, type: 2}
+  _Settings: {fileID: 11400000, guid: f786536a061a83f4e90d0a2be9c50ccd, type: 2}

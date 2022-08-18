@@ -3,6 +3,8 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
+using Cinemachine;
+
 using CDR.MechSystem;
 using CDR.MovementSystem;
 
@@ -11,6 +13,7 @@ namespace CDR.VersusSystem
     public interface ICameraParticipant : IParticipant
     {
         Camera camera { get; }
+        CinemachineVirtualCamera virtualCamera { get; }
     }
 
     public interface IParticipant
@@ -20,6 +23,7 @@ namespace CDR.VersusSystem
         
         IMech mech { get; }
 
+        void Ready();
         void Start();
         void Stop();
         void Reset();

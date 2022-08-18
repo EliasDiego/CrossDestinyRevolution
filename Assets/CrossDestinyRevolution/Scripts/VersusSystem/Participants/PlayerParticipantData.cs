@@ -11,6 +11,7 @@ using CDR.UISystem;
 using CDR.MechSystem;
 using CDR.InputSystem;
 using CDR.MovementSystem;
+using CDR.CameraSystem.NewStuff;
 
 namespace CDR.VersusSystem
 {
@@ -29,10 +30,12 @@ namespace CDR.VersusSystem
             GameObject battleUIObject = GameObject.Instantiate(battleUIPrefab);
 
             IPlayerMechBattleUI battleUI = battleUIObject.GetComponentInChildren<IPlayerMechBattleUI>();
-            
-            GameObject cameraObject = GameObject.Instantiate(cameraPrefab);
 
-            Camera cam = cameraObject.GetComponent<Camera>();
+            CameraHandler cameraHandler = GameObject.Instantiate(cameraPrefab, (participant.mech as Mech).transform).GetComponent<CameraHandler>();
+
+            cameraHandler.activeCharacter = participant.mech as Mech;
+
+            Camera cam = cameraHandler.camera;
 
             UniversalAdditionalCameraData cameraData = cam.GetUniversalAdditionalCameraData();
 
@@ -44,7 +47,7 @@ namespace CDR.VersusSystem
             
             participant.mech.input = playerInput;
 
-            return new PlayerParticipant(participant.name, participant.mech, battleUI, cam, startPosition, startRotation);
+            return new PlayerParticipant(participant.name, participant.mech, battleUI, cameraHandler, startPosition, startRotation);
         }
     }
 }

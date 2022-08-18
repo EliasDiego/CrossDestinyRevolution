@@ -645,10 +645,22 @@ PrefabInstance:
       propertyPath: _EventSystem
       value: 
       objectReference: {fileID: 970806286}
+    - target: {fileID: 163291013825950591, guid: becb1154dc4450647b7888e992840ae9, type: 3}
+      propertyPath: _CameraPrefab
+      value: 
+      objectReference: {fileID: 9207311909826571777, guid: 5a50268128755fb4393d4ea524c31beb, type: 3}
     - target: {fileID: 163291014159111843, guid: becb1154dc4450647b7888e992840ae9, type: 3}
       propertyPath: _EventSystem
       value: 
       objectReference: {fileID: 970806286}
+    - target: {fileID: 163291014159111843, guid: becb1154dc4450647b7888e992840ae9, type: 3}
+      propertyPath: _MechDatas.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: 893b0afa28d426c4384cf54b8767ced1, type: 2}
+    - target: {fileID: 163291014159111843, guid: becb1154dc4450647b7888e992840ae9, type: 3}
+      propertyPath: _MechDatas.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: ec927617562c7d04b96ea985688a1b2c, type: 2}
     - target: {fileID: 163291014240451214, guid: becb1154dc4450647b7888e992840ae9, type: 3}
       propertyPath: _EventSystem
       value: 
@@ -786,21 +798,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2368674371315399297, guid: becb1154dc4450647b7888e992840ae9, type: 3}
-      propertyPath: _Settings
-      value: 
-      objectReference: {fileID: 11400000, guid: b5b309fa0d20d414783776f576d8f401, type: 2}
-    - target: {fileID: 2368674371315399297, guid: becb1154dc4450647b7888e992840ae9, type: 3}
-      propertyPath: _InputAsset
-      value: 
-      objectReference: {fileID: -944628639613478452, guid: 68bdc22a752cb6f419983bee70ecd6cd, type: 3}
-    - target: {fileID: 2368674371315399297, guid: becb1154dc4450647b7888e992840ae9, type: 3}
       propertyPath: _CameraPrefab
       value: 
-      objectReference: {fileID: 4830989514582861956, guid: b36f26aa49d19c3409764b328923e72b, type: 3}
+      objectReference: {fileID: 9207311909826571777, guid: 5a50268128755fb4393d4ea524c31beb, type: 3}
     - target: {fileID: 2368674371315399297, guid: becb1154dc4450647b7888e992840ae9, type: 3}
-      propertyPath: _BattleUIPrefab
+      propertyPath: _AIInputSettings
       value: 
-      objectReference: {fileID: 8892535310215494356, guid: ac9a04520e839ac4d89be78ea1edb1dd, type: 3}
+      objectReference: {fileID: 11400000, guid: f786536a061a83f4e90d0a2be9c50ccd, type: 2}
+    - target: {fileID: 2368674371315399297, guid: becb1154dc4450647b7888e992840ae9, type: 3}
+      propertyPath: _PlayerInputSettings
+      value: 
+      objectReference: {fileID: 11400000, guid: b5b309fa0d20d414783776f576d8f401, type: 2}
     - target: {fileID: 2614109286693373037, guid: becb1154dc4450647b7888e992840ae9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0

@@ -45,25 +45,32 @@ namespace CDR.VersusSystem
             transform.rotation = _StartRotation;
         }
 
+        public virtual void Ready()
+        {
+            mech.targetHandler?.Use();
+        }
+
         public virtual void Start()
         {
             mech.input?.EnableInput();
-            mech.targetHandler?.Use();
             mech.movement?.Use();
         }
 
         public virtual void Stop()
         {
-            mech.input?.DisableInput();
-
             mech.targetHandler?.End();
 
             if(CheckBoolean(mech.shield?.isActive))
                 mech.shield?.Stop();
 
-            mech.specialAttack1?.Stop();
-            mech.specialAttack2?.Stop();
-            mech.specialAttack3?.Stop();
+            if(CheckBoolean(mech.specialAttack1?.isActive))
+                mech.specialAttack1?.Stop();
+            
+            if(CheckBoolean(mech.specialAttack2?.isActive))
+                mech.specialAttack2?.Stop();
+            
+            if(CheckBoolean(mech.specialAttack3?.isActive))
+                mech.specialAttack3?.Stop();
 
             if(CheckBoolean(mech.meleeAttack?.isActive))
                 mech.meleeAttack?.Stop();
@@ -74,6 +81,8 @@ namespace CDR.VersusSystem
                 mech.boost?.Stop();
             
             mech.movement?.Stop();
+
+            mech.input?.DisableInput();
     
             mech.animator.SetInteger("StateType", (int)AnimationSystem.StateType.None);
             mech.animator.SetInteger("ActionType", (int)AnimationSystem.ActionType.None);

@@ -1038,6 +1038,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2368674371315399297, guid: becb1154dc4450647b7888e992840ae9, type: 3}
+      propertyPath: _IsShown
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2614109286693373037, guid: becb1154dc4450647b7888e992840ae9, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1319,13 +1323,13 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &264674199 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 163291013825950591, guid: becb1154dc4450647b7888e992840ae9, type: 3}
+  m_CorrespondingSourceObject: {fileID: 2368674371315399297, guid: becb1154dc4450647b7888e992840ae9, type: 3}
   m_PrefabInstance: {fileID: 264674197}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aef3346f886386a4a9f952f92e2c2c4d, type: 3}
+  m_Script: {fileID: 11500000, guid: b36f9f8f4d221a049bab21fa9b88b17e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &269773541

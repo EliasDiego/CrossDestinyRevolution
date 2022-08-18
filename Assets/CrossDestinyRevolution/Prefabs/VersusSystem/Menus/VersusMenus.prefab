@@ -1104,7 +1104,6 @@ MonoBehaviour:
   _PlayerInputs:
   - {fileID: 163291012355065266}
   - {fileID: 163291014006527398}
-  _MainMenuTransition: {fileID: 0}
   _CameraPrefab: {fileID: 4830989514582861956, guid: b36f26aa49d19c3409764b328923e72b, type: 3}
   _ActionAsset: {fileID: -944628639613478452, guid: 68bdc22a752cb6f419983bee70ecd6cd, type: 3}
   _SplitKeyboardActionAsset: {fileID: -944628639613478452, guid: ed267bcfc933e1147a0f828f0901952c, type: 3}
@@ -7631,7 +7630,13 @@ MonoBehaviour:
   _IsShown: 1
   _ShowAnimationClip: {fileID: 0}
   _HideAnimationClip: {fileID: 0}
+  _MainMenuTransition: {fileID: 0}
   _VersusData: {fileID: 11400000, guid: 039d1738bea236646b3cf05a8f6f0a2c, type: 2}
+  _InputAsset: {fileID: -944628639613478452, guid: 68bdc22a752cb6f419983bee70ecd6cd, type: 3}
+  _PlayerInputSettings: {fileID: 0}
+  _AIInputSettings: {fileID: 0}
+  _BattleUIPrefab: {fileID: 8892535310215494356, guid: ac9a04520e839ac4d89be78ea1edb1dd, type: 3}
+  _CameraPrefab: {fileID: 4830989514582861956, guid: b36f26aa49d19c3409764b328923e72b, type: 3}
 --- !u!1 &8455186029160060111
 GameObject:
   m_ObjectHideFlags: 0
