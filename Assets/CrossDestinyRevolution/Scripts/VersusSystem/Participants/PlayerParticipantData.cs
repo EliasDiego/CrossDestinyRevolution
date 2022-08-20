@@ -39,6 +39,7 @@ namespace CDR.VersusSystem
 
             UniversalAdditionalCameraData cameraData = cam.GetUniversalAdditionalCameraData();
 
+            cameraData.renderPostProcessing = true;
             cameraData.cameraStack.Add(battleUIObject.GetComponentInChildren<Camera>());
             
             PlayerMechInput playerInput = InputUtilities.AssignPlayerInput<PlayerMechInput>((participant.mech as Mech).gameObject, actionAsset.FindActionMap("Game", true), devices);

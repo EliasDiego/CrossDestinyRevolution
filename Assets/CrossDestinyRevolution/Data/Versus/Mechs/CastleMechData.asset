@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: CastleMechData
   m_EditorClassIdentifier: 
   _MechName: Castle
-  _MechPrefab: {fileID: 2631703698674567917, guid: dec2eb9c237afc0488634121c6b93175, type: 3}
+  _MechPrefab: {fileID: 8028309934427116829, guid: 73465d63fd461734fa7caa8610d1c717, type: 3}

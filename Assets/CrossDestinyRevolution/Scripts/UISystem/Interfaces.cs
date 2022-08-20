@@ -22,6 +22,7 @@ namespace CDR.UISystem
     {
         Camera camera { get; set; }
         IMech mech { get; set; }
+        RectTransform battleUIRectTransform { get; set; }
         void SetTarget(ITargetData target);
     }
 
@@ -37,6 +38,7 @@ namespace CDR.UISystem
 
     public interface IPlayerMechBattleUI : IUIElement
     {
+        RectTransform rectTransform { get; }
         Camera camera { get; set; }
         IValueRangeUI healthUI { get; }
         IValueRangeUI boostUI { get; }

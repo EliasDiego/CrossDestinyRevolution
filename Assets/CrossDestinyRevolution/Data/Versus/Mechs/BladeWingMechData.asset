@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: BladeWingMechData
   m_EditorClassIdentifier: 
   _MechName: Blade Wing
-  _MechPrefab: {fileID: 4102475430528319348, guid: 9caca10370e619f418541b61c1598e13, type: 3}
+  _MechPrefab: {fileID: 852551265084442555, guid: e06cf7d07e3a5d7489ce59cf2ed1ea9f, type: 3}

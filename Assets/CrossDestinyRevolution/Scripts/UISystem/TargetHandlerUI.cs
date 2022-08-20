@@ -26,6 +26,7 @@ namespace CDR.UISystem
         public bool isShown => _isShown;
 
         public IMech mech { get; set; }
+        public RectTransform battleUIRectTransform { get; set; }
 
         public void Hide()
         {
@@ -60,15 +61,17 @@ namespace CDR.UISystem
                 Vector2 pos = camera.WorldToScreenPoint(currentTarget.activeCharacter.position);
                 float distance = Vector3.Distance(mech.position, currentTarget.activeCharacter.position);
 
+                rectTransform.localPosition = pos - (camera.pixelRect.size / 2) - (camera.rect.position * camera.pixelRect.size) * 2;
+
                 // Check Camera Rect
-                if(camera.rect.x == 0)
-                {
-                    rectTransform.localPosition = new Vector2(pos.x - (camera.pixelWidth * 0.5f), (pos.y + _heightOffset) - (camera.pixelHeight / 2));
-                }
-                else if(camera.rect.x == 0.5)
-                {
-                    rectTransform.localPosition = new Vector2(pos.x - (camera.pixelWidth * 1.5f), (pos.y + _heightOffset) - (camera.pixelHeight / 2));
-                }
+                // if(camera.rect.x == 0)
+                // {
+                //     rectTransform.localPosition = new Vector2(pos.x - (camera.pixelWidth * 0.5f), (pos.y + _heightOffset) - (camera.pixelHeight / 2));
+                // }
+                // else if(camera.rect.x == 0.5)
+                // {
+                //     rectTransform.localPosition = new Vector2(pos.x - (camera.pixelWidth * 1.5f), (pos.y + _heightOffset) - (camera.pixelHeight / 2));
+                // }
 
                 // Scale Image based on Distance
                 rectTransform.localScale = Vector2.one * Mathf.Lerp(maxScale, minScale, Mathf.Clamp01(distance / _MaxDistance));

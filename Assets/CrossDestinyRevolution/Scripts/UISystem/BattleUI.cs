@@ -28,6 +28,8 @@ namespace CDR.UISystem
 
         public new Camera camera { get; set; }
 
+        public RectTransform rectTransform => transform as RectTransform;
+
         public void Hide()
         {
             healthUI.Hide();
@@ -55,6 +57,7 @@ namespace CDR.UISystem
 
             targetHandlerUI.camera = camera;
             targetHandlerUI.mech = mech;
+            targetHandlerUI.battleUIRectTransform = transform as RectTransform;
             
             _targetHandlerUI.SetTarget(mech.targetHandler.GetCurrentTarget());
 

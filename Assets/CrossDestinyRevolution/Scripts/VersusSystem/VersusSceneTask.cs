@@ -56,18 +56,23 @@ namespace CDR.VersusSystem
             IParticipant[] participants = _VersusData.participantDatas.Select((p, i) => p.GetParticipant(versusMap.participantPositions[i], 
                 Quaternion.LookRotation(versusMap.flightPlane.position.xz() - versusMap.participantPositions[i].xz(), Vector3.up), versusMap.flightPlane)).ToArray();
 
-            ICameraParticipant[] cameraParticipants = participants.Where(p => p is ICameraParticipant).Cast<ICameraParticipant>().ToArray();
+            PlayerParticipant[] playerParticipants = participants.Where(p => p is PlayerParticipant).Cast<PlayerParticipant>().ToArray();
 
-            cameraParticipants[0].virtualCamera.gameObject.layer = LayerMask.NameToLayer("Player1Cam");
-            cameraParticipants[0].camera.cullingMask ^= LayerMask.GetMask("Player2Cam");
+            playerParticipants[0].virtualCamera.gameObject.layer = LayerMask.NameToLayer("Player1Cam");
+            playerParticipants[0].camera.cullingMask ^= LayerMask.GetMask("Player2Cam");
 
-            if(cameraParticipants.Length > 1)
+            if(playerParticipants.Length > 1)
             {
-                cameraParticipants[0].camera.rect = new Rect(Vector2.zero, new Vector2(0.5f, 1));
+                playerParticipants[0].battleUI.rectTransform.offsetMin = new Vector2((playerParticipants[0].camera.pixelWidth / 2) / 2, playerParticipants[0].battleUI.rectTransform.offsetMin.y);
+                playerParticipants[0].battleUI.rectTransform.offsetMax = new Vector2(-(playerParticipants[0].camera.pixelWidth / 2) / 2, playerParticipants[0].battleUI.rectTransform.offsetMax.y);
+                playerParticipants[0].camera.rect = new Rect(Vector2.zero, new Vector2(0.5f, 1));
 
-                cameraParticipants[1].virtualCamera.gameObject.layer = LayerMask.NameToLayer("Player2Cam");
-                cameraParticipants[1].camera.cullingMask ^= LayerMask.GetMask("Player1Cam");
-                cameraParticipants[1].camera.rect = new Rect(Vector2.right * 0.5f, new Vector2(0.5f, 1));
+                
+                playerParticipants[1].battleUI.rectTransform.offsetMin = new Vector2((playerParticipants[1].camera.pixelWidth / 2) / 2, playerParticipants[1].battleUI.rectTransform.offsetMin.y);
+                playerParticipants[1].battleUI.rectTransform.offsetMax = new Vector2(-(playerParticipants[1].camera.pixelWidth / 2) / 2, playerParticipants[1].battleUI.rectTransform.offsetMax.y);
+                playerParticipants[1].virtualCamera.gameObject.layer = LayerMask.NameToLayer("Player2Cam");
+                playerParticipants[1].camera.cullingMask ^= LayerMask.GetMask("Player1Cam");
+                playerParticipants[1].camera.rect = new Rect(Vector2.right * 0.5f, new Vector2(0.5f, 1));
             }
 
             yield return new WaitForSeconds(2);
