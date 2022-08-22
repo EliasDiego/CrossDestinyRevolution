@@ -101,7 +101,7 @@ namespace CDR.AttackSystem
 
             nightmareStalkerVFXHandler.Activate();
 
-            yield return new WaitForSecondsRealtime(checkDistanceInterval);
+            yield return new WaitForSeconds(checkDistanceInterval);
 
             StartCoroutine(CheckDistanceSpawn(firstBullet, bulletTrailSpawn));
 
@@ -143,7 +143,7 @@ namespace CDR.AttackSystem
 
                 
 
-                yield return new WaitForSecondsRealtime(bulletTrailSpawnInterval);
+                yield return new WaitForSeconds(bulletTrailSpawnInterval);
             }
 
             /*foreach (Vector3 bulletTrailSpawnPoint in bulletTrailSpawn)
@@ -168,7 +168,7 @@ namespace CDR.AttackSystem
                 bullet.SetActive(false);
                 bullet.GetComponent<Bullet>().ResetObject();
                 bullet.GetComponent<Bullet>().Return();
-                yield return new WaitForSecondsRealtime(bulletTrailDeSpawnInterval);
+                yield return new WaitForSeconds(bulletTrailDeSpawnInterval);
             }
 
             yield break;
@@ -179,7 +179,7 @@ namespace CDR.AttackSystem
             while (firstBullet.activeInHierarchy)
             {
                 bulletTrailSpawn.Add(firstBullet.transform.position);
-                yield return new WaitForSecondsRealtime(checkDistanceInterval);
+                yield return new WaitForSeconds(checkDistanceInterval);
             }
         }
 

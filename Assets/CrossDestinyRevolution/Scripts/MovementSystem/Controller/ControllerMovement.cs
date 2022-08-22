@@ -111,11 +111,17 @@ namespace CDR.MovementSystem
           
             LeanTween.value(Character.animator.GetFloat("MoveX"), direction.x, leanTime).setOnUpdate((float f) =>
             {
-                Character.animator.SetFloat("MoveX", f);
+                if(!Character?.animator)
+                    return;
+
+                Character?.animator?.SetFloat("MoveX", f);
             });
             LeanTween.value(Character.animator.GetFloat("MoveY"), direction.y, leanTime).setOnUpdate((float f) =>
             {
-                Character.animator.SetFloat("MoveY", f);
+                if(!Character?.animator)
+                    return;
+                    
+                Character?.animator?.SetFloat("MoveY", f);
             });
 
             if (direction.magnitude == 0f)

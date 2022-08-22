@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -25,6 +26,8 @@ namespace CDR.AttackSystem
         [SerializeField]
         private float animationTimeScale = 0.15f;
 
+        private List<LTDescr> _LeanTweens = new List<LTDescr>();
+
         private RCRBullet activeBullet;
 
         protected override void Awake()
@@ -47,25 +50,28 @@ namespace CDR.AttackSystem
         public override void End()
         {
             base.End();
-            ForceEnd();
-            laserVFX.length = 1f;
-            laserVFX.Deactivate();
-            muzzleVFX.Deactivate();            
-            activeBullet.ResetObject();          
+            ForceEnd();       
         }
 
         public override void ForceEnd()
         {
             base.ForceEnd();          
             Character.animator.SetInteger("ActionType", (int)ActionType.None);
+
+            foreach(LTDescr descr in _LeanTweens.Where(d => LeanTween.isTweening(d.uniqueId)))
+                LeanTween.cancel(descr.uniqueId);
+            
+            _LeanTweens.Clear();
+            laserVFX.Deactivate();
+            muzzleVFX.Deactivate();   
+            laserVFX.length = 1f;
+            activeBullet.ResetObject();   
         }
 
         public override void Stop()
         {
             base.Stop();
             ForceEnd();
-            laserVFX.Deactivate();
-            muzzleVFX.Deactivate();
         }
 
         private void Fire()
@@ -92,30 +98,29 @@ namespace CDR.AttackSystem
             laserVFX.Activate();
             muzzleVFX.Activate();
 
-            LeanTween.scale(activeBullet.Beam, Vector3.one, 0.35f).setOnComplete(
+            _LeanTweens.Add(LeanTween.scale(activeBullet.Beam, Vector3.one, 0.35f).setOnComplete(
                 () =>
                 {
-                    LeanTween.scaleZ(activeBullet.Pivot, maxLength, scaleTime);
-                    LeanTween.value(1f, maxLength, scaleTime).setOnUpdate(
+                    _LeanTweens.Add(LeanTween.scaleZ(activeBullet.Pivot, maxLength, scaleTime));
+                    _LeanTweens.Add(LeanTween.value(1f, maxLength, scaleTime).setOnUpdate(
                     (float f) =>
                     {
                         laserVFX.length = f;
-                    });
-                });
+                    }));
+                }));
 
-            LeanTween.delayedCall(5f, () =>
+            _LeanTweens.Add(LeanTween.delayedCall(5f, () =>
             {
                 End();
-                LeanTween.value(Character.animator.GetFloat("ActionSMultiplier"), 1f, 1f).setOnUpdate((float f)=>
+                _LeanTweens.Add(LeanTween.value(Character.animator.GetFloat("ActionSMultiplier"), 1f, 1f).setOnUpdate((float f)=>
                 {
                     Character.animator.SetFloat("ActionSMultiplier", f);
                 })           
                 .setOnComplete(()=>
                 { 
                     Character.animator.SetInteger("ActionType", (int)ActionType.None);
-                });
-            });
+                }));
+            }));
         }
-
     }
 }

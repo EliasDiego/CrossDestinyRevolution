@@ -1,4 +1,4 @@
-using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 using CDR.AnimationSystem;
@@ -11,6 +11,8 @@ namespace CDR.AttackSystem
         private SFXAnimationEvent[] sfx;
         [SerializeField]
         private VFXSystem.CosmicStormVFXHandler vfxHandler;
+
+        List<LTDescr> _LeanTweens = new List<LTDescr>();
 
         protected override void Awake()
         {
@@ -29,7 +31,6 @@ namespace CDR.AttackSystem
         public override void End()
         {
             base.End();
-            vfxHandler.Deactivate();
             
             ForceEnd();
         }
@@ -39,13 +40,20 @@ namespace CDR.AttackSystem
             base.ForceEnd();
             
             Character.animator.SetInteger("ActionType", (int)ActionType.None);
+
+            vfxHandler.Deactivate();
+
+            foreach(LTDescr descr in _LeanTweens.Where(d => LeanTween.isTweening(d.uniqueId)))
+                LeanTween.cancel(descr.uniqueId);
+            
+            _LeanTweens.Clear();
         }
 
         public override void Stop()
         {
             base.Stop();
             
-            vfxHandler.Deactivate();
+            ForceEnd();
         }
 
         private void Fire()
@@ -54,13 +62,16 @@ namespace CDR.AttackSystem
             if(cluster != null)
             {
                 vfxHandler.Activate();
-                LeanTween.delayedCall(0.24f, () =>
+                _LeanTweens.Add(LeanTween.delayedCall(0.24f, () =>
                 {
+                    if(activeCharacter?.targetHandler == null)
+                        return;
+
                     var targetDir = -activeCharacter.targetHandler.GetCurrentTarget().direction;
 
                     cluster.GetComponent<CosmicBulletCluster>().Init(Character, bulletSpawnPoint[0].transform.position, targetDir);
                         End();
-                });
+                }));
             }
         }
     }

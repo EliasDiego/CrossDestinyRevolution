@@ -49,7 +49,7 @@ MonoBehaviour:
   maxZ: 0
   defaultY: 3.42
   defaultZ: -4.37
-  _OwnerWeight: 1.5
+  _OwnerWeight: 1
   _OwnerRadius: 7
-  _TargetWeight: 2
+  _TargetWeight: 1
   _TargetRadius: 2
