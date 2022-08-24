@@ -1,27 +1,28 @@
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
+
+using CDR.MovementSystem;
 
 namespace CDR.VFXSystem
 {
     public class BoundsVFXHandler : MonoBehaviour, IVFXHandler
     {
+        [field: SerializeField]
+        public Transform[] trackedTransforms { get; set; }
         [SerializeField]
-        private Transform[] _TrackedTransforms;
-        
         private MeshRenderer _MeshRenderer;
+
         private Material _Material;
         private bool _IsActive = false;
 
-        public Transform[] trackedTransforms { get => _TrackedTransforms; set => _TrackedTransforms = value; }
-        public bool isActive => _IsActive;
 
+        public bool isActive => _IsActive;
 
         private void Start()
         {
-            _MeshRenderer = GetComponent<MeshRenderer>();
-
             _Material = _MeshRenderer.material;
         }
 
@@ -30,17 +31,24 @@ namespace CDR.VFXSystem
             if(!isActive)
                 return;
 
-            _Material.SetVectorArray("_Positions", trackedTransforms.Select(t => new Vector4(t.position.x, t.position.y, t.position.z)).ToArray());
+            if(trackedTransforms.Length <= 0)
+                return;
+
+            _Material.SetVectorArray("_Positions", trackedTransforms.Select(t => (Vector4)t.position).ToArray());
         }
 
         public void Activate()
         {
             _IsActive = true;
+
+            _MeshRenderer.enabled = true;
         }
 
         public void Deactivate()
         {
             _IsActive = false;
+
+            _MeshRenderer.enabled = false;
 
             _Material.SetVectorArray("_Positions", new Vector4[2]);
         }

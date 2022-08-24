@@ -15,6 +15,7 @@ Shader "Unlit/BoundsShader"
     {
         Tags{"Queue" = "Transparent" "IgnoreProjector" = "True" "RenderType" = "Transparent"}
         LOD 100
+        Cull Off
 
         Pass
         {

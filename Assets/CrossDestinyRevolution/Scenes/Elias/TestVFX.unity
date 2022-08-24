@@ -6552,6 +6552,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6787184653332864513, guid: 82d948d8c41043a41a6aa2b0cea56c10, type: 3}
   m_PrefabInstance: {fileID: 6787184651571020820}
   m_PrefabAsset: {fileID: 0}
+--- !u!23 &1799133719 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 6787184653332864515, guid: 82d948d8c41043a41a6aa2b0cea56c10, type: 3}
+  m_PrefabInstance: {fileID: 6787184651571020820}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1799133721 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6787184653332864525, guid: 82d948d8c41043a41a6aa2b0cea56c10, type: 3}
@@ -7657,11 +7662,27 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6787184653332864527, guid: 82d948d8c41043a41a6aa2b0cea56c10, type: 3}
+      propertyPath: _MeshRenderer
+      value: 
+      objectReference: {fileID: 1799133719}
+    - target: {fileID: 6787184653332864527, guid: 82d948d8c41043a41a6aa2b0cea56c10, type: 3}
       propertyPath: _TrackedTransforms.Array.data[0]
       value: 
       objectReference: {fileID: 440929975}
     - target: {fileID: 6787184653332864527, guid: 82d948d8c41043a41a6aa2b0cea56c10, type: 3}
       propertyPath: _TrackedTransforms.Array.data[1]
+      value: 
+      objectReference: {fileID: 36015437}
+    - target: {fileID: 6787184653332864527, guid: 82d948d8c41043a41a6aa2b0cea56c10, type: 3}
+      propertyPath: <trackedTransforms>k__BackingField.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6787184653332864527, guid: 82d948d8c41043a41a6aa2b0cea56c10, type: 3}
+      propertyPath: <trackedTransforms>k__BackingField.Array.data[0]
+      value: 
+      objectReference: {fileID: 440929975}
+    - target: {fileID: 6787184653332864527, guid: 82d948d8c41043a41a6aa2b0cea56c10, type: 3}
+      propertyPath: <trackedTransforms>k__BackingField.Array.data[1]
       value: 
       objectReference: {fileID: 36015437}
     m_RemovedComponents: []
