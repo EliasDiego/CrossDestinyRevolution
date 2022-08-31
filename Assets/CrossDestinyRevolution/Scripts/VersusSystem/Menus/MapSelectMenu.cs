@@ -16,18 +16,7 @@ namespace CDR.VersusSystem
         [SerializeField]
         private SceneLoader _SceneLoader;
         [SerializeField]
-        private GameObject _FirstSelect;
-        [SerializeField]
-        private EventSystem _EventSystem;
-        [SerializeField]
         Image _PreviewImage;
-
-        protected override IEnumerator ShowAnimatedSequence()
-        {
-            yield return base.ShowAnimatedSequence();
-
-            _EventSystem.SetSelectedGameObject(_FirstSelect);
-        }
 
         public void OnCancel()
         {

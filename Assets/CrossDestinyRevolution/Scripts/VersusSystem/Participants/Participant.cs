@@ -87,6 +87,8 @@ namespace CDR.VersusSystem
             mech.animator.SetInteger("StateType", (int)AnimationSystem.StateType.None);
             mech.animator.SetInteger("ActionType", (int)AnimationSystem.ActionType.None);
             mech.animator.SetInteger("MoveType", (int)AnimationSystem.MoveType.Movement);
+            mech.animator.SetFloat("MoveX", 0);
+            mech.animator.SetFloat("MoveY", 0);
 
             mech.animator.SetFloat("StateSMultiplier", 1);
             mech.animator.SetFloat("ActionSMultiplier", 1);

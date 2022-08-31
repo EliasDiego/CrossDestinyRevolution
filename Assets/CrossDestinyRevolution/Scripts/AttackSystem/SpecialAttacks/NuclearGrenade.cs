@@ -1,8 +1,10 @@
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using CDR.AnimationSystem;
 using CDR.VFXSystem;
+using CDR.ObjectPoolingSystem;
 
 namespace CDR.AttackSystem
 {
@@ -45,6 +47,7 @@ namespace CDR.AttackSystem
             base.End();
 
             Character.animator.SetInteger("ActionType", (int)ActionType.None);
+            nuclearGrenadeVFXHandler.Deactivate();
         }
 
 		public override void ForceEnd()
@@ -53,12 +56,12 @@ namespace CDR.AttackSystem
 
             Character.animator.SetInteger("ActionType", (int)ActionType.None);
             nuclearGrenadeVFXHandler.Deactivate();
-
-            StopAllCoroutines();
 		}
 
         public override void Stop()
         {
+            StopAllCoroutines();
+
             base.Stop();
 
             ForceEnd();

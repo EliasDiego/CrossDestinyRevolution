@@ -505,4 +505,4 @@ MonoBehaviour:
   _FadeTime: 0.5
   _LaserHeadTransform: {fileID: 992349172411483264}
   _LaserBodyTransform: {fileID: 992349173323898043}
-  _Length: 30
+  _Length: 80

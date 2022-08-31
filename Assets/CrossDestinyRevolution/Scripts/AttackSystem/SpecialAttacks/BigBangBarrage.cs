@@ -49,6 +49,8 @@ namespace CDR.AttackSystem
             base.End();
 
             Character.animator.SetInteger("ActionType", (int)ActionType.None);
+
+            bigBangBarrageVFXHandler.Deactivate();
         }
 
 		public override void ForceEnd()

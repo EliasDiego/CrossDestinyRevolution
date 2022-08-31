@@ -114,8 +114,6 @@ namespace CDR.InputSystem
             Vector3 dirAwayFromTarget = character.position - _CurrentTarget.position;
             Vector3 dirAwayFromEdge = character.position - GetBoundaryEdge();
 
-            Debug.Log(Projectile.projectiles.Where(p => p.owner != (IActiveCharacter)character)?.Count());
-
             Vector3[] directionsToAvoid = Projectile.projectiles.Where(p => p.owner != (IActiveCharacter)character)?.Select(p => character.position - p.position)?.Concat(new Vector3[] { dirAwayFromEdge, dirAwayFromTarget })?.ToArray();
 
             Quaternion weightedAvoidanceRotation = GetWeightedDirectionAverageRotation(directionsToAvoid);

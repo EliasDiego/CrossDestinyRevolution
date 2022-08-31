@@ -24,6 +24,7 @@ namespace CDR.UISystem
 
         protected virtual IEnumerator ShowAnimatedSequence()
         {
+            _OnShow?.Invoke();
             transform.SetActiveChildren(true);
 
             if(!_ShowAnimationClip)

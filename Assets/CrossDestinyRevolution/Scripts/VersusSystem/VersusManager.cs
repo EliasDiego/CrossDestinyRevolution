@@ -81,6 +81,9 @@ namespace CDR.VersusSystem
 
             yield return new WaitForSeconds(3);
             
+            foreach(IParticipant p in _Participants)
+                p.Stop();
+            
             if(currentRound >= _VersusSettings.rounds)
                 ShowResults();
 

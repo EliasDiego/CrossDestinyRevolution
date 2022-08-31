@@ -2710,10 +2710,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4867262133350005881, guid: cf8cb9b7f4b882247bfb1454514ba8eb, type: 3}
-      propertyPath: _Length
-      value: 500
-      objectReference: {fileID: 0}
     - target: {fileID: 4867262133350005882, guid: cf8cb9b7f4b882247bfb1454514ba8eb, type: 3}
       propertyPath: m_Name
       value: RiotingCrossRendLaserVFXHandler

@@ -14,6 +14,12 @@ namespace CDR.UISystem
         public IMenu previousMenu { get; set; }
         public bool isShown { get => _IsShown; protected set => _IsShown = value; }
 
+        protected System.Action _OnShow;
+        protected System.Action _OnHide;
+        
+        public event System.Action onShow { add => _OnShow += value; remove => _OnShow -= value; }
+        public event System.Action onHide { add => _OnHide += value; remove => _OnHide -= value; }
+
         private static List<Menu> _Menus = new List<Menu>();
 
         public static Menu[] menus => _Menus.ToArray();
@@ -76,6 +82,8 @@ namespace CDR.UISystem
             isShown = false;
 
             transform.SetActiveChildren(false);
+
+            _OnShow?.Invoke();
         }
 
         public virtual void Show()
@@ -83,6 +91,8 @@ namespace CDR.UISystem
             isShown = true;
 
             transform.SetActiveChildren(true);
+
+            _OnShow?.Invoke();
         }
     }
 }

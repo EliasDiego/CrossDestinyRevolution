@@ -29,12 +29,14 @@ namespace CDR.VersusSystem
         private void OnEnableInput(IInput input)
         {
             _PlayerInput.onSubmit += OnSubmit;
+            _PlayerInput.onClick += OnSubmit;
             _PlayerInput.onCancel += OnCancel;
         }
 
         private void OnDisableInput(IInput input)
         {
             _PlayerInput.onSubmit -= OnSubmit;
+            _PlayerInput.onClick -= OnSubmit;
             _PlayerInput.onCancel -= OnCancel;
         }
 

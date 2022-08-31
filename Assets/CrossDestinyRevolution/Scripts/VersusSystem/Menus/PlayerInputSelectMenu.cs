@@ -157,6 +157,8 @@ namespace CDR.VersusSystem
 
                 return;
             }
+
+            Back();
         }
 
         private void OnPlayerInputsComplete()

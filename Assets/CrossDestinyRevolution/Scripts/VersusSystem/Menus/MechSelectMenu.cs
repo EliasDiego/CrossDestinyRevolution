@@ -24,7 +24,7 @@ namespace CDR.VersusSystem
             if(index == -1)
                 return;
 
-            if(!versusData.participantDatas.Any(p => p.mechData != null))
+            if(!versusData.participantDatas.Where(p => p is PlayerParticipantData).Any(p => p.mechData != null))
             {
                 Debug.Log("Back");
 

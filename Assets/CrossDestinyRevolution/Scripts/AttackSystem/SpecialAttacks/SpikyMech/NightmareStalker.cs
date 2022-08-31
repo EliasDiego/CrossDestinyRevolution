@@ -50,9 +50,7 @@ namespace CDR.AttackSystem
 		{
 			base.End();
 
-            Character.animator.SetInteger("ActionType", (int)ActionType.None);
-
-            //ForceEnd();
+            ForceEnd();
         }
 
 		public override void ForceEnd()
@@ -62,8 +60,6 @@ namespace CDR.AttackSystem
             Character.animator.SetInteger("ActionType", (int)ActionType.None);
 
             nightmareStalkerVFXHandler.Deactivate();
-
-            StopAllCoroutines();
         }
 
         public override void Stop()
@@ -71,6 +67,8 @@ namespace CDR.AttackSystem
             base.Stop();
 
             ForceEnd();
+
+            StopAllCoroutines();
         }
 
 		public override void Update()

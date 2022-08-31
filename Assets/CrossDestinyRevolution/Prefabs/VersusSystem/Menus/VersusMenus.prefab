@@ -950,6 +950,7 @@ GameObject:
   - component: {fileID: 163291013580999907}
   - component: {fileID: 8383110935774874122}
   - component: {fileID: 6814891929493365311}
+  - component: {fileID: 211743227}
   m_Layer: 5
   m_Name: MapSelectMenu
   m_TagString: Untagged
@@ -995,8 +996,6 @@ MonoBehaviour:
   _HideAnimationClip: {fileID: 7400000, guid: daf8c9f3e94aba2429c020b681fe9dc1, type: 2}
   _VersusData: {fileID: 11400000, guid: 039d1738bea236646b3cf05a8f6f0a2c, type: 2}
   _SceneLoader: {fileID: 11400000, guid: f5384e6046073054f92b1c074ece52dc, type: 2}
-  _FirstSelect: {fileID: 163291012706329786}
-  _EventSystem: {fileID: 0}
   _PreviewImage: {fileID: 3520734199538683496}
 --- !u!111 &8383110935774874122
 Animation:
@@ -1027,6 +1026,20 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &211743227
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 163291013580999905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69b92d0b91f6e734db083f8def09b515, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _EventSystem: {fileID: 0}
+  _FirstSelect: {fileID: 163291012706329786}
 --- !u!1 &163291013825950589
 GameObject:
   m_ObjectHideFlags: 0
@@ -2454,6 +2467,7 @@ GameObject:
   - component: {fileID: 4946084161366961026}
   - component: {fileID: 2511005179796907887}
   - component: {fileID: 1639138917}
+  - component: {fileID: 4939809467644473403}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -2591,6 +2605,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!225 &4939809467644473403
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1617692036554601387}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1648937937544830959
 GameObject:
   m_ObjectHideFlags: 0
@@ -6050,6 +6076,7 @@ GameObject:
   - component: {fileID: 1627266064836790010}
   - component: {fileID: 4200768142362582899}
   - component: {fileID: 8865968010748637923}
+  - component: {fileID: 678222491552652013}
   m_Layer: 5
   m_Name: Text (TMP) (1)
   m_TagString: Untagged
@@ -6187,6 +6214,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_ShowMaskGraphic: 1
+--- !u!225 &678222491552652013
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6154504698191837751}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6169943396653649146
 GameObject:
   m_ObjectHideFlags: 0
@@ -6675,8 +6714,9 @@ GameObject:
   - component: {fileID: 4138679537637812130}
   - component: {fileID: 3496575154560681103}
   - component: {fileID: 1727555663503285907}
+  - component: {fileID: 8404708373156660845}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: VersusModeText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6798,6 +6838,18 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!225 &8404708373156660845
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6930500611647750501}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &6939042083086816327
 GameObject:
   m_ObjectHideFlags: 0
@@ -7572,6 +7624,8 @@ GameObject:
   - component: {fileID: 7209862252671013968}
   - component: {fileID: 6592291195799506174}
   - component: {fileID: 2368674371315399297}
+  - component: {fileID: 2099002983}
+  - component: {fileID: 2099002980}
   m_Layer: 5
   m_Name: VersusModeMenu
   m_TagString: Untagged
@@ -7610,7 +7664,9 @@ Animation:
   m_Enabled: 1
   serializedVersion: 3
   m_Animation: {fileID: 0}
-  m_Animations: []
+  m_Animations:
+  - {fileID: 7400000, guid: fd0b802bf8fbb4941b6a8bc0f74033ff, type: 2}
+  - {fileID: 7400000, guid: 4c77d04132a251b4383c9fa52211104d, type: 2}
   m_WrapMode: 0
   m_PlayAutomatically: 1
   m_AnimatePhysics: 0
@@ -7628,14 +7684,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _IsShown: 1
-  _ShowAnimationClip: {fileID: 0}
-  _HideAnimationClip: {fileID: 0}
+  _ShowAnimationClip: {fileID: 7400000, guid: fd0b802bf8fbb4941b6a8bc0f74033ff, type: 2}
+  _HideAnimationClip: {fileID: 7400000, guid: 4c77d04132a251b4383c9fa52211104d, type: 2}
   _MainMenuTransition: {fileID: 0}
   _VersusData: {fileID: 11400000, guid: 039d1738bea236646b3cf05a8f6f0a2c, type: 2}
   _InputAsset: {fileID: -944628639613478452, guid: 68bdc22a752cb6f419983bee70ecd6cd, type: 3}
   _PlayerInputSettings: {fileID: 11400000, guid: b5b309fa0d20d414783776f576d8f401, type: 2}
   _BattleUIPrefab: {fileID: 8892535310215494356, guid: ac9a04520e839ac4d89be78ea1edb1dd, type: 3}
   _CameraPrefab: {fileID: 9207311909826571777, guid: 5a50268128755fb4393d4ea524c31beb, type: 3}
+--- !u!114 &2099002983
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434086694318680203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69b92d0b91f6e734db083f8def09b515, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _EventSystem: {fileID: 0}
+  _FirstSelect: {fileID: 1053166231}
+--- !u!225 &2099002980
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8434086694318680203}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &8455186029160060111
 GameObject:
   m_ObjectHideFlags: 0
