@@ -189,7 +189,7 @@ namespace CDR.VersusSystem
         {
             _VersusUI.resultsMenu.rematchEvent += Rematch;
             _VersusUI.resultsMenu.returnToMainMenuEvent += ExitVersus;
-            _VersusUI.resultsMenu.results = new VersusResults(_Participants.OrderByDescending(p => p.score).FirstOrDefault(), _Participants);
+            _VersusUI.resultsMenu.results = new VersusResults(_Participants);
             _VersusUI.resultsMenu.Show();
 
             // ExitVersus();

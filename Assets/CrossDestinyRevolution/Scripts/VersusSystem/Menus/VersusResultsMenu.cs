@@ -49,7 +49,7 @@ namespace CDR.VersusSystem
 
             _EventSystem.SetSelectedGameObject(_FirstSelect);
 
-            _WinnerText.text = results.winner.name;
+            _WinnerText.text = results.winnerText;
         }
     }
 }

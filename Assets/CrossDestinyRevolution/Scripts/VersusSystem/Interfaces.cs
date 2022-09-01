@@ -49,7 +49,7 @@ namespace CDR.VersusSystem
 
     public interface IVersusResults
     {
-        IParticipant winner { get; }
+        string winnerText { get; }
         IParticipant[] participants { get; }
     }
 
