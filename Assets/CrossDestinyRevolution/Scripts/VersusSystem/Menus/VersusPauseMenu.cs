@@ -21,7 +21,6 @@ namespace CDR.VersusSystem
         GameObject _FirstSelect;
         
         public event Action returnToMainMenuEvent;
-        public event Action<bool> onActivatePauseMenu;
 
         private void OnDestroy() 
         {
@@ -35,8 +34,6 @@ namespace CDR.VersusSystem
 
             else
                 Activate();
-
-            onActivatePauseMenu?.Invoke(isPaused);
         }
 
         public void EnablePauseInput()

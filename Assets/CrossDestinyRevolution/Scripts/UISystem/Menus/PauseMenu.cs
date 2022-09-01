@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,12 +10,15 @@ namespace CDR.UISystem
         private bool _IsPaused = false;
 
         public bool isPaused => _IsPaused;
+        public event Action<bool> onActivate;
 
         public void Activate()
         {
             Time.timeScale = 0;
 
             _IsPaused = true;
+
+            onActivate?.Invoke(true);
 
             Show();
         }
@@ -24,6 +28,8 @@ namespace CDR.UISystem
             Time.timeScale = 1;
 
             _IsPaused = false;
+
+            onActivate?.Invoke(false);
 
             Hide();
         }

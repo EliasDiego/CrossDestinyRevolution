@@ -47,7 +47,7 @@ namespace CDR.VersusSystem
             yield return new WaitForSeconds(3);
 
             _VersusUI.pauseMenu.returnToMainMenuEvent += ExitVersus;
-            _VersusUI.pauseMenu.onActivatePauseMenu += OnPause;
+            _VersusUI.pauseMenu.onActivate += OnPause;
             _VersusUI.pauseMenu.EnablePauseInput();
 
             Debug.Log("Round Start!");
@@ -107,7 +107,7 @@ namespace CDR.VersusSystem
             else
             {
                 foreach(IParticipant participant in _Participants)
-                        participant.mech.input.EnableInput();
+                    participant.mech.input.EnableInput();
             }
         }
 
@@ -173,7 +173,7 @@ namespace CDR.VersusSystem
 
             _VersusUI.roundTimeUIHandler.Hide();
             _VersusUI.pauseMenu.returnToMainMenuEvent -= ExitVersus;
-            _VersusUI.pauseMenu.onActivatePauseMenu -= OnPause;
+            _VersusUI.pauseMenu.onActivate -= OnPause;
             _VersusUI.pauseMenu.DisablePauseInput();
 
             Debug.Log("End Round");

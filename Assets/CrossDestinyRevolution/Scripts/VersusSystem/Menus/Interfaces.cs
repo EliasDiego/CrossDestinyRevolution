@@ -42,7 +42,7 @@ namespace CDR.VersusSystem
     {
         bool isPaused { get; }
 
-        event Action<bool> onActivatePauseMenu;
+        event Action<bool> onActivate;
         
         event Action returnToMainMenuEvent; 
         
